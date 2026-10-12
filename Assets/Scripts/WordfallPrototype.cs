@@ -279,7 +279,6 @@ public sealed class WordfallPrototype : MonoBehaviour
         languageOpenButton = CreateButton("언어 설정", mainPanel.transform, new Vector2(0.66f, 0.21f), new Vector2(250f, 78f), new Color32(58, 80, 122, 255));
         languageOpenButton.onClick.AddListener(ShowLanguagePanel);
         profileSummaryText = CreateText("", mainPanel.transform, 16, new Color32(171, 190, 220, 255), new Vector2(0.5f, 0.105f), new Vector2(0.5f, 0.105f));
-        highScoreText = CreateText("최고 점수 0000", mainPanel.transform, 18, new Color32(255, 211, 94, 255), new Vector2(0.63f, 0.06f), new Vector2(0.63f, 0.06f));
 
         setupPanel = CreatePanel("SetupPanel", mainPanel.transform, new Color32(9, 18, 38, 245));
         SetRect(setupPanel.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
