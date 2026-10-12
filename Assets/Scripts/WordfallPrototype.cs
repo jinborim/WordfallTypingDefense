@@ -28,6 +28,7 @@ public sealed class WordfallPrototype : MonoBehaviour
     private GameObject mainPanel;
     private GameObject gamePanel;
     private GameObject setupPanel;
+    private GameObject homeHubPanel;
     private GameObject languagePanel;
     private GameObject profilePanel;
     private GameObject myPagePanel;
@@ -54,6 +55,9 @@ public sealed class WordfallPrototype : MonoBehaviour
     private Text profilePromptText;
     private Text profileErrorText;
     private Text profileSummaryText;
+    private Text homeHubTitleText;
+    private Text homeHubPlayerText;
+    private Text homeHubCoinText;
     private Text myPageTitleText;
     private Text myPageInfoText;
     private Text myPageCoinText;
@@ -77,6 +81,10 @@ public sealed class WordfallPrototype : MonoBehaviour
     private Button updateNowButton;
     private Button startButton;
     private Button setupBackButton;
+    private Button homeHubStartButton;
+    private Button homeHubMyPageButton;
+    private Button homeHubLanguageButton;
+    private Button homeHubBackButton;
     private Button languageCloseButton;
     private Button[] characterButtons;
     private Button createProfileButton;
@@ -93,9 +101,11 @@ public sealed class WordfallPrototype : MonoBehaviour
     private GameObject characterStatusPanel;
     private InputField nicknameInput;
     private Image activeCharacterImage;
+    private Image homeHubCharacterImage;
     private Image myPageCharacterImage;
     private string pendingUpdateUrl;
     private bool myPageOpenedFromGame;
+    private bool languageOpenedFromHomeHub;
     private int selectedCharacter;
     private bool profileCreated;
     private int coins;
@@ -275,10 +285,32 @@ public sealed class WordfallPrototype : MonoBehaviour
         subtitleText = CreateText("한글 & 영어 타자 디펜스", mainPanel.transform, 22, new Color32(158, 180, 220, 255), new Vector2(0.5f, 0.57f), new Vector2(0.5f, 0.57f));
         descriptionText = CreateText("떨어지는 단어를 빠르게 입력해 기지를 지키세요.", mainPanel.transform, 18, new Color32(214, 222, 238, 255), new Vector2(0.5f, 0.48f), new Vector2(0.5f, 0.48f));
         mainStartButton = CreateButton("게임 시작", mainPanel.transform, new Vector2(0.38f, 0.21f), new Vector2(340f, 78f), new Color32(255, 196, 61, 255));
-        mainStartButton.onClick.AddListener(ShowSetupPanel);
+        mainStartButton.onClick.AddListener(ShowHomeHub);
         languageOpenButton = CreateButton("언어 설정", mainPanel.transform, new Vector2(0.66f, 0.21f), new Vector2(250f, 78f), new Color32(58, 80, 122, 255));
         languageOpenButton.onClick.AddListener(ShowLanguagePanel);
         profileSummaryText = CreateText("", mainPanel.transform, 16, new Color32(171, 190, 220, 255), new Vector2(0.5f, 0.105f), new Vector2(0.5f, 0.105f));
+
+        homeHubPanel = CreatePanel("HomeHubPanel", mainPanel.transform, new Color32(9, 18, 38, 250));
+        SetRect(homeHubPanel.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
+        ApplyPixelWindow(homeHubPanel);
+        ApplyModalDim(homeHubPanel);
+        homeHubTitleText = CreateText("플레이어 홈", homeHubPanel.transform, 42, Color.white, new Vector2(0.5f, 0.78f), new Vector2(0.5f, 0.78f));
+        homeHubCharacterImage = CreateImage("HomeHubCharacter", homeHubPanel.transform, GetCharacterResourcePath(false), new Vector2(0.5f, 0.61f), new Vector2(112f, 112f));
+        var homeHubPortrait = homeHubCharacterImage;
+        homeHubPortrait.raycastTarget = false;
+        var homeHubFrame = CreateImage("HomeHubProfileFrame", homeHubPanel.transform, "Pixel/character-profile-frame", new Vector2(0.5f, 0.61f), new Vector2(136f, 136f));
+        homeHubFrame.raycastTarget = false;
+        homeHubPlayerText = CreateText("PLAYER", homeHubPanel.transform, 22, new Color32(214, 222, 238, 255), new Vector2(0.5f, 0.42f), new Vector2(0.5f, 0.42f));
+        homeHubCoinText = CreateText("COINS 0", homeHubPanel.transform, 20, new Color32(255, 211, 94, 255), new Vector2(0.5f, 0.36f), new Vector2(0.5f, 0.36f));
+        homeHubStartButton = CreateButton("게임 시작", homeHubPanel.transform, new Vector2(0.5f, 0.27f), new Vector2(330f, 68f), new Color32(255, 196, 61, 255));
+        homeHubStartButton.onClick.AddListener(ShowSetupPanel);
+        homeHubMyPageButton = CreateButton("마이페이지", homeHubPanel.transform, new Vector2(0.34f, 0.15f), new Vector2(230f, 58f), new Color32(105, 76, 162, 255));
+        homeHubMyPageButton.onClick.AddListener(ShowMyPage);
+        homeHubLanguageButton = CreateButton("언어 설정", homeHubPanel.transform, new Vector2(0.66f, 0.15f), new Vector2(230f, 58f), new Color32(58, 80, 122, 255));
+        homeHubLanguageButton.onClick.AddListener(ShowLanguagePanel);
+        homeHubBackButton = CreateButton("뒤로", homeHubPanel.transform, new Vector2(0.12f, 0.15f), new Vector2(150f, 58f), new Color32(78, 160, 255, 255));
+        homeHubBackButton.onClick.AddListener(CloseHomeHub);
+        homeHubPanel.SetActive(false);
 
         setupPanel = CreatePanel("SetupPanel", mainPanel.transform, new Color32(9, 18, 38, 245));
         SetRect(setupPanel.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
@@ -457,7 +489,17 @@ public sealed class WordfallPrototype : MonoBehaviour
         descriptionText.text = language == Language.Korean ? "떨어지는 단어를 빠르게 입력해 기지를 지키세요." : "Type the falling words before they reach the bottom.";
         SetButtonText(mainStartButton, language == Language.Korean ? "게임 시작" : "START GAME");
         SetButtonText(languageOpenButton, language == Language.Korean ? "언어 설정" : "LANGUAGE");
-        SetButtonText(myPageOpenButton, language == Language.Korean ? "마이페이지" : "MY PAGE");
+        if (myPageOpenButton != null)
+        {
+            SetButtonText(myPageOpenButton, language == Language.Korean ? "마이페이지" : "MY PAGE");
+        }
+        SetButtonText(homeHubStartButton, language == Language.Korean ? "게임 시작" : "START GAME");
+        SetButtonText(homeHubMyPageButton, language == Language.Korean ? "마이페이지" : "MY PAGE");
+        SetButtonText(homeHubLanguageButton, language == Language.Korean ? "언어 설정" : "LANGUAGE");
+        SetButtonText(homeHubBackButton, language == Language.Korean ? "뒤로" : "BACK");
+        homeHubTitleText.text = language == Language.Korean ? "플레이어 홈" : "PLAYER HOME";
+        homeHubPlayerText.text = language == Language.Korean ? "플레이어" : "PLAYER";
+        homeHubCoinText.text = language == Language.Korean ? "코인 " + coins : "COINS " + coins;
         SetButtonText(startButton, language == Language.Korean ? "게임 시작" : "START GAME");
         SetButtonText(setupBackButton, language == Language.Korean ? "뒤로" : "BACK");
         SetButtonText(languageCloseButton, language == Language.Korean ? "닫기" : "CLOSE");
@@ -572,23 +614,26 @@ public sealed class WordfallPrototype : MonoBehaviour
 
     private void UpdateProfileSummary()
     {
-        if (profileSummaryText == null) return;
         if (!profileCreated)
         {
-            profileSummaryText.text = string.Empty;
+            if (profileSummaryText != null) profileSummaryText.text = string.Empty;
+            if (homeHubPlayerText != null) homeHubPlayerText.text = string.Empty;
             return;
         }
 
         string nickname = PlayerPrefs.GetString(NicknameKey, "PLAYER");
-        profileSummaryText.text = language == Language.Korean
+        string summary = language == Language.Korean
             ? "플레이어  " + nickname + "  /  " + GetCharacterName()
             : "PLAYER  " + nickname + "  /  " + GetCharacterName();
+        if (profileSummaryText != null) profileSummaryText.text = summary;
+        if (homeHubPlayerText != null) homeHubPlayerText.text = summary;
     }
 
     private void UpdateCoinText()
     {
-        if (coinText == null) return;
-        coinText.text = language == Language.Korean ? "코인 " + coins : "COINS " + coins;
+        string value = language == Language.Korean ? "코인 " + coins : "COINS " + coins;
+        if (coinText != null) coinText.text = value;
+        if (homeHubCoinText != null) homeHubCoinText.text = value;
     }
 
     private void CheckAttendanceReward()
@@ -620,12 +665,50 @@ public sealed class WordfallPrototype : MonoBehaviour
         mainPanel.SetActive(true);
         gamePanel.SetActive(false);
         if (setupPanel != null) setupPanel.SetActive(false);
+        if (homeHubPanel != null) homeHubPanel.SetActive(false);
         if (languagePanel != null) languagePanel.SetActive(false);
         if (profilePanel != null) profilePanel.SetActive(false);
         if (myPagePanel != null) myPagePanel.SetActive(false);
         if (attendancePanel != null) attendancePanel.SetActive(false);
         if (updatePanel != null) updatePanel.SetActive(false);
         if (pausePanel != null) pausePanel.SetActive(false);
+    }
+
+    private void ShowHomeHub()
+    {
+        if (playing) return;
+        if (!profileCreated)
+        {
+            ShowProfilePanel();
+            return;
+        }
+
+        mainPanel.SetActive(true);
+        gamePanel.SetActive(false);
+        setupPanel.SetActive(false);
+        languagePanel.SetActive(false);
+        profilePanel.SetActive(false);
+        myPagePanel.SetActive(false);
+        UpdateProfileSummary();
+        UpdateCoinText();
+        UpdateHomeHubCharacter();
+        homeHubPanel.SetActive(true);
+    }
+
+    private void CloseHomeHub()
+    {
+        homeHubPanel.SetActive(false);
+    }
+
+    private void UpdateHomeHubCharacter()
+    {
+        if (homeHubCharacterImage == null) return;
+        var texture = Resources.Load<Texture2D>(GetCharacterResourcePath(false));
+        if (texture == null) return;
+        texture.filterMode = FilterMode.Point;
+        texture.wrapMode = TextureWrapMode.Clamp;
+        homeHubCharacterImage.sprite = Sprite.Create(texture, new Rect(0f, 0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100f);
+        homeHubCharacterImage.preserveAspect = true;
     }
 
     private void ShowSetupPanel()
@@ -636,6 +719,7 @@ public sealed class WordfallPrototype : MonoBehaviour
             ShowProfilePanel();
             return;
         }
+        homeHubPanel.SetActive(false);
         languagePanel.SetActive(false);
         setupPanel.SetActive(true);
         SetDifficulty(difficulty);
@@ -645,11 +729,14 @@ public sealed class WordfallPrototype : MonoBehaviour
     private void CloseSetupPanel()
     {
         setupPanel.SetActive(false);
+        if (profileCreated) homeHubPanel.SetActive(true);
     }
 
     private void ShowLanguagePanel()
     {
         if (playing) return;
+        languageOpenedFromHomeHub = homeHubPanel != null && homeHubPanel.activeSelf;
+        if (languageOpenedFromHomeHub) homeHubPanel.SetActive(false);
         setupPanel.SetActive(false);
         languagePanel.SetActive(true);
     }
@@ -657,6 +744,8 @@ public sealed class WordfallPrototype : MonoBehaviour
     private void CloseLanguagePanel()
     {
         languagePanel.SetActive(false);
+        if (languageOpenedFromHomeHub && profileCreated) homeHubPanel.SetActive(true);
+        languageOpenedFromHomeHub = false;
     }
 
     private void ShowMyPage()
