@@ -31,6 +31,7 @@ public sealed class WordfallPrototype : MonoBehaviour
     private GameObject languagePanel;
     private GameObject profilePanel;
     private GameObject myPagePanel;
+    private GameObject updatePanel;
     private GameObject attendancePanel;
     private Text scoreText;
     private Text livesText;
@@ -57,6 +58,9 @@ public sealed class WordfallPrototype : MonoBehaviour
     private Text myPageInfoText;
     private Text myPageCoinText;
     private Text myPageStatsText;
+    private Text updateTitleText;
+    private Text updateMessageText;
+    private Text updateVersionText;
     private Text coinText;
     private Text attendanceTitleText;
     private Text attendanceBodyText;
@@ -69,6 +73,8 @@ public sealed class WordfallPrototype : MonoBehaviour
     private Button mainStartButton;
     private Button languageOpenButton;
     private Button myPageOpenButton;
+    private Button updateLaterButton;
+    private Button updateNowButton;
     private Button startButton;
     private Button setupBackButton;
     private Button languageCloseButton;
@@ -87,6 +93,7 @@ public sealed class WordfallPrototype : MonoBehaviour
     private InputField nicknameInput;
     private Image activeCharacterImage;
     private Image myPageCharacterImage;
+    private string pendingUpdateUrl;
     private int selectedCharacter;
     private bool profileCreated;
     private int coins;
@@ -158,6 +165,8 @@ public sealed class WordfallPrototype : MonoBehaviour
         selectedCharacter = Mathf.Clamp(PlayerPrefs.GetInt(CharacterKey, 0), 0, 2);
         coins = PlayerPrefs.GetInt(CoinsKey, 0);
         BuildInterface();
+        var updateChecker = gameObject.AddComponent<UpdateChecker>();
+        updateChecker.UpdateAvailable += ShowUpdatePanel;
         ShowMainMenu();
         if (profileCreated) CheckAttendanceReward();
     }
@@ -372,6 +381,19 @@ public sealed class WordfallPrototype : MonoBehaviour
         attendanceCloseButton.onClick.AddListener(CloseAttendancePanel);
         attendancePanel.SetActive(false);
 
+        updatePanel = CreatePanel("UpdatePanel", mainPanel.transform, new Color32(9, 18, 38, 250));
+        SetRect(updatePanel.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
+        ApplyPixelWindow(updatePanel);
+        ApplyModalDim(updatePanel);
+        updateTitleText = CreateText("업데이트", updatePanel.transform, 42, Color.white, new Vector2(0.5f, 0.72f), new Vector2(0.5f, 0.72f));
+        updateMessageText = CreateText("새로운 업데이트가 있습니다.", updatePanel.transform, 20, new Color32(214, 222, 238, 255), new Vector2(0.5f, 0.57f), new Vector2(0.5f, 0.57f));
+        updateVersionText = CreateText("새 버전 0.1.0", updatePanel.transform, 22, new Color32(255, 211, 94, 255), new Vector2(0.5f, 0.45f), new Vector2(0.5f, 0.45f));
+        updateLaterButton = CreateButton("나중에", updatePanel.transform, new Vector2(0.32f, 0.25f), new Vector2(220f, 64f), new Color32(58, 80, 122, 255));
+        updateLaterButton.onClick.AddListener(CloseUpdatePanel);
+        updateNowButton = CreateButton("업데이트", updatePanel.transform, new Vector2(0.68f, 0.25f), new Vector2(220f, 64f), new Color32(67, 149, 255, 255));
+        updateNowButton.onClick.AddListener(OpenUpdatePage);
+        updatePanel.SetActive(false);
+
         var header = CreatePanel("Header", gamePanel.transform, new Color32(21, 35, 66, 255));
         SetRect(header.GetComponent<RectTransform>(), new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -36f), new Vector2(1280f, 72f));
         scoreText = CreateText("SCORE 0000", header.transform, 24, Color.white, new Vector2(0.12f, 0.5f), new Vector2(0.12f, 0.5f));
@@ -458,6 +480,9 @@ public sealed class WordfallPrototype : MonoBehaviour
         myPageTitleText.text = language == Language.Korean ? "마이페이지" : "MY PAGE";
         SetButtonText(myPageCloseButton, language == Language.Korean ? "닫기" : "CLOSE");
         SetButtonText(deleteAccountButton, language == Language.Korean ? "탈퇴하기" : "DELETE ACCOUNT");
+        updateTitleText.text = language == Language.Korean ? "업데이트" : "UPDATE";
+        SetButtonText(updateLaterButton, language == Language.Korean ? "나중에" : "LATER");
+        SetButtonText(updateNowButton, language == Language.Korean ? "업데이트" : "UPDATE");
         difficultyText.text = (language == Language.Korean ? "난이도  " : "DIFFICULTY  ") + GetDifficultyName();
         modeText.text = (language == Language.Korean ? "모드  " : "MODE  ") + GetGameModeName();
         UpdateHighScoreText();
@@ -592,6 +617,7 @@ public sealed class WordfallPrototype : MonoBehaviour
         if (profilePanel != null) profilePanel.SetActive(false);
         if (myPagePanel != null) myPagePanel.SetActive(false);
         if (attendancePanel != null) attendancePanel.SetActive(false);
+        if (updatePanel != null) updatePanel.SetActive(false);
         if (pausePanel != null) pausePanel.SetActive(false);
     }
 
@@ -639,6 +665,37 @@ public sealed class WordfallPrototype : MonoBehaviour
     private void CloseMyPage()
     {
         myPagePanel.SetActive(false);
+    }
+
+    private void ShowUpdatePanel(UpdateChecker.UpdateInfo updateInfo)
+    {
+        if (updateInfo == null || updatePanel == null) return;
+        pendingUpdateUrl = string.IsNullOrWhiteSpace(updateInfo.downloadUrl)
+            ? UpdateChecker.DefaultManifestUrl
+            : updateInfo.downloadUrl;
+        mainPanel.SetActive(true);
+        gamePanel.SetActive(false);
+        setupPanel.SetActive(false);
+        languagePanel.SetActive(false);
+        profilePanel.SetActive(false);
+        myPagePanel.SetActive(false);
+        attendancePanel.SetActive(false);
+        updateMessageText.text = string.IsNullOrWhiteSpace(updateInfo.message)
+            ? (language == Language.Korean ? "새로운 업데이트가 있습니다." : "A new update is available.")
+            : updateInfo.message;
+        updateVersionText.text = (language == Language.Korean ? "새 버전 " : "NEW VERSION ") + updateInfo.version;
+        updatePanel.SetActive(true);
+    }
+
+    private void CloseUpdatePanel()
+    {
+        updatePanel.SetActive(false);
+    }
+
+    private void OpenUpdatePage()
+    {
+        if (!string.IsNullOrWhiteSpace(pendingUpdateUrl)) Application.OpenURL(pendingUpdateUrl);
+        updatePanel.SetActive(false);
     }
 
     private void UpdateMyPage()
