@@ -328,11 +328,7 @@ public sealed class WordfallPrototype : MonoBehaviour
         comboText = CreateText("COMBO x0", header.transform, 20, new Color32(147, 232, 189, 255), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f));
         waveText = CreateText("WAVE 1", header.transform, 18, new Color32(193, 205, 230, 255), new Vector2(0.34f, 0.5f), new Vector2(0.34f, 0.5f));
         timerText = CreateText("", header.transform, 18, new Color32(255, 142, 142, 255), new Vector2(0.90f, 0.5f), new Vector2(0.90f, 0.5f));
-        characterStatusPanel = CreatePanel("CharacterStatusPanel", gamePanel.transform, new Color32(15, 28, 58, 235));
-        SetRect(characterStatusPanel.GetComponent<RectTransform>(), new Vector2(0.09f, 0.56f), new Vector2(0.09f, 0.56f), Vector2.zero, new Vector2(190f, 220f));
-        ApplyPixelWindow(characterStatusPanel);
-        activeCharacterImage = CreateImage("ActiveCharacter", characterStatusPanel.transform, GetCharacterResourcePath(false), new Vector2(0.5f, 0.57f), new Vector2(156f, 156f));
-        activeCharacterImage.raycastTarget = false;
+        activeCharacterImage = CreateCharacterProfile(gamePanel.transform);
         wordLayer = CreatePanel("WordLayer", gamePanel.transform, new Color32(0, 0, 0, 0)).GetComponent<RectTransform>();
         SetRect(wordLayer, new Vector2(0f, 0f), new Vector2(1f, 1f), new Vector2(26f, 92f), new Vector2(-26f, -168f));
         var inputBackground = CreatePanel("InputBackground", gamePanel.transform, new Color32(24, 43, 76, 255));
@@ -344,7 +340,6 @@ public sealed class WordfallPrototype : MonoBehaviour
         pauseButton = CreateButton("일시정지", gamePanel.transform, new Vector2(0.92f, 0.93f), new Vector2(120f, 46f), new Color32(58, 80, 122, 255));
         pauseButton.onClick.AddListener(TogglePause);
         inputField.onEndEdit.AddListener(HandleSubmitted);
-        inputField.onValueChanged.AddListener(HandleTypingPreview);
 
         pausePanel = CreatePanel("PausePanel", gamePanel.transform, new Color32(9, 18, 38, 235));
         CreateText("일시정지", pausePanel.transform, 52, Color.white, new Vector2(0.5f, 0.62f), new Vector2(0.5f, 0.62f));
@@ -926,24 +921,6 @@ public sealed class WordfallPrototype : MonoBehaviour
         RefocusInputField();
     }
 
-    private void HandleTypingPreview(string value)
-    {
-        if (!playing || paused || string.IsNullOrWhiteSpace(value)) return;
-        string typed = value.Trim();
-        bool matchesPrefix = false;
-        for (int i = 0; i < fallingWords.Count; i++)
-        {
-            if (fallingWords[i].word.StartsWith(typed, System.StringComparison.OrdinalIgnoreCase))
-            {
-                matchesPrefix = true;
-                break;
-            }
-        }
-
-        if (matchesPrefix) SetCharacterEmotion(false);
-        else SetCharacterEmotion(true);
-    }
-
     private string GetCharacterResourcePath(bool alarm)
     {
         string[] normalPaths = { "Pixel/character-knight", "Pixel/character-mage", "Pixel/character-hacker" };
@@ -966,6 +943,47 @@ public sealed class WordfallPrototype : MonoBehaviour
         activeCharacterImage.sprite = Sprite.Create(texture, new Rect(0f, 0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100f);
         activeCharacterImage.preserveAspect = true;
         activeCharacterImage.color = Color.white;
+    }
+
+    private Image CreateCharacterProfile(Transform parent)
+    {
+        characterStatusPanel = new GameObject("CharacterProfile", typeof(RectTransform), typeof(Image), typeof(Mask));
+        characterStatusPanel.transform.SetParent(parent, false);
+        var rootRect = characterStatusPanel.GetComponent<RectTransform>();
+        SetRect(rootRect, new Vector2(0.88f, 0.22f), new Vector2(0.88f, 0.22f), Vector2.zero, new Vector2(170f, 170f));
+
+        var profileMaskImage = characterStatusPanel.GetComponent<Image>();
+        profileMaskImage.sprite = CreateCircleSprite(256);
+        profileMaskImage.color = new Color32(255, 211, 94, 255);
+        profileMaskImage.raycastTarget = false;
+        characterStatusPanel.GetComponent<Mask>().showMaskGraphic = true;
+
+        var portrait = CreateImage("ActiveCharacter", characterStatusPanel.transform, GetCharacterResourcePath(false), new Vector2(0.5f, 0.5f), new Vector2(144f, 144f));
+        portrait.raycastTarget = false;
+        return portrait;
+    }
+
+    private Sprite CreateCircleSprite(int size)
+    {
+        var texture = new Texture2D(size, size, TextureFormat.RGBA32, false);
+        texture.filterMode = FilterMode.Point;
+        var center = (size - 1) * 0.5f;
+        var radius = size * 0.5f;
+        var pixels = new Color32[size * size];
+        for (int y = 0; y < size; y++)
+        {
+            for (int x = 0; x < size; x++)
+            {
+                float dx = x - center;
+                float dy = y - center;
+                pixels[y * size + x] = dx * dx + dy * dy <= radius * radius
+                    ? new Color32(255, 255, 255, 255)
+                    : new Color32(255, 255, 255, 0);
+            }
+        }
+        texture.SetPixels32(pixels);
+        texture.Apply();
+        return Sprite.Create(texture, new Rect(0f, 0f, size, size), new Vector2(0.5f, 0.5f), 100f);
     }
 
     private void UpdateHighScoreText()
