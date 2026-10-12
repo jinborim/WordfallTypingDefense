@@ -89,6 +89,7 @@ public sealed class WordfallPrototype : MonoBehaviour
     private Button[] characterButtons;
     private Button createProfileButton;
     private Button myPageCloseButton;
+    private Button myPageEditButton;
     private Button deleteAccountButton;
     private Button profileResetButton;
     private Button attendanceCloseButton;
@@ -106,6 +107,8 @@ public sealed class WordfallPrototype : MonoBehaviour
     private string pendingUpdateUrl;
     private bool myPageOpenedFromGame;
     private bool languageOpenedFromHomeHub;
+    private bool editingProfile;
+    private bool profileEditReturnToMyPage;
     private int selectedCharacter;
     private bool profileCreated;
     private int coins;
@@ -393,9 +396,11 @@ public sealed class WordfallPrototype : MonoBehaviour
         myPageInfoText = CreateText("닉네임", myPagePanel.transform, 22, new Color32(214, 222, 238, 255), new Vector2(0.5f, 0.37f), new Vector2(0.5f, 0.37f));
         myPageCoinText = CreateText("코인 0", myPagePanel.transform, 22, new Color32(255, 211, 94, 255), new Vector2(0.5f, 0.30f), new Vector2(0.5f, 0.30f));
         myPageStatsText = CreateText("기록", myPagePanel.transform, 16, new Color32(171, 190, 220, 255), new Vector2(0.5f, 0.25f), new Vector2(0.5f, 0.25f));
-        myPageCloseButton = CreateButton("닫기", myPagePanel.transform, new Vector2(0.30f, 0.16f), new Vector2(200f, 62f), new Color32(58, 80, 122, 255));
+        myPageCloseButton = CreateButton("닫기", myPagePanel.transform, new Vector2(0.16f, 0.16f), new Vector2(160f, 62f), new Color32(58, 80, 122, 255));
         myPageCloseButton.onClick.AddListener(CloseMyPage);
-        deleteAccountButton = CreateButton("탈퇴하기", myPagePanel.transform, new Vector2(0.70f, 0.16f), new Vector2(220f, 62f), new Color32(149, 71, 92, 255));
+        myPageEditButton = CreateButton("프로필 수정", myPagePanel.transform, new Vector2(0.50f, 0.16f), new Vector2(200f, 62f), new Color32(67, 149, 255, 255));
+        myPageEditButton.onClick.AddListener(ShowProfileEdit);
+        deleteAccountButton = CreateButton("탈퇴하기", myPagePanel.transform, new Vector2(0.84f, 0.16f), new Vector2(180f, 62f), new Color32(149, 71, 92, 255));
         deleteAccountButton.onClick.AddListener(DeleteAccount);
         myPagePanel.SetActive(false);
 
@@ -505,7 +510,9 @@ public sealed class WordfallPrototype : MonoBehaviour
         SetButtonText(languageCloseButton, language == Language.Korean ? "닫기" : "CLOSE");
         SetButtonText(languageButtons[0], language == Language.Korean ? "한국어" : "KOREAN");
         SetButtonText(languageButtons[1], language == Language.Korean ? "영어" : "ENGLISH");
-        SetButtonText(createProfileButton, language == Language.Korean ? "프로필 만들기" : "CREATE PROFILE");
+        SetButtonText(createProfileButton, editingProfile
+            ? (language == Language.Korean ? "저장하기" : "SAVE PROFILE")
+            : (language == Language.Korean ? "프로필 만들기" : "CREATE PROFILE"));
         SetButtonText(characterButtons[0], language == Language.Korean ? "기사" : "KNIGHT");
         SetButtonText(characterButtons[1], language == Language.Korean ? "마법사" : "MAGE");
         SetButtonText(characterButtons[2], language == Language.Korean ? "해커" : "HACKER");
@@ -528,6 +535,7 @@ public sealed class WordfallPrototype : MonoBehaviour
         profilePromptText.text = language == Language.Korean ? "닉네임과 캐릭터를 선택하세요" : "Choose a nickname and character";
         myPageTitleText.text = language == Language.Korean ? "마이페이지" : "MY PAGE";
         SetButtonText(myPageCloseButton, language == Language.Korean ? "닫기" : "CLOSE");
+        SetButtonText(myPageEditButton, language == Language.Korean ? "프로필 수정" : "EDIT PROFILE");
         SetButtonText(deleteAccountButton, language == Language.Korean ? "탈퇴하기" : "DELETE ACCOUNT");
         updateTitleText.text = language == Language.Korean ? "업데이트" : "UPDATE";
         SetButtonText(updateLaterButton, language == Language.Korean ? "나중에" : "LATER");
@@ -555,12 +563,33 @@ public sealed class WordfallPrototype : MonoBehaviour
 
     private void ShowProfilePanel()
     {
+        editingProfile = false;
+        profileEditReturnToMyPage = false;
         setupPanel.SetActive(false);
         languagePanel.SetActive(false);
         profilePanel.SetActive(true);
         nicknameInput.text = string.Empty;
         profileErrorText.text = string.Empty;
         SelectCharacter(selectedCharacter);
+        EventSystem.current.SetSelectedGameObject(nicknameInput.gameObject);
+        nicknameInput.ActivateInputField();
+    }
+
+    private void ShowProfileEdit()
+    {
+        if (!profileCreated) return;
+        editingProfile = true;
+        profileEditReturnToMyPage = true;
+        myPagePanel.SetActive(false);
+        setupPanel.SetActive(false);
+        languagePanel.SetActive(false);
+        profilePanel.SetActive(true);
+        profileTitleText.text = language == Language.Korean ? "프로필 수정" : "EDIT PROFILE";
+        profilePromptText.text = language == Language.Korean ? "닉네임과 캐릭터를 수정하세요" : "Update your nickname and character";
+        nicknameInput.text = PlayerPrefs.GetString(NicknameKey, string.Empty);
+        profileErrorText.text = string.Empty;
+        SelectCharacter(Mathf.Clamp(PlayerPrefs.GetInt(CharacterKey, selectedCharacter), 0, 2));
+        SetButtonText(createProfileButton, language == Language.Korean ? "저장하기" : "SAVE PROFILE");
         EventSystem.current.SetSelectedGameObject(nicknameInput.gameObject);
         nicknameInput.ActivateInputField();
     }
@@ -601,6 +630,18 @@ public sealed class WordfallPrototype : MonoBehaviour
         profileCreated = true;
         UpdateProfileSummary();
         profilePanel.SetActive(false);
+        if (editingProfile)
+        {
+            editingProfile = false;
+            SetButtonText(createProfileButton, language == Language.Korean ? "프로필 만들기" : "CREATE PROFILE");
+            UpdateMyPage();
+            if (profileEditReturnToMyPage)
+            {
+                myPagePanel.SetActive(true);
+                profileEditReturnToMyPage = false;
+            }
+            return;
+        }
         ShowSetupPanel();
         CheckAttendanceReward();
     }
