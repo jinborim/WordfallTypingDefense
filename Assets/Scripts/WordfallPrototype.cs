@@ -16,6 +16,8 @@ public sealed class WordfallPrototype : MonoBehaviour
     private Font uiFont;
     private GameObject mainPanel;
     private GameObject gamePanel;
+    private GameObject setupPanel;
+    private GameObject languagePanel;
     private Text scoreText;
     private Text livesText;
     private Text comboText;
@@ -31,12 +33,18 @@ public sealed class WordfallPrototype : MonoBehaviour
     private Text descriptionText;
     private Text prototypeText;
     private Text inputPlaceholder;
+    private Text setupTitleText;
+    private Text languageTitleText;
     private InputField inputField;
     private RectTransform wordLayer;
     private Button[] difficultyButtons;
     private Button[] modeButtons;
     private Button[] languageButtons;
+    private Button mainStartButton;
+    private Button languageOpenButton;
     private Button startButton;
+    private Button setupBackButton;
+    private Button languageCloseButton;
     private Button menuButton;
     private Button pauseButton;
     private Button resumeButton;
@@ -182,36 +190,54 @@ public sealed class WordfallPrototype : MonoBehaviour
         titleText = CreateText("워드폴", mainPanel.transform, 64, new Color32(241, 247, 255, 255), new Vector2(0.5f, 0.65f), new Vector2(0.5f, 0.65f));
         subtitleText = CreateText("한글 & 영어 타자 디펜스", mainPanel.transform, 22, new Color32(158, 180, 220, 255), new Vector2(0.5f, 0.57f), new Vector2(0.5f, 0.57f));
         descriptionText = CreateText("떨어지는 단어를 빠르게 입력해 기지를 지키세요.", mainPanel.transform, 18, new Color32(214, 222, 238, 255), new Vector2(0.5f, 0.48f), new Vector2(0.5f, 0.48f));
-        CreateText("언어", mainPanel.transform, 16, new Color32(147, 232, 189, 255), new Vector2(0.73f, 0.93f), new Vector2(0.73f, 0.93f));
-        languageButtons = new Button[2];
-        languageButtons[0] = CreateButton("한국어", mainPanel.transform, new Vector2(0.83f, 0.93f), new Vector2(94f, 34f), new Color32(58, 80, 122, 255));
-        languageButtons[1] = CreateButton("EN", mainPanel.transform, new Vector2(0.94f, 0.93f), new Vector2(64f, 34f), new Color32(58, 80, 122, 255));
-        languageButtons[0].onClick.AddListener(() => SetLanguage(Language.Korean));
-        languageButtons[1].onClick.AddListener(() => SetLanguage(Language.English));
-        difficultyText = CreateText("난이도  보통", mainPanel.transform, 18, new Color32(255, 211, 94, 255), new Vector2(0.5f, 0.40f), new Vector2(0.5f, 0.40f));
+        mainStartButton = CreateButton("게임 시작", mainPanel.transform, new Vector2(0.38f, 0.21f), new Vector2(340f, 78f), new Color32(67, 149, 255, 255));
+        mainStartButton.onClick.AddListener(ShowSetupPanel);
+        languageOpenButton = CreateButton("언어 설정", mainPanel.transform, new Vector2(0.66f, 0.21f), new Vector2(250f, 78f), new Color32(58, 80, 122, 255));
+        languageOpenButton.onClick.AddListener(ShowLanguagePanel);
+        highScoreText = CreateText("최고 점수 0000", mainPanel.transform, 18, new Color32(255, 211, 94, 255), new Vector2(0.5f, 0.07f), new Vector2(0.5f, 0.07f));
+        prototypeText = CreateText("픽셀 프로토타입", mainPanel.transform, 14, new Color32(120, 140, 180, 255), new Vector2(0.5f, 0.035f), new Vector2(0.5f, 0.035f));
+
+        setupPanel = CreatePanel("SetupPanel", mainPanel.transform, new Color32(9, 18, 38, 245));
+        SetRect(setupPanel.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
+        setupTitleText = CreateText("게임 설정", setupPanel.transform, 38, Color.white, new Vector2(0.5f, 0.78f), new Vector2(0.5f, 0.78f));
+        difficultyText = CreateText("난이도  보통", setupPanel.transform, 22, new Color32(255, 211, 94, 255), new Vector2(0.5f, 0.65f), new Vector2(0.5f, 0.65f));
         difficultyButtons = new Button[3];
-        difficultyButtons[0] = CreateButton("쉬움", mainPanel.transform, new Vector2(0.34f, 0.345f), new Vector2(150f, 44f), new Color32(55, 102, 149, 255));
-        difficultyButtons[1] = CreateButton("보통", mainPanel.transform, new Vector2(0.5f, 0.345f), new Vector2(170f, 44f), new Color32(67, 149, 255, 255));
-        difficultyButtons[2] = CreateButton("어려움", mainPanel.transform, new Vector2(0.66f, 0.345f), new Vector2(150f, 44f), new Color32(149, 71, 92, 255));
+        difficultyButtons[0] = CreateButton("쉬움", setupPanel.transform, new Vector2(0.29f, 0.55f), new Vector2(210f, 62f), new Color32(55, 102, 149, 255));
+        difficultyButtons[1] = CreateButton("보통", setupPanel.transform, new Vector2(0.5f, 0.55f), new Vector2(210f, 62f), new Color32(67, 149, 255, 255));
+        difficultyButtons[2] = CreateButton("어려움", setupPanel.transform, new Vector2(0.71f, 0.55f), new Vector2(210f, 62f), new Color32(149, 71, 92, 255));
         difficultyButtons[0].onClick.AddListener(() => SetDifficulty(0));
         difficultyButtons[1].onClick.AddListener(() => SetDifficulty(1));
         difficultyButtons[2].onClick.AddListener(() => SetDifficulty(2));
-        modeText = CreateText("모드  혼합", mainPanel.transform, 16, new Color32(147, 232, 189, 255), new Vector2(0.5f, 0.265f), new Vector2(0.5f, 0.265f));
+        modeText = CreateText("모드  혼합", setupPanel.transform, 20, new Color32(147, 232, 189, 255), new Vector2(0.5f, 0.38f), new Vector2(0.5f, 0.38f));
         modeButtons = new Button[5];
-        modeButtons[0] = CreateButton("혼합", mainPanel.transform, new Vector2(0.18f, 0.215f), new Vector2(125f, 38f), new Color32(58, 80, 122, 255));
-        modeButtons[1] = CreateButton("한글", mainPanel.transform, new Vector2(0.34f, 0.215f), new Vector2(125f, 38f), new Color32(58, 80, 122, 255));
-        modeButtons[2] = CreateButton("영어", mainPanel.transform, new Vector2(0.50f, 0.215f), new Vector2(125f, 38f), new Color32(58, 80, 122, 255));
-        modeButtons[3] = CreateButton("60초", mainPanel.transform, new Vector2(0.66f, 0.215f), new Vector2(125f, 38f), new Color32(58, 80, 122, 255));
-        modeButtons[4] = CreateButton("오늘", mainPanel.transform, new Vector2(0.82f, 0.215f), new Vector2(125f, 38f), new Color32(58, 80, 122, 255));
+        modeButtons[0] = CreateButton("혼합", setupPanel.transform, new Vector2(0.12f, 0.28f), new Vector2(150f, 52f), new Color32(58, 80, 122, 255));
+        modeButtons[1] = CreateButton("한글", setupPanel.transform, new Vector2(0.31f, 0.28f), new Vector2(150f, 52f), new Color32(58, 80, 122, 255));
+        modeButtons[2] = CreateButton("영어", setupPanel.transform, new Vector2(0.50f, 0.28f), new Vector2(150f, 52f), new Color32(58, 80, 122, 255));
+        modeButtons[3] = CreateButton("60초", setupPanel.transform, new Vector2(0.69f, 0.28f), new Vector2(150f, 52f), new Color32(58, 80, 122, 255));
+        modeButtons[4] = CreateButton("오늘", setupPanel.transform, new Vector2(0.88f, 0.28f), new Vector2(150f, 52f), new Color32(58, 80, 122, 255));
         for (int i = 0; i < modeButtons.Length; i++)
         {
             int selectedMode = i;
             modeButtons[i].onClick.AddListener(() => SetGameMode((GameMode)selectedMode));
         }
-        startButton = CreateButton("게임 시작", mainPanel.transform, new Vector2(0.5f, 0.115f), new Vector2(280f, 58f), new Color32(67, 149, 255, 255));
+        startButton = CreateButton("게임 시작", setupPanel.transform, new Vector2(0.5f, 0.12f), new Vector2(360f, 72f), new Color32(67, 149, 255, 255));
         startButton.onClick.AddListener(StartGame);
-        highScoreText = CreateText("최고 점수 0000", mainPanel.transform, 18, new Color32(255, 211, 94, 255), new Vector2(0.5f, 0.045f), new Vector2(0.5f, 0.045f));
-        prototypeText = CreateText("픽셀 프로토타입", mainPanel.transform, 14, new Color32(120, 140, 180, 255), new Vector2(0.5f, 0.018f), new Vector2(0.5f, 0.018f));
+        setupBackButton = CreateButton("뒤로", setupPanel.transform, new Vector2(0.12f, 0.12f), new Vector2(180f, 60f), new Color32(58, 80, 122, 255));
+        setupBackButton.onClick.AddListener(CloseSetupPanel);
+        setupPanel.SetActive(false);
+
+        languagePanel = CreatePanel("LanguagePanel", mainPanel.transform, new Color32(9, 18, 38, 245));
+        SetRect(languagePanel.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
+        languageTitleText = CreateText("언어 설정", languagePanel.transform, 42, Color.white, new Vector2(0.5f, 0.70f), new Vector2(0.5f, 0.70f));
+        languageButtons = new Button[2];
+        languageButtons[0] = CreateButton("한국어", languagePanel.transform, new Vector2(0.37f, 0.48f), new Vector2(260f, 76f), new Color32(67, 149, 255, 255));
+        languageButtons[1] = CreateButton("ENGLISH", languagePanel.transform, new Vector2(0.63f, 0.48f), new Vector2(260f, 76f), new Color32(58, 80, 122, 255));
+        languageButtons[0].onClick.AddListener(() => SelectLanguageAndClose(Language.Korean));
+        languageButtons[1].onClick.AddListener(() => SelectLanguageAndClose(Language.English));
+        languageCloseButton = CreateButton("닫기", languagePanel.transform, new Vector2(0.5f, 0.25f), new Vector2(220f, 60f), new Color32(58, 80, 122, 255));
+        languageCloseButton.onClick.AddListener(CloseLanguagePanel);
+        languagePanel.SetActive(false);
+        UpdateHighScoreText();
         UpdateHighScoreText();
 
         var header = CreatePanel("Header", gamePanel.transform, new Color32(21, 35, 66, 255));
@@ -268,7 +294,13 @@ public sealed class WordfallPrototype : MonoBehaviour
         titleText.text = language == Language.Korean ? "워드폴" : "WORDFALL";
         subtitleText.text = language == Language.Korean ? "한글 & 영어 타자 디펜스" : "KOREAN & ENGLISH TYPING DEFENSE";
         descriptionText.text = language == Language.Korean ? "떨어지는 단어를 빠르게 입력해 기지를 지키세요." : "Type the falling words before they reach the bottom.";
+        SetButtonText(mainStartButton, language == Language.Korean ? "게임 시작" : "START GAME");
+        SetButtonText(languageOpenButton, language == Language.Korean ? "언어 설정" : "LANGUAGE");
         SetButtonText(startButton, language == Language.Korean ? "게임 시작" : "START GAME");
+        SetButtonText(setupBackButton, language == Language.Korean ? "뒤로" : "BACK");
+        SetButtonText(languageCloseButton, language == Language.Korean ? "닫기" : "CLOSE");
+        SetButtonText(languageButtons[0], language == Language.Korean ? "한국어" : "KOREAN");
+        SetButtonText(languageButtons[1], language == Language.Korean ? "영어" : "ENGLISH");
         SetButtonText(menuButton, language == Language.Korean ? "메뉴" : "MENU");
         SetButtonText(pauseButton, language == Language.Korean ? "일시정지" : "PAUSE");
         SetButtonText(resumeButton, language == Language.Korean ? "계속하기" : "RESUME");
@@ -281,6 +313,8 @@ public sealed class WordfallPrototype : MonoBehaviour
         SetButtonText(modeButtons[2], language == Language.Korean ? "영어" : "ENG");
         SetButtonText(modeButtons[3], language == Language.Korean ? "60초" : "60 SEC");
         SetButtonText(modeButtons[4], language == Language.Korean ? "오늘" : "DAILY");
+        setupTitleText.text = language == Language.Korean ? "게임 설정" : "GAME SETTINGS";
+        languageTitleText.text = language == Language.Korean ? "언어 설정" : "LANGUAGE";
         difficultyText.text = (language == Language.Korean ? "난이도  " : "DIFFICULTY  ") + GetDifficultyName();
         modeText.text = (language == Language.Korean ? "모드  " : "MODE  ") + GetGameModeName();
         UpdateHighScoreText();
@@ -302,7 +336,41 @@ public sealed class WordfallPrototype : MonoBehaviour
         ClearWords();
         mainPanel.SetActive(true);
         gamePanel.SetActive(false);
+        if (setupPanel != null) setupPanel.SetActive(false);
+        if (languagePanel != null) languagePanel.SetActive(false);
         if (pausePanel != null) pausePanel.SetActive(false);
+    }
+
+    private void ShowSetupPanel()
+    {
+        if (playing) return;
+        languagePanel.SetActive(false);
+        setupPanel.SetActive(true);
+        SetDifficulty(difficulty);
+        SetGameMode(gameMode);
+    }
+
+    private void CloseSetupPanel()
+    {
+        setupPanel.SetActive(false);
+    }
+
+    private void ShowLanguagePanel()
+    {
+        if (playing) return;
+        setupPanel.SetActive(false);
+        languagePanel.SetActive(true);
+    }
+
+    private void CloseLanguagePanel()
+    {
+        languagePanel.SetActive(false);
+    }
+
+    private void SelectLanguageAndClose(Language selectedLanguage)
+    {
+        SetLanguage(selectedLanguage);
+        languagePanel.SetActive(false);
     }
 
     private void StartGame()
