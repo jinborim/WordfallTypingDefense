@@ -329,6 +329,8 @@ public sealed class WordfallPrototype : MonoBehaviour
         myPageTitleText = CreateText("마이페이지", myPagePanel.transform, 42, Color.white, new Vector2(0.5f, 0.78f), new Vector2(0.5f, 0.78f));
         myPageCharacterImage = CreateImage("MyPageCharacter", myPagePanel.transform, GetCharacterResourcePath(false), new Vector2(0.5f, 0.58f), new Vector2(132f, 132f));
         myPageCharacterImage.raycastTarget = false;
+        var myPageFrame = CreateImage("MyPageProfileFrame", myPagePanel.transform, "Pixel/character-profile-frame", new Vector2(0.5f, 0.58f), new Vector2(154f, 154f));
+        myPageFrame.raycastTarget = false;
         myPageInfoText = CreateText("닉네임", myPagePanel.transform, 22, new Color32(214, 222, 238, 255), new Vector2(0.5f, 0.37f), new Vector2(0.5f, 0.37f));
         myPageCoinText = CreateText("코인 0", myPagePanel.transform, 22, new Color32(255, 211, 94, 255), new Vector2(0.5f, 0.30f), new Vector2(0.5f, 0.30f));
         myPageStatsText = CreateText("기록", myPagePanel.transform, 16, new Color32(171, 190, 220, 255), new Vector2(0.5f, 0.25f), new Vector2(0.5f, 0.25f));
@@ -1072,12 +1074,14 @@ public sealed class WordfallPrototype : MonoBehaviour
 
         var profileMaskImage = characterStatusPanel.GetComponent<Image>();
         profileMaskImage.sprite = CreateCircleSprite(256);
-        profileMaskImage.color = new Color32(255, 211, 94, 255);
+        profileMaskImage.color = new Color32(15, 28, 58, 255);
         profileMaskImage.raycastTarget = false;
         characterStatusPanel.GetComponent<Mask>().showMaskGraphic = true;
 
         var portrait = CreateImage("ActiveCharacter", characterStatusPanel.transform, GetCharacterResourcePath(false), new Vector2(0.5f, 0.5f), new Vector2(128f, 128f));
         portrait.raycastTarget = false;
+        var frame = CreateImage("ProfileFrame", characterStatusPanel.transform, "Pixel/character-profile-frame", new Vector2(0.5f, 0.5f), new Vector2(170f, 170f));
+        frame.raycastTarget = false;
         return portrait;
     }
 
