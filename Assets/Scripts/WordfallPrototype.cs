@@ -14,6 +14,8 @@ public sealed class WordfallPrototype : MonoBehaviour
     private const string NicknameKey = "WordfallTypingDefense.Nickname";
     private const string CharacterKey = "WordfallTypingDefense.Character";
     private const string CoinsKey = "WordfallTypingDefense.Coins";
+    private const string NicknameTicketsKey = "WordfallTypingDefense.NicknameTickets";
+    private const string OwnedCharactersKey = "WordfallTypingDefense.OwnedCharacters";
     private const string AttendanceDayKey = "WordfallTypingDefense.LastAttendanceDay";
     private const string GamesPlayedKey = "WordfallTypingDefense.GamesPlayed";
     private const string WordsTypedKey = "WordfallTypingDefense.WordsTyped";
@@ -34,6 +36,7 @@ public sealed class WordfallPrototype : MonoBehaviour
     private GameObject myPagePanel;
     private GameObject updatePanel;
     private GameObject attendancePanel;
+    private GameObject shopPanel;
     private Text scoreText;
     private Text livesText;
     private Text comboText;
@@ -69,6 +72,9 @@ public sealed class WordfallPrototype : MonoBehaviour
     private Text attendanceTitleText;
     private Text attendanceBodyText;
     private Text attendanceCoinText;
+    private Text shopTitleText;
+    private Text shopCoinText;
+    private Text shopStatusText;
     private InputField inputField;
     private RectTransform wordLayer;
     private Button[] difficultyButtons;
@@ -90,9 +96,15 @@ public sealed class WordfallPrototype : MonoBehaviour
     private Button createProfileButton;
     private Button myPageCloseButton;
     private Button myPageEditButton;
+    private Button myPageShopButton;
+    private Button myPageProfileButton;
     private Button deleteAccountButton;
     private Button profileResetButton;
     private Button attendanceCloseButton;
+    private Button nicknameTicketButton;
+    private Button mageShopButton;
+    private Button hackerShopButton;
+    private Button shopCloseButton;
     private Button menuButton;
     private Button pauseButton;
     private Button resumeButton;
@@ -112,6 +124,8 @@ public sealed class WordfallPrototype : MonoBehaviour
     private int selectedCharacter;
     private bool profileCreated;
     private int coins;
+    private int nicknameTickets;
+    private int ownedCharacterMask;
     private float spawnTimer;
     private int score;
     private int lives;
@@ -179,6 +193,10 @@ public sealed class WordfallPrototype : MonoBehaviour
         profileCreated = PlayerPrefs.GetInt(ProfileCreatedKey, 0) == 1;
         selectedCharacter = Mathf.Clamp(PlayerPrefs.GetInt(CharacterKey, 0), 0, 2);
         coins = PlayerPrefs.GetInt(CoinsKey, 0);
+        nicknameTickets = PlayerPrefs.GetInt(NicknameTicketsKey, 0);
+        ownedCharacterMask = PlayerPrefs.GetInt(OwnedCharactersKey, 1);
+        if (ownedCharacterMask == 0) ownedCharacterMask = 1;
+        if (profileCreated) ownedCharacterMask |= 1 << selectedCharacter;
         BuildInterface();
         var updateChecker = gameObject.AddComponent<UpdateChecker>();
         updateChecker.UpdateAvailable += ShowUpdatePanel;
@@ -398,9 +416,11 @@ public sealed class WordfallPrototype : MonoBehaviour
         myPageStatsText = CreateText("기록", myPagePanel.transform, 16, new Color32(171, 190, 220, 255), new Vector2(0.5f, 0.25f), new Vector2(0.5f, 0.25f));
         myPageCloseButton = CreateButton("닫기", myPagePanel.transform, new Vector2(0.16f, 0.16f), new Vector2(160f, 62f), new Color32(58, 80, 122, 255));
         myPageCloseButton.onClick.AddListener(CloseMyPage);
-        myPageEditButton = CreateButton("프로필 수정", myPagePanel.transform, new Vector2(0.50f, 0.16f), new Vector2(200f, 62f), new Color32(67, 149, 255, 255));
-        myPageEditButton.onClick.AddListener(ShowProfileEdit);
-        deleteAccountButton = CreateButton("탈퇴하기", myPagePanel.transform, new Vector2(0.84f, 0.16f), new Vector2(180f, 62f), new Color32(149, 71, 92, 255));
+        myPageShopButton = CreateButton("상점", myPagePanel.transform, new Vector2(0.34f, 0.16f), new Vector2(150f, 62f), new Color32(105, 76, 162, 255));
+        myPageShopButton.onClick.AddListener(ShowShopPanel);
+        myPageProfileButton = CreateButton("프로필 수정", myPagePanel.transform, new Vector2(0.59f, 0.16f), new Vector2(180f, 62f), new Color32(67, 149, 255, 255));
+        myPageProfileButton.onClick.AddListener(ShowProfileEdit);
+        deleteAccountButton = CreateButton("탈퇴하기", myPagePanel.transform, new Vector2(0.86f, 0.16f), new Vector2(150f, 62f), new Color32(149, 71, 92, 255));
         deleteAccountButton.onClick.AddListener(DeleteAccount);
         myPagePanel.SetActive(false);
 
@@ -414,6 +434,23 @@ public sealed class WordfallPrototype : MonoBehaviour
         attendanceCloseButton = CreateButton("확인", attendancePanel.transform, new Vector2(0.5f, 0.22f), new Vector2(220f, 64f), new Color32(67, 149, 255, 255));
         attendanceCloseButton.onClick.AddListener(CloseAttendancePanel);
         attendancePanel.SetActive(false);
+
+        shopPanel = CreatePanel("ShopPanel", mainPanel.transform, new Color32(9, 18, 38, 250));
+        SetRect(shopPanel.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
+        ApplyPixelWindow(shopPanel);
+        ApplyModalDim(shopPanel);
+        shopTitleText = CreateText("코인 상점", shopPanel.transform, 42, Color.white, new Vector2(0.5f, 0.78f), new Vector2(0.5f, 0.78f));
+        shopCoinText = CreateText("코인 0", shopPanel.transform, 22, new Color32(255, 211, 94, 255), new Vector2(0.5f, 0.68f), new Vector2(0.5f, 0.68f));
+        nicknameTicketButton = CreateButton("닉네임 변경권 30코인", shopPanel.transform, new Vector2(0.5f, 0.52f), new Vector2(400f, 64f), new Color32(67, 149, 255, 255));
+        nicknameTicketButton.onClick.AddListener(BuyNicknameTicket);
+        mageShopButton = CreateButton("마법사 프로필 100코인", shopPanel.transform, new Vector2(0.34f, 0.38f), new Vector2(300f, 64f), new Color32(105, 76, 162, 255));
+        mageShopButton.onClick.AddListener(() => BuyCharacter(1));
+        hackerShopButton = CreateButton("해커 프로필 100코인", shopPanel.transform, new Vector2(0.66f, 0.38f), new Vector2(300f, 64f), new Color32(53, 137, 105, 255));
+        hackerShopButton.onClick.AddListener(() => BuyCharacter(2));
+        shopStatusText = CreateText("", shopPanel.transform, 18, new Color32(171, 190, 220, 255), new Vector2(0.5f, 0.27f), new Vector2(0.5f, 0.27f));
+        shopCloseButton = CreateButton("닫기", shopPanel.transform, new Vector2(0.5f, 0.16f), new Vector2(220f, 62f), new Color32(58, 80, 122, 255));
+        shopCloseButton.onClick.AddListener(CloseShopPanel);
+        shopPanel.SetActive(false);
 
         updatePanel = CreatePanel("UpdatePanel", mainPanel.transform, new Color32(9, 18, 38, 250));
         SetRect(updatePanel.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
@@ -535,8 +572,10 @@ public sealed class WordfallPrototype : MonoBehaviour
         profilePromptText.text = language == Language.Korean ? "닉네임과 캐릭터를 선택하세요" : "Choose a nickname and character";
         myPageTitleText.text = language == Language.Korean ? "마이페이지" : "MY PAGE";
         SetButtonText(myPageCloseButton, language == Language.Korean ? "닫기" : "CLOSE");
-        SetButtonText(myPageEditButton, language == Language.Korean ? "프로필 수정" : "EDIT PROFILE");
+        SetButtonText(myPageShopButton, language == Language.Korean ? "상점" : "SHOP");
+        SetButtonText(myPageProfileButton, language == Language.Korean ? "프로필 수정" : "EDIT PROFILE");
         SetButtonText(deleteAccountButton, language == Language.Korean ? "탈퇴하기" : "DELETE ACCOUNT");
+        SetButtonText(shopCloseButton, language == Language.Korean ? "닫기" : "CLOSE");
         updateTitleText.text = language == Language.Korean ? "업데이트" : "UPDATE";
         SetButtonText(updateLaterButton, language == Language.Korean ? "나중에" : "LATER");
         SetButtonText(updateNowButton, language == Language.Korean ? "업데이트" : "UPDATE");
@@ -550,6 +589,11 @@ public sealed class WordfallPrototype : MonoBehaviour
         attendanceTitleText.text = language == Language.Korean ? "출석 보상" : "DAILY LOGIN";
         attendanceBodyText.text = language == Language.Korean ? "오늘의 출석 보상을 받았습니다!" : "Today's login reward is ready!";
         attendanceCoinText.text = language == Language.Korean ? "+10 코인" : "+10 COINS";
+        shopTitleText.text = language == Language.Korean ? "코인 상점" : "COIN SHOP";
+        shopCoinText.text = language == Language.Korean ? "코인 " + coins : "COINS " + coins;
+        SetButtonText(nicknameTicketButton, language == Language.Korean ? "닉네임 변경권 30코인" : "NICKNAME TICKET 30 COINS");
+        SetButtonText(mageShopButton, language == Language.Korean ? "마법사 프로필 100코인" : "MAGE PROFILE 100 COINS");
+        SetButtonText(hackerShopButton, language == Language.Korean ? "해커 프로필 100코인" : "HACKER PROFILE 100 COINS");
         if (inputPlaceholder != null) inputPlaceholder.text = language == Language.Korean ? "여기에 입력..." : "TYPE HERE...";
         UpdateHud();
     }
@@ -610,6 +654,7 @@ public sealed class WordfallPrototype : MonoBehaviour
             colors.highlightedColor = new Color32(255, 232, 150, 255);
             colors.pressedColor = new Color32(216, 173, 68, 255);
             characterButtons[i].colors = colors;
+            characterButtons[i].interactable = !editingProfile || OwnsCharacter(i);
         }
     }
 
@@ -623,15 +668,35 @@ public sealed class WordfallPrototype : MonoBehaviour
             return;
         }
 
+        bool nicknameChanged = !profileCreated || nickname != PlayerPrefs.GetString(NicknameKey, string.Empty);
+        if (editingProfile && nicknameChanged && nicknameTickets <= 0)
+        {
+            profileErrorText.text = language == Language.Korean ? "닉네임 변경권이 필요합니다. 상점에서 구매하세요." : "You need a nickname ticket. Buy one in the shop.";
+            profilePanel.SetActive(false);
+            myPagePanel.SetActive(true);
+            ShowShopPanel();
+            return;
+        }
+        if (editingProfile && !OwnsCharacter(selectedCharacter))
+        {
+            profileErrorText.text = language == Language.Korean ? "구매한 캐릭터 프로필만 선택할 수 있습니다." : "You can only select profiles you own.";
+            return;
+        }
+
         PlayerPrefs.SetString(NicknameKey, nickname);
         PlayerPrefs.SetInt(CharacterKey, selectedCharacter);
         PlayerPrefs.SetInt(ProfileCreatedKey, 1);
         PlayerPrefs.Save();
         profileCreated = true;
+        ownedCharacterMask |= 1 << selectedCharacter;
+        SaveShopData();
         UpdateProfileSummary();
         profilePanel.SetActive(false);
         if (editingProfile)
         {
+            if (nicknameChanged) nicknameTickets--;
+            ownedCharacterMask |= 1 << selectedCharacter;
+            SaveShopData();
             editingProfile = false;
             SetButtonText(createProfileButton, language == Language.Korean ? "프로필 만들기" : "CREATE PROFILE");
             UpdateMyPage();
@@ -710,6 +775,7 @@ public sealed class WordfallPrototype : MonoBehaviour
         if (languagePanel != null) languagePanel.SetActive(false);
         if (profilePanel != null) profilePanel.SetActive(false);
         if (myPagePanel != null) myPagePanel.SetActive(false);
+        if (shopPanel != null) shopPanel.SetActive(false);
         if (attendancePanel != null) attendancePanel.SetActive(false);
         if (updatePanel != null) updatePanel.SetActive(false);
         if (pausePanel != null) pausePanel.SetActive(false);
@@ -828,6 +894,87 @@ public sealed class WordfallPrototype : MonoBehaviour
         myPageOpenedFromGame = false;
     }
 
+    private void ShowShopPanel()
+    {
+        if (!profileCreated) return;
+        myPagePanel.SetActive(false);
+        UpdateShopText();
+        shopPanel.SetActive(true);
+    }
+
+    private void CloseShopPanel()
+    {
+        shopPanel.SetActive(false);
+        myPagePanel.SetActive(true);
+    }
+
+    private void UpdateShopText()
+    {
+        if (shopPanel == null) return;
+        shopCoinText.text = language == Language.Korean ? "코인 " + coins + "  ·  변경권 " + nicknameTickets : "COINS " + coins + "  ·  TICKETS " + nicknameTickets;
+        shopStatusText.text = language == Language.Korean ? "구매한 상품은 프로필 수정에서 사용할 수 있습니다." : "Purchased items can be used in Edit Profile.";
+        SetButtonText(nicknameTicketButton, nicknameTickets > 0
+            ? (language == Language.Korean ? "닉네임 변경권 보유 " + nicknameTickets : "NICKNAME TICKETS " + nicknameTickets)
+            : (language == Language.Korean ? "닉네임 변경권 30코인" : "NICKNAME TICKET 30 COINS"));
+        SetButtonText(mageShopButton, OwnsCharacter(1)
+            ? (language == Language.Korean ? "마법사 프로필 보유" : "MAGE PROFILE OWNED")
+            : (language == Language.Korean ? "마법사 프로필 100코인" : "MAGE PROFILE 100 COINS"));
+        SetButtonText(hackerShopButton, OwnsCharacter(2)
+            ? (language == Language.Korean ? "해커 프로필 보유" : "HACKER PROFILE OWNED")
+            : (language == Language.Korean ? "해커 프로필 100코인" : "HACKER PROFILE 100 COINS"));
+    }
+
+    private bool OwnsCharacter(int characterIndex)
+    {
+        return (ownedCharacterMask & (1 << characterIndex)) != 0;
+    }
+
+    private void BuyNicknameTicket()
+    {
+        if (nicknameTickets > 0)
+        {
+            UpdateShopText();
+            return;
+        }
+        if (coins < 30)
+        {
+            shopStatusText.text = language == Language.Korean ? "코인이 부족합니다." : "Not enough coins.";
+            return;
+        }
+        coins -= 30;
+        nicknameTickets++;
+        SaveShopData();
+        UpdateCoinText();
+        UpdateShopText();
+    }
+
+    private void BuyCharacter(int characterIndex)
+    {
+        if (OwnsCharacter(characterIndex))
+        {
+            shopStatusText.text = language == Language.Korean ? "이미 보유한 프로필입니다." : "You already own this profile.";
+            return;
+        }
+        if (coins < 100)
+        {
+            shopStatusText.text = language == Language.Korean ? "코인이 부족합니다." : "Not enough coins.";
+            return;
+        }
+        coins -= 100;
+        ownedCharacterMask |= 1 << characterIndex;
+        SaveShopData();
+        UpdateCoinText();
+        UpdateShopText();
+    }
+
+    private void SaveShopData()
+    {
+        PlayerPrefs.SetInt(CoinsKey, coins);
+        PlayerPrefs.SetInt(NicknameTicketsKey, nicknameTickets);
+        PlayerPrefs.SetInt(OwnedCharactersKey, ownedCharacterMask);
+        PlayerPrefs.Save();
+    }
+
     private void ShowUpdatePanel(UpdateChecker.UpdateInfo updateInfo)
     {
         if (updateInfo == null || updatePanel == null) return;
@@ -889,6 +1036,8 @@ public sealed class WordfallPrototype : MonoBehaviour
         PlayerPrefs.DeleteKey(NicknameKey);
         PlayerPrefs.DeleteKey(CharacterKey);
         PlayerPrefs.DeleteKey(CoinsKey);
+        PlayerPrefs.DeleteKey(NicknameTicketsKey);
+        PlayerPrefs.DeleteKey(OwnedCharactersKey);
         PlayerPrefs.DeleteKey(AttendanceDayKey);
         PlayerPrefs.DeleteKey(GamesPlayedKey);
         PlayerPrefs.DeleteKey(WordsTypedKey);
@@ -900,6 +1049,8 @@ public sealed class WordfallPrototype : MonoBehaviour
         profileCreated = false;
         selectedCharacter = 0;
         coins = 0;
+        nicknameTickets = 0;
+        ownedCharacterMask = 1;
         UpdateCharacterButtonStates();
         UpdateProfileSummary();
         UpdateCoinText();
@@ -951,7 +1102,11 @@ public sealed class WordfallPrototype : MonoBehaviour
         PlayerPrefs.SetInt(WordsTypedKey, PlayerPrefs.GetInt(WordsTypedKey, 0) + totalTyped);
         PlayerPrefs.SetInt(CorrectWordsKey, PlayerPrefs.GetInt(CorrectWordsKey, 0) + correctTyped);
         PlayerPrefs.SetInt(LastScoreKey, score);
+        int gameCoinReward = Mathf.Max(1, score / 50);
+        coins += gameCoinReward;
+        PlayerPrefs.SetInt(CoinsKey, coins);
         PlayerPrefs.Save();
+        UpdateCoinText();
         string accuracy = totalTyped > 0 ? Mathf.RoundToInt((float)correctTyped / totalTyped * 100f) + "% accuracy" : "0% accuracy";
         if (score > highScore)
         {
