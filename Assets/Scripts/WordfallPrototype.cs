@@ -257,7 +257,6 @@ public sealed class WordfallPrototype : MonoBehaviour
         menuButton.onClick.AddListener(ShowMainMenu);
         pauseButton = CreateButton("일시정지", gamePanel.transform, new Vector2(0.92f, 0.93f), new Vector2(120f, 46f), new Color32(58, 80, 122, 255));
         pauseButton.onClick.AddListener(TogglePause);
-        inputField.onValueChanged.AddListener(HandleInput);
         inputField.onEndEdit.AddListener(HandleSubmitted);
 
         pausePanel = CreatePanel("PausePanel", gamePanel.transform, new Color32(9, 18, 38, 235));
@@ -541,7 +540,7 @@ public sealed class WordfallPrototype : MonoBehaviour
         var text = CreateText(word, wordLayer, 30, GetWordColor(type, useKorean), new Vector2(0.5f, 1f), new Vector2(0.5f, 1f));
         var rect = text.rectTransform;
         rect.sizeDelta = new Vector2(190f, 55f);
-        rect.anchoredPosition = new Vector2(Random.Range(-470f, 470f), 300f);
+        rect.anchoredPosition = GetNonOverlappingSpawnPosition();
         fallingWords.Add(new FallingWord(word, type, rect, text.gameObject, (type == WordType.Boss ? GetMinimumWordSpeed() * 0.8f : Random.Range(GetMinimumWordSpeed(), GetMaximumWordSpeed())) + score * 0.03f));
         spawnedThisWave++;
         if (spawnedThisWave >= 10)
@@ -551,6 +550,28 @@ public sealed class WordfallPrototype : MonoBehaviour
             statusText.text = "WAVE " + wave + " INCOMING!";
             UpdateHud();
         }
+    }
+
+    private Vector2 GetNonOverlappingSpawnPosition()
+    {
+        for (int attempt = 0; attempt < 40; attempt++)
+        {
+            var candidate = new Vector2(Random.Range(-500f, 500f), Random.Range(250f, 330f));
+            bool overlaps = false;
+            for (int i = 0; i < fallingWords.Count; i++)
+            {
+                var existing = fallingWords[i].rect.anchoredPosition;
+                if (Mathf.Abs(candidate.x - existing.x) < 205f && Mathf.Abs(candidate.y - existing.y) < 72f)
+                {
+                    overlaps = true;
+                    break;
+                }
+            }
+
+            if (!overlaps) return candidate;
+        }
+
+        return new Vector2(Random.Range(-500f, 500f), 330f);
     }
 
     private WordType GetRandomWordType()
@@ -631,7 +652,62 @@ public sealed class WordfallPrototype : MonoBehaviour
 
     private void HandleSubmitted(string value)
     {
-        if (playing && !paused && !string.IsNullOrWhiteSpace(value)) totalTyped++;
+        if (!playing || paused) return;
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            RefocusInputField();
+            return;
+        }
+
+        totalTyped++;
+        bool matched = false;
+        string submitted = value.Trim();
+        for (int i = fallingWords.Count - 1; i >= 0; i--)
+        {
+            if (fallingWords[i].word != submitted) continue;
+            matched = true;
+            var wordType = fallingWords[i].type;
+            correctTyped++;
+            Destroy(fallingWords[i].objectToDestroy);
+            fallingWords.RemoveAt(i);
+            if (wordType == WordType.Golden)
+            {
+                score += 25 + combo * 3;
+                statusText.text = language == Language.Korean ? "골든 단어! 보너스 점수!" : "GOLDEN WORD! Bonus points!";
+            }
+            else if (wordType == WordType.Heal)
+            {
+                score += 15 + combo * 2;
+                lives = Mathf.Min(5, lives + 1);
+                statusText.text = language == Language.Korean ? "회복 단어! 목숨 +1" : "HEAL WORD! +1 LIFE";
+            }
+            else if (wordType == WordType.Bomb)
+            {
+                score += 20 + combo * 2;
+                statusText.text = language == Language.Korean ? "폭탄 해제!" : "BOMB DEFUSED!";
+            }
+            else if (wordType == WordType.Boss)
+            {
+                score += 100 + combo * 5;
+                statusText.text = language == Language.Korean ? "보스 처치! 큰 보너스!" : "BOSS DEFEATED! Huge bonus!";
+            }
+            else
+            {
+                score += 10 + combo * 2;
+                statusText.text = language == Language.Korean ? "정답! 계속 입력하세요." : "NICE! Keep typing.";
+            }
+            combo++;
+            break;
+        }
+
+        if (!matched)
+        {
+            combo = 0;
+            statusText.text = language == Language.Korean ? "오답입니다. 다시 입력하세요." : "WRONG WORD. Try again.";
+        }
+
+        inputField.text = string.Empty;
+        UpdateHud();
         RefocusInputField();
     }
 
