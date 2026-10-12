@@ -199,6 +199,7 @@ public sealed class WordfallPrototype : MonoBehaviour
 
         setupPanel = CreatePanel("SetupPanel", mainPanel.transform, new Color32(9, 18, 38, 245));
         SetRect(setupPanel.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
+        ApplyPixelWindow(setupPanel);
         setupTitleText = CreateText("게임 설정", setupPanel.transform, 38, Color.white, new Vector2(0.5f, 0.78f), new Vector2(0.5f, 0.78f));
         difficultyText = CreateText("난이도  보통", setupPanel.transform, 22, new Color32(255, 211, 94, 255), new Vector2(0.5f, 0.65f), new Vector2(0.5f, 0.65f));
         difficultyButtons = new Button[3];
@@ -228,6 +229,7 @@ public sealed class WordfallPrototype : MonoBehaviour
 
         languagePanel = CreatePanel("LanguagePanel", mainPanel.transform, new Color32(9, 18, 38, 245));
         SetRect(languagePanel.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
+        ApplyPixelWindow(languagePanel);
         languageTitleText = CreateText("언어 설정", languagePanel.transform, 42, Color.white, new Vector2(0.5f, 0.70f), new Vector2(0.5f, 0.70f));
         languageButtons = new Button[2];
         languageButtons[0] = CreateButton("한국어", languagePanel.transform, new Vector2(0.37f, 0.48f), new Vector2(260f, 76f), new Color32(67, 149, 255, 255));
@@ -742,6 +744,26 @@ public sealed class WordfallPrototype : MonoBehaviour
         var image = panel.GetComponent<Image>();
         image.sprite = Sprite.Create(background, new Rect(0f, 0f, background.width, background.height), new Vector2(0.5f, 0.5f), 100f);
         image.type = Image.Type.Simple;
+        image.preserveAspect = false;
+        image.color = Color.white;
+    }
+
+    private void ApplyPixelWindow(GameObject panel)
+    {
+        var windowTexture = Resources.Load<Texture2D>("Pixel/wordfall-window");
+        if (windowTexture == null) return;
+        windowTexture.filterMode = FilterMode.Point;
+        windowTexture.wrapMode = TextureWrapMode.Clamp;
+        var image = panel.GetComponent<Image>();
+        image.sprite = Sprite.Create(
+            windowTexture,
+            new Rect(0f, 0f, windowTexture.width, windowTexture.height),
+            new Vector2(0.5f, 0.5f),
+            100f,
+            0,
+            SpriteMeshType.FullRect,
+            new Vector4(180f, 180f, 180f, 180f));
+        image.type = Image.Type.Sliced;
         image.preserveAspect = false;
         image.color = Color.white;
     }
