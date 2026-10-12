@@ -10,6 +10,9 @@ public sealed class WordfallPrototype : MonoBehaviour
 {
     private const string RootName = "WordfallPrototypeRuntime";
     private const string HighScoreKey = "WordfallTypingDefense.HighScore";
+    private const string ProfileCreatedKey = "WordfallTypingDefense.ProfileCreated";
+    private const string NicknameKey = "WordfallTypingDefense.Nickname";
+    private const string CharacterKey = "WordfallTypingDefense.Character";
     private readonly List<FallingWord> fallingWords = new List<FallingWord>();
     private readonly string[] koreanWords = { "사과", "하늘", "컴퓨터", "게임", "방어", "키보드", "단어", "우주" };
     private readonly string[] englishWords = { "apple", "sky", "computer", "game", "defense", "keyboard", "word", "space" };
@@ -18,6 +21,7 @@ public sealed class WordfallPrototype : MonoBehaviour
     private GameObject gamePanel;
     private GameObject setupPanel;
     private GameObject languagePanel;
+    private GameObject profilePanel;
     private Text scoreText;
     private Text livesText;
     private Text comboText;
@@ -35,6 +39,10 @@ public sealed class WordfallPrototype : MonoBehaviour
     private Text inputPlaceholder;
     private Text setupTitleText;
     private Text languageTitleText;
+    private Text profileTitleText;
+    private Text profilePromptText;
+    private Text profileErrorText;
+    private Text profileSummaryText;
     private InputField inputField;
     private RectTransform wordLayer;
     private Button[] difficultyButtons;
@@ -45,11 +53,17 @@ public sealed class WordfallPrototype : MonoBehaviour
     private Button startButton;
     private Button setupBackButton;
     private Button languageCloseButton;
+    private Button[] characterButtons;
+    private Button createProfileButton;
+    private Button profileResetButton;
     private Button menuButton;
     private Button pauseButton;
     private Button resumeButton;
     private Button pauseMenuButton;
     private GameObject pausePanel;
+    private InputField nicknameInput;
+    private int selectedCharacter;
+    private bool profileCreated;
     private float spawnTimer;
     private int score;
     private int lives;
@@ -108,6 +122,8 @@ public sealed class WordfallPrototype : MonoBehaviour
         if (uiFont == null) uiFont = Font.CreateDynamicFontFromOSFont("Malgun Gothic", 32);
         if (uiFont == null) uiFont = Resources.GetBuiltinResource<Font>("Arial.ttf");
         highScore = PlayerPrefs.GetInt(HighScoreKey, 0);
+        profileCreated = PlayerPrefs.GetInt(ProfileCreatedKey, 0) == 1;
+        selectedCharacter = Mathf.Clamp(PlayerPrefs.GetInt(CharacterKey, 0), 0, 2);
         BuildInterface();
         ShowMainMenu();
     }
@@ -194,6 +210,7 @@ public sealed class WordfallPrototype : MonoBehaviour
         mainStartButton.onClick.AddListener(ShowSetupPanel);
         languageOpenButton = CreateButton("언어 설정", mainPanel.transform, new Vector2(0.66f, 0.21f), new Vector2(250f, 78f), new Color32(58, 80, 122, 255));
         languageOpenButton.onClick.AddListener(ShowLanguagePanel);
+        profileSummaryText = CreateText("", mainPanel.transform, 16, new Color32(171, 190, 220, 255), new Vector2(0.5f, 0.105f), new Vector2(0.5f, 0.105f));
         highScoreText = CreateText("최고 점수 0000", mainPanel.transform, 18, new Color32(255, 211, 94, 255), new Vector2(0.5f, 0.07f), new Vector2(0.5f, 0.07f));
         prototypeText = CreateText("픽셀 프로토타입", mainPanel.transform, 14, new Color32(120, 140, 180, 255), new Vector2(0.5f, 0.035f), new Vector2(0.5f, 0.035f));
 
@@ -239,6 +256,27 @@ public sealed class WordfallPrototype : MonoBehaviour
         languageCloseButton = CreateButton("닫기", languagePanel.transform, new Vector2(0.5f, 0.25f), new Vector2(220f, 60f), new Color32(58, 80, 122, 255));
         languageCloseButton.onClick.AddListener(CloseLanguagePanel);
         languagePanel.SetActive(false);
+
+        profilePanel = CreatePanel("ProfilePanel", mainPanel.transform, new Color32(9, 18, 38, 250));
+        SetRect(profilePanel.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
+        ApplyPixelWindow(profilePanel);
+        profileTitleText = CreateText("플레이어 만들기", profilePanel.transform, 42, Color.white, new Vector2(0.5f, 0.78f), new Vector2(0.5f, 0.78f));
+        profilePromptText = CreateText("닉네임과 캐릭터를 선택하세요", profilePanel.transform, 20, new Color32(171, 190, 220, 255), new Vector2(0.5f, 0.68f), new Vector2(0.5f, 0.68f));
+        nicknameInput = CreateNicknameInput(profilePanel.transform);
+        characterButtons = new Button[3];
+        characterButtons[0] = CreateButton("기사", profilePanel.transform, new Vector2(0.28f, 0.39f), new Vector2(210f, 100f), new Color32(55, 102, 149, 255));
+        characterButtons[1] = CreateButton("마법사", profilePanel.transform, new Vector2(0.50f, 0.39f), new Vector2(210f, 100f), new Color32(105, 76, 162, 255));
+        characterButtons[2] = CreateButton("해커", profilePanel.transform, new Vector2(0.72f, 0.39f), new Vector2(210f, 100f), new Color32(53, 137, 105, 255));
+        for (int i = 0; i < characterButtons.Length; i++)
+        {
+            int characterIndex = i;
+            characterButtons[i].onClick.AddListener(() => SelectCharacter(characterIndex));
+        }
+        profileErrorText = CreateText("", profilePanel.transform, 16, new Color32(255, 142, 142, 255), new Vector2(0.5f, 0.24f), new Vector2(0.5f, 0.24f));
+        createProfileButton = CreateButton("프로필 만들기", profilePanel.transform, new Vector2(0.5f, 0.13f), new Vector2(330f, 68f), new Color32(67, 149, 255, 255));
+        createProfileButton.onClick.AddListener(CreateProfile);
+        profilePanel.SetActive(false);
+        UpdateCharacterButtonStates();
         UpdateHighScoreText();
         UpdateHighScoreText();
 
@@ -302,6 +340,10 @@ public sealed class WordfallPrototype : MonoBehaviour
         SetButtonText(languageCloseButton, language == Language.Korean ? "닫기" : "CLOSE");
         SetButtonText(languageButtons[0], language == Language.Korean ? "한국어" : "KOREAN");
         SetButtonText(languageButtons[1], language == Language.Korean ? "영어" : "ENGLISH");
+        SetButtonText(createProfileButton, language == Language.Korean ? "프로필 만들기" : "CREATE PROFILE");
+        SetButtonText(characterButtons[0], language == Language.Korean ? "기사" : "KNIGHT");
+        SetButtonText(characterButtons[1], language == Language.Korean ? "마법사" : "MAGE");
+        SetButtonText(characterButtons[2], language == Language.Korean ? "해커" : "HACKER");
         SetButtonText(menuButton, language == Language.Korean ? "메뉴" : "MENU");
         SetButtonText(pauseButton, language == Language.Korean ? "일시정지" : "PAUSE");
         SetButtonText(resumeButton, language == Language.Korean ? "계속하기" : "RESUME");
@@ -316,9 +358,12 @@ public sealed class WordfallPrototype : MonoBehaviour
         SetButtonText(modeButtons[4], language == Language.Korean ? "오늘" : "DAILY");
         setupTitleText.text = language == Language.Korean ? "게임 설정" : "GAME SETTINGS";
         languageTitleText.text = language == Language.Korean ? "언어 설정" : "LANGUAGE";
+        profileTitleText.text = language == Language.Korean ? "플레이어 만들기" : "CREATE PLAYER";
+        profilePromptText.text = language == Language.Korean ? "닉네임과 캐릭터를 선택하세요" : "Choose a nickname and character";
         difficultyText.text = (language == Language.Korean ? "난이도  " : "DIFFICULTY  ") + GetDifficultyName();
         modeText.text = (language == Language.Korean ? "모드  " : "MODE  ") + GetGameModeName();
         UpdateHighScoreText();
+        UpdateProfileSummary();
         if (inputPlaceholder != null) inputPlaceholder.text = language == Language.Korean ? "여기에 입력..." : "TYPE HERE...";
         UpdateHud();
     }
@@ -330,6 +375,78 @@ public sealed class WordfallPrototype : MonoBehaviour
         if (text != null) text.text = value;
     }
 
+    private void ShowProfilePanel()
+    {
+        setupPanel.SetActive(false);
+        languagePanel.SetActive(false);
+        profilePanel.SetActive(true);
+        nicknameInput.text = string.Empty;
+        profileErrorText.text = string.Empty;
+        SelectCharacter(selectedCharacter);
+        EventSystem.current.SetSelectedGameObject(nicknameInput.gameObject);
+        nicknameInput.ActivateInputField();
+    }
+
+    private void SelectCharacter(int characterIndex)
+    {
+        selectedCharacter = Mathf.Clamp(characterIndex, 0, characterButtons.Length - 1);
+        UpdateCharacterButtonStates();
+    }
+
+    private void UpdateCharacterButtonStates()
+    {
+        if (characterButtons == null) return;
+        for (int i = 0; i < characterButtons.Length; i++)
+        {
+            var colors = characterButtons[i].colors;
+            colors.normalColor = i == selectedCharacter ? new Color32(255, 211, 94, 255) : Color.white;
+            colors.highlightedColor = new Color32(255, 232, 150, 255);
+            colors.pressedColor = new Color32(216, 173, 68, 255);
+            characterButtons[i].colors = colors;
+        }
+    }
+
+    private void CreateProfile()
+    {
+        var nickname = nicknameInput.text.Trim();
+        if (nickname.Length < 2)
+        {
+            profileErrorText.text = language == Language.Korean ? "닉네임을 2글자 이상 입력하세요." : "Enter at least 2 characters.";
+            nicknameInput.ActivateInputField();
+            return;
+        }
+
+        PlayerPrefs.SetString(NicknameKey, nickname);
+        PlayerPrefs.SetInt(CharacterKey, selectedCharacter);
+        PlayerPrefs.SetInt(ProfileCreatedKey, 1);
+        PlayerPrefs.Save();
+        profileCreated = true;
+        UpdateProfileSummary();
+        profilePanel.SetActive(false);
+    }
+
+    private string GetCharacterName()
+    {
+        if (selectedCharacter == 1) return language == Language.Korean ? "마법사" : "MAGE";
+        if (selectedCharacter == 2) return language == Language.Korean ? "해커" : "HACKER";
+        return language == Language.Korean ? "기사" : "KNIGHT";
+    }
+
+    private void UpdateProfileSummary()
+    {
+        if (profileSummaryText == null) return;
+        if (!profileCreated)
+        {
+            profileSummaryText.text = string.Empty;
+            return;
+        }
+
+        string nickname = PlayerPrefs.GetString(NicknameKey, "PLAYER");
+        profileSummaryText.text = language == Language.Korean
+            ? "플레이어  " + nickname + "  /  " + GetCharacterName()
+            : "PLAYER  " + nickname + "  /  " + GetCharacterName();
+    }
+
     private void ShowMainMenu()
     {
         playing = false;
@@ -339,7 +456,9 @@ public sealed class WordfallPrototype : MonoBehaviour
         gamePanel.SetActive(false);
         if (setupPanel != null) setupPanel.SetActive(false);
         if (languagePanel != null) languagePanel.SetActive(false);
+        if (profilePanel != null) profilePanel.SetActive(!profileCreated);
         if (pausePanel != null) pausePanel.SetActive(false);
+        if (!profileCreated) ShowProfilePanel();
     }
 
     private void ShowSetupPanel()
@@ -856,6 +975,26 @@ public sealed class WordfallPrototype : MonoBehaviour
         inputPlaceholder = CreateText("여기에 입력...", objectToCreate.transform, 22, new Color32(143, 161, 190, 255), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f));
         input.placeholder = inputPlaceholder;
         input.placeholder.rectTransform.sizeDelta = new Vector2(620f, 50f);
+        return input;
+    }
+
+    private InputField CreateNicknameInput(Transform parent)
+    {
+        var objectToCreate = new GameObject("NicknameInput", typeof(RectTransform), typeof(Image), typeof(InputField));
+        objectToCreate.transform.SetParent(parent, false);
+        objectToCreate.GetComponent<Image>().color = new Color32(245, 248, 255, 255);
+        var rect = objectToCreate.GetComponent<RectTransform>();
+        SetRect(rect, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, 100f), new Vector2(560f, 58f));
+        var input = objectToCreate.GetComponent<InputField>();
+        input.lineType = InputField.LineType.SingleLine;
+        input.contentType = InputField.ContentType.Name;
+        input.characterLimit = 16;
+        input.caretColor = new Color32(40, 80, 140, 255);
+        input.textComponent = CreateText("", objectToCreate.transform, 24, new Color32(30, 48, 80, 255), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f));
+        input.textComponent.rectTransform.sizeDelta = new Vector2(520f, 50f);
+        var placeholder = CreateText(language == Language.Korean ? "닉네임 입력..." : "ENTER NICKNAME...", objectToCreate.transform, 20, new Color32(143, 161, 190, 255), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f));
+        placeholder.rectTransform.sizeDelta = new Vector2(520f, 50f);
+        input.placeholder = placeholder;
         return input;
     }
 
