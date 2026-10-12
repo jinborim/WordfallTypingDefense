@@ -393,12 +393,14 @@ public sealed class WordfallPrototype : MonoBehaviour
 
         var header = CreatePanel("Header", gamePanel.transform, new Color32(21, 35, 66, 255));
         SetRect(header.GetComponent<RectTransform>(), new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -36f), new Vector2(1280f, 72f));
-        ApplyPixelScoreHud(header);
-        scoreText = CreateText("SCORE 0000", header.transform, 24, Color.white, new Vector2(0.12f, 0.5f), new Vector2(0.12f, 0.5f));
+        var scoreHud = CreatePanel("ScoreHud", header.transform, new Color32(16, 29, 58, 255));
+        SetRect(scoreHud.GetComponent<RectTransform>(), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(760f, 64f));
+        ApplyPixelScoreHud(scoreHud);
+        scoreText = CreateText("SCORE 0000", header.transform, 24, Color.white, new Vector2(0.31f, 0.5f), new Vector2(0.31f, 0.5f));
         livesText = CreateText("LIVES 5", header.transform, 24, new Color32(255, 211, 94, 255), new Vector2(0.76f, 0.5f), new Vector2(0.76f, 0.5f));
-        comboText = CreateText("COMBO x0", header.transform, 20, new Color32(147, 232, 189, 255), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f));
-        waveText = CreateText("WAVE 1", header.transform, 18, new Color32(193, 205, 230, 255), new Vector2(0.34f, 0.5f), new Vector2(0.34f, 0.5f));
-        timerText = CreateText("", header.transform, 18, new Color32(255, 142, 142, 255), new Vector2(0.90f, 0.5f), new Vector2(0.90f, 0.5f));
+        comboText = CreateText("COMBO x0", header.transform, 20, new Color32(147, 232, 189, 255), new Vector2(0.61f, 0.5f), new Vector2(0.61f, 0.5f));
+        waveText = CreateText("WAVE 1", header.transform, 18, new Color32(193, 205, 230, 255), new Vector2(0.46f, 0.5f), new Vector2(0.46f, 0.5f));
+        timerText = CreateText("", header.transform, 18, new Color32(255, 142, 142, 255), new Vector2(0.88f, 0.5f), new Vector2(0.88f, 0.5f));
         activeCharacterImage = CreateCharacterProfile(gamePanel.transform);
         var wordLayerObject = CreatePanel("WordLayer", gamePanel.transform, new Color32(0, 0, 0, 0));
         wordLayer = wordLayerObject.GetComponent<RectTransform>();
@@ -407,6 +409,10 @@ public sealed class WordfallPrototype : MonoBehaviour
         var inputBackground = CreatePanel("InputBackground", gamePanel.transform, new Color32(24, 43, 76, 255));
         SetRect(inputBackground.GetComponent<RectTransform>(), new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, 122f), new Vector2(780f, 88f));
         ApplyPixelInputFrame(inputBackground);
+        var inputFill = CreatePanel("InputFill", inputBackground.transform, new Color32(8, 18, 39, 255));
+        var inputFillRect = inputFill.GetComponent<RectTransform>();
+        SetRect(inputFillRect, Vector2.zero, Vector2.one, new Vector2(18f, 18f), new Vector2(-18f, -18f));
+        inputFill.transform.SetAsFirstSibling();
         inputBackground.transform.SetAsLastSibling();
         inputField = CreateInputField(inputBackground.transform);
         statusText = CreateText("Type a word to defend your base!", gamePanel.transform, 18, new Color32(171, 190, 220, 255), new Vector2(0.5f, 0f), new Vector2(0.5f, 0f));
