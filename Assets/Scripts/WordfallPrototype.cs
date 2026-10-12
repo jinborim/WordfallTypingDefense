@@ -230,12 +230,12 @@ public sealed class WordfallPrototype : MonoBehaviour
                 if (word.type == WordType.Bomb)
                 {
                     lives -= 2;
-                    statusText.text = "BOMB MISSED!  -2 LIVES";
+                    statusText.text = language == Language.Korean ? "폭탄을 놓쳤습니다! 목숨 -2" : "BOMB MISSED!  -2 LIVES";
                 }
                 else
                 {
                     lives--;
-                    statusText.text = "A word got through!";
+                    statusText.text = language == Language.Korean ? "단어를 놓쳤습니다!" : "A word got through!";
                 }
                 combo = 0;
                 UpdateHud();
@@ -393,19 +393,24 @@ public sealed class WordfallPrototype : MonoBehaviour
 
         var header = CreatePanel("Header", gamePanel.transform, new Color32(21, 35, 66, 255));
         SetRect(header.GetComponent<RectTransform>(), new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -36f), new Vector2(1280f, 72f));
+        ApplyPixelScoreHud(header);
         scoreText = CreateText("SCORE 0000", header.transform, 24, Color.white, new Vector2(0.12f, 0.5f), new Vector2(0.12f, 0.5f));
         livesText = CreateText("LIVES 5", header.transform, 24, new Color32(255, 211, 94, 255), new Vector2(0.76f, 0.5f), new Vector2(0.76f, 0.5f));
         comboText = CreateText("COMBO x0", header.transform, 20, new Color32(147, 232, 189, 255), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f));
         waveText = CreateText("WAVE 1", header.transform, 18, new Color32(193, 205, 230, 255), new Vector2(0.34f, 0.5f), new Vector2(0.34f, 0.5f));
         timerText = CreateText("", header.transform, 18, new Color32(255, 142, 142, 255), new Vector2(0.90f, 0.5f), new Vector2(0.90f, 0.5f));
         activeCharacterImage = CreateCharacterProfile(gamePanel.transform);
-        wordLayer = CreatePanel("WordLayer", gamePanel.transform, new Color32(0, 0, 0, 0)).GetComponent<RectTransform>();
-        SetRect(wordLayer, new Vector2(0f, 0f), new Vector2(1f, 1f), new Vector2(26f, 92f), new Vector2(-26f, -168f));
+        var wordLayerObject = CreatePanel("WordLayer", gamePanel.transform, new Color32(0, 0, 0, 0));
+        wordLayer = wordLayerObject.GetComponent<RectTransform>();
+        SetRect(wordLayer, new Vector2(0f, 0f), new Vector2(1f, 1f), new Vector2(26f, 92f), new Vector2(-26f, -190f));
+        wordLayerObject.AddComponent<RectMask2D>();
         var inputBackground = CreatePanel("InputBackground", gamePanel.transform, new Color32(24, 43, 76, 255));
-        SetRect(inputBackground.GetComponent<RectTransform>(), new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, 110f), new Vector2(720f, 70f));
+        SetRect(inputBackground.GetComponent<RectTransform>(), new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, 122f), new Vector2(780f, 88f));
         ApplyPixelInputFrame(inputBackground);
+        inputBackground.transform.SetAsLastSibling();
         inputField = CreateInputField(inputBackground.transform);
-        statusText = CreateText("Type a word to defend your base!", gamePanel.transform, 18, new Color32(171, 190, 220, 255), new Vector2(0.5f, 0.08f), new Vector2(0.5f, 0.08f));
+        statusText = CreateText("Type a word to defend your base!", gamePanel.transform, 18, new Color32(171, 190, 220, 255), new Vector2(0.5f, 0f), new Vector2(0.5f, 0f));
+        statusText.rectTransform.anchoredPosition = new Vector2(0f, 34f);
         menuButton = CreateButton("메뉴", gamePanel.transform, new Vector2(0.08f, 0.93f), new Vector2(120f, 46f), new Color32(58, 80, 122, 255));
         menuButton.onClick.AddListener(ShowMainMenu);
         pauseButton = CreateButton("일시정지", gamePanel.transform, new Vector2(0.92f, 0.93f), new Vector2(120f, 46f), new Color32(58, 80, 122, 255));
@@ -811,11 +816,11 @@ public sealed class WordfallPrototype : MonoBehaviour
             PlayerPrefs.SetInt(HighScoreKey, highScore);
             PlayerPrefs.Save();
             UpdateHighScoreText();
-            statusText.text = "NEW BEST!  " + score + "  " + accuracy + "  -  Press MENU to try again";
+            statusText.text = language == Language.Korean ? "최고 기록!  " + score + "  " + accuracy + "  -  메뉴를 눌러 다시 시작하세요" : "NEW BEST!  " + score + "  " + accuracy + "  -  Press MENU to try again";
         }
         else
         {
-            statusText.text = "GAME OVER  SCORE " + score + "  " + accuracy + "  -  Press MENU to try again";
+            statusText.text = language == Language.Korean ? "게임 종료  점수 " + score + "  " + accuracy + "  -  메뉴를 눌러 다시 시작하세요" : "GAME OVER  SCORE " + score + "  " + accuracy + "  -  Press MENU to try again";
         }
         inputField.DeactivateInputField();
     }
@@ -833,28 +838,28 @@ public sealed class WordfallPrototype : MonoBehaviour
             if (wordType == WordType.Golden)
             {
                 score += 25 + combo * 3;
-                statusText.text = "GOLDEN WORD!  Bonus points!";
+                statusText.text = language == Language.Korean ? "골든 단어! 보너스 점수!" : "GOLDEN WORD!  Bonus points!";
             }
             else if (wordType == WordType.Heal)
             {
                 score += 15 + combo * 2;
                 lives = Mathf.Min(5, lives + 1);
-                statusText.text = "HEAL WORD!  +1 LIFE";
+                statusText.text = language == Language.Korean ? "회복 단어! 목숨 +1" : "HEAL WORD!  +1 LIFE";
             }
             else if (wordType == WordType.Bomb)
             {
                 score += 20 + combo * 2;
-                statusText.text = "BOMB DEFUSED!";
+                statusText.text = language == Language.Korean ? "폭탄 해제!" : "BOMB DEFUSED!";
             }
             else if (wordType == WordType.Boss)
             {
                 score += 100 + combo * 5;
-                statusText.text = "BOSS DEFEATED!  Huge bonus!";
+                statusText.text = language == Language.Korean ? "보스 처치! 큰 보너스!" : "BOSS DEFEATED!  Huge bonus!";
             }
             else
             {
                 score += 10 + combo * 2;
-                statusText.text = "NICE! Keep typing.";
+                statusText.text = language == Language.Korean ? "정답! 계속 입력하세요." : "NICE! Keep typing.";
             }
             combo++;
             inputField.text = string.Empty;
@@ -899,7 +904,7 @@ public sealed class WordfallPrototype : MonoBehaviour
     private void ActivateFreezeSkill()
     {
         freezeTimer = 5f;
-        statusText.text = "FREEZE SKILL!  5 seconds";
+        statusText.text = language == Language.Korean ? "빙결 스킬! 5초" : "FREEZE SKILL!  5 seconds";
     }
 
     private void ClearScreenSkill()
@@ -910,7 +915,7 @@ public sealed class WordfallPrototype : MonoBehaviour
             fallingWords.RemoveAt(i);
         }
         score += 25;
-        statusText.text = "CLEAR SKILL!  All words removed";
+        statusText.text = language == Language.Korean ? "삭제 스킬! 모든 단어 제거" : "CLEAR SKILL!  All words removed";
         UpdateHud();
     }
 
@@ -957,7 +962,7 @@ public sealed class WordfallPrototype : MonoBehaviour
         {
             wave++;
             spawnedThisWave = 0;
-            statusText.text = "WAVE " + wave + " INCOMING!";
+            statusText.text = language == Language.Korean ? "웨이브 " + wave + " 도착!" : "WAVE " + wave + " INCOMING!";
             UpdateHud();
         }
     }
@@ -1235,6 +1240,19 @@ public sealed class WordfallPrototype : MonoBehaviour
         image.raycastTarget = false;
     }
 
+    private void ApplyPixelScoreHud(GameObject panel)
+    {
+        var texture = Resources.Load<Texture2D>("Pixel/score-hud-frame");
+        if (texture == null) return;
+        texture.filterMode = FilterMode.Point;
+        texture.wrapMode = TextureWrapMode.Clamp;
+        var image = panel.GetComponent<Image>();
+        image.sprite = Sprite.Create(texture, new Rect(0f, 0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100f, 0u, SpriteMeshType.FullRect, new Vector4(180f, 180f, 180f, 180f));
+        image.type = Image.Type.Sliced;
+        image.color = Color.white;
+        image.raycastTarget = false;
+    }
+
     private void ApplyPixelBackground(GameObject panel)
     {
         var background = Resources.Load<Texture2D>("Pixel/wordfall-background");
@@ -1374,15 +1392,15 @@ public sealed class WordfallPrototype : MonoBehaviour
         objectToCreate.transform.SetParent(parent, false);
         objectToCreate.GetComponent<Image>().color = new Color32(255, 255, 255, 0);
         var rect = objectToCreate.GetComponent<RectTransform>();
-        SetRect(rect, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(650f, 56f));
+        SetRect(rect, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(720f, 68f));
         var input = objectToCreate.GetComponent<InputField>();
         input.lineType = InputField.LineType.SingleLine;
         input.caretColor = new Color32(255, 211, 94, 255);
-        input.textComponent = CreateText("", objectToCreate.transform, 26, new Color32(231, 242, 255, 255), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f));
-        input.textComponent.rectTransform.sizeDelta = new Vector2(620f, 50f);
+        input.textComponent = CreateText("", objectToCreate.transform, 30, new Color32(255, 255, 255, 255), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f));
+        input.textComponent.rectTransform.sizeDelta = new Vector2(690f, 62f);
         inputPlaceholder = CreateText("여기에 입력...", objectToCreate.transform, 22, new Color32(126, 164, 215, 255), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f));
         input.placeholder = inputPlaceholder;
-        input.placeholder.rectTransform.sizeDelta = new Vector2(620f, 50f);
+        input.placeholder.rectTransform.sizeDelta = new Vector2(690f, 62f);
         return input;
     }
 
