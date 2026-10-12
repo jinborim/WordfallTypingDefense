@@ -233,6 +233,7 @@ public sealed class WordfallPrototype : MonoBehaviour
         setupPanel = CreatePanel("SetupPanel", mainPanel.transform, new Color32(9, 18, 38, 245));
         SetRect(setupPanel.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
         ApplyPixelWindow(setupPanel);
+        ApplyModalDim(setupPanel);
         setupTitleText = CreateText("게임 설정", setupPanel.transform, 38, Color.white, new Vector2(0.5f, 0.78f), new Vector2(0.5f, 0.78f));
         difficultyText = CreateText("난이도  보통", setupPanel.transform, 22, new Color32(255, 211, 94, 255), new Vector2(0.5f, 0.65f), new Vector2(0.5f, 0.65f));
         difficultyButtons = new Button[3];
@@ -254,42 +255,44 @@ public sealed class WordfallPrototype : MonoBehaviour
             int selectedMode = i;
             modeButtons[i].onClick.AddListener(() => SetGameMode((GameMode)selectedMode));
         }
-        startButton = CreateButton("게임 시작", setupPanel.transform, new Vector2(0.5f, 0.12f), new Vector2(360f, 72f), new Color32(67, 149, 255, 255));
+        startButton = CreateButton("게임 시작", setupPanel.transform, new Vector2(0.5f, 0.20f), new Vector2(360f, 72f), new Color32(67, 149, 255, 255));
         startButton.onClick.AddListener(StartGame);
-        setupBackButton = CreateButton("뒤로", setupPanel.transform, new Vector2(0.12f, 0.12f), new Vector2(180f, 60f), new Color32(58, 80, 122, 255));
+        setupBackButton = CreateButton("뒤로", setupPanel.transform, new Vector2(0.12f, 0.20f), new Vector2(180f, 60f), new Color32(58, 80, 122, 255));
         setupBackButton.onClick.AddListener(CloseSetupPanel);
         setupPanel.SetActive(false);
 
         languagePanel = CreatePanel("LanguagePanel", mainPanel.transform, new Color32(9, 18, 38, 245));
         SetRect(languagePanel.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
         ApplyPixelWindow(languagePanel);
+        ApplyModalDim(languagePanel);
         languageTitleText = CreateText("언어 설정", languagePanel.transform, 42, Color.white, new Vector2(0.5f, 0.70f), new Vector2(0.5f, 0.70f));
         languageButtons = new Button[2];
         languageButtons[0] = CreateButton("한국어", languagePanel.transform, new Vector2(0.37f, 0.48f), new Vector2(260f, 76f), new Color32(67, 149, 255, 255));
         languageButtons[1] = CreateButton("ENGLISH", languagePanel.transform, new Vector2(0.63f, 0.48f), new Vector2(260f, 76f), new Color32(58, 80, 122, 255));
         languageButtons[0].onClick.AddListener(() => SelectLanguageAndClose(Language.Korean));
         languageButtons[1].onClick.AddListener(() => SelectLanguageAndClose(Language.English));
-        languageCloseButton = CreateButton("닫기", languagePanel.transform, new Vector2(0.5f, 0.25f), new Vector2(220f, 60f), new Color32(58, 80, 122, 255));
+        languageCloseButton = CreateButton("닫기", languagePanel.transform, new Vector2(0.5f, 0.22f), new Vector2(220f, 60f), new Color32(58, 80, 122, 255));
         languageCloseButton.onClick.AddListener(CloseLanguagePanel);
         languagePanel.SetActive(false);
 
         profilePanel = CreatePanel("ProfilePanel", mainPanel.transform, new Color32(9, 18, 38, 250));
         SetRect(profilePanel.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
         ApplyPixelWindow(profilePanel);
-        profileTitleText = CreateText("플레이어 만들기", profilePanel.transform, 42, Color.white, new Vector2(0.5f, 0.78f), new Vector2(0.5f, 0.78f));
-        profilePromptText = CreateText("닉네임과 캐릭터를 선택하세요", profilePanel.transform, 20, new Color32(171, 190, 220, 255), new Vector2(0.5f, 0.68f), new Vector2(0.5f, 0.68f));
+        ApplyModalDim(profilePanel);
+        profileTitleText = CreateText("플레이어 만들기", profilePanel.transform, 42, Color.white, new Vector2(0.5f, 0.74f), new Vector2(0.5f, 0.74f));
+        profilePromptText = CreateText("닉네임과 캐릭터를 선택하세요", profilePanel.transform, 20, new Color32(171, 190, 220, 255), new Vector2(0.5f, 0.65f), new Vector2(0.5f, 0.65f));
         nicknameInput = CreateNicknameInput(profilePanel.transform);
         characterButtons = new Button[3];
-        characterButtons[0] = CreateCharacterButton("기사", "Pixel/character-knight", profilePanel.transform, new Vector2(0.28f, 0.39f), new Color32(55, 102, 149, 255));
-        characterButtons[1] = CreateCharacterButton("마법사", "Pixel/character-mage", profilePanel.transform, new Vector2(0.50f, 0.39f), new Color32(105, 76, 162, 255));
-        characterButtons[2] = CreateCharacterButton("해커", "Pixel/character-hacker", profilePanel.transform, new Vector2(0.72f, 0.39f), new Color32(53, 137, 105, 255));
+        characterButtons[0] = CreateCharacterButton("기사", "Pixel/character-knight", profilePanel.transform, new Vector2(0.28f, 0.40f), new Color32(55, 102, 149, 255));
+        characterButtons[1] = CreateCharacterButton("마법사", "Pixel/character-mage", profilePanel.transform, new Vector2(0.50f, 0.40f), new Color32(105, 76, 162, 255));
+        characterButtons[2] = CreateCharacterButton("해커", "Pixel/character-hacker", profilePanel.transform, new Vector2(0.72f, 0.40f), new Color32(53, 137, 105, 255));
         for (int i = 0; i < characterButtons.Length; i++)
         {
             int characterIndex = i;
             characterButtons[i].onClick.AddListener(() => SelectCharacter(characterIndex));
         }
-        profileErrorText = CreateText("", profilePanel.transform, 16, new Color32(255, 142, 142, 255), new Vector2(0.5f, 0.24f), new Vector2(0.5f, 0.24f));
-        createProfileButton = CreateButton("프로필 만들기", profilePanel.transform, new Vector2(0.5f, 0.13f), new Vector2(330f, 68f), new Color32(67, 149, 255, 255));
+        profileErrorText = CreateText("", profilePanel.transform, 16, new Color32(255, 142, 142, 255), new Vector2(0.5f, 0.27f), new Vector2(0.5f, 0.27f));
+        createProfileButton = CreateButton("프로필 만들기", profilePanel.transform, new Vector2(0.5f, 0.20f), new Vector2(330f, 68f), new Color32(67, 149, 255, 255));
         createProfileButton.onClick.AddListener(CreateProfile);
         profilePanel.SetActive(false);
         UpdateCharacterButtonStates();
@@ -299,10 +302,11 @@ public sealed class WordfallPrototype : MonoBehaviour
         attendancePanel = CreatePanel("AttendancePanel", mainPanel.transform, new Color32(9, 18, 38, 250));
         SetRect(attendancePanel.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
         ApplyPixelWindow(attendancePanel);
+        ApplyModalDim(attendancePanel);
         attendanceTitleText = CreateText("출석 보상", attendancePanel.transform, 42, Color.white, new Vector2(0.5f, 0.70f), new Vector2(0.5f, 0.70f));
         attendanceBodyText = CreateText("오늘의 출석 보상을 받았습니다!", attendancePanel.transform, 20, new Color32(171, 190, 220, 255), new Vector2(0.5f, 0.58f), new Vector2(0.5f, 0.58f));
         attendanceCoinText = CreateText("+10 COINS", attendancePanel.transform, 34, new Color32(255, 211, 94, 255), new Vector2(0.5f, 0.43f), new Vector2(0.5f, 0.43f));
-        attendanceCloseButton = CreateButton("확인", attendancePanel.transform, new Vector2(0.5f, 0.25f), new Vector2(220f, 64f), new Color32(67, 149, 255, 255));
+        attendanceCloseButton = CreateButton("확인", attendancePanel.transform, new Vector2(0.5f, 0.22f), new Vector2(220f, 64f), new Color32(67, 149, 255, 255));
         attendanceCloseButton.onClick.AddListener(CloseAttendancePanel);
         attendancePanel.SetActive(false);
 
@@ -454,6 +458,8 @@ public sealed class WordfallPrototype : MonoBehaviour
         profileCreated = true;
         UpdateProfileSummary();
         profilePanel.SetActive(false);
+        ShowSetupPanel();
+        CheckAttendanceReward();
     }
 
     private string GetCharacterName()
@@ -514,14 +520,19 @@ public sealed class WordfallPrototype : MonoBehaviour
         gamePanel.SetActive(false);
         if (setupPanel != null) setupPanel.SetActive(false);
         if (languagePanel != null) languagePanel.SetActive(false);
-        if (profilePanel != null) profilePanel.SetActive(!profileCreated);
+        if (profilePanel != null) profilePanel.SetActive(false);
+        if (attendancePanel != null) attendancePanel.SetActive(false);
         if (pausePanel != null) pausePanel.SetActive(false);
-        if (!profileCreated) ShowProfilePanel();
     }
 
     private void ShowSetupPanel()
     {
         if (playing) return;
+        if (!profileCreated)
+        {
+            ShowProfilePanel();
+            return;
+        }
         languagePanel.SetActive(false);
         setupPanel.SetActive(true);
         SetDifficulty(difficulty);
@@ -948,6 +959,17 @@ public sealed class WordfallPrototype : MonoBehaviour
         image.type = Image.Type.Sliced;
         image.preserveAspect = false;
         image.color = Color.white;
+    }
+
+    private void ApplyModalDim(GameObject panel)
+    {
+        var dimObject = new GameObject("ModalDim", typeof(RectTransform), typeof(Image));
+        dimObject.transform.SetParent(panel.transform, false);
+        var dimImage = dimObject.GetComponent<Image>();
+        dimImage.color = new Color32(0, 0, 0, 185);
+        dimImage.raycastTarget = true;
+        SetRect(dimObject.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
+        dimObject.transform.SetAsFirstSibling();
     }
 
     private Image CreateImage(string name, Transform parent, string resourcePath, Vector2 anchor, Vector2 size)
