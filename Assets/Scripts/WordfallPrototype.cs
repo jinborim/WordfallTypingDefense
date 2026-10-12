@@ -74,6 +74,7 @@ public sealed class WordfallPrototype : MonoBehaviour
     private Button pauseMenuButton;
     private GameObject pausePanel;
     private InputField nicknameInput;
+    private Image activeCharacterImage;
     private int selectedCharacter;
     private bool profileCreated;
     private int coins;
@@ -88,6 +89,9 @@ public sealed class WordfallPrototype : MonoBehaviour
     private int correctTyped;
     private float timeRemaining;
     private float freezeTimer;
+    private float characterEmotionTimer;
+    private bool characterIsAlarm;
+    private int displayedCharacter = -1;
     private int difficulty = 1;
     private bool playing;
     private bool paused;
@@ -148,6 +152,11 @@ public sealed class WordfallPrototype : MonoBehaviour
         if (!playing) return;
         HandleShortcuts();
         if (paused) return;
+        if (characterEmotionTimer > 0f)
+        {
+            characterEmotionTimer -= Time.deltaTime;
+            if (characterEmotionTimer <= 0f) SetCharacterEmotion(false);
+        }
         if (freezeTimer > 0f) freezeTimer -= Time.deltaTime;
         if (gameMode == GameMode.TimeAttack)
         {
@@ -172,6 +181,7 @@ public sealed class WordfallPrototype : MonoBehaviour
             if (freezeTimer <= 0f) word.rect.anchoredPosition += Vector2.down * word.speed * Time.deltaTime;
             if (word.rect.anchoredPosition.y < -360f)
             {
+                SetCharacterEmotion(true);
                 Destroy(word.objectToDestroy);
                 fallingWords.RemoveAt(i);
                 if (word.type == WordType.Bomb)
@@ -317,6 +327,8 @@ public sealed class WordfallPrototype : MonoBehaviour
         comboText = CreateText("COMBO x0", header.transform, 20, new Color32(147, 232, 189, 255), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f));
         waveText = CreateText("WAVE 1", header.transform, 18, new Color32(193, 205, 230, 255), new Vector2(0.34f, 0.5f), new Vector2(0.34f, 0.5f));
         timerText = CreateText("", header.transform, 18, new Color32(255, 142, 142, 255), new Vector2(0.90f, 0.5f), new Vector2(0.90f, 0.5f));
+        activeCharacterImage = CreateImage("ActiveCharacter", header.transform, GetCharacterResourcePath(false), new Vector2(0.035f, 0.5f), new Vector2(56f, 56f));
+        activeCharacterImage.raycastTarget = false;
         wordLayer = CreatePanel("WordLayer", gamePanel.transform, new Color32(0, 0, 0, 0)).GetComponent<RectTransform>();
         SetRect(wordLayer, new Vector2(0f, 0f), new Vector2(1f, 1f), new Vector2(26f, 92f), new Vector2(-26f, -168f));
         var inputBackground = CreatePanel("InputBackground", gamePanel.transform, new Color32(24, 43, 76, 255));
@@ -328,6 +340,7 @@ public sealed class WordfallPrototype : MonoBehaviour
         pauseButton = CreateButton("일시정지", gamePanel.transform, new Vector2(0.92f, 0.93f), new Vector2(120f, 46f), new Color32(58, 80, 122, 255));
         pauseButton.onClick.AddListener(TogglePause);
         inputField.onEndEdit.AddListener(HandleSubmitted);
+        inputField.onValueChanged.AddListener(HandleTypingPreview);
 
         pausePanel = CreatePanel("PausePanel", gamePanel.transform, new Color32(9, 18, 38, 235));
         CreateText("일시정지", pausePanel.transform, 52, Color.white, new Vector2(0.5f, 0.62f), new Vector2(0.5f, 0.62f));
@@ -579,6 +592,7 @@ public sealed class WordfallPrototype : MonoBehaviour
         playing = true;
         mainPanel.SetActive(false);
         gamePanel.SetActive(true);
+        SetCharacterEmotion(false);
         statusText.text = language == Language.Korean
             ? GetDifficultyName() + " / " + GetGameModeName() + "  -  ESC 일시정지  F1 빙결  F2 제거"
             : GetDifficultyName() + " / " + GetGameModeName() + "  -  ESC: pause  F1: freeze  F2: clear";
@@ -892,18 +906,62 @@ public sealed class WordfallPrototype : MonoBehaviour
                 statusText.text = language == Language.Korean ? "정답! 계속 입력하세요." : "NICE! Keep typing.";
             }
             combo++;
+            SetCharacterEmotion(false);
             break;
         }
 
         if (!matched)
         {
             combo = 0;
+            SetCharacterEmotion(true);
             statusText.text = language == Language.Korean ? "오답입니다. 다시 입력하세요." : "WRONG WORD. Try again.";
         }
 
         inputField.text = string.Empty;
         UpdateHud();
         RefocusInputField();
+    }
+
+    private void HandleTypingPreview(string value)
+    {
+        if (!playing || paused || string.IsNullOrWhiteSpace(value)) return;
+        string typed = value.Trim();
+        bool matchesPrefix = false;
+        for (int i = 0; i < fallingWords.Count; i++)
+        {
+            if (fallingWords[i].word.StartsWith(typed, System.StringComparison.OrdinalIgnoreCase))
+            {
+                matchesPrefix = true;
+                break;
+            }
+        }
+
+        if (matchesPrefix) SetCharacterEmotion(false);
+        else SetCharacterEmotion(true);
+    }
+
+    private string GetCharacterResourcePath(bool alarm)
+    {
+        string[] normalPaths = { "Pixel/character-knight", "Pixel/character-mage", "Pixel/character-hacker" };
+        string[] alarmPaths = { "Pixel/character-knight-alarm", "Pixel/character-mage-alarm", "Pixel/character-hacker-alarm" };
+        int index = Mathf.Clamp(selectedCharacter, 0, normalPaths.Length - 1);
+        return alarm ? alarmPaths[index] : normalPaths[index];
+    }
+
+    private void SetCharacterEmotion(bool alarm)
+    {
+        if (activeCharacterImage == null) return;
+        characterEmotionTimer = alarm ? 1.5f : 0f;
+        if (characterIsAlarm == alarm && displayedCharacter == selectedCharacter && activeCharacterImage.sprite != null) return;
+        characterIsAlarm = alarm;
+        displayedCharacter = selectedCharacter;
+        var texture = Resources.Load<Texture2D>(GetCharacterResourcePath(alarm));
+        if (texture == null) return;
+        texture.filterMode = FilterMode.Point;
+        texture.wrapMode = TextureWrapMode.Clamp;
+        activeCharacterImage.sprite = Sprite.Create(texture, new Rect(0f, 0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100f);
+        activeCharacterImage.preserveAspect = true;
+        activeCharacterImage.color = Color.white;
     }
 
     private void UpdateHighScoreText()

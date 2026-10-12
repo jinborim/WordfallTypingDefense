@@ -10,6 +10,7 @@ Unity WebGL 빌드를 목표로 하며, Chrome 웹 스토어 출시를 준비하
 - 한국 시간 오전 6시 기준 하루 1회 출석 보상 10코인
 - 출석 코인, 최고 점수, 플레이 횟수, 타자·정답 기록 저장
 - 기사, 마법사, 해커 픽셀 캐릭터 선택
+- 게임 화면에 선택 캐릭터가 표시되며, 오타·오답 제출·단어 낙하 실패 시 당황하고 화난 표정으로 반응
 - 한글 / 영어 언어 선택
 - 한국어와 영어 타자 모드
 - 혼합, 한글, 영어, 60초 도전, 오늘의 도전 모드
@@ -67,6 +68,9 @@ ProjectSettings/          Unity 프로젝트 설정
 - `Assets/Resources/Pixel/character-knight.png`
 - `Assets/Resources/Pixel/character-mage.png`
 - `Assets/Resources/Pixel/character-hacker.png`
+- `Assets/Resources/Pixel/character-knight-alarm.png`
+- `Assets/Resources/Pixel/character-mage-alarm.png`
+- `Assets/Resources/Pixel/character-hacker-alarm.png`
 
 ## WebGL 빌드
 
