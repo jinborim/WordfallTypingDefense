@@ -87,6 +87,7 @@ public sealed class WordfallPrototype : MonoBehaviour
     private Button menuButton;
     private Button pauseButton;
     private Button resumeButton;
+    private Button pauseMyPageButton;
     private Button pauseMenuButton;
     private GameObject pausePanel;
     private GameObject characterStatusPanel;
@@ -94,6 +95,7 @@ public sealed class WordfallPrototype : MonoBehaviour
     private Image activeCharacterImage;
     private Image myPageCharacterImage;
     private string pendingUpdateUrl;
+    private bool myPageOpenedFromGame;
     private int selectedCharacter;
     private bool profileCreated;
     private int coins;
@@ -272,12 +274,10 @@ public sealed class WordfallPrototype : MonoBehaviour
         titleText = CreateText("워드폴", mainPanel.transform, 64, new Color32(241, 247, 255, 255), new Vector2(0.5f, 0.65f), new Vector2(0.5f, 0.65f));
         subtitleText = CreateText("한글 & 영어 타자 디펜스", mainPanel.transform, 22, new Color32(158, 180, 220, 255), new Vector2(0.5f, 0.57f), new Vector2(0.5f, 0.57f));
         descriptionText = CreateText("떨어지는 단어를 빠르게 입력해 기지를 지키세요.", mainPanel.transform, 18, new Color32(214, 222, 238, 255), new Vector2(0.5f, 0.48f), new Vector2(0.5f, 0.48f));
-        mainStartButton = CreateButton("게임 시작", mainPanel.transform, new Vector2(0.25f, 0.21f), new Vector2(260f, 78f), new Color32(67, 149, 255, 255));
+        mainStartButton = CreateButton("게임 시작", mainPanel.transform, new Vector2(0.38f, 0.21f), new Vector2(340f, 78f), new Color32(255, 196, 61, 255));
         mainStartButton.onClick.AddListener(ShowSetupPanel);
-        languageOpenButton = CreateButton("언어 설정", mainPanel.transform, new Vector2(0.50f, 0.21f), new Vector2(230f, 78f), new Color32(58, 80, 122, 255));
+        languageOpenButton = CreateButton("언어 설정", mainPanel.transform, new Vector2(0.66f, 0.21f), new Vector2(250f, 78f), new Color32(58, 80, 122, 255));
         languageOpenButton.onClick.AddListener(ShowLanguagePanel);
-        myPageOpenButton = CreateButton("마이페이지", mainPanel.transform, new Vector2(0.75f, 0.21f), new Vector2(260f, 78f), new Color32(105, 76, 162, 255));
-        myPageOpenButton.onClick.AddListener(ShowMyPage);
         profileSummaryText = CreateText("", mainPanel.transform, 16, new Color32(171, 190, 220, 255), new Vector2(0.5f, 0.105f), new Vector2(0.5f, 0.105f));
         coinText = CreateText("코인 000", mainPanel.transform, 18, new Color32(255, 211, 94, 255), new Vector2(0.42f, 0.06f), new Vector2(0.42f, 0.06f));
         highScoreText = CreateText("최고 점수 0000", mainPanel.transform, 18, new Color32(255, 211, 94, 255), new Vector2(0.63f, 0.06f), new Vector2(0.63f, 0.06f));
@@ -308,9 +308,9 @@ public sealed class WordfallPrototype : MonoBehaviour
             int selectedMode = i;
             modeButtons[i].onClick.AddListener(() => SetGameMode((GameMode)selectedMode));
         }
-        startButton = CreateButton("게임 시작", setupPanel.transform, new Vector2(0.5f, 0.20f), new Vector2(360f, 72f), new Color32(67, 149, 255, 255));
+        startButton = CreateButton("게임 시작", setupPanel.transform, new Vector2(0.5f, 0.20f), new Vector2(360f, 72f), new Color32(255, 196, 61, 255));
         startButton.onClick.AddListener(StartGame);
-        setupBackButton = CreateButton("뒤로", setupPanel.transform, new Vector2(0.12f, 0.20f), new Vector2(180f, 60f), new Color32(58, 80, 122, 255));
+        setupBackButton = CreateButton("뒤로", setupPanel.transform, new Vector2(0.12f, 0.20f), new Vector2(180f, 60f), new Color32(78, 160, 255, 255));
         setupBackButton.onClick.AddListener(CloseSetupPanel);
         setupPanel.SetActive(false);
 
@@ -420,7 +420,9 @@ public sealed class WordfallPrototype : MonoBehaviour
         CreateText("ESC를 누르면 계속", pausePanel.transform, 18, new Color32(171, 190, 220, 255), new Vector2(0.5f, 0.53f), new Vector2(0.5f, 0.53f));
         resumeButton = CreateButton("계속하기", pausePanel.transform, new Vector2(0.5f, 0.39f), new Vector2(220f, 58f), new Color32(67, 149, 255, 255));
         resumeButton.onClick.AddListener(TogglePause);
-        pauseMenuButton = CreateButton("메뉴", pausePanel.transform, new Vector2(0.5f, 0.27f), new Vector2(220f, 52f), new Color32(58, 80, 122, 255));
+        pauseMyPageButton = CreateButton("마이페이지", pausePanel.transform, new Vector2(0.5f, 0.27f), new Vector2(220f, 52f), new Color32(105, 76, 162, 255));
+        pauseMyPageButton.onClick.AddListener(ShowMyPage);
+        pauseMenuButton = CreateButton("메뉴", pausePanel.transform, new Vector2(0.5f, 0.15f), new Vector2(220f, 52f), new Color32(58, 80, 122, 255));
         pauseMenuButton.onClick.AddListener(ShowMainMenu);
         pausePanel.SetActive(false);
     }
@@ -464,6 +466,7 @@ public sealed class WordfallPrototype : MonoBehaviour
         SetButtonText(menuButton, language == Language.Korean ? "메뉴" : "MENU");
         SetButtonText(pauseButton, language == Language.Korean ? "일시정지" : "PAUSE");
         SetButtonText(resumeButton, language == Language.Korean ? "계속하기" : "RESUME");
+        SetButtonText(pauseMyPageButton, language == Language.Korean ? "마이페이지" : "MY PAGE");
         SetButtonText(pauseMenuButton, language == Language.Korean ? "메뉴" : "MENU");
         SetButtonText(difficultyButtons[0], language == Language.Korean ? "쉬움" : "EASY");
         SetButtonText(difficultyButtons[1], language == Language.Korean ? "보통" : "NORMAL");
@@ -654,7 +657,13 @@ public sealed class WordfallPrototype : MonoBehaviour
 
     private void ShowMyPage()
     {
-        if (playing || !profileCreated) return;
+        if (!profileCreated || (playing && !paused)) return;
+        myPageOpenedFromGame = playing;
+        if (myPageOpenedFromGame)
+        {
+            gamePanel.SetActive(false);
+            mainPanel.SetActive(true);
+        }
         setupPanel.SetActive(false);
         languagePanel.SetActive(false);
         profilePanel.SetActive(false);
@@ -665,6 +674,13 @@ public sealed class WordfallPrototype : MonoBehaviour
     private void CloseMyPage()
     {
         myPagePanel.SetActive(false);
+        if (myPageOpenedFromGame)
+        {
+            mainPanel.SetActive(false);
+            gamePanel.SetActive(true);
+            pausePanel.SetActive(true);
+        }
+        myPageOpenedFromGame = false;
     }
 
     private void ShowUpdatePanel(UpdateChecker.UpdateInfo updateInfo)
@@ -1260,7 +1276,7 @@ public sealed class WordfallPrototype : MonoBehaviour
         var dimObject = new GameObject("ModalDim", typeof(RectTransform), typeof(Image));
         dimObject.transform.SetParent(panel.transform, false);
         var dimImage = dimObject.GetComponent<Image>();
-        dimImage.color = new Color32(0, 0, 0, 185);
+        dimImage.color = new Color32(0, 0, 0, 230);
         dimImage.raycastTarget = true;
         SetRect(dimObject.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
         dimObject.transform.SetAsFirstSibling();
@@ -1324,6 +1340,7 @@ public sealed class WordfallPrototype : MonoBehaviour
         outline.useGraphicAlpha = false;
         var button = objectToCreate.GetComponent<Button>();
         var colors = button.colors;
+        colors.normalColor = color;
         colors.highlightedColor = new Color(Mathf.Min(color.r + 0.08f, 1f), Mathf.Min(color.g + 0.08f, 1f), Mathf.Min(color.b + 0.08f, 1f), 1f);
         colors.pressedColor = new Color(color.r * 0.8f, color.g * 0.8f, color.b * 0.8f, 1f);
         button.colors = colors;
