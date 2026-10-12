@@ -73,6 +73,7 @@ public sealed class WordfallPrototype : MonoBehaviour
     private Button resumeButton;
     private Button pauseMenuButton;
     private GameObject pausePanel;
+    private GameObject characterStatusPanel;
     private InputField nicknameInput;
     private Image activeCharacterImage;
     private int selectedCharacter;
@@ -327,7 +328,10 @@ public sealed class WordfallPrototype : MonoBehaviour
         comboText = CreateText("COMBO x0", header.transform, 20, new Color32(147, 232, 189, 255), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f));
         waveText = CreateText("WAVE 1", header.transform, 18, new Color32(193, 205, 230, 255), new Vector2(0.34f, 0.5f), new Vector2(0.34f, 0.5f));
         timerText = CreateText("", header.transform, 18, new Color32(255, 142, 142, 255), new Vector2(0.90f, 0.5f), new Vector2(0.90f, 0.5f));
-        activeCharacterImage = CreateImage("ActiveCharacter", header.transform, GetCharacterResourcePath(false), new Vector2(0.035f, 0.5f), new Vector2(56f, 56f));
+        characterStatusPanel = CreatePanel("CharacterStatusPanel", gamePanel.transform, new Color32(15, 28, 58, 235));
+        SetRect(characterStatusPanel.GetComponent<RectTransform>(), new Vector2(0.09f, 0.56f), new Vector2(0.09f, 0.56f), Vector2.zero, new Vector2(190f, 220f));
+        ApplyPixelWindow(characterStatusPanel);
+        activeCharacterImage = CreateImage("ActiveCharacter", characterStatusPanel.transform, GetCharacterResourcePath(false), new Vector2(0.5f, 0.57f), new Vector2(156f, 156f));
         activeCharacterImage.raycastTarget = false;
         wordLayer = CreatePanel("WordLayer", gamePanel.transform, new Color32(0, 0, 0, 0)).GetComponent<RectTransform>();
         SetRect(wordLayer, new Vector2(0f, 0f), new Vector2(1f, 1f), new Vector2(26f, 92f), new Vector2(-26f, -168f));
