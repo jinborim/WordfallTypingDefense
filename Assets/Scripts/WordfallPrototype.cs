@@ -95,6 +95,7 @@ public sealed class WordfallPrototype : MonoBehaviour
     private int highScore;
     private int wave;
     private int spawnedThisWave;
+    private string lastSpawnedWord = string.Empty;
     private int totalTyped;
     private int correctTyped;
     private float timeRemaining;
@@ -326,7 +327,7 @@ public sealed class WordfallPrototype : MonoBehaviour
         ApplyPixelWindow(myPagePanel);
         ApplyModalDim(myPagePanel);
         myPageTitleText = CreateText("마이페이지", myPagePanel.transform, 42, Color.white, new Vector2(0.5f, 0.78f), new Vector2(0.5f, 0.78f));
-        myPageCharacterImage = CreateImage("MyPageCharacter", myPagePanel.transform, GetCharacterResourcePath(false), new Vector2(0.5f, 0.58f), new Vector2(150f, 150f));
+        myPageCharacterImage = CreateImage("MyPageCharacter", myPagePanel.transform, GetCharacterResourcePath(false), new Vector2(0.5f, 0.58f), new Vector2(132f, 132f));
         myPageCharacterImage.raycastTarget = false;
         myPageInfoText = CreateText("닉네임", myPagePanel.transform, 22, new Color32(214, 222, 238, 255), new Vector2(0.5f, 0.37f), new Vector2(0.5f, 0.37f));
         myPageCoinText = CreateText("코인 0", myPagePanel.transform, 22, new Color32(255, 211, 94, 255), new Vector2(0.5f, 0.30f), new Vector2(0.5f, 0.30f));
@@ -677,6 +678,7 @@ public sealed class WordfallPrototype : MonoBehaviour
         combo = 0;
         wave = 1;
         spawnedThisWave = 0;
+        lastSpawnedWord = string.Empty;
         totalTyped = 0;
         correctTyped = 0;
         paused = false;
@@ -837,9 +839,19 @@ public sealed class WordfallPrototype : MonoBehaviour
     {
         bool useKorean = gameMode == GameMode.Korean || (gameMode != GameMode.English && Random.value > 0.5f);
         string[] source = useKorean ? koreanWords : englishWords;
-        string word = source[Random.Range(0, source.Length)];
         bool isBoss = wave > 1 && wave % 5 == 0 && spawnedThisWave == 0;
-        if (isBoss) word += useKorean ? source[Random.Range(0, source.Length)] : " " + source[Random.Range(0, source.Length)];
+        string word = string.Empty;
+        for (int attempt = 0; attempt < source.Length * 3; attempt++)
+        {
+            string candidate = source[Random.Range(0, source.Length)];
+            if (isBoss) candidate += useKorean ? source[Random.Range(0, source.Length)] : " " + source[Random.Range(0, source.Length)];
+            if (candidate == lastSpawnedWord || IsWordAlreadyFalling(candidate)) continue;
+            word = candidate;
+            break;
+        }
+
+        if (string.IsNullOrEmpty(word)) return;
+        lastSpawnedWord = word;
         var type = isBoss ? WordType.Boss : GetRandomWordType();
         var text = CreateText(word, wordLayer, 30, GetWordColor(type, useKorean), new Vector2(0.5f, 1f), new Vector2(0.5f, 1f));
         var rect = text.rectTransform;
@@ -854,6 +866,16 @@ public sealed class WordfallPrototype : MonoBehaviour
             statusText.text = "WAVE " + wave + " INCOMING!";
             UpdateHud();
         }
+    }
+
+    private bool IsWordAlreadyFalling(string word)
+    {
+        for (int i = 0; i < fallingWords.Count; i++)
+        {
+            if (fallingWords[i].word == word) return true;
+        }
+
+        return false;
     }
 
     private Vector2 GetNonOverlappingSpawnPosition()
@@ -1054,7 +1076,7 @@ public sealed class WordfallPrototype : MonoBehaviour
         profileMaskImage.raycastTarget = false;
         characterStatusPanel.GetComponent<Mask>().showMaskGraphic = true;
 
-        var portrait = CreateImage("ActiveCharacter", characterStatusPanel.transform, GetCharacterResourcePath(false), new Vector2(0.5f, 0.5f), new Vector2(144f, 144f));
+        var portrait = CreateImage("ActiveCharacter", characterStatusPanel.transform, GetCharacterResourcePath(false), new Vector2(0.5f, 0.5f), new Vector2(128f, 128f));
         portrait.raycastTarget = false;
         return portrait;
     }
