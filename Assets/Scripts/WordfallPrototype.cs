@@ -28,6 +28,7 @@ public sealed class WordfallPrototype : MonoBehaviour
     private GameObject setupPanel;
     private GameObject languagePanel;
     private GameObject profilePanel;
+    private GameObject myPagePanel;
     private GameObject attendancePanel;
     private Text scoreText;
     private Text livesText;
@@ -50,6 +51,10 @@ public sealed class WordfallPrototype : MonoBehaviour
     private Text profilePromptText;
     private Text profileErrorText;
     private Text profileSummaryText;
+    private Text myPageTitleText;
+    private Text myPageInfoText;
+    private Text myPageCoinText;
+    private Text myPageStatsText;
     private Text coinText;
     private Text attendanceTitleText;
     private Text attendanceBodyText;
@@ -61,11 +66,14 @@ public sealed class WordfallPrototype : MonoBehaviour
     private Button[] languageButtons;
     private Button mainStartButton;
     private Button languageOpenButton;
+    private Button myPageOpenButton;
     private Button startButton;
     private Button setupBackButton;
     private Button languageCloseButton;
     private Button[] characterButtons;
     private Button createProfileButton;
+    private Button myPageCloseButton;
+    private Button deleteAccountButton;
     private Button profileResetButton;
     private Button attendanceCloseButton;
     private Button menuButton;
@@ -76,6 +84,7 @@ public sealed class WordfallPrototype : MonoBehaviour
     private GameObject characterStatusPanel;
     private InputField nicknameInput;
     private Image activeCharacterImage;
+    private Image myPageCharacterImage;
     private int selectedCharacter;
     private bool profileCreated;
     private int coins;
@@ -232,10 +241,12 @@ public sealed class WordfallPrototype : MonoBehaviour
         titleText = CreateText("워드폴", mainPanel.transform, 64, new Color32(241, 247, 255, 255), new Vector2(0.5f, 0.65f), new Vector2(0.5f, 0.65f));
         subtitleText = CreateText("한글 & 영어 타자 디펜스", mainPanel.transform, 22, new Color32(158, 180, 220, 255), new Vector2(0.5f, 0.57f), new Vector2(0.5f, 0.57f));
         descriptionText = CreateText("떨어지는 단어를 빠르게 입력해 기지를 지키세요.", mainPanel.transform, 18, new Color32(214, 222, 238, 255), new Vector2(0.5f, 0.48f), new Vector2(0.5f, 0.48f));
-        mainStartButton = CreateButton("게임 시작", mainPanel.transform, new Vector2(0.38f, 0.21f), new Vector2(340f, 78f), new Color32(67, 149, 255, 255));
+        mainStartButton = CreateButton("게임 시작", mainPanel.transform, new Vector2(0.25f, 0.21f), new Vector2(260f, 78f), new Color32(67, 149, 255, 255));
         mainStartButton.onClick.AddListener(ShowSetupPanel);
-        languageOpenButton = CreateButton("언어 설정", mainPanel.transform, new Vector2(0.66f, 0.21f), new Vector2(250f, 78f), new Color32(58, 80, 122, 255));
+        languageOpenButton = CreateButton("언어 설정", mainPanel.transform, new Vector2(0.50f, 0.21f), new Vector2(230f, 78f), new Color32(58, 80, 122, 255));
         languageOpenButton.onClick.AddListener(ShowLanguagePanel);
+        myPageOpenButton = CreateButton("마이페이지", mainPanel.transform, new Vector2(0.75f, 0.21f), new Vector2(260f, 78f), new Color32(105, 76, 162, 255));
+        myPageOpenButton.onClick.AddListener(ShowMyPage);
         profileSummaryText = CreateText("", mainPanel.transform, 16, new Color32(171, 190, 220, 255), new Vector2(0.5f, 0.105f), new Vector2(0.5f, 0.105f));
         coinText = CreateText("코인 000", mainPanel.transform, 18, new Color32(255, 211, 94, 255), new Vector2(0.42f, 0.06f), new Vector2(0.42f, 0.06f));
         highScoreText = CreateText("최고 점수 0000", mainPanel.transform, 18, new Color32(255, 211, 94, 255), new Vector2(0.63f, 0.06f), new Vector2(0.63f, 0.06f));
@@ -310,6 +321,22 @@ public sealed class WordfallPrototype : MonoBehaviour
         UpdateHighScoreText();
         UpdateCoinText();
 
+        myPagePanel = CreatePanel("MyPagePanel", mainPanel.transform, new Color32(9, 18, 38, 250));
+        SetRect(myPagePanel.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
+        ApplyPixelWindow(myPagePanel);
+        ApplyModalDim(myPagePanel);
+        myPageTitleText = CreateText("마이페이지", myPagePanel.transform, 42, Color.white, new Vector2(0.5f, 0.78f), new Vector2(0.5f, 0.78f));
+        myPageCharacterImage = CreateImage("MyPageCharacter", myPagePanel.transform, GetCharacterResourcePath(false), new Vector2(0.5f, 0.58f), new Vector2(150f, 150f));
+        myPageCharacterImage.raycastTarget = false;
+        myPageInfoText = CreateText("닉네임", myPagePanel.transform, 22, new Color32(214, 222, 238, 255), new Vector2(0.5f, 0.37f), new Vector2(0.5f, 0.37f));
+        myPageCoinText = CreateText("코인 0", myPagePanel.transform, 22, new Color32(255, 211, 94, 255), new Vector2(0.5f, 0.30f), new Vector2(0.5f, 0.30f));
+        myPageStatsText = CreateText("기록", myPagePanel.transform, 16, new Color32(171, 190, 220, 255), new Vector2(0.5f, 0.25f), new Vector2(0.5f, 0.25f));
+        myPageCloseButton = CreateButton("닫기", myPagePanel.transform, new Vector2(0.30f, 0.16f), new Vector2(200f, 62f), new Color32(58, 80, 122, 255));
+        myPageCloseButton.onClick.AddListener(CloseMyPage);
+        deleteAccountButton = CreateButton("탈퇴하기", myPagePanel.transform, new Vector2(0.70f, 0.16f), new Vector2(220f, 62f), new Color32(149, 71, 92, 255));
+        deleteAccountButton.onClick.AddListener(DeleteAccount);
+        myPagePanel.SetActive(false);
+
         attendancePanel = CreatePanel("AttendancePanel", mainPanel.transform, new Color32(9, 18, 38, 250));
         SetRect(attendancePanel.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
         ApplyPixelWindow(attendancePanel);
@@ -377,6 +404,7 @@ public sealed class WordfallPrototype : MonoBehaviour
         descriptionText.text = language == Language.Korean ? "떨어지는 단어를 빠르게 입력해 기지를 지키세요." : "Type the falling words before they reach the bottom.";
         SetButtonText(mainStartButton, language == Language.Korean ? "게임 시작" : "START GAME");
         SetButtonText(languageOpenButton, language == Language.Korean ? "언어 설정" : "LANGUAGE");
+        SetButtonText(myPageOpenButton, language == Language.Korean ? "마이페이지" : "MY PAGE");
         SetButtonText(startButton, language == Language.Korean ? "게임 시작" : "START GAME");
         SetButtonText(setupBackButton, language == Language.Korean ? "뒤로" : "BACK");
         SetButtonText(languageCloseButton, language == Language.Korean ? "닫기" : "CLOSE");
@@ -402,11 +430,15 @@ public sealed class WordfallPrototype : MonoBehaviour
         languageTitleText.text = language == Language.Korean ? "언어 설정" : "LANGUAGE";
         profileTitleText.text = language == Language.Korean ? "플레이어 만들기" : "CREATE PLAYER";
         profilePromptText.text = language == Language.Korean ? "닉네임과 캐릭터를 선택하세요" : "Choose a nickname and character";
+        myPageTitleText.text = language == Language.Korean ? "마이페이지" : "MY PAGE";
+        SetButtonText(myPageCloseButton, language == Language.Korean ? "닫기" : "CLOSE");
+        SetButtonText(deleteAccountButton, language == Language.Korean ? "탈퇴하기" : "DELETE ACCOUNT");
         difficultyText.text = (language == Language.Korean ? "난이도  " : "DIFFICULTY  ") + GetDifficultyName();
         modeText.text = (language == Language.Korean ? "모드  " : "MODE  ") + GetGameModeName();
         UpdateHighScoreText();
         UpdateProfileSummary();
         UpdateCoinText();
+        UpdateMyPage();
         SetButtonText(attendanceCloseButton, language == Language.Korean ? "확인" : "OK");
         attendanceTitleText.text = language == Language.Korean ? "출석 보상" : "DAILY LOGIN";
         attendanceBodyText.text = language == Language.Korean ? "오늘의 출석 보상을 받았습니다!" : "Today's login reward is ready!";
@@ -533,6 +565,7 @@ public sealed class WordfallPrototype : MonoBehaviour
         if (setupPanel != null) setupPanel.SetActive(false);
         if (languagePanel != null) languagePanel.SetActive(false);
         if (profilePanel != null) profilePanel.SetActive(false);
+        if (myPagePanel != null) myPagePanel.SetActive(false);
         if (attendancePanel != null) attendancePanel.SetActive(false);
         if (pausePanel != null) pausePanel.SetActive(false);
     }
@@ -566,6 +599,69 @@ public sealed class WordfallPrototype : MonoBehaviour
     private void CloseLanguagePanel()
     {
         languagePanel.SetActive(false);
+    }
+
+    private void ShowMyPage()
+    {
+        if (playing || !profileCreated) return;
+        setupPanel.SetActive(false);
+        languagePanel.SetActive(false);
+        profilePanel.SetActive(false);
+        UpdateMyPage();
+        myPagePanel.SetActive(true);
+    }
+
+    private void CloseMyPage()
+    {
+        myPagePanel.SetActive(false);
+    }
+
+    private void UpdateMyPage()
+    {
+        if (myPagePanel == null) return;
+        string nickname = PlayerPrefs.GetString(NicknameKey, language == Language.Korean ? "플레이어" : "PLAYER");
+        int gamesPlayed = PlayerPrefs.GetInt(GamesPlayedKey, 0);
+        int wordsTyped = PlayerPrefs.GetInt(WordsTypedKey, 0);
+        int correctWords = PlayerPrefs.GetInt(CorrectWordsKey, 0);
+        int accuracy = wordsTyped > 0 ? Mathf.RoundToInt((float)correctWords / wordsTyped * 100f) : 0;
+        myPageInfoText.text = language == Language.Korean
+            ? nickname + "  /  " + GetCharacterName()
+            : nickname + "  /  " + GetCharacterName();
+        myPageCoinText.text = language == Language.Korean ? "코인 " + coins : "COINS " + coins;
+        myPageStatsText.text = language == Language.Korean
+            ? "플레이 " + gamesPlayed + "회  ·  타자 " + wordsTyped + "회  ·  정확도 " + accuracy + "%"
+            : "GAMES " + gamesPlayed + "  ·  TYPED " + wordsTyped + "  ·  ACCURACY " + accuracy + "%";
+        var texture = Resources.Load<Texture2D>(GetCharacterResourcePath(false));
+        if (texture != null)
+        {
+            texture.filterMode = FilterMode.Point;
+            myPageCharacterImage.sprite = Sprite.Create(texture, new Rect(0f, 0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100f);
+            myPageCharacterImage.preserveAspect = true;
+        }
+    }
+
+    private void DeleteAccount()
+    {
+        PlayerPrefs.DeleteKey(ProfileCreatedKey);
+        PlayerPrefs.DeleteKey(NicknameKey);
+        PlayerPrefs.DeleteKey(CharacterKey);
+        PlayerPrefs.DeleteKey(CoinsKey);
+        PlayerPrefs.DeleteKey(AttendanceDayKey);
+        PlayerPrefs.DeleteKey(GamesPlayedKey);
+        PlayerPrefs.DeleteKey(WordsTypedKey);
+        PlayerPrefs.DeleteKey(CorrectWordsKey);
+        PlayerPrefs.DeleteKey(LastScoreKey);
+        PlayerPrefs.DeleteKey(HighScoreKey);
+        PlayerPrefs.Save();
+
+        profileCreated = false;
+        selectedCharacter = 0;
+        coins = 0;
+        UpdateCharacterButtonStates();
+        UpdateProfileSummary();
+        UpdateCoinText();
+        myPagePanel.SetActive(false);
+        ShowMainMenu();
     }
 
     private void SelectLanguageAndClose(Language selectedLanguage)
