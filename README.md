@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Wordfall Typing Defense
 
 한글과 영어 단어를 입력해 떨어지는 단어를 막는 2D 픽셀 타자 방어 게임입니다.
@@ -84,7 +83,3 @@ git push origin main
 - 새 이미지는 `Assets/Resources/Pixel`에 넣습니다.
 - 런타임에서 사용할 폰트는 `Assets/Resources/Fonts`에 넣습니다.
 - 기능을 추가할 때는 README의 주요 기능 목록과 조작법도 함께 업데이트합니다.
-=======
-# WordfallTypingDefense
-떨어지는 한글과 영어 단어를 빠르게 입력해 막아내는 타자 디펜스 게임
->>>>>>> 3276d1aebe4f4edf7866e1a15cae952cee81578d
