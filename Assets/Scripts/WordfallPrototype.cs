@@ -384,6 +384,7 @@ public sealed class WordfallPrototype : MonoBehaviour
         SetRect(wordLayer, new Vector2(0f, 0f), new Vector2(1f, 1f), new Vector2(26f, 92f), new Vector2(-26f, -168f));
         var inputBackground = CreatePanel("InputBackground", gamePanel.transform, new Color32(24, 43, 76, 255));
         SetRect(inputBackground.GetComponent<RectTransform>(), new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, 110f), new Vector2(720f, 70f));
+        ApplyPixelInputFrame(inputBackground);
         inputField = CreateInputField(inputBackground.transform);
         statusText = CreateText("Type a word to defend your base!", gamePanel.transform, 18, new Color32(171, 190, 220, 255), new Vector2(0.5f, 0.08f), new Vector2(0.5f, 0.08f));
         menuButton = CreateButton("메뉴", gamePanel.transform, new Vector2(0.08f, 0.93f), new Vector2(120f, 46f), new Color32(58, 80, 122, 255));
@@ -1151,6 +1152,19 @@ public sealed class WordfallPrototype : MonoBehaviour
         return objectToCreate;
     }
 
+    private void ApplyPixelInputFrame(GameObject panel)
+    {
+        var texture = Resources.Load<Texture2D>("Pixel/wordfall-input");
+        if (texture == null) return;
+        texture.filterMode = FilterMode.Point;
+        texture.wrapMode = TextureWrapMode.Clamp;
+        var image = panel.GetComponent<Image>();
+        image.sprite = Sprite.Create(texture, new Rect(0f, 0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100f, 0u, SpriteMeshType.FullRect, new Vector4(150f, 150f, 150f, 150f));
+        image.type = Image.Type.Sliced;
+        image.color = Color.white;
+        image.raycastTarget = false;
+    }
+
     private void ApplyPixelBackground(GameObject panel)
     {
         var background = Resources.Load<Texture2D>("Pixel/wordfall-background");
@@ -1287,15 +1301,15 @@ public sealed class WordfallPrototype : MonoBehaviour
     {
         var objectToCreate = new GameObject("TypingInput", typeof(RectTransform), typeof(Image), typeof(InputField));
         objectToCreate.transform.SetParent(parent, false);
-        objectToCreate.GetComponent<Image>().color = new Color32(245, 248, 255, 255);
+        objectToCreate.GetComponent<Image>().color = new Color32(255, 255, 255, 0);
         var rect = objectToCreate.GetComponent<RectTransform>();
         SetRect(rect, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(650f, 56f));
         var input = objectToCreate.GetComponent<InputField>();
         input.lineType = InputField.LineType.SingleLine;
-        input.caretColor = new Color32(40, 80, 140, 255);
-        input.textComponent = CreateText("", objectToCreate.transform, 26, new Color32(30, 48, 80, 255), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f));
+        input.caretColor = new Color32(255, 211, 94, 255);
+        input.textComponent = CreateText("", objectToCreate.transform, 26, new Color32(231, 242, 255, 255), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f));
         input.textComponent.rectTransform.sizeDelta = new Vector2(620f, 50f);
-        inputPlaceholder = CreateText("여기에 입력...", objectToCreate.transform, 22, new Color32(143, 161, 190, 255), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f));
+        inputPlaceholder = CreateText("여기에 입력...", objectToCreate.transform, 22, new Color32(126, 164, 215, 255), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f));
         input.placeholder = inputPlaceholder;
         input.placeholder.rectTransform.sizeDelta = new Vector2(620f, 50f);
         return input;
