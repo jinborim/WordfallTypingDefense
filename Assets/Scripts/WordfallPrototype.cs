@@ -91,6 +91,7 @@ public sealed class WordfallPrototype : MonoBehaviour
     private Button homeHubMyPageButton;
     private Button homeHubLanguageButton;
     private Button homeHubBackButton;
+    private Button homeHubShopButton;
     private Button languageCloseButton;
     private Button[] characterButtons;
     private Button createProfileButton;
@@ -121,6 +122,7 @@ public sealed class WordfallPrototype : MonoBehaviour
     private bool languageOpenedFromHomeHub;
     private bool editingProfile;
     private bool profileEditReturnToMyPage;
+    private bool shopOpenedFromMyPage;
     private int selectedCharacter;
     private bool profileCreated;
     private int coins;
@@ -329,6 +331,8 @@ public sealed class WordfallPrototype : MonoBehaviour
         homeHubMyPageButton.onClick.AddListener(ShowMyPage);
         homeHubLanguageButton = CreateButton("빠른 시작", homeHubPanel.transform, new Vector2(0.66f, 0.15f), new Vector2(230f, 58f), new Color32(58, 80, 122, 255));
         homeHubLanguageButton.onClick.AddListener(StartQuickGame);
+        homeHubShopButton = CreateButton("상점", homeHubPanel.transform, new Vector2(0.88f, 0.15f), new Vector2(150f, 58f), new Color32(198, 143, 52, 255));
+        homeHubShopButton.onClick.AddListener(ShowShopFromHome);
         homeHubBackButton = CreateButton("뒤로", homeHubPanel.transform, new Vector2(0.12f, 0.15f), new Vector2(150f, 58f), new Color32(78, 160, 255, 255));
         homeHubBackButton.onClick.AddListener(CloseHomeHub);
         homeHubPanel.SetActive(false);
@@ -538,6 +542,7 @@ public sealed class WordfallPrototype : MonoBehaviour
         SetButtonText(homeHubStartButton, language == Language.Korean ? "게임 시작" : "START GAME");
         SetButtonText(homeHubMyPageButton, language == Language.Korean ? "기록 보기" : "RECORDS");
         SetButtonText(homeHubLanguageButton, language == Language.Korean ? "빠른 시작" : "QUICK START");
+        SetButtonText(homeHubShopButton, language == Language.Korean ? "상점" : "SHOP");
         SetButtonText(homeHubBackButton, language == Language.Korean ? "뒤로" : "BACK");
         homeHubTitleText.text = language == Language.Korean ? "플레이어 홈" : "PLAYER HOME";
         homeHubPlayerText.text = language == Language.Korean ? "플레이어" : "PLAYER";
@@ -897,7 +902,17 @@ public sealed class WordfallPrototype : MonoBehaviour
     private void ShowShopPanel()
     {
         if (!profileCreated) return;
+        shopOpenedFromMyPage = true;
         myPagePanel.SetActive(false);
+        UpdateShopText();
+        shopPanel.SetActive(true);
+    }
+
+    private void ShowShopFromHome()
+    {
+        if (!profileCreated) return;
+        shopOpenedFromMyPage = false;
+        homeHubPanel.SetActive(false);
         UpdateShopText();
         shopPanel.SetActive(true);
     }
@@ -905,7 +920,15 @@ public sealed class WordfallPrototype : MonoBehaviour
     private void CloseShopPanel()
     {
         shopPanel.SetActive(false);
-        myPagePanel.SetActive(true);
+        if (shopOpenedFromMyPage)
+        {
+            myPagePanel.SetActive(true);
+        }
+        else
+        {
+            homeHubPanel.SetActive(true);
+        }
+        shopOpenedFromMyPage = false;
     }
 
     private void UpdateShopText()
