@@ -391,9 +391,9 @@ public sealed class WordfallPrototype : MonoBehaviour
         updateNowButton.onClick.AddListener(OpenUpdatePage);
         updatePanel.SetActive(false);
 
-        var header = CreatePanel("Header", gamePanel.transform, new Color32(21, 35, 66, 255));
+        var header = CreatePanel("Header", gamePanel.transform, new Color32(0, 0, 0, 0));
         SetRect(header.GetComponent<RectTransform>(), new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -36f), new Vector2(1280f, 72f));
-        var scoreHud = CreatePanel("ScoreHud", header.transform, new Color32(16, 29, 58, 255));
+        var scoreHud = CreatePanel("ScoreHud", header.transform, new Color32(0, 0, 0, 0));
         SetRect(scoreHud.GetComponent<RectTransform>(), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(760f, 64f));
         ApplyPixelScoreHud(scoreHud);
         scoreText = CreateText("SCORE 0000", header.transform, 24, Color.white, new Vector2(0.31f, 0.5f), new Vector2(0.31f, 0.5f));
@@ -406,13 +406,9 @@ public sealed class WordfallPrototype : MonoBehaviour
         wordLayer = wordLayerObject.GetComponent<RectTransform>();
         SetRect(wordLayer, new Vector2(0f, 0f), new Vector2(1f, 1f), new Vector2(26f, 92f), new Vector2(-26f, -190f));
         wordLayerObject.AddComponent<RectMask2D>();
-        var inputBackground = CreatePanel("InputBackground", gamePanel.transform, new Color32(24, 43, 76, 255));
+        var inputBackground = CreatePanel("InputBackground", gamePanel.transform, new Color32(0, 0, 0, 0));
         SetRect(inputBackground.GetComponent<RectTransform>(), new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, 122f), new Vector2(780f, 88f));
         ApplyPixelInputFrame(inputBackground);
-        var inputFill = CreatePanel("InputFill", inputBackground.transform, new Color32(8, 18, 39, 255));
-        var inputFillRect = inputFill.GetComponent<RectTransform>();
-        SetRect(inputFillRect, Vector2.zero, Vector2.one, new Vector2(18f, 18f), new Vector2(-18f, -18f));
-        inputFill.transform.SetAsFirstSibling();
         inputBackground.transform.SetAsLastSibling();
         inputField = CreateInputField(inputBackground.transform);
         statusText = CreateText("Type a word to defend your base!", gamePanel.transform, 18, new Color32(171, 190, 220, 255), new Vector2(0.5f, 0f), new Vector2(0.5f, 0f));
