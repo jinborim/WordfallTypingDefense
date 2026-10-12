@@ -304,10 +304,10 @@ public sealed class WordfallPrototype : MonoBehaviour
         homeHubCoinText = CreateText("COINS 0", homeHubPanel.transform, 20, new Color32(255, 211, 94, 255), new Vector2(0.5f, 0.36f), new Vector2(0.5f, 0.36f));
         homeHubStartButton = CreateButton("게임 시작", homeHubPanel.transform, new Vector2(0.5f, 0.27f), new Vector2(330f, 68f), new Color32(255, 196, 61, 255));
         homeHubStartButton.onClick.AddListener(ShowSetupPanel);
-        homeHubMyPageButton = CreateButton("마이페이지", homeHubPanel.transform, new Vector2(0.34f, 0.15f), new Vector2(230f, 58f), new Color32(105, 76, 162, 255));
+        homeHubMyPageButton = CreateButton("기록 보기", homeHubPanel.transform, new Vector2(0.34f, 0.15f), new Vector2(230f, 58f), new Color32(105, 76, 162, 255));
         homeHubMyPageButton.onClick.AddListener(ShowMyPage);
-        homeHubLanguageButton = CreateButton("언어 설정", homeHubPanel.transform, new Vector2(0.66f, 0.15f), new Vector2(230f, 58f), new Color32(58, 80, 122, 255));
-        homeHubLanguageButton.onClick.AddListener(ShowLanguagePanel);
+        homeHubLanguageButton = CreateButton("빠른 시작", homeHubPanel.transform, new Vector2(0.66f, 0.15f), new Vector2(230f, 58f), new Color32(58, 80, 122, 255));
+        homeHubLanguageButton.onClick.AddListener(StartQuickGame);
         homeHubBackButton = CreateButton("뒤로", homeHubPanel.transform, new Vector2(0.12f, 0.15f), new Vector2(150f, 58f), new Color32(78, 160, 255, 255));
         homeHubBackButton.onClick.AddListener(CloseHomeHub);
         homeHubPanel.SetActive(false);
@@ -494,8 +494,8 @@ public sealed class WordfallPrototype : MonoBehaviour
             SetButtonText(myPageOpenButton, language == Language.Korean ? "마이페이지" : "MY PAGE");
         }
         SetButtonText(homeHubStartButton, language == Language.Korean ? "게임 시작" : "START GAME");
-        SetButtonText(homeHubMyPageButton, language == Language.Korean ? "마이페이지" : "MY PAGE");
-        SetButtonText(homeHubLanguageButton, language == Language.Korean ? "언어 설정" : "LANGUAGE");
+        SetButtonText(homeHubMyPageButton, language == Language.Korean ? "기록 보기" : "RECORDS");
+        SetButtonText(homeHubLanguageButton, language == Language.Korean ? "빠른 시작" : "QUICK START");
         SetButtonText(homeHubBackButton, language == Language.Korean ? "뒤로" : "BACK");
         homeHubTitleText.text = language == Language.Korean ? "플레이어 홈" : "PLAYER HOME";
         homeHubPlayerText.text = language == Language.Korean ? "플레이어" : "PLAYER";
@@ -698,6 +698,17 @@ public sealed class WordfallPrototype : MonoBehaviour
     private void CloseHomeHub()
     {
         homeHubPanel.SetActive(false);
+    }
+
+    private void StartQuickGame()
+    {
+        if (!profileCreated)
+        {
+            ShowProfilePanel();
+            return;
+        }
+
+        StartGame();
     }
 
     private void UpdateHomeHubCharacter()
