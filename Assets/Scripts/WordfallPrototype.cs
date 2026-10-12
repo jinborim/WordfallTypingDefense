@@ -13,6 +13,12 @@ public sealed class WordfallPrototype : MonoBehaviour
     private const string ProfileCreatedKey = "WordfallTypingDefense.ProfileCreated";
     private const string NicknameKey = "WordfallTypingDefense.Nickname";
     private const string CharacterKey = "WordfallTypingDefense.Character";
+    private const string CoinsKey = "WordfallTypingDefense.Coins";
+    private const string AttendanceDayKey = "WordfallTypingDefense.LastAttendanceDay";
+    private const string GamesPlayedKey = "WordfallTypingDefense.GamesPlayed";
+    private const string WordsTypedKey = "WordfallTypingDefense.WordsTyped";
+    private const string CorrectWordsKey = "WordfallTypingDefense.CorrectWords";
+    private const string LastScoreKey = "WordfallTypingDefense.LastScore";
     private readonly List<FallingWord> fallingWords = new List<FallingWord>();
     private readonly string[] koreanWords = { "사과", "하늘", "컴퓨터", "게임", "방어", "키보드", "단어", "우주" };
     private readonly string[] englishWords = { "apple", "sky", "computer", "game", "defense", "keyboard", "word", "space" };
@@ -22,6 +28,7 @@ public sealed class WordfallPrototype : MonoBehaviour
     private GameObject setupPanel;
     private GameObject languagePanel;
     private GameObject profilePanel;
+    private GameObject attendancePanel;
     private Text scoreText;
     private Text livesText;
     private Text comboText;
@@ -43,6 +50,10 @@ public sealed class WordfallPrototype : MonoBehaviour
     private Text profilePromptText;
     private Text profileErrorText;
     private Text profileSummaryText;
+    private Text coinText;
+    private Text attendanceTitleText;
+    private Text attendanceBodyText;
+    private Text attendanceCoinText;
     private InputField inputField;
     private RectTransform wordLayer;
     private Button[] difficultyButtons;
@@ -56,6 +67,7 @@ public sealed class WordfallPrototype : MonoBehaviour
     private Button[] characterButtons;
     private Button createProfileButton;
     private Button profileResetButton;
+    private Button attendanceCloseButton;
     private Button menuButton;
     private Button pauseButton;
     private Button resumeButton;
@@ -64,6 +76,7 @@ public sealed class WordfallPrototype : MonoBehaviour
     private InputField nicknameInput;
     private int selectedCharacter;
     private bool profileCreated;
+    private int coins;
     private float spawnTimer;
     private int score;
     private int lives;
@@ -124,8 +137,10 @@ public sealed class WordfallPrototype : MonoBehaviour
         highScore = PlayerPrefs.GetInt(HighScoreKey, 0);
         profileCreated = PlayerPrefs.GetInt(ProfileCreatedKey, 0) == 1;
         selectedCharacter = Mathf.Clamp(PlayerPrefs.GetInt(CharacterKey, 0), 0, 2);
+        coins = PlayerPrefs.GetInt(CoinsKey, 0);
         BuildInterface();
         ShowMainMenu();
+        if (profileCreated) CheckAttendanceReward();
     }
 
     private void Update()
@@ -211,8 +226,9 @@ public sealed class WordfallPrototype : MonoBehaviour
         languageOpenButton = CreateButton("언어 설정", mainPanel.transform, new Vector2(0.66f, 0.21f), new Vector2(250f, 78f), new Color32(58, 80, 122, 255));
         languageOpenButton.onClick.AddListener(ShowLanguagePanel);
         profileSummaryText = CreateText("", mainPanel.transform, 16, new Color32(171, 190, 220, 255), new Vector2(0.5f, 0.105f), new Vector2(0.5f, 0.105f));
-        highScoreText = CreateText("최고 점수 0000", mainPanel.transform, 18, new Color32(255, 211, 94, 255), new Vector2(0.5f, 0.07f), new Vector2(0.5f, 0.07f));
-        prototypeText = CreateText("픽셀 프로토타입", mainPanel.transform, 14, new Color32(120, 140, 180, 255), new Vector2(0.5f, 0.035f), new Vector2(0.5f, 0.035f));
+        coinText = CreateText("코인 000", mainPanel.transform, 18, new Color32(255, 211, 94, 255), new Vector2(0.42f, 0.06f), new Vector2(0.42f, 0.06f));
+        highScoreText = CreateText("최고 점수 0000", mainPanel.transform, 18, new Color32(255, 211, 94, 255), new Vector2(0.63f, 0.06f), new Vector2(0.63f, 0.06f));
+        prototypeText = CreateText("픽셀 프로토타입", mainPanel.transform, 14, new Color32(120, 140, 180, 255), new Vector2(0.5f, 0.025f), new Vector2(0.5f, 0.025f));
 
         setupPanel = CreatePanel("SetupPanel", mainPanel.transform, new Color32(9, 18, 38, 245));
         SetRect(setupPanel.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
@@ -264,9 +280,9 @@ public sealed class WordfallPrototype : MonoBehaviour
         profilePromptText = CreateText("닉네임과 캐릭터를 선택하세요", profilePanel.transform, 20, new Color32(171, 190, 220, 255), new Vector2(0.5f, 0.68f), new Vector2(0.5f, 0.68f));
         nicknameInput = CreateNicknameInput(profilePanel.transform);
         characterButtons = new Button[3];
-        characterButtons[0] = CreateButton("기사", profilePanel.transform, new Vector2(0.28f, 0.39f), new Vector2(210f, 100f), new Color32(55, 102, 149, 255));
-        characterButtons[1] = CreateButton("마법사", profilePanel.transform, new Vector2(0.50f, 0.39f), new Vector2(210f, 100f), new Color32(105, 76, 162, 255));
-        characterButtons[2] = CreateButton("해커", profilePanel.transform, new Vector2(0.72f, 0.39f), new Vector2(210f, 100f), new Color32(53, 137, 105, 255));
+        characterButtons[0] = CreateCharacterButton("기사", "Pixel/character-knight", profilePanel.transform, new Vector2(0.28f, 0.39f), new Color32(55, 102, 149, 255));
+        characterButtons[1] = CreateCharacterButton("마법사", "Pixel/character-mage", profilePanel.transform, new Vector2(0.50f, 0.39f), new Color32(105, 76, 162, 255));
+        characterButtons[2] = CreateCharacterButton("해커", "Pixel/character-hacker", profilePanel.transform, new Vector2(0.72f, 0.39f), new Color32(53, 137, 105, 255));
         for (int i = 0; i < characterButtons.Length; i++)
         {
             int characterIndex = i;
@@ -278,7 +294,17 @@ public sealed class WordfallPrototype : MonoBehaviour
         profilePanel.SetActive(false);
         UpdateCharacterButtonStates();
         UpdateHighScoreText();
-        UpdateHighScoreText();
+        UpdateCoinText();
+
+        attendancePanel = CreatePanel("AttendancePanel", mainPanel.transform, new Color32(9, 18, 38, 250));
+        SetRect(attendancePanel.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
+        ApplyPixelWindow(attendancePanel);
+        attendanceTitleText = CreateText("출석 보상", attendancePanel.transform, 42, Color.white, new Vector2(0.5f, 0.70f), new Vector2(0.5f, 0.70f));
+        attendanceBodyText = CreateText("오늘의 출석 보상을 받았습니다!", attendancePanel.transform, 20, new Color32(171, 190, 220, 255), new Vector2(0.5f, 0.58f), new Vector2(0.5f, 0.58f));
+        attendanceCoinText = CreateText("+10 COINS", attendancePanel.transform, 34, new Color32(255, 211, 94, 255), new Vector2(0.5f, 0.43f), new Vector2(0.5f, 0.43f));
+        attendanceCloseButton = CreateButton("확인", attendancePanel.transform, new Vector2(0.5f, 0.25f), new Vector2(220f, 64f), new Color32(67, 149, 255, 255));
+        attendanceCloseButton.onClick.AddListener(CloseAttendancePanel);
+        attendancePanel.SetActive(false);
 
         var header = CreatePanel("Header", gamePanel.transform, new Color32(21, 35, 66, 255));
         SetRect(header.GetComponent<RectTransform>(), new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -36f), new Vector2(1280f, 72f));
@@ -364,6 +390,11 @@ public sealed class WordfallPrototype : MonoBehaviour
         modeText.text = (language == Language.Korean ? "모드  " : "MODE  ") + GetGameModeName();
         UpdateHighScoreText();
         UpdateProfileSummary();
+        UpdateCoinText();
+        SetButtonText(attendanceCloseButton, language == Language.Korean ? "확인" : "OK");
+        attendanceTitleText.text = language == Language.Korean ? "출석 보상" : "DAILY LOGIN";
+        attendanceBodyText.text = language == Language.Korean ? "오늘의 출석 보상을 받았습니다!" : "Today's login reward is ready!";
+        attendanceCoinText.text = language == Language.Korean ? "+10 코인" : "+10 COINS";
         if (inputPlaceholder != null) inputPlaceholder.text = language == Language.Korean ? "여기에 입력..." : "TYPE HERE...";
         UpdateHud();
     }
@@ -447,6 +478,33 @@ public sealed class WordfallPrototype : MonoBehaviour
             : "PLAYER  " + nickname + "  /  " + GetCharacterName();
     }
 
+    private void UpdateCoinText()
+    {
+        if (coinText == null) return;
+        coinText.text = language == Language.Korean ? "코인 " + coins : "COINS " + coins;
+    }
+
+    private void CheckAttendanceReward()
+    {
+        if (!profileCreated) return;
+        DateTime koreaNow = System.DateTime.UtcNow.AddHours(9);
+        DateTime attendanceDay = koreaNow.Hour < 6 ? koreaNow.Date.AddDays(-1) : koreaNow.Date;
+        string attendanceKey = attendanceDay.ToString("yyyy-MM-dd");
+        if (PlayerPrefs.GetString(AttendanceDayKey, string.Empty) == attendanceKey) return;
+
+        coins += 10;
+        PlayerPrefs.SetInt(CoinsKey, coins);
+        PlayerPrefs.SetString(AttendanceDayKey, attendanceKey);
+        PlayerPrefs.Save();
+        UpdateCoinText();
+        attendancePanel.SetActive(true);
+    }
+
+    private void CloseAttendancePanel()
+    {
+        attendancePanel.SetActive(false);
+    }
+
     private void ShowMainMenu()
     {
         playing = false;
@@ -525,6 +583,11 @@ public sealed class WordfallPrototype : MonoBehaviour
         playing = false;
         paused = false;
         if (pausePanel != null) pausePanel.SetActive(false);
+        PlayerPrefs.SetInt(GamesPlayedKey, PlayerPrefs.GetInt(GamesPlayedKey, 0) + 1);
+        PlayerPrefs.SetInt(WordsTypedKey, PlayerPrefs.GetInt(WordsTypedKey, 0) + totalTyped);
+        PlayerPrefs.SetInt(CorrectWordsKey, PlayerPrefs.GetInt(CorrectWordsKey, 0) + correctTyped);
+        PlayerPrefs.SetInt(LastScoreKey, score);
+        PlayerPrefs.Save();
         string accuracy = totalTyped > 0 ? Mathf.RoundToInt((float)correctTyped / totalTyped * 100f) + "% accuracy" : "0% accuracy";
         if (score > highScore)
         {
@@ -957,6 +1020,21 @@ public sealed class WordfallPrototype : MonoBehaviour
         text.resizeTextMaxSize = text.fontSize;
         text.horizontalOverflow = HorizontalWrapMode.Wrap;
         text.verticalOverflow = VerticalWrapMode.Truncate;
+        return button;
+    }
+
+    private Button CreateCharacterButton(string label, string portraitPath, Transform parent, Vector2 anchor, Color color)
+    {
+        var button = CreateButton(label, parent, anchor, new Vector2(210f, 130f), color);
+        var portrait = CreateImage("CharacterPortrait", button.transform, portraitPath, new Vector2(0.5f, 0.64f), new Vector2(78f, 78f));
+        portrait.raycastTarget = false;
+        var labelText = button.GetComponentInChildren<Text>();
+        if (labelText != null)
+        {
+            labelText.rectTransform.anchoredPosition = new Vector2(0f, -43f);
+            labelText.rectTransform.sizeDelta = new Vector2(190f, 28f);
+            labelText.fontSize = 16;
+        }
         return button;
     }
 
