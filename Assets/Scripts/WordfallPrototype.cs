@@ -279,9 +279,7 @@ public sealed class WordfallPrototype : MonoBehaviour
         languageOpenButton = CreateButton("언어 설정", mainPanel.transform, new Vector2(0.66f, 0.21f), new Vector2(250f, 78f), new Color32(58, 80, 122, 255));
         languageOpenButton.onClick.AddListener(ShowLanguagePanel);
         profileSummaryText = CreateText("", mainPanel.transform, 16, new Color32(171, 190, 220, 255), new Vector2(0.5f, 0.105f), new Vector2(0.5f, 0.105f));
-        coinText = CreateText("코인 000", mainPanel.transform, 18, new Color32(255, 211, 94, 255), new Vector2(0.42f, 0.06f), new Vector2(0.42f, 0.06f));
         highScoreText = CreateText("최고 점수 0000", mainPanel.transform, 18, new Color32(255, 211, 94, 255), new Vector2(0.63f, 0.06f), new Vector2(0.63f, 0.06f));
-        prototypeText = CreateText("픽셀 프로토타입", mainPanel.transform, 14, new Color32(120, 140, 180, 255), new Vector2(0.5f, 0.025f), new Vector2(0.5f, 0.025f));
 
         setupPanel = CreatePanel("SetupPanel", mainPanel.transform, new Color32(9, 18, 38, 245));
         SetRect(setupPanel.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
@@ -308,9 +306,9 @@ public sealed class WordfallPrototype : MonoBehaviour
             int selectedMode = i;
             modeButtons[i].onClick.AddListener(() => SetGameMode((GameMode)selectedMode));
         }
-        startButton = CreateButton("게임 시작", setupPanel.transform, new Vector2(0.5f, 0.20f), new Vector2(360f, 72f), new Color32(255, 196, 61, 255));
+        startButton = CreateButton("게임 시작", setupPanel.transform, new Vector2(0.5f, 0.14f), new Vector2(360f, 72f), new Color32(255, 196, 61, 255));
         startButton.onClick.AddListener(StartGame);
-        setupBackButton = CreateButton("뒤로", setupPanel.transform, new Vector2(0.12f, 0.20f), new Vector2(180f, 60f), new Color32(78, 160, 255, 255));
+        setupBackButton = CreateButton("뒤로", setupPanel.transform, new Vector2(0.12f, 0.14f), new Vector2(180f, 60f), new Color32(78, 160, 255, 255));
         setupBackButton.onClick.AddListener(CloseSetupPanel);
         setupPanel.SetActive(false);
 
