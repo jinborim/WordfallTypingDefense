@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -511,8 +510,8 @@ public sealed class WordfallPrototype : MonoBehaviour
     private void CheckAttendanceReward()
     {
         if (!profileCreated) return;
-        DateTime koreaNow = System.DateTime.UtcNow.AddHours(9);
-        DateTime attendanceDay = koreaNow.Hour < 6 ? koreaNow.Date.AddDays(-1) : koreaNow.Date;
+        System.DateTime koreaNow = System.DateTime.UtcNow.AddHours(9);
+        System.DateTime attendanceDay = koreaNow.Hour < 6 ? koreaNow.Date.AddDays(-1) : koreaNow.Date;
         string attendanceKey = attendanceDay.ToString("yyyy-MM-dd");
         if (PlayerPrefs.GetString(AttendanceDayKey, string.Empty) == attendanceKey) return;
 
