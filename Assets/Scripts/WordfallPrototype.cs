@@ -1095,11 +1095,11 @@ public sealed class WordfallPrototype : MonoBehaviour
 
         var profileMaskImage = characterStatusPanel.GetComponent<Image>();
         profileMaskImage.sprite = CreateCircleSprite(256);
-        profileMaskImage.color = new Color32(15, 28, 58, 255);
+        profileMaskImage.color = Color.white;
         profileMaskImage.raycastTarget = false;
-        characterStatusPanel.GetComponent<Mask>().showMaskGraphic = true;
+        characterStatusPanel.GetComponent<Mask>().showMaskGraphic = false;
 
-        var portrait = CreateImage("ActiveCharacter", characterStatusPanel.transform, GetCharacterResourcePath(false), new Vector2(0.5f, 0.5f), new Vector2(128f, 128f));
+        var portrait = CreateImage("ActiveCharacter", characterStatusPanel.transform, GetCharacterResourcePath(false), new Vector2(0.5f, 0.5f), new Vector2(116f, 116f));
         portrait.raycastTarget = false;
         var frame = CreateImage("ProfileFrame", characterStatusPanel.transform, "Pixel/character-profile-frame", new Vector2(0.5f, 0.5f), new Vector2(170f, 170f));
         frame.raycastTarget = false;
