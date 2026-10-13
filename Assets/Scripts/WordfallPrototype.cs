@@ -63,6 +63,12 @@ public sealed class WordfallPrototype : MonoBehaviour
     private Text homeHubTitleText;
     private Text homeHubPlayerText;
     private Text homeHubCoinText;
+    private Text homeHubStartLabelText;
+    private Text homeHubMyPageLabelText;
+    private Text homeHubQuickStartLabelText;
+    private Text homeHubShopLabelText;
+    private Text homeHubAnnouncementLabelText;
+    private Text homeHubBackLabelText;
     private Text myPageTitleText;
     private Text myPageInfoText;
     private Text myPageCoinText;
@@ -339,21 +345,17 @@ public sealed class WordfallPrototype : MonoBehaviour
         homeHubCharacterImage.raycastTarget = false;
         homeHubPlayerText = CreateText("PLAYER", homeHubPanel.transform, 22, new Color32(214, 222, 238, 255), new Vector2(0.5f, 0.64f), new Vector2(0.5f, 0.64f));
         homeHubCoinText = CreateText("COINS 0", homeHubPanel.transform, 20, new Color32(255, 211, 94, 255), new Vector2(0.5f, 0.59f), new Vector2(0.5f, 0.59f));
-        homeHubStartButton = CreateButton("게임 시작", homeHubPanel.transform, new Vector2(0.5f, 0.24f), new Vector2(330f, 68f), new Color32(255, 196, 61, 255));
+        homeHubStartButton = CreateImageAction("HomeHubStartAction", homeHubPanel.transform, "Pixel/wordfall-shield", "게임 시작", new Vector2(0.5f, 0.27f), new Vector2(220f, 138f), new Vector2(92f, 92f), out homeHubStartLabelText);
         homeHubStartButton.onClick.AddListener(ShowSetupPanel);
-        homeHubMyPageButton = CreateButton("기록 보기", homeHubPanel.transform, new Vector2(0.34f, 0.15f), new Vector2(230f, 58f), new Color32(105, 76, 162, 255));
+        homeHubMyPageButton = CreateImageAction("HomeHubMyPageAction", homeHubPanel.transform, "Pixel/score-hud-frame", "기록 보기", new Vector2(0.30f, 0.12f), new Vector2(190f, 112f), new Vector2(110f, 58f), out homeHubMyPageLabelText);
         homeHubMyPageButton.onClick.AddListener(ShowMyPage);
-        homeHubLanguageButton = CreateButton("빠른 시작", homeHubPanel.transform, new Vector2(0.66f, 0.15f), new Vector2(230f, 58f), new Color32(58, 80, 122, 255));
+        homeHubLanguageButton = CreateImageAction("HomeHubQuickStartAction", homeHubPanel.transform, "Pixel/wordfall-shield", "빠른 시작", new Vector2(0.70f, 0.12f), new Vector2(190f, 112f), new Vector2(72f, 72f), out homeHubQuickStartLabelText);
         homeHubLanguageButton.onClick.AddListener(StartQuickGame);
-        homeHubShopImage = CreateImage("HomeHubShopIcon", homeHubPanel.transform, "Pixel/shop-icon", new Vector2(0.88f, 0.28f), new Vector2(78f, 78f));
-        homeHubShopImage.raycastTarget = false;
-        homeHubShopButton = CreateButton("상점", homeHubPanel.transform, new Vector2(0.88f, 0.15f), new Vector2(150f, 58f), new Color32(198, 143, 52, 255));
+        homeHubShopButton = CreateImageAction("HomeHubShopAction", homeHubPanel.transform, "Pixel/shop-store-icon", "상점", new Vector2(0.88f, 0.24f), new Vector2(170f, 150f), new Vector2(112f, 104f), out homeHubShopLabelText);
         homeHubShopButton.onClick.AddListener(ShowShopFromHome);
-        homeHubAnnouncementImage = CreateImage("HomeHubAnnouncementIcon", homeHubPanel.transform, "Pixel/announcement-icon", new Vector2(0.50f, 0.18f), new Vector2(58f, 58f));
-        homeHubAnnouncementImage.raycastTarget = false;
-        announcementButton = CreateButton("공지사항", homeHubPanel.transform, new Vector2(0.50f, 0.09f), new Vector2(240f, 52f), new Color32(67, 149, 255, 255));
+        announcementButton = CreateImageAction("HomeHubAnnouncementAction", homeHubPanel.transform, "Pixel/announcement-icon", "공지사항", new Vector2(0.50f, 0.08f), new Vector2(190f, 100f), new Vector2(60f, 60f), out homeHubAnnouncementLabelText);
         announcementButton.onClick.AddListener(ShowAnnouncementPanel);
-        homeHubBackButton = CreateButton("뒤로", homeHubPanel.transform, new Vector2(0.12f, 0.15f), new Vector2(150f, 58f), new Color32(78, 160, 255, 255));
+        homeHubBackButton = CreateImageAction("HomeHubBackAction", homeHubPanel.transform, "Pixel/character-profile-frame", "뒤로", new Vector2(0.11f, 0.12f), new Vector2(150f, 104f), new Vector2(64f, 64f), out homeHubBackLabelText);
         homeHubBackButton.onClick.AddListener(CloseHomeHub);
         homeHubPanel.SetActive(false);
 
@@ -590,12 +592,12 @@ public sealed class WordfallPrototype : MonoBehaviour
         {
             SetButtonText(myPageOpenButton, language == Language.Korean ? "마이페이지" : "MY PAGE");
         }
-        SetButtonText(homeHubStartButton, language == Language.Korean ? "게임 시작" : "START GAME");
-        SetButtonText(homeHubMyPageButton, language == Language.Korean ? "기록 보기" : "RECORDS");
-        SetButtonText(homeHubLanguageButton, language == Language.Korean ? "빠른 시작" : "QUICK START");
-        SetButtonText(homeHubShopButton, language == Language.Korean ? "상점" : "SHOP");
-        SetButtonText(announcementButton, language == Language.Korean ? "공지사항" : "ANNOUNCEMENTS");
-        SetButtonText(homeHubBackButton, language == Language.Korean ? "뒤로" : "BACK");
+        SetLabelText(homeHubStartLabelText, language == Language.Korean ? "게임 시작" : "START GAME");
+        SetLabelText(homeHubMyPageLabelText, language == Language.Korean ? "기록 보기" : "RECORDS");
+        SetLabelText(homeHubQuickStartLabelText, language == Language.Korean ? "빠른 시작" : "QUICK START");
+        SetLabelText(homeHubShopLabelText, language == Language.Korean ? "상점" : "SHOP");
+        SetLabelText(homeHubAnnouncementLabelText, language == Language.Korean ? "공지사항" : "ANNOUNCEMENTS");
+        SetLabelText(homeHubBackLabelText, language == Language.Korean ? "뒤로" : "BACK");
         homeHubTitleText.text = language == Language.Korean ? "플레이어 홈" : "PLAYER HOME";
         homeHubPlayerText.text = language == Language.Korean ? "플레이어" : "PLAYER";
         homeHubCoinText.text = language == Language.Korean ? "코인 " + coins : "COINS " + coins;
@@ -660,6 +662,11 @@ public sealed class WordfallPrototype : MonoBehaviour
         if (button == null) return;
         var text = button.GetComponentInChildren<Text>();
         if (text != null) text.text = value;
+    }
+
+    private void SetLabelText(Text label, string value)
+    {
+        if (label != null) label.text = value;
     }
 
     private void ShowProfilePanel()
@@ -1834,6 +1841,46 @@ public sealed class WordfallPrototype : MonoBehaviour
         text.resizeTextMaxSize = text.fontSize;
         text.horizontalOverflow = HorizontalWrapMode.Wrap;
         text.verticalOverflow = VerticalWrapMode.Truncate;
+        return button;
+    }
+
+    private Button CreateImageAction(string name, Transform parent, string iconPath, string label, Vector2 anchor, Vector2 size, Vector2 iconSize, out Text labelText)
+    {
+        var objectToCreate = new GameObject(name, typeof(RectTransform), typeof(Image), typeof(Button));
+        objectToCreate.transform.SetParent(parent, false);
+        SetRect(objectToCreate.GetComponent<RectTransform>(), anchor, anchor, Vector2.zero, size);
+
+        var hitImage = objectToCreate.GetComponent<Image>();
+        hitImage.color = new Color(1f, 1f, 1f, 0f);
+        hitImage.raycastTarget = true;
+
+        var button = objectToCreate.GetComponent<Button>();
+        button.targetGraphic = hitImage;
+        button.transition = Selectable.Transition.ColorTint;
+        var navigation = button.navigation;
+        navigation.mode = Navigation.Mode.None;
+        button.navigation = navigation;
+        var colors = button.colors;
+        colors.normalColor = new Color(1f, 1f, 1f, 0f);
+        colors.highlightedColor = new Color(1f, 1f, 1f, 0f);
+        colors.pressedColor = new Color(1f, 1f, 1f, 0f);
+        colors.selectedColor = new Color(1f, 1f, 1f, 0f);
+        colors.disabledColor = new Color(1f, 1f, 1f, 0f);
+        button.colors = colors;
+        objectToCreate.AddComponent<ButtonPressFeedback>();
+
+        var icon = CreateImage(name + "Icon", objectToCreate.transform, iconPath, new Vector2(0.5f, 0.65f), iconSize);
+        icon.raycastTarget = false;
+        labelText = CreateText(label, objectToCreate.transform, 14, new Color32(222, 235, 250, 255), new Vector2(0.5f, 0.09f), new Vector2(0.5f, 0.09f));
+        labelText.rectTransform.sizeDelta = new Vector2(size.x, 26f);
+        labelText.fontStyle = FontStyle.Normal;
+        labelText.fontSize = 14;
+        labelText.resizeTextForBestFit = true;
+        labelText.resizeTextMinSize = 9;
+        labelText.resizeTextMaxSize = 14;
+        labelText.horizontalOverflow = HorizontalWrapMode.Overflow;
+        labelText.verticalOverflow = VerticalWrapMode.Truncate;
+        labelText.raycastTarget = false;
         return button;
     }
 
