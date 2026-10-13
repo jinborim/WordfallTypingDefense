@@ -37,6 +37,7 @@ public sealed class WordfallPrototype : MonoBehaviour
     private GameObject updatePanel;
     private GameObject attendancePanel;
     private GameObject shopPanel;
+    private GameObject insufficientCoinsPanel;
     private Text scoreText;
     private Text livesText;
     private Text comboText;
@@ -75,6 +76,8 @@ public sealed class WordfallPrototype : MonoBehaviour
     private Text shopTitleText;
     private Text shopCoinText;
     private Text shopStatusText;
+    private Text insufficientCoinsTitleText;
+    private Text insufficientCoinsMessageText;
     private InputField inputField;
     private RectTransform wordLayer;
     private Button[] difficultyButtons;
@@ -106,6 +109,7 @@ public sealed class WordfallPrototype : MonoBehaviour
     private Button mageShopButton;
     private Button hackerShopButton;
     private Button shopCloseButton;
+    private Button insufficientCoinsCloseButton;
     private Button menuButton;
     private Button pauseButton;
     private Button resumeButton;
@@ -447,7 +451,7 @@ public sealed class WordfallPrototype : MonoBehaviour
 
         shopPanel = CreatePanel("ShopPanel", mainPanel.transform, new Color32(9, 18, 38, 250));
         SetRect(shopPanel.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
-        ApplyPixelWindow(shopPanel);
+        ApplyPixelShopWindow(shopPanel);
         ApplyModalDim(shopPanel);
         shopTitleText = CreateText("코인 상점", shopPanel.transform, 42, Color.white, new Vector2(0.5f, 0.78f), new Vector2(0.5f, 0.78f));
         shopCoinText = CreateText("코인 0", shopPanel.transform, 22, new Color32(255, 211, 94, 255), new Vector2(0.5f, 0.68f), new Vector2(0.5f, 0.68f));
@@ -467,6 +471,18 @@ public sealed class WordfallPrototype : MonoBehaviour
         shopCloseButton = CreateButton("닫기", shopPanel.transform, new Vector2(0.5f, 0.16f), new Vector2(220f, 62f), new Color32(58, 80, 122, 255));
         shopCloseButton.onClick.AddListener(CloseShopPanel);
         shopPanel.SetActive(false);
+
+        insufficientCoinsPanel = CreatePanel("InsufficientCoinsPanel", shopPanel.transform, new Color32(0, 0, 0, 0));
+        SetRect(insufficientCoinsPanel.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
+        ApplyModalDim(insufficientCoinsPanel);
+        var insufficientWindow = CreatePanel("InsufficientCoinsWindow", insufficientCoinsPanel.transform, new Color32(9, 18, 38, 250));
+        SetRect(insufficientWindow.GetComponent<RectTransform>(), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(560f, 290f));
+        ApplyPixelShopWindow(insufficientWindow);
+        insufficientCoinsTitleText = CreateText("코인 부족", insufficientWindow.transform, 34, new Color32(255, 211, 94, 255), new Vector2(0.5f, 0.67f), new Vector2(0.5f, 0.67f));
+        insufficientCoinsMessageText = CreateText("코인이 부족합니다.", insufficientWindow.transform, 20, new Color32(214, 222, 238, 255), new Vector2(0.5f, 0.49f), new Vector2(0.5f, 0.49f));
+        insufficientCoinsCloseButton = CreateButton("확인", insufficientWindow.transform, new Vector2(0.5f, 0.25f), new Vector2(190f, 56f), new Color32(67, 149, 255, 255));
+        insufficientCoinsCloseButton.onClick.AddListener(CloseInsufficientCoinsPanel);
+        insufficientCoinsPanel.SetActive(false);
 
         updatePanel = CreatePanel("UpdatePanel", mainPanel.transform, new Color32(9, 18, 38, 250));
         SetRect(updatePanel.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
@@ -793,6 +809,8 @@ public sealed class WordfallPrototype : MonoBehaviour
         if (profilePanel != null) profilePanel.SetActive(false);
         if (myPagePanel != null) myPagePanel.SetActive(false);
         if (shopPanel != null) shopPanel.SetActive(false);
+        if (insufficientCoinsPanel != null) insufficientCoinsPanel.SetActive(false);
+        if (insufficientCoinsPanel != null) insufficientCoinsPanel.SetActive(false);
         if (attendancePanel != null) attendancePanel.SetActive(false);
         if (updatePanel != null) updatePanel.SetActive(false);
         if (pausePanel != null) pausePanel.SetActive(false);
@@ -943,6 +961,19 @@ public sealed class WordfallPrototype : MonoBehaviour
         shopOpenedFromMyPage = false;
     }
 
+    private void ShowInsufficientCoinsPanel()
+    {
+        insufficientCoinsTitleText.text = language == Language.Korean ? "코인 부족" : "NOT ENOUGH COINS";
+        insufficientCoinsMessageText.text = language == Language.Korean ? "코인이 부족합니다." : "You do not have enough coins.";
+        SetButtonText(insufficientCoinsCloseButton, language == Language.Korean ? "확인" : "OK");
+        insufficientCoinsPanel.SetActive(true);
+    }
+
+    private void CloseInsufficientCoinsPanel()
+    {
+        insufficientCoinsPanel.SetActive(false);
+    }
+
     private void UpdateShopText()
     {
         if (shopPanel == null) return;
@@ -973,7 +1004,7 @@ public sealed class WordfallPrototype : MonoBehaviour
         }
         if (coins < 30)
         {
-            shopStatusText.text = language == Language.Korean ? "코인이 부족합니다." : "Not enough coins.";
+            ShowInsufficientCoinsPanel();
             return;
         }
         coins -= 30;
@@ -992,7 +1023,7 @@ public sealed class WordfallPrototype : MonoBehaviour
         }
         if (coins < 100)
         {
-            shopStatusText.text = language == Language.Korean ? "코인이 부족합니다." : "Not enough coins.";
+            ShowInsufficientCoinsPanel();
             return;
         }
         coins -= 100;
@@ -1576,6 +1607,19 @@ public sealed class WordfallPrototype : MonoBehaviour
     private void ApplyPixelScoreHud(GameObject panel)
     {
         var texture = Resources.Load<Texture2D>("Pixel/score-hud-frame");
+        if (texture == null) return;
+        texture.filterMode = FilterMode.Point;
+        texture.wrapMode = TextureWrapMode.Clamp;
+        var image = panel.GetComponent<Image>();
+        image.sprite = Sprite.Create(texture, new Rect(0f, 0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100f, 0u, SpriteMeshType.FullRect, new Vector4(180f, 180f, 180f, 180f));
+        image.type = Image.Type.Sliced;
+        image.color = Color.white;
+        image.raycastTarget = false;
+    }
+
+    private void ApplyPixelShopWindow(GameObject panel)
+    {
+        var texture = Resources.Load<Texture2D>("Pixel/coin-shop-window");
         if (texture == null) return;
         texture.filterMode = FilterMode.Point;
         texture.wrapMode = TextureWrapMode.Clamp;
