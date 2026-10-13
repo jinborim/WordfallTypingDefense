@@ -38,6 +38,7 @@ public sealed class WordfallPrototype : MonoBehaviour
     private GameObject attendancePanel;
     private GameObject shopPanel;
     private GameObject insufficientCoinsPanel;
+    private GameObject announcementPanel;
     private Text scoreText;
     private Text livesText;
     private Text comboText;
@@ -78,6 +79,8 @@ public sealed class WordfallPrototype : MonoBehaviour
     private Text shopStatusText;
     private Text insufficientCoinsTitleText;
     private Text insufficientCoinsMessageText;
+    private Text announcementTitleText;
+    private Text announcementMessageText;
     private InputField inputField;
     private RectTransform wordLayer;
     private Button[] difficultyButtons;
@@ -110,6 +113,8 @@ public sealed class WordfallPrototype : MonoBehaviour
     private Button hackerShopButton;
     private Button shopCloseButton;
     private Button insufficientCoinsCloseButton;
+    private Button announcementButton;
+    private Button announcementCloseButton;
     private Button menuButton;
     private Button pauseButton;
     private Button resumeButton;
@@ -125,6 +130,7 @@ public sealed class WordfallPrototype : MonoBehaviour
     private Image shopMageImage;
     private Image shopHackerImage;
     private Image homeHubShopImage;
+    private Image homeHubAnnouncementImage;
     private string pendingUpdateUrl;
     private bool myPageOpenedFromGame;
     private bool languageOpenedFromHomeHub;
@@ -343,6 +349,10 @@ public sealed class WordfallPrototype : MonoBehaviour
         homeHubShopImage.raycastTarget = false;
         homeHubShopButton = CreateButton("상점", homeHubPanel.transform, new Vector2(0.88f, 0.15f), new Vector2(150f, 58f), new Color32(198, 143, 52, 255));
         homeHubShopButton.onClick.AddListener(ShowShopFromHome);
+        homeHubAnnouncementImage = CreateImage("HomeHubAnnouncementIcon", homeHubPanel.transform, "Pixel/announcement-icon", new Vector2(0.50f, 0.18f), new Vector2(58f, 58f));
+        homeHubAnnouncementImage.raycastTarget = false;
+        announcementButton = CreateButton("공지사항", homeHubPanel.transform, new Vector2(0.50f, 0.09f), new Vector2(240f, 52f), new Color32(67, 149, 255, 255));
+        announcementButton.onClick.AddListener(ShowAnnouncementPanel);
         homeHubBackButton = CreateButton("뒤로", homeHubPanel.transform, new Vector2(0.12f, 0.15f), new Vector2(150f, 58f), new Color32(78, 160, 255, 255));
         homeHubBackButton.onClick.AddListener(CloseHomeHub);
         homeHubPanel.SetActive(false);
@@ -484,6 +494,16 @@ public sealed class WordfallPrototype : MonoBehaviour
         insufficientCoinsCloseButton.onClick.AddListener(CloseInsufficientCoinsPanel);
         insufficientCoinsPanel.SetActive(false);
 
+        announcementPanel = CreatePanel("AnnouncementPanel", mainPanel.transform, new Color32(9, 18, 38, 250));
+        SetRect(announcementPanel.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
+        ApplyPixelWindow(announcementPanel);
+        ApplyModalDim(announcementPanel);
+        announcementTitleText = CreateText("공지사항", announcementPanel.transform, 42, Color.white, new Vector2(0.5f, 0.70f), new Vector2(0.5f, 0.70f));
+        announcementMessageText = CreateText("워드폴에 오신 것을 환영합니다!\n새로운 소식은 이곳에서 확인하세요.", announcementPanel.transform, 22, new Color32(214, 222, 238, 255), new Vector2(0.5f, 0.51f), new Vector2(0.5f, 0.51f));
+        announcementCloseButton = CreateButton("닫기", announcementPanel.transform, new Vector2(0.5f, 0.25f), new Vector2(220f, 64f), new Color32(67, 149, 255, 255));
+        announcementCloseButton.onClick.AddListener(CloseAnnouncementPanel);
+        announcementPanel.SetActive(false);
+
         updatePanel = CreatePanel("UpdatePanel", mainPanel.transform, new Color32(9, 18, 38, 250));
         SetRect(updatePanel.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
         ApplyPixelWindow(updatePanel);
@@ -571,6 +591,7 @@ public sealed class WordfallPrototype : MonoBehaviour
         SetButtonText(homeHubMyPageButton, language == Language.Korean ? "기록 보기" : "RECORDS");
         SetButtonText(homeHubLanguageButton, language == Language.Korean ? "빠른 시작" : "QUICK START");
         SetButtonText(homeHubShopButton, language == Language.Korean ? "상점" : "SHOP");
+        SetButtonText(announcementButton, language == Language.Korean ? "공지사항" : "ANNOUNCEMENTS");
         SetButtonText(homeHubBackButton, language == Language.Korean ? "뒤로" : "BACK");
         homeHubTitleText.text = language == Language.Korean ? "플레이어 홈" : "PLAYER HOME";
         homeHubPlayerText.text = language == Language.Korean ? "플레이어" : "PLAYER";
@@ -810,6 +831,7 @@ public sealed class WordfallPrototype : MonoBehaviour
         if (myPagePanel != null) myPagePanel.SetActive(false);
         if (shopPanel != null) shopPanel.SetActive(false);
         if (insufficientCoinsPanel != null) insufficientCoinsPanel.SetActive(false);
+        if (announcementPanel != null) announcementPanel.SetActive(false);
         if (insufficientCoinsPanel != null) insufficientCoinsPanel.SetActive(false);
         if (attendancePanel != null) attendancePanel.SetActive(false);
         if (updatePanel != null) updatePanel.SetActive(false);
@@ -972,6 +994,24 @@ public sealed class WordfallPrototype : MonoBehaviour
     private void CloseInsufficientCoinsPanel()
     {
         insufficientCoinsPanel.SetActive(false);
+    }
+
+    private void ShowAnnouncementPanel()
+    {
+        if (playing) return;
+        homeHubPanel.SetActive(false);
+        announcementTitleText.text = language == Language.Korean ? "공지사항" : "ANNOUNCEMENTS";
+        announcementMessageText.text = language == Language.Korean
+            ? "워드폴에 오신 것을 환영합니다!\n새로운 소식은 이곳에서 확인하세요."
+            : "Welcome to Wordfall!\nCheck this panel for the latest news.";
+        SetButtonText(announcementCloseButton, language == Language.Korean ? "닫기" : "CLOSE");
+        announcementPanel.SetActive(true);
+    }
+
+    private void CloseAnnouncementPanel()
+    {
+        announcementPanel.SetActive(false);
+        homeHubPanel.SetActive(true);
     }
 
     private void UpdateShopText()
