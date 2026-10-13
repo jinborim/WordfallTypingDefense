@@ -120,6 +120,7 @@ public sealed class WordfallPrototype : MonoBehaviour
     private Image shopTicketImage;
     private Image shopMageImage;
     private Image shopHackerImage;
+    private Image homeHubShopImage;
     private string pendingUpdateUrl;
     private bool myPageOpenedFromGame;
     private bool languageOpenedFromHomeHub;
@@ -334,6 +335,8 @@ public sealed class WordfallPrototype : MonoBehaviour
         homeHubMyPageButton.onClick.AddListener(ShowMyPage);
         homeHubLanguageButton = CreateButton("빠른 시작", homeHubPanel.transform, new Vector2(0.66f, 0.15f), new Vector2(230f, 58f), new Color32(58, 80, 122, 255));
         homeHubLanguageButton.onClick.AddListener(StartQuickGame);
+        homeHubShopImage = CreateImage("HomeHubShopIcon", homeHubPanel.transform, "Pixel/shop-icon", new Vector2(0.88f, 0.28f), new Vector2(78f, 78f));
+        homeHubShopImage.raycastTarget = false;
         homeHubShopButton = CreateButton("상점", homeHubPanel.transform, new Vector2(0.88f, 0.15f), new Vector2(150f, 58f), new Color32(198, 143, 52, 255));
         homeHubShopButton.onClick.AddListener(ShowShopFromHome);
         homeHubBackButton = CreateButton("뒤로", homeHubPanel.transform, new Vector2(0.12f, 0.15f), new Vector2(150f, 58f), new Color32(78, 160, 255, 255));
