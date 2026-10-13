@@ -1803,7 +1803,9 @@ public sealed class WordfallPrototype : MonoBehaviour
         outline.useGraphicAlpha = false;
         var button = objectToCreate.GetComponent<Button>();
         button.transition = Selectable.Transition.ColorTint;
-        button.navigation.mode = Navigation.Mode.None;
+        var navigation = button.navigation;
+        navigation.mode = Navigation.Mode.None;
+        button.navigation = navigation;
         var colors = button.colors;
         colors.normalColor = color;
         colors.highlightedColor = new Color(Mathf.Min(color.r + 0.08f, 1f), Mathf.Min(color.g + 0.08f, 1f), Mathf.Min(color.b + 0.08f, 1f), 1f);
