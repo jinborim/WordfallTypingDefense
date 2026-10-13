@@ -124,7 +124,6 @@ public sealed class WordfallPrototype : MonoBehaviour
     private GameObject characterStatusPanel;
     private InputField nicknameInput;
     private Image activeCharacterImage;
-    private Image mainHomeCharacterImage;
     private Image homeHubCharacterImage;
     private Image myPageCharacterImage;
     private Image shopTicketImage;
@@ -323,8 +322,6 @@ public sealed class WordfallPrototype : MonoBehaviour
         CreateImage("WordfallEnglishLogo", mainPanel.transform, "Pixel/wordfall-logo-en", new Vector2(0.5f, 0.65f), new Vector2(430f, 92f));
         subtitleText = CreateText("한글 & 영어 타자 디펜스", mainPanel.transform, 22, new Color32(158, 180, 220, 255), new Vector2(0.5f, 0.53f), new Vector2(0.5f, 0.53f));
         descriptionText = CreateText("떨어지는 단어를 빠르게 입력해 기지를 지키세요.", mainPanel.transform, 18, new Color32(214, 222, 238, 255), new Vector2(0.5f, 0.48f), new Vector2(0.5f, 0.48f));
-        mainHomeCharacterImage = CreateImage("MainHomeCharacter", mainPanel.transform, GetCharacterResourcePath(false), new Vector2(0.5f, 0.36f), new Vector2(160f, 160f));
-        mainHomeCharacterImage.raycastTarget = false;
         mainStartButton = CreateButton("게임 시작", mainPanel.transform, new Vector2(0.38f, 0.21f), new Vector2(340f, 78f), new Color32(255, 196, 61, 255));
         mainStartButton.onClick.AddListener(ShowHomeHub);
         languageOpenButton = CreateButton("언어 설정", mainPanel.transform, new Vector2(0.66f, 0.21f), new Vector2(250f, 78f), new Color32(58, 80, 122, 255));
@@ -336,14 +333,11 @@ public sealed class WordfallPrototype : MonoBehaviour
         ApplyPixelLobbyBackground(homeHubPanel);
         ApplyModalDim(homeHubPanel);
         homeHubTitleText = CreateText("플레이어 홈", homeHubPanel.transform, 42, Color.white, new Vector2(0.5f, 0.78f), new Vector2(0.5f, 0.78f));
-        homeHubCharacterImage = CreateImage("HomeHubCharacter", homeHubPanel.transform, GetCharacterResourcePath(false), new Vector2(0.5f, 0.61f), new Vector2(112f, 112f));
-        var homeHubPortrait = homeHubCharacterImage;
-        homeHubPortrait.raycastTarget = false;
-        var homeHubFrame = CreateImage("HomeHubProfileFrame", homeHubPanel.transform, "Pixel/character-profile-frame", new Vector2(0.5f, 0.61f), new Vector2(136f, 136f));
-        homeHubFrame.raycastTarget = false;
-        homeHubPlayerText = CreateText("PLAYER", homeHubPanel.transform, 22, new Color32(214, 222, 238, 255), new Vector2(0.5f, 0.42f), new Vector2(0.5f, 0.42f));
-        homeHubCoinText = CreateText("COINS 0", homeHubPanel.transform, 20, new Color32(255, 211, 94, 255), new Vector2(0.5f, 0.36f), new Vector2(0.5f, 0.36f));
-        homeHubStartButton = CreateButton("게임 시작", homeHubPanel.transform, new Vector2(0.5f, 0.27f), new Vector2(330f, 68f), new Color32(255, 196, 61, 255));
+        homeHubCharacterImage = CreateImage("HomeHubCharacter", homeHubPanel.transform, GetLobbyCharacterResourcePath(), new Vector2(0.5f, 0.54f), new Vector2(170f, 220f));
+        homeHubCharacterImage.raycastTarget = false;
+        homeHubPlayerText = CreateText("PLAYER", homeHubPanel.transform, 22, new Color32(214, 222, 238, 255), new Vector2(0.5f, 0.36f), new Vector2(0.5f, 0.36f));
+        homeHubCoinText = CreateText("COINS 0", homeHubPanel.transform, 20, new Color32(255, 211, 94, 255), new Vector2(0.5f, 0.32f), new Vector2(0.5f, 0.32f));
+        homeHubStartButton = CreateButton("게임 시작", homeHubPanel.transform, new Vector2(0.5f, 0.24f), new Vector2(330f, 68f), new Color32(255, 196, 61, 255));
         homeHubStartButton.onClick.AddListener(ShowSetupPanel);
         homeHubMyPageButton = CreateButton("기록 보기", homeHubPanel.transform, new Vector2(0.34f, 0.15f), new Vector2(230f, 58f), new Color32(105, 76, 162, 255));
         homeHubMyPageButton.onClick.AddListener(ShowMyPage);
@@ -831,7 +825,6 @@ public sealed class WordfallPrototype : MonoBehaviour
         ClearWords();
         mainPanel.SetActive(true);
         gamePanel.SetActive(false);
-        UpdateMainHomeCharacter();
         if (setupPanel != null) setupPanel.SetActive(false);
         if (homeHubPanel != null) homeHubPanel.SetActive(false);
         if (languagePanel != null) languagePanel.SetActive(false);
@@ -886,23 +879,12 @@ public sealed class WordfallPrototype : MonoBehaviour
     private void UpdateHomeHubCharacter()
     {
         if (homeHubCharacterImage == null) return;
-        var texture = Resources.Load<Texture2D>(GetCharacterResourcePath(false));
+        var texture = Resources.Load<Texture2D>(GetLobbyCharacterResourcePath());
         if (texture == null) return;
         texture.filterMode = FilterMode.Point;
         texture.wrapMode = TextureWrapMode.Clamp;
         homeHubCharacterImage.sprite = Sprite.Create(texture, new Rect(0f, 0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100f);
         homeHubCharacterImage.preserveAspect = true;
-    }
-
-    private void UpdateMainHomeCharacter()
-    {
-        if (mainHomeCharacterImage == null) return;
-        var texture = Resources.Load<Texture2D>(GetCharacterResourcePath(false));
-        if (texture == null) return;
-        texture.filterMode = FilterMode.Point;
-        texture.wrapMode = TextureWrapMode.Clamp;
-        mainHomeCharacterImage.sprite = Sprite.Create(texture, new Rect(0f, 0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100f);
-        mainHomeCharacterImage.preserveAspect = true;
     }
 
     private void ShowSetupPanel()
@@ -1567,6 +1549,15 @@ public sealed class WordfallPrototype : MonoBehaviour
         string[] alarmPaths = { "Pixel/character-knight-alarm", "Pixel/character-mage-alarm", "Pixel/character-hacker-alarm" };
         int index = Mathf.Clamp(selectedCharacter, 0, normalPaths.Length - 1);
         return alarm ? alarmPaths[index] : normalPaths[index];
+    }
+
+    private string GetLobbyCharacterResourcePath()
+    {
+        string[] fullBodyPaths = { "Pixel/character-knight-full", "Pixel/character-mage-full", "Pixel/character-hacker-full" };
+        int index = Mathf.Clamp(selectedCharacter, 0, fullBodyPaths.Length - 1);
+        return Resources.Load<Texture2D>(fullBodyPaths[index]) != null
+            ? fullBodyPaths[index]
+            : GetCharacterResourcePath(false);
     }
 
     private void SetCharacterEmotion(bool alarm)
