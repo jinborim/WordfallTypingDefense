@@ -318,8 +318,9 @@ public sealed class WordfallPrototype : MonoBehaviour
         ApplyPixelBackground(mainPanel);
         ApplyPixelBackground(gamePanel);
         CreateImage("PixelShieldLogo", mainPanel.transform, "Pixel/wordfall-shield", new Vector2(0.5f, 0.80f), new Vector2(150f, 150f));
-        titleText = CreateText("워드폴", mainPanel.transform, 64, new Color32(241, 247, 255, 255), new Vector2(0.5f, 0.65f), new Vector2(0.5f, 0.65f));
-        subtitleText = CreateText("한글 & 영어 타자 디펜스", mainPanel.transform, 22, new Color32(158, 180, 220, 255), new Vector2(0.5f, 0.57f), new Vector2(0.5f, 0.57f));
+        titleText = CreateText("WORDFALL", mainPanel.transform, 64, new Color32(241, 247, 255, 0), new Vector2(0.5f, 0.65f), new Vector2(0.5f, 0.65f));
+        CreateImage("WordfallEnglishLogo", mainPanel.transform, "Pixel/wordfall-logo-en", new Vector2(0.5f, 0.65f), new Vector2(430f, 92f));
+        subtitleText = CreateText("한글 & 영어 타자 디펜스", mainPanel.transform, 22, new Color32(158, 180, 220, 255), new Vector2(0.5f, 0.53f), new Vector2(0.5f, 0.53f));
         descriptionText = CreateText("떨어지는 단어를 빠르게 입력해 기지를 지키세요.", mainPanel.transform, 18, new Color32(214, 222, 238, 255), new Vector2(0.5f, 0.48f), new Vector2(0.5f, 0.48f));
         mainStartButton = CreateButton("게임 시작", mainPanel.transform, new Vector2(0.38f, 0.21f), new Vector2(340f, 78f), new Color32(255, 196, 61, 255));
         mainStartButton.onClick.AddListener(ShowHomeHub);
