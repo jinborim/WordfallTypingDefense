@@ -1984,9 +1984,18 @@ public sealed class WordfallPrototype : MonoBehaviour
 
             texture.filterMode = FilterMode.Point;
             texture.wrapMode = TextureWrapMode.Clamp;
-            var layerObject = new GameObject("DriftingPixelBackground", typeof(RectTransform), typeof(Image));
-            layerObject.transform.SetParent(transform, false);
-            layerObject.transform.SetAsFirstSibling();
+
+            var viewportObject = new GameObject("SkyMotionViewport", typeof(RectTransform), typeof(RectMask2D));
+            viewportObject.transform.SetParent(transform, false);
+            viewportObject.transform.SetAsFirstSibling();
+            var viewport = viewportObject.GetComponent<RectTransform>();
+            viewport.anchorMin = new Vector2(0f, 0.24f);
+            viewport.anchorMax = Vector2.one;
+            viewport.offsetMin = Vector2.zero;
+            viewport.offsetMax = Vector2.zero;
+
+            var layerObject = new GameObject("DriftingSkyLayer", typeof(RectTransform), typeof(Image));
+            layerObject.transform.SetParent(viewportObject.transform, false);
 
             var rect = layerObject.GetComponent<RectTransform>();
             rect.anchorMin = new Vector2(0.5f, 0.5f);
@@ -1999,7 +2008,7 @@ public sealed class WordfallPrototype : MonoBehaviour
             backgroundLayer.sprite = Sprite.Create(texture, new Rect(0f, 0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100f);
             backgroundLayer.type = Image.Type.Simple;
             backgroundLayer.preserveAspect = false;
-            backgroundLayer.color = new Color(0.42f, 0.62f, 1f, 0.22f);
+            backgroundLayer.color = new Color(0.42f, 0.62f, 1f, 0.20f);
             backgroundLayer.raycastTarget = false;
         }
 
