@@ -1931,6 +1931,7 @@ public sealed class WordfallPrototype : MonoBehaviour
 
     private sealed class PixelAmbientMotion : MonoBehaviour
     {
+        private Image backgroundLayer;
         private readonly List<RectTransform> motes = new List<RectTransform>();
         private readonly List<Vector2> offsets = new List<Vector2>();
         private readonly List<float> speeds = new List<float>();
@@ -1948,6 +1949,7 @@ public sealed class WordfallPrototype : MonoBehaviour
 
         private void Awake()
         {
+            CreateDriftingBackgroundLayer();
             for (int i = 0; i < Positions.Length; i++)
             {
                 var moteObject = new GameObject("Mote" + i, typeof(RectTransform), typeof(Image));
@@ -1975,9 +1977,42 @@ public sealed class WordfallPrototype : MonoBehaviour
             }
         }
 
+        private void CreateDriftingBackgroundLayer()
+        {
+            var texture = Resources.Load<Texture2D>("Pixel/wordfall-background");
+            if (texture == null) return;
+
+            texture.filterMode = FilterMode.Point;
+            texture.wrapMode = TextureWrapMode.Clamp;
+            var layerObject = new GameObject("DriftingPixelBackground", typeof(RectTransform), typeof(Image));
+            layerObject.transform.SetParent(transform, false);
+            layerObject.transform.SetAsFirstSibling();
+
+            var rect = layerObject.GetComponent<RectTransform>();
+            rect.anchorMin = new Vector2(0.5f, 0.5f);
+            rect.anchorMax = new Vector2(0.5f, 0.5f);
+            rect.pivot = new Vector2(0.5f, 0.5f);
+            rect.anchoredPosition = Vector2.zero;
+            rect.sizeDelta = new Vector2(1440f, 820f);
+
+            backgroundLayer = layerObject.GetComponent<Image>();
+            backgroundLayer.sprite = Sprite.Create(texture, new Rect(0f, 0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100f);
+            backgroundLayer.type = Image.Type.Simple;
+            backgroundLayer.preserveAspect = false;
+            backgroundLayer.color = new Color(0.42f, 0.62f, 1f, 0.22f);
+            backgroundLayer.raycastTarget = false;
+        }
+
         private void Update()
         {
             float time = Time.unscaledTime;
+            if (backgroundLayer != null)
+            {
+                backgroundLayer.rectTransform.anchoredPosition = new Vector2(
+                    Mathf.Sin(time * 0.10f) * 30f,
+                    Mathf.Cos(time * 0.075f) * 12f);
+            }
+
             for (int i = 0; i < motes.Count; i++)
             {
                 float phase = phases[i] + time * speeds[i];
