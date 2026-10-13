@@ -321,9 +321,9 @@ public sealed class WordfallPrototype : MonoBehaviour
         languageOpenButton.onClick.AddListener(ShowLanguagePanel);
         profileSummaryText = CreateText("", mainPanel.transform, 16, new Color32(171, 190, 220, 255), new Vector2(0.5f, 0.105f), new Vector2(0.5f, 0.105f));
 
-        homeHubPanel = CreatePanel("HomeHubPanel", mainPanel.transform, new Color32(9, 18, 38, 250));
+        homeHubPanel = CreatePanel("HomeHubPanel", mainPanel.transform, new Color32(0, 0, 0, 0));
         SetRect(homeHubPanel.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
-        ApplyPixelWindow(homeHubPanel);
+        ApplyPixelLobbyBackground(homeHubPanel);
         ApplyModalDim(homeHubPanel);
         homeHubTitleText = CreateText("플레이어 홈", homeHubPanel.transform, 42, Color.white, new Vector2(0.5f, 0.78f), new Vector2(0.5f, 0.78f));
         homeHubCharacterImage = CreateImage("HomeHubCharacter", homeHubPanel.transform, GetCharacterResourcePath(false), new Vector2(0.5f, 0.61f), new Vector2(112f, 112f));
@@ -1615,6 +1615,19 @@ public sealed class WordfallPrototype : MonoBehaviour
         image.type = Image.Type.Sliced;
         image.color = Color.white;
         image.raycastTarget = false;
+    }
+
+    private void ApplyPixelLobbyBackground(GameObject panel)
+    {
+        var background = Resources.Load<Texture2D>("Pixel/lobby-background");
+        if (background == null) return;
+        background.filterMode = FilterMode.Point;
+        background.wrapMode = TextureWrapMode.Clamp;
+        var image = panel.GetComponent<Image>();
+        image.sprite = Sprite.Create(background, new Rect(0f, 0f, background.width, background.height), new Vector2(0.5f, 0.5f), 100f);
+        image.type = Image.Type.Simple;
+        image.preserveAspect = false;
+        image.color = Color.white;
     }
 
     private void ApplyPixelShopWindow(GameObject panel)
