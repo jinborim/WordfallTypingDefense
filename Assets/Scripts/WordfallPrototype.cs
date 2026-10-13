@@ -469,17 +469,20 @@ public sealed class WordfallPrototype : MonoBehaviour
         ApplyModalDim(shopPanel);
         shopTitleText = CreateText("코인 상점", shopPanel.transform, 42, Color.white, new Vector2(0.5f, 0.78f), new Vector2(0.5f, 0.78f));
         shopCoinText = CreateText("코인 0", shopPanel.transform, 22, new Color32(255, 211, 94, 255), new Vector2(0.5f, 0.68f), new Vector2(0.5f, 0.68f));
-        shopTicketImage = CreateImage("ShopNicknameTicket", shopPanel.transform, "Pixel/nickname-ticket", new Vector2(0.5f, 0.60f), new Vector2(66f, 66f));
+        CreateShopItemCard("ShopTicketCard", shopPanel.transform, new Vector2(0.20f, 0.46f), new Vector2(300f, 230f));
+        CreateShopItemCard("ShopMageCard", shopPanel.transform, new Vector2(0.50f, 0.46f), new Vector2(300f, 230f));
+        CreateShopItemCard("ShopHackerCard", shopPanel.transform, new Vector2(0.80f, 0.46f), new Vector2(300f, 230f));
+        shopTicketImage = CreateImage("ShopNicknameTicket", shopPanel.transform, "Pixel/nickname-ticket", new Vector2(0.20f, 0.55f), new Vector2(66f, 66f));
         shopTicketImage.raycastTarget = false;
-        nicknameTicketButton = CreateButton("닉네임 변경권 30코인", shopPanel.transform, new Vector2(0.5f, 0.50f), new Vector2(400f, 64f), new Color32(67, 149, 255, 255));
+        nicknameTicketButton = CreateButton("닉네임 변경권 30코인", shopPanel.transform, new Vector2(0.20f, 0.36f), new Vector2(270f, 58f), new Color32(67, 149, 255, 255));
         nicknameTicketButton.onClick.AddListener(BuyNicknameTicket);
-        shopMageImage = CreateImage("ShopMageProfile", shopPanel.transform, "Pixel/character-mage", new Vector2(0.34f, 0.49f), new Vector2(74f, 74f));
+        shopMageImage = CreateImage("ShopMageProfile", shopPanel.transform, "Pixel/character-mage", new Vector2(0.50f, 0.55f), new Vector2(74f, 74f));
         shopMageImage.raycastTarget = false;
-        shopHackerImage = CreateImage("ShopHackerProfile", shopPanel.transform, "Pixel/character-hacker", new Vector2(0.66f, 0.49f), new Vector2(74f, 74f));
+        shopHackerImage = CreateImage("ShopHackerProfile", shopPanel.transform, "Pixel/character-hacker", new Vector2(0.80f, 0.55f), new Vector2(74f, 74f));
         shopHackerImage.raycastTarget = false;
-        mageShopButton = CreateButton("마법사 프로필 100코인", shopPanel.transform, new Vector2(0.34f, 0.37f), new Vector2(300f, 64f), new Color32(105, 76, 162, 255));
+        mageShopButton = CreateButton("마법사 프로필 100코인", shopPanel.transform, new Vector2(0.50f, 0.36f), new Vector2(270f, 58f), new Color32(105, 76, 162, 255));
         mageShopButton.onClick.AddListener(() => BuyCharacter(1));
-        hackerShopButton = CreateButton("해커 프로필 100코인", shopPanel.transform, new Vector2(0.66f, 0.37f), new Vector2(300f, 64f), new Color32(53, 137, 105, 255));
+        hackerShopButton = CreateButton("해커 프로필 100코인", shopPanel.transform, new Vector2(0.80f, 0.36f), new Vector2(270f, 58f), new Color32(53, 137, 105, 255));
         hackerShopButton.onClick.AddListener(() => BuyCharacter(2));
         shopStatusText = CreateText("", shopPanel.transform, 18, new Color32(171, 190, 220, 255), new Vector2(0.5f, 0.27f), new Vector2(0.5f, 0.27f));
         shopCloseButton = CreateButton("닫기", shopPanel.transform, new Vector2(0.5f, 0.16f), new Vector2(220f, 62f), new Color32(58, 80, 122, 255));
@@ -1647,6 +1650,14 @@ public sealed class WordfallPrototype : MonoBehaviour
         return objectToCreate;
     }
 
+    private void CreateShopItemCard(string name, Transform parent, Vector2 anchor, Vector2 size)
+    {
+        var card = CreatePanel(name, parent, new Color32(8, 18, 39, 235));
+        SetRect(card.GetComponent<RectTransform>(), anchor, anchor, Vector2.zero, size);
+        ApplyPixelShopWindow(card);
+        card.GetComponent<Image>().raycastTarget = false;
+    }
+
     private void ApplyPixelInputFrame(GameObject panel)
     {
         var texture = Resources.Load<Texture2D>("Pixel/wordfall-input");
@@ -1800,11 +1811,16 @@ public sealed class WordfallPrototype : MonoBehaviour
         outline.effectDistance = new Vector2(4f, -4f);
         outline.useGraphicAlpha = false;
         var button = objectToCreate.GetComponent<Button>();
+        button.transition = Selectable.Transition.ColorTint;
+        button.navigation.mode = Navigation.Mode.None;
         var colors = button.colors;
         colors.normalColor = color;
         colors.highlightedColor = new Color(Mathf.Min(color.r + 0.08f, 1f), Mathf.Min(color.g + 0.08f, 1f), Mathf.Min(color.b + 0.08f, 1f), 1f);
         colors.pressedColor = new Color(color.r * 0.8f, color.g * 0.8f, color.b * 0.8f, 1f);
+        colors.selectedColor = color;
+        colors.disabledColor = new Color(color.r * 0.45f, color.g * 0.45f, color.b * 0.45f, 0.75f);
         button.colors = colors;
+        objectToCreate.AddComponent<ButtonPressFeedback>();
         SetRect(objectToCreate.GetComponent<RectTransform>(), anchor, anchor, Vector2.zero, size);
         var text = CreateText(label, objectToCreate.transform, 22, Color.white, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f));
         text.rectTransform.sizeDelta = size;
@@ -1877,6 +1893,36 @@ public sealed class WordfallPrototype : MonoBehaviour
         rect.anchoredPosition = position;
         if (anchorMin == anchorMax) rect.sizeDelta = size;
         else { rect.offsetMin = position; rect.offsetMax = position + size; }
+    }
+
+    private sealed class ButtonPressFeedback : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
+    {
+        private Vector3 baseScale;
+
+        private void Awake()
+        {
+            baseScale = transform.localScale;
+        }
+
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            transform.localScale = baseScale * 0.94f;
+        }
+
+        public void OnPointerUp(PointerEventData eventData)
+        {
+            transform.localScale = baseScale;
+        }
+
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            transform.localScale = baseScale * 1.02f;
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            transform.localScale = baseScale;
+        }
     }
 
     private sealed class FallingWord
