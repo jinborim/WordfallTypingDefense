@@ -124,6 +124,7 @@ public sealed class WordfallPrototype : MonoBehaviour
     private GameObject characterStatusPanel;
     private InputField nicknameInput;
     private Image activeCharacterImage;
+    private Image mainHomeCharacterImage;
     private Image homeHubCharacterImage;
     private Image myPageCharacterImage;
     private Image shopTicketImage;
@@ -322,6 +323,8 @@ public sealed class WordfallPrototype : MonoBehaviour
         CreateImage("WordfallEnglishLogo", mainPanel.transform, "Pixel/wordfall-logo-en", new Vector2(0.5f, 0.65f), new Vector2(430f, 92f));
         subtitleText = CreateText("한글 & 영어 타자 디펜스", mainPanel.transform, 22, new Color32(158, 180, 220, 255), new Vector2(0.5f, 0.53f), new Vector2(0.5f, 0.53f));
         descriptionText = CreateText("떨어지는 단어를 빠르게 입력해 기지를 지키세요.", mainPanel.transform, 18, new Color32(214, 222, 238, 255), new Vector2(0.5f, 0.48f), new Vector2(0.5f, 0.48f));
+        mainHomeCharacterImage = CreateImage("MainHomeCharacter", mainPanel.transform, GetCharacterResourcePath(false), new Vector2(0.5f, 0.36f), new Vector2(160f, 160f));
+        mainHomeCharacterImage.raycastTarget = false;
         mainStartButton = CreateButton("게임 시작", mainPanel.transform, new Vector2(0.38f, 0.21f), new Vector2(340f, 78f), new Color32(255, 196, 61, 255));
         mainStartButton.onClick.AddListener(ShowHomeHub);
         languageOpenButton = CreateButton("언어 설정", mainPanel.transform, new Vector2(0.66f, 0.21f), new Vector2(250f, 78f), new Color32(58, 80, 122, 255));
@@ -825,6 +828,7 @@ public sealed class WordfallPrototype : MonoBehaviour
         ClearWords();
         mainPanel.SetActive(true);
         gamePanel.SetActive(false);
+        UpdateMainHomeCharacter();
         if (setupPanel != null) setupPanel.SetActive(false);
         if (homeHubPanel != null) homeHubPanel.SetActive(false);
         if (languagePanel != null) languagePanel.SetActive(false);
@@ -885,6 +889,17 @@ public sealed class WordfallPrototype : MonoBehaviour
         texture.wrapMode = TextureWrapMode.Clamp;
         homeHubCharacterImage.sprite = Sprite.Create(texture, new Rect(0f, 0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100f);
         homeHubCharacterImage.preserveAspect = true;
+    }
+
+    private void UpdateMainHomeCharacter()
+    {
+        if (mainHomeCharacterImage == null) return;
+        var texture = Resources.Load<Texture2D>(GetCharacterResourcePath(false));
+        if (texture == null) return;
+        texture.filterMode = FilterMode.Point;
+        texture.wrapMode = TextureWrapMode.Clamp;
+        mainHomeCharacterImage.sprite = Sprite.Create(texture, new Rect(0f, 0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100f);
+        mainHomeCharacterImage.preserveAspect = true;
     }
 
     private void ShowSetupPanel()
