@@ -335,10 +335,10 @@ public sealed class WordfallPrototype : MonoBehaviour
         ApplyPixelLobbyBackground(homeHubPanel);
         ApplyModalDim(homeHubPanel);
         homeHubTitleText = CreateText("플레이어 홈", homeHubPanel.transform, 42, Color.white, new Vector2(0.5f, 0.78f), new Vector2(0.5f, 0.78f));
-        homeHubCharacterImage = CreateImage("HomeHubCharacter", homeHubPanel.transform, GetLobbyCharacterResourcePath(), new Vector2(0.5f, 0.54f), new Vector2(170f, 220f));
+        homeHubCharacterImage = CreateImage("HomeHubCharacter", homeHubPanel.transform, GetLobbyCharacterResourcePath(), new Vector2(0.5f, 0.36f), new Vector2(170f, 220f));
         homeHubCharacterImage.raycastTarget = false;
-        homeHubPlayerText = CreateText("PLAYER", homeHubPanel.transform, 22, new Color32(214, 222, 238, 255), new Vector2(0.5f, 0.36f), new Vector2(0.5f, 0.36f));
-        homeHubCoinText = CreateText("COINS 0", homeHubPanel.transform, 20, new Color32(255, 211, 94, 255), new Vector2(0.5f, 0.32f), new Vector2(0.5f, 0.32f));
+        homeHubPlayerText = CreateText("PLAYER", homeHubPanel.transform, 22, new Color32(214, 222, 238, 255), new Vector2(0.5f, 0.64f), new Vector2(0.5f, 0.64f));
+        homeHubCoinText = CreateText("COINS 0", homeHubPanel.transform, 20, new Color32(255, 211, 94, 255), new Vector2(0.5f, 0.59f), new Vector2(0.5f, 0.59f));
         homeHubStartButton = CreateButton("게임 시작", homeHubPanel.transform, new Vector2(0.5f, 0.24f), new Vector2(330f, 68f), new Color32(255, 196, 61, 255));
         homeHubStartButton.onClick.AddListener(ShowSetupPanel);
         homeHubMyPageButton = CreateButton("기록 보기", homeHubPanel.transform, new Vector2(0.34f, 0.15f), new Vector2(230f, 58f), new Color32(105, 76, 162, 255));
