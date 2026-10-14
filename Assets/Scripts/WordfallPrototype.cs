@@ -595,10 +595,10 @@ public sealed class WordfallPrototype : MonoBehaviour
         }
         for (int i = 0; i < lifeHeartImages.Length; i++)
         {
-            lifeHeartImages[i] = CreateImage("LifeHeart" + (i + 1), header.transform, "Pixel/life-heart", new Vector2(0.78f, 0.5f), new Vector2(40f, 36f));
+            lifeHeartImages[i] = CreateImage("LifeHeart" + (i + 1), header.transform, "Pixel/life-heart", new Vector2(0.89f, 0.5f), new Vector2(42f, 40f));
             if (heartSprite != null) lifeHeartImages[i].sprite = heartSprite;
             lifeHeartImages[i].preserveAspect = true;
-            lifeHeartImages[i].rectTransform.anchoredPosition = new Vector2(-80f + i * 40f, 0f);
+            lifeHeartImages[i].rectTransform.anchoredPosition = new Vector2(-100f + i * 50f, 0f);
             lifeHeartImages[i].raycastTarget = false;
         }
         comboText = CreateText("COMBO x0", header.transform, 20, new Color32(147, 232, 189, 255), new Vector2(0.61f, 0.5f), new Vector2(0.61f, 0.5f));
@@ -613,7 +613,7 @@ public sealed class WordfallPrototype : MonoBehaviour
         SetRect(wordLayer, new Vector2(0f, 0f), new Vector2(1f, 1f), new Vector2(26f, 92f), new Vector2(-26f, -190f));
         wordLayerObject.AddComponent<RectMask2D>();
         var inputBackground = CreatePanel("InputBackground", gamePanel.transform, new Color32(0, 0, 0, 0));
-        SetRect(inputBackground.GetComponent<RectTransform>(), new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, 122f), new Vector2(780f, 104f));
+        SetRect(inputBackground.GetComponent<RectTransform>(), new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, 116f), new Vector2(780f, 148f));
         ApplyPixelInputFrame(inputBackground);
         inputBackground.transform.SetAsLastSibling();
         inputField = CreateInputField(inputBackground.transform);
@@ -2106,7 +2106,7 @@ public sealed class WordfallPrototype : MonoBehaviour
         objectToCreate.transform.SetParent(parent, false);
         objectToCreate.GetComponent<Image>().color = new Color32(255, 255, 255, 0);
         var rect = objectToCreate.GetComponent<RectTransform>();
-        SetRect(rect, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(720f, 68f));
+        SetRect(rect, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(700f, 94f));
         var input = objectToCreate.GetComponent<InputField>();
         input.lineType = InputField.LineType.SingleLine;
         input.caretColor = new Color32(255, 211, 94, 255);
