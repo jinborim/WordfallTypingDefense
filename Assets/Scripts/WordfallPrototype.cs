@@ -664,9 +664,9 @@ public sealed class WordfallPrototype : MonoBehaviour
         gameOverTitleText = CreateText("게임 오버", gameOverWindow.transform, 38, Color.white, new Vector2(0.5f, 0.73f), new Vector2(0.5f, 0.73f));
         gameOverSummaryText = CreateText("점수 0000\n정확도 0%", gameOverWindow.transform, 20, new Color32(214, 222, 238, 255), new Vector2(0.5f, 0.53f), new Vector2(0.5f, 0.53f));
         gameOverSummaryText.alignment = TextAnchor.MiddleCenter;
-        gameOverRetryButton = CreateButton("다시하기", gameOverWindow.transform, new Vector2(0.31f, 0.22f), new Vector2(190f, 56f), new Color32(67, 149, 255, 255));
+        gameOverRetryButton = CreateButton("다시하기", gameOverWindow.transform, new Vector2(0.32f, 0.28f), new Vector2(210f, 56f), new Color32(67, 149, 255, 255));
         gameOverRetryButton.onClick.AddListener(StartGame);
-        gameOverSetupButton = CreateButton("게임 설정", gameOverWindow.transform, new Vector2(0.69f, 0.22f), new Vector2(190f, 56f), new Color32(105, 76, 162, 255));
+        gameOverSetupButton = CreateButton("게임 설정", gameOverWindow.transform, new Vector2(0.68f, 0.28f), new Vector2(210f, 56f), new Color32(105, 76, 162, 255));
         gameOverSetupButton.onClick.AddListener(ShowSetupFromGameOver);
         gameOverPanel.SetActive(false);
     }

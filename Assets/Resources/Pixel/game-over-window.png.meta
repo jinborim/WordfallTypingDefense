@@ -8,7 +8,7 @@ TextureImporter:
     sRGBTexture: 1
   textureType: 0
   textureShape: 1
-  alphaIsTransparency: 0
+  alphaIsTransparency: 1
   filterMode: 0
   wrapMode: 1
   npotScale: 0
