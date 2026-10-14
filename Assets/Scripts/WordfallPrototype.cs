@@ -109,6 +109,8 @@ public sealed class WordfallPrototype : MonoBehaviour
     private Button homeHubBackButton;
     private Button homeHubShopButton;
     private Button homeHubMenuToggleButton;
+    private Image homeHubHamburgerIcon;
+    private GameObject homeHubCloseIcon;
     private Button languageCloseButton;
     private Button[] characterButtons;
     private Button createProfileButton;
@@ -365,7 +367,7 @@ public sealed class WordfallPrototype : MonoBehaviour
         ApplyPixelLobbyBackground(homeHubPanel);
         ApplyModalDim(homeHubPanel);
         homeHubTitleText = CreateText("로비", homeHubPanel.transform, 40, Color.white, new Vector2(0.5f, 0.87f), new Vector2(0.5f, 0.87f));
-        homeHubCharacterImage = CreateImage("HomeHubCharacter", homeHubPanel.transform, GetLobbyCharacterResourcePath(), new Vector2(0.5f, 0.36f), new Vector2(170f, 220f));
+        homeHubCharacterImage = CreateImage("HomeHubCharacter", homeHubPanel.transform, GetLobbyCharacterResourcePath(), new Vector2(0.5f, 0.36f), new Vector2(190f, 250f));
         homeHubCharacterImage.raycastTarget = false;
         homeHubPlayerText = CreateText("PLAYER", homeHubPanel.transform, 22, new Color32(214, 222, 238, 255), new Vector2(0.5f, 0.64f), new Vector2(0.5f, 0.64f));
         homeHubCoinText = CreateText("COINS 0", homeHubPanel.transform, 20, new Color32(255, 211, 94, 255), new Vector2(0.5f, 0.59f), new Vector2(0.5f, 0.59f));
@@ -386,8 +388,10 @@ public sealed class WordfallPrototype : MonoBehaviour
         lobbyChatPanel.SetActive(false);
 
         homeHubMenuPanel = CreatePanel("HomeHubSideMenu", homeHubPanel.transform, new Color32(4, 10, 26, 220));
-        SetRect(homeHubMenuPanel.GetComponent<RectTransform>(), new Vector2(0f, 0f), new Vector2(0f, 1f), Vector2.zero, new Vector2(270f, 0f));
-        homeHubMenuPanel.GetComponent<RectTransform>().anchoredPosition = new Vector2(-270f, 0f);
+        var homeHubMenuRect = homeHubMenuPanel.GetComponent<RectTransform>();
+        SetRect(homeHubMenuRect, new Vector2(0f, 0f), new Vector2(0f, 1f), Vector2.zero, new Vector2(270f, 0f));
+        homeHubMenuRect.pivot = new Vector2(0f, 0.5f);
+        homeHubMenuRect.anchoredPosition = new Vector2(-270f, 0f);
         var menuOutline = homeHubMenuPanel.AddComponent<Outline>();
         menuOutline.effectColor = new Color32(20, 66, 126, 220);
         menuOutline.effectDistance = new Vector2(3f, 0f);
@@ -403,6 +407,9 @@ public sealed class WordfallPrototype : MonoBehaviour
         homeHubBackButton = CreateButton("뒤로", homeHubMenuPanel.transform, new Vector2(0.5f, 0.07f), new Vector2(180f, 48f), new Color32(58, 80, 122, 255));
         homeHubBackButton.onClick.AddListener(CloseHomeHub);
         homeHubMenuToggleButton = CreateHamburgerButton("HomeHubMenuToggle", homeHubPanel.transform, new Vector2(0.04f, 0.50f), new Vector2(62f, 62f));
+        homeHubHamburgerIcon = homeHubMenuToggleButton.transform.Find("HamburgerMenuIcon").GetComponent<Image>();
+        homeHubCloseIcon = CreateMenuCloseIcon(homeHubMenuToggleButton.transform);
+        homeHubCloseIcon.SetActive(false);
         homeHubMenuToggleButton.onClick.AddListener(ToggleHomeHubMenu);
         homeHubMenuPanel.SetActive(false);
         homeHubPanel.SetActive(false);
@@ -940,6 +947,8 @@ public sealed class WordfallPrototype : MonoBehaviour
     {
         homeHubMenuOpen = !homeHubMenuOpen;
         if (homeHubMenuPanel == null) return;
+        if (homeHubHamburgerIcon != null) homeHubHamburgerIcon.gameObject.SetActive(!homeHubMenuOpen);
+        if (homeHubCloseIcon != null) homeHubCloseIcon.SetActive(homeHubMenuOpen);
         if (homeHubMenuCoroutine != null) StopCoroutine(homeHubMenuCoroutine);
         if (homeHubMenuOpen) homeHubMenuPanel.SetActive(true);
         homeHubMenuCoroutine = StartCoroutine(AnimateHomeHubMenu(homeHubMenuOpen));
@@ -952,7 +961,7 @@ public sealed class WordfallPrototype : MonoBehaviour
         float target = open ? 0f : -270f;
         var toggleRect = homeHubMenuToggleButton.GetComponent<RectTransform>();
         float toggleStart = toggleRect.anchoredPosition.x;
-        float toggleTarget = open ? 270f : 0f;
+        float toggleTarget = open ? 300f : 0f;
         const float duration = 0.22f;
         float elapsed = 0f;
         while (elapsed < duration)
@@ -2023,6 +2032,33 @@ public sealed class WordfallPrototype : MonoBehaviour
         icon.raycastTarget = false;
 
         return button;
+    }
+
+    private GameObject CreateMenuCloseIcon(Transform parent)
+    {
+        var closeIcon = new GameObject("MenuCloseIcon", typeof(RectTransform), typeof(Image));
+        closeIcon.transform.SetParent(parent, false);
+        SetRect(closeIcon.GetComponent<RectTransform>(), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(58f, 58f));
+        var background = closeIcon.GetComponent<Image>();
+        background.sprite = Resources.Load<Sprite>("Pixel/menu-hamburger-icon");
+        background.type = Image.Type.Simple;
+        background.color = Color.white;
+        background.raycastTarget = false;
+
+        CreateCloseBar(closeIcon.transform, 45f);
+        CreateCloseBar(closeIcon.transform, -45f);
+        return closeIcon;
+    }
+
+    private void CreateCloseBar(Transform parent, float angle)
+    {
+        var bar = new GameObject("CloseBar", typeof(RectTransform), typeof(Image));
+        bar.transform.SetParent(parent, false);
+        SetRect(bar.GetComponent<RectTransform>(), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(34f, 5f));
+        bar.transform.localRotation = Quaternion.Euler(0f, 0f, angle);
+        var image = bar.GetComponent<Image>();
+        image.color = Color.white;
+        image.raycastTarget = false;
     }
 
     private Button CreateCharacterButton(string label, string portraitPath, Transform parent, Vector2 anchor, Color color)
