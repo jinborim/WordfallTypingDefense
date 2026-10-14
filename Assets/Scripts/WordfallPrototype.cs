@@ -597,7 +597,7 @@ public sealed class WordfallPrototype : MonoBehaviour
         SetRect(header.GetComponent<RectTransform>(), new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -36f), new Vector2(1280f, 72f));
         var scoreHud = CreatePanel("ScoreHud", header.transform, new Color32(0, 0, 0, 0));
         SetRect(scoreHud.GetComponent<RectTransform>(), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(700f, 56f));
-        ApplyCompactPixelRectImage(scoreHud);
+        ApplyPixelHudStrip(scoreHud, "Pixel/score-hud-strip");
         scoreText = CreateText("SCORE 0000", header.transform, 24, Color.white, new Vector2(0.31f, 0.5f), new Vector2(0.31f, 0.5f));
         scoreText.rectTransform.sizeDelta = new Vector2(190f, 36f);
         lifeHeartImages = new Image[5];
@@ -621,7 +621,7 @@ public sealed class WordfallPrototype : MonoBehaviour
         comboText.rectTransform.sizeDelta = new Vector2(150f, 34f);
         waveText = CreateText("WAVE 1", header.transform, 18, new Color32(193, 205, 230, 255), new Vector2(0.46f, 0.5f), new Vector2(0.46f, 0.5f));
         waveText.rectTransform.sizeDelta = new Vector2(110f, 32f);
-        timerText = CreateText("", header.transform, 18, new Color32(255, 142, 142, 255), new Vector2(0.88f, 0.5f), new Vector2(0.88f, 0.5f));
+        timerText = CreateText("", header.transform, 18, new Color32(255, 142, 142, 255), new Vector2(0.75f, 0.5f), new Vector2(0.75f, 0.5f));
         timerText.rectTransform.sizeDelta = new Vector2(130f, 32f);
         activeCharacterImage = CreateCharacterProfile(gamePanel.transform);
         var wordLayerObject = CreatePanel("WordLayer", gamePanel.transform, new Color32(0, 0, 0, 0));
@@ -630,14 +630,20 @@ public sealed class WordfallPrototype : MonoBehaviour
         wordLayerObject.AddComponent<RectMask2D>();
         var inputBackground = CreatePanel("InputBackground", gamePanel.transform, new Color32(0, 0, 0, 0));
         SetRect(inputBackground.GetComponent<RectTransform>(), new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, 116f), new Vector2(720f, 112f));
-        ApplyCompactPixelRectImage(inputBackground);
+        ApplyPixelHudStrip(inputBackground, "Pixel/typing-input-line");
         inputBackground.transform.SetAsLastSibling();
         inputField = CreateInputField(inputBackground.transform);
-        statusText = CreateText("Type a word to defend your base!", gamePanel.transform, 18, new Color32(171, 190, 220, 255), new Vector2(0.5f, 0f), new Vector2(0.5f, 0f));
+        var statusBackground = CreatePanel("StatusBackground", gamePanel.transform, new Color32(3, 10, 28, 205));
+        SetRect(statusBackground.GetComponent<RectTransform>(), new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, 34f), new Vector2(620f, 34f));
+        statusText = CreateText("Type a word to defend your base!", gamePanel.transform, 18, new Color32(224, 232, 248, 255), new Vector2(0.5f, 0f), new Vector2(0.5f, 0f));
+        statusText.rectTransform.sizeDelta = new Vector2(600f, 30f);
         statusText.rectTransform.anchoredPosition = new Vector2(0f, 34f);
+        var statusOutline = statusText.gameObject.AddComponent<Outline>();
+        statusOutline.effectColor = new Color32(0, 0, 0, 230);
+        statusOutline.effectDistance = new Vector2(2f, -2f);
         menuButton = CreateButton("메뉴", gamePanel.transform, new Vector2(0.08f, 0.93f), new Vector2(120f, 46f), new Color32(58, 80, 122, 255));
         menuButton.onClick.AddListener(ShowMainMenu);
-        pauseButton = CreateButton("일시정지", gamePanel.transform, new Vector2(0.92f, 0.93f), new Vector2(120f, 46f), new Color32(58, 80, 122, 255));
+        pauseButton = CreateButton("일시정지", gamePanel.transform, new Vector2(0.96f, 0.93f), new Vector2(112f, 46f), new Color32(58, 80, 122, 255));
         pauseButton.onClick.AddListener(TogglePause);
         inputField.onEndEdit.AddListener(HandleSubmitted);
 
@@ -1917,6 +1923,27 @@ public sealed class WordfallPrototype : MonoBehaviour
         var image = panel.GetComponent<Image>();
         image.sprite = Sprite.Create(texture, new Rect(0f, 0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100f, 0u, SpriteMeshType.FullRect, new Vector4(120f, 120f, 120f, 120f));
         image.type = Image.Type.Sliced;
+        image.color = Color.white;
+        image.raycastTarget = false;
+    }
+
+    private void ApplyPixelHudStrip(GameObject panel, string resourcePath)
+    {
+        var texture = Resources.Load<Texture2D>(resourcePath);
+        if (texture == null)
+        {
+            ApplyCompactPixelRectImage(panel);
+            return;
+        }
+
+        texture.filterMode = FilterMode.Point;
+        texture.wrapMode = TextureWrapMode.Clamp;
+        var image = panel.GetComponent<Image>();
+        var cropHeight = texture.height * 0.32f;
+        var cropY = texture.height * 0.34f;
+        image.sprite = Sprite.Create(texture, new Rect(0f, cropY, texture.width, cropHeight), new Vector2(0.5f, 0.5f), 100f, 0u, SpriteMeshType.FullRect, new Vector4(120f, 120f, 120f, 120f));
+        image.type = Image.Type.Sliced;
+        image.preserveAspect = false;
         image.color = Color.white;
         image.raycastTarget = false;
     }
