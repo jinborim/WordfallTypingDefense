@@ -367,7 +367,7 @@ public sealed class WordfallPrototype : MonoBehaviour
         ApplyPixelLobbyBackground(homeHubPanel);
         ApplyModalDim(homeHubPanel);
         homeHubTitleText = CreateText("로비", homeHubPanel.transform, 40, Color.white, new Vector2(0.5f, 0.87f), new Vector2(0.5f, 0.87f));
-        homeHubCharacterImage = CreateImage("HomeHubCharacter", homeHubPanel.transform, GetLobbyCharacterResourcePath(), new Vector2(0.5f, 0.36f), new Vector2(190f, 250f));
+        homeHubCharacterImage = CreateImage("HomeHubCharacter", homeHubPanel.transform, GetLobbyCharacterResourcePath(), new Vector2(0.5f, 0.45f), new Vector2(190f, 250f));
         homeHubCharacterImage.raycastTarget = false;
         homeHubPlayerText = CreateText("PLAYER", homeHubPanel.transform, 22, new Color32(214, 222, 238, 255), new Vector2(0.5f, 0.64f), new Vector2(0.5f, 0.64f));
         homeHubCoinText = CreateText("COINS 0", homeHubPanel.transform, 20, new Color32(255, 211, 94, 255), new Vector2(0.5f, 0.59f), new Vector2(0.5f, 0.59f));
@@ -376,11 +376,9 @@ public sealed class WordfallPrototype : MonoBehaviour
 
         lobbyChatPanel = CreatePanel("LobbyCharacterDialogue", homeHubPanel.transform, new Color32(9, 18, 38, 248));
         SetRect(lobbyChatPanel.GetComponent<RectTransform>(), new Vector2(0.70f, 0.52f), new Vector2(0.70f, 0.52f), Vector2.zero, new Vector2(430f, 172f));
-        var dialogueFrame = lobbyChatPanel.GetComponent<Image>();
-        dialogueFrame.sprite = Resources.Load<Sprite>("Pixel/lobby-dialogue-window");
-        dialogueFrame.type = Image.Type.Sliced;
-        dialogueFrame.color = Color.white;
-        dialogueFrame.raycastTarget = false;
+        ApplyPixelWindow(lobbyChatPanel);
+        lobbyChatPanel.GetComponent<Image>().color = new Color32(9, 18, 38, 248);
+        lobbyChatPanel.GetComponent<Image>().raycastTarget = false;
         lobbyChatMessageText = CreateText("", lobbyChatPanel.transform, 18, new Color32(222, 235, 250, 255), new Vector2(0.5f, 0.50f), new Vector2(0.5f, 0.50f));
         lobbyChatMessageText.rectTransform.sizeDelta = new Vector2(328f, 96f);
         lobbyChatMessageText.horizontalOverflow = HorizontalWrapMode.Wrap;
