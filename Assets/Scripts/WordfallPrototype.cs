@@ -373,17 +373,14 @@ public sealed class WordfallPrototype : MonoBehaviour
         homeHubStartButton.onClick.AddListener(ShowSetupPanel);
 
         lobbyChatPanel = CreatePanel("LobbyCharacterDialogue", homeHubPanel.transform, new Color32(9, 18, 38, 248));
-        SetRect(lobbyChatPanel.GetComponent<RectTransform>(), new Vector2(0.70f, 0.52f), new Vector2(0.70f, 0.52f), Vector2.zero, new Vector2(360f, 178f));
-        ApplyPixelWindow(lobbyChatPanel);
-        var dialogueTail = new GameObject("DialogueTail", typeof(RectTransform), typeof(Image));
-        dialogueTail.transform.SetParent(lobbyChatPanel.transform, false);
-        dialogueTail.GetComponent<Image>().color = new Color32(9, 18, 38, 248);
-        dialogueTail.GetComponent<Image>().raycastTarget = false;
-        SetRect(dialogueTail.GetComponent<RectTransform>(), new Vector2(0f, 0.18f), new Vector2(0f, 0.18f), new Vector2(-8f, 0f), new Vector2(26f, 26f));
-        dialogueTail.transform.localRotation = Quaternion.Euler(0f, 0f, 45f);
-        lobbyChatTitleText = CreateText("캐릭터의 혼잣말", lobbyChatPanel.transform, 17, new Color32(255, 211, 94, 255), new Vector2(0.5f, 0.78f), new Vector2(0.5f, 0.78f));
-        lobbyChatMessageText = CreateText("", lobbyChatPanel.transform, 16, new Color32(222, 235, 250, 255), new Vector2(0.5f, 0.49f), new Vector2(0.5f, 0.49f));
-        lobbyChatMessageText.rectTransform.sizeDelta = new Vector2(310f, 82f);
+        SetRect(lobbyChatPanel.GetComponent<RectTransform>(), new Vector2(0.70f, 0.52f), new Vector2(0.70f, 0.52f), Vector2.zero, new Vector2(430f, 172f));
+        var dialogueFrame = lobbyChatPanel.GetComponent<Image>();
+        dialogueFrame.sprite = Resources.Load<Sprite>("Pixel/lobby-dialogue-window");
+        dialogueFrame.type = Image.Type.Sliced;
+        dialogueFrame.color = Color.white;
+        dialogueFrame.raycastTarget = false;
+        lobbyChatMessageText = CreateText("", lobbyChatPanel.transform, 18, new Color32(222, 235, 250, 255), new Vector2(0.5f, 0.50f), new Vector2(0.5f, 0.50f));
+        lobbyChatMessageText.rectTransform.sizeDelta = new Vector2(328f, 96f);
         lobbyChatMessageText.horizontalOverflow = HorizontalWrapMode.Wrap;
         lobbyChatMessageText.verticalOverflow = VerticalWrapMode.Truncate;
         lobbyChatPanel.SetActive(false);
@@ -654,10 +651,6 @@ public sealed class WordfallPrototype : MonoBehaviour
         homeHubTitleText.text = language == Language.Korean ? "로비" : "LOBBY";
         homeHubPlayerText.text = language == Language.Korean ? "플레이어" : "PLAYER";
         homeHubCoinText.text = language == Language.Korean ? "코인 " + coins : "COINS " + coins;
-        if (lobbyChatTitleText != null)
-        {
-            lobbyChatTitleText.text = language == Language.Korean ? GetCharacterName() + "의 혼잣말" : GetCharacterName() + "'S THOUGHT";
-        }
         SetButtonText(startButton, language == Language.Korean ? "게임 시작" : "START GAME");
         SetButtonText(setupBackButton, language == Language.Korean ? "뒤로" : "BACK");
         SetButtonText(languageCloseButton, language == Language.Korean ? "닫기" : "CLOSE");
@@ -939,8 +932,7 @@ public sealed class WordfallPrototype : MonoBehaviour
         string[] dialogues = language == Language.Korean ? koreanLobbyDialogues : englishLobbyDialogues;
         string dialogue = dialogues[lobbyDialogueIndex % dialogues.Length];
         lobbyDialogueIndex++;
-        lobbyChatTitleText.text = language == Language.Korean ? GetCharacterName() + "의 혼잣말" : GetCharacterName() + "'S THOUGHT";
-        lobbyChatMessageText.text = "\"" + dialogue + "\"";
+        lobbyChatMessageText.text = dialogue;
         lobbyChatPanel.SetActive(true);
     }
 
