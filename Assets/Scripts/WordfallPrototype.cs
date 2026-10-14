@@ -423,6 +423,8 @@ public sealed class WordfallPrototype : MonoBehaviour
         ApplyPixelSettingsWindow(setupPanel);
         setupTitleText = CreateText("게임 설정", setupPanel.transform, 38, Color.white, new Vector2(0.5f, 0.84f), new Vector2(0.5f, 0.84f));
         difficultyText = CreateText("난이도  보통", setupPanel.transform, 22, new Color32(255, 211, 94, 255), new Vector2(0.27f, 0.69f), new Vector2(0.27f, 0.69f));
+        difficultyText.rectTransform.pivot = new Vector2(0.5f, 0.5f);
+        difficultyText.rectTransform.sizeDelta = new Vector2(260f, 36f);
         difficultyButtons = new Button[3];
         difficultyButtons[0] = CreateButton("쉬움", setupPanel.transform, new Vector2(0.27f, 0.58f), new Vector2(260f, 58f), new Color32(55, 102, 149, 255));
         difficultyButtons[1] = CreateButton("보통", setupPanel.transform, new Vector2(0.27f, 0.46f), new Vector2(260f, 58f), new Color32(67, 149, 255, 255));
@@ -431,6 +433,8 @@ public sealed class WordfallPrototype : MonoBehaviour
         difficultyButtons[1].onClick.AddListener(() => SetDifficulty(1));
         difficultyButtons[2].onClick.AddListener(() => SetDifficulty(2));
         modeText = CreateText("모드  혼합", setupPanel.transform, 20, new Color32(147, 232, 189, 255), new Vector2(0.70f, 0.69f), new Vector2(0.70f, 0.69f));
+        modeText.rectTransform.pivot = new Vector2(0.5f, 0.5f);
+        modeText.rectTransform.sizeDelta = new Vector2(420f, 36f);
         modeButtons = new Button[5];
         modeButtons[0] = CreateButton("혼합", setupPanel.transform, new Vector2(0.56f, 0.58f), new Vector2(150f, 52f), new Color32(58, 80, 122, 255));
         modeButtons[1] = CreateButton("한글", setupPanel.transform, new Vector2(0.70f, 0.58f), new Vector2(150f, 52f), new Color32(58, 80, 122, 255));
@@ -443,6 +447,7 @@ public sealed class WordfallPrototype : MonoBehaviour
             modeButtons[i].onClick.AddListener(() => SetGameMode((GameMode)selectedMode));
         }
         modeDescriptionText = CreateText("한글과 영어 단어가 함께 등장합니다.", setupPanel.transform, 16, new Color32(171, 190, 220, 255), new Vector2(0.70f, 0.30f), new Vector2(0.70f, 0.30f));
+        modeDescriptionText.rectTransform.pivot = new Vector2(0.5f, 0.5f);
         modeDescriptionText.rectTransform.sizeDelta = new Vector2(520f, 42f);
         modeDescriptionText.alignment = TextAnchor.MiddleCenter;
         startButton = CreateButton("게임 시작", setupPanel.transform, new Vector2(0.62f, 0.18f), new Vector2(300f, 68f), new Color32(255, 196, 61, 255));
