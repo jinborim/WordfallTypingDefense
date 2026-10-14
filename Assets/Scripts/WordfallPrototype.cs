@@ -31,6 +31,7 @@ public sealed class WordfallPrototype : MonoBehaviour
     private GameObject gamePanel;
     private GameObject setupPanel;
     private GameObject homeHubPanel;
+    private GameObject homeHubMenuPanel;
     private GameObject languagePanel;
     private GameObject profilePanel;
     private GameObject myPagePanel;
@@ -104,6 +105,7 @@ public sealed class WordfallPrototype : MonoBehaviour
     private Button homeHubLanguageButton;
     private Button homeHubBackButton;
     private Button homeHubShopButton;
+    private Button homeHubMenuToggleButton;
     private Button languageCloseButton;
     private Button[] characterButtons;
     private Button createProfileButton;
@@ -144,6 +146,7 @@ public sealed class WordfallPrototype : MonoBehaviour
     private bool editingProfile;
     private bool profileEditReturnToMyPage;
     private bool shopOpenedFromMyPage;
+    private bool homeHubMenuOpen = true;
     private int selectedCharacter;
     private bool profileCreated;
     private int coins;
@@ -343,18 +346,27 @@ public sealed class WordfallPrototype : MonoBehaviour
         homeHubCharacterImage.raycastTarget = false;
         homeHubPlayerText = CreateText("PLAYER", homeHubPanel.transform, 22, new Color32(214, 222, 238, 255), new Vector2(0.5f, 0.64f), new Vector2(0.5f, 0.64f));
         homeHubCoinText = CreateText("COINS 0", homeHubPanel.transform, 20, new Color32(255, 211, 94, 255), new Vector2(0.5f, 0.59f), new Vector2(0.5f, 0.59f));
-        homeHubStartButton = CreateImageAction("HomeHubStartAction", homeHubPanel.transform, "Pixel/wordfall-shield", "게임 시작", new Vector2(0.5f, 0.27f), new Vector2(220f, 138f), new Vector2(92f, 92f), out homeHubStartLabelText);
+        homeHubStartButton = CreateButton("게임 시작", homeHubPanel.transform, new Vector2(0.5f, 0.23f), new Vector2(300f, 64f), new Color32(67, 149, 255, 255));
         homeHubStartButton.onClick.AddListener(ShowSetupPanel);
-        homeHubMyPageButton = CreateImageAction("HomeHubMyPageAction", homeHubPanel.transform, "Pixel/score-hud-frame", "기록 보기", new Vector2(0.30f, 0.12f), new Vector2(190f, 112f), new Vector2(110f, 58f), out homeHubMyPageLabelText);
+
+        homeHubMenuPanel = CreatePanel("HomeHubSideMenu", homeHubPanel.transform, new Color32(4, 10, 26, 220));
+        SetRect(homeHubMenuPanel.GetComponent<RectTransform>(), new Vector2(0f, 0f), new Vector2(0f, 1f), Vector2.zero, new Vector2(270f, 0f));
+        var menuOutline = homeHubMenuPanel.AddComponent<Outline>();
+        menuOutline.effectColor = new Color32(20, 66, 126, 220);
+        menuOutline.effectDistance = new Vector2(3f, 0f);
+
+        homeHubMyPageButton = CreateImageAction("HomeHubMyPageAction", homeHubMenuPanel.transform, "Pixel/score-hud-frame", "기록 보기", new Vector2(0.5f, 0.84f), new Vector2(238f, 118f), new Vector2(112f, 58f), out homeHubMyPageLabelText);
         homeHubMyPageButton.onClick.AddListener(ShowMyPage);
-        homeHubLanguageButton = CreateImageAction("HomeHubQuickStartAction", homeHubPanel.transform, "Pixel/wordfall-shield", "빠른 시작", new Vector2(0.70f, 0.12f), new Vector2(190f, 112f), new Vector2(72f, 72f), out homeHubQuickStartLabelText);
+        homeHubLanguageButton = CreateImageAction("HomeHubQuickStartAction", homeHubMenuPanel.transform, "Pixel/wordfall-shield", "빠른 시작", new Vector2(0.5f, 0.65f), new Vector2(238f, 118f), new Vector2(72f, 72f), out homeHubQuickStartLabelText);
         homeHubLanguageButton.onClick.AddListener(StartQuickGame);
-        homeHubShopButton = CreateImageAction("HomeHubShopAction", homeHubPanel.transform, "Pixel/shop-store-icon", "상점", new Vector2(0.88f, 0.24f), new Vector2(170f, 150f), new Vector2(112f, 104f), out homeHubShopLabelText);
+        homeHubShopButton = CreateImageAction("HomeHubShopAction", homeHubMenuPanel.transform, "Pixel/shop-store-icon", "상점", new Vector2(0.5f, 0.46f), new Vector2(238f, 118f), new Vector2(112f, 104f), out homeHubShopLabelText);
         homeHubShopButton.onClick.AddListener(ShowShopFromHome);
-        announcementButton = CreateImageAction("HomeHubAnnouncementAction", homeHubPanel.transform, "Pixel/announcement-icon", "공지사항", new Vector2(0.50f, 0.08f), new Vector2(190f, 100f), new Vector2(60f, 60f), out homeHubAnnouncementLabelText);
+        announcementButton = CreateImageAction("HomeHubAnnouncementAction", homeHubMenuPanel.transform, "Pixel/announcement-icon", "공지사항", new Vector2(0.5f, 0.27f), new Vector2(238f, 118f), new Vector2(60f, 60f), out homeHubAnnouncementLabelText);
         announcementButton.onClick.AddListener(ShowAnnouncementPanel);
-        homeHubBackButton = CreateImageAction("HomeHubBackAction", homeHubPanel.transform, "Pixel/character-profile-frame", "뒤로", new Vector2(0.11f, 0.12f), new Vector2(150f, 104f), new Vector2(64f, 64f), out homeHubBackLabelText);
+        homeHubBackButton = CreateButton("뒤로", homeHubMenuPanel.transform, new Vector2(0.5f, 0.07f), new Vector2(180f, 48f), new Color32(58, 80, 122, 255));
         homeHubBackButton.onClick.AddListener(CloseHomeHub);
+        homeHubMenuToggleButton = CreateButton("메뉴", homeHubPanel.transform, new Vector2(0.04f, 0.50f), new Vector2(100f, 50f), new Color32(58, 80, 122, 255));
+        homeHubMenuToggleButton.onClick.AddListener(ToggleHomeHubMenu);
         homeHubPanel.SetActive(false);
 
         setupPanel = CreatePanel("SetupPanel", mainPanel.transform, new Color32(9, 18, 38, 245));
@@ -592,12 +604,13 @@ public sealed class WordfallPrototype : MonoBehaviour
         {
             SetButtonText(myPageOpenButton, language == Language.Korean ? "마이페이지" : "MY PAGE");
         }
-        SetLabelText(homeHubStartLabelText, language == Language.Korean ? "게임 시작" : "START GAME");
+        SetButtonText(homeHubStartButton, language == Language.Korean ? "게임 시작" : "START GAME");
         SetLabelText(homeHubMyPageLabelText, language == Language.Korean ? "기록 보기" : "RECORDS");
         SetLabelText(homeHubQuickStartLabelText, language == Language.Korean ? "빠른 시작" : "QUICK START");
         SetLabelText(homeHubShopLabelText, language == Language.Korean ? "상점" : "SHOP");
         SetLabelText(homeHubAnnouncementLabelText, language == Language.Korean ? "공지사항" : "ANNOUNCEMENTS");
-        SetLabelText(homeHubBackLabelText, language == Language.Korean ? "뒤로" : "BACK");
+        SetButtonText(homeHubBackButton, language == Language.Korean ? "뒤로" : "BACK");
+        SetButtonText(homeHubMenuToggleButton, language == Language.Korean ? "메뉴" : "MENU");
         homeHubTitleText.text = language == Language.Korean ? "플레이어 홈" : "PLAYER HOME";
         homeHubPlayerText.text = language == Language.Korean ? "플레이어" : "PLAYER";
         homeHubCoinText.text = language == Language.Korean ? "코인 " + coins : "COINS " + coins;
@@ -872,6 +885,13 @@ public sealed class WordfallPrototype : MonoBehaviour
     private void CloseHomeHub()
     {
         homeHubPanel.SetActive(false);
+    }
+
+    private void ToggleHomeHubMenu()
+    {
+        homeHubMenuOpen = !homeHubMenuOpen;
+        if (homeHubMenuPanel != null) homeHubMenuPanel.SetActive(homeHubMenuOpen);
+        SetButtonText(homeHubMenuToggleButton, language == Language.Korean ? "메뉴" : "MENU");
     }
 
     private void StartQuickGame()
