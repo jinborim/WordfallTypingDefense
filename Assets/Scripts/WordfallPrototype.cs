@@ -581,7 +581,7 @@ public sealed class WordfallPrototype : MonoBehaviour
         SetRect(header.GetComponent<RectTransform>(), new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -36f), new Vector2(1280f, 72f));
         var scoreHud = CreatePanel("ScoreHud", header.transform, new Color32(0, 0, 0, 0));
         SetRect(scoreHud.GetComponent<RectTransform>(), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(760f, 64f));
-        ApplyPixelScoreHud(scoreHud);
+        ApplyPixelRectBackground(scoreHud, new Color32(5, 18, 48, 235), new Color32(41, 162, 235, 255));
         scoreText = CreateText("SCORE 0000", header.transform, 24, Color.white, new Vector2(0.31f, 0.5f), new Vector2(0.31f, 0.5f));
         scoreText.rectTransform.sizeDelta = new Vector2(190f, 36f);
         lifeHeartImages = new Image[5];
@@ -614,7 +614,7 @@ public sealed class WordfallPrototype : MonoBehaviour
         wordLayerObject.AddComponent<RectMask2D>();
         var inputBackground = CreatePanel("InputBackground", gamePanel.transform, new Color32(0, 0, 0, 0));
         SetRect(inputBackground.GetComponent<RectTransform>(), new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, 116f), new Vector2(780f, 148f));
-        ApplyPixelInputFrame(inputBackground);
+        ApplyPixelRectBackground(inputBackground, new Color32(5, 18, 48, 245), new Color32(41, 162, 235, 255));
         inputBackground.transform.SetAsLastSibling();
         inputField = CreateInputField(inputBackground.transform);
         statusText = CreateText("Type a word to defend your base!", gamePanel.transform, 18, new Color32(171, 190, 220, 255), new Vector2(0.5f, 0f), new Vector2(0.5f, 0f));
@@ -1813,6 +1813,21 @@ public sealed class WordfallPrototype : MonoBehaviour
         image.type = Image.Type.Sliced;
         image.color = Color.white;
         image.raycastTarget = false;
+    }
+
+    private void ApplyPixelRectBackground(GameObject panel, Color fillColor, Color borderColor)
+    {
+        var image = panel.GetComponent<Image>();
+        image.sprite = null;
+        image.type = Image.Type.Simple;
+        image.color = fillColor;
+        image.raycastTarget = false;
+
+        var outline = panel.GetComponent<Outline>();
+        if (outline == null) outline = panel.AddComponent<Outline>();
+        outline.effectColor = borderColor;
+        outline.effectDistance = new Vector2(4f, 4f);
+        outline.useGraphicAlpha = true;
     }
 
     private void ApplyPixelScoreHud(GameObject panel)
