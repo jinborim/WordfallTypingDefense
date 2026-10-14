@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: 7d2a4c9e1f6b48a3b5c7d0e2f9a1638b
+TextureImporter:
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+  textureType: 0
+  textureShape: 1
+  alphaIsTransparency: 1
+  filterMode: 0
+  wrapMode: 1
+  npotScale: 0
+  spriteMode: 1
+  spritePixelsPerUnit: 100
+  compressionQuality: 0
+  textureCompression: 0
+  platformSettings: []
