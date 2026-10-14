@@ -32,6 +32,7 @@ public sealed class WordfallPrototype : MonoBehaviour
     private GameObject setupPanel;
     private GameObject homeHubPanel;
     private GameObject homeHubMenuPanel;
+    private GameObject lobbyChatPanel;
     private GameObject languagePanel;
     private GameObject profilePanel;
     private GameObject myPagePanel;
@@ -64,6 +65,8 @@ public sealed class WordfallPrototype : MonoBehaviour
     private Text homeHubTitleText;
     private Text homeHubPlayerText;
     private Text homeHubCoinText;
+    private Text lobbyChatTitleText;
+    private Text lobbyChatMessageText;
     private Text homeHubStartLabelText;
     private Text homeHubMyPageLabelText;
     private Text homeHubQuickStartLabelText;
@@ -148,6 +151,25 @@ public sealed class WordfallPrototype : MonoBehaviour
     private bool shopOpenedFromMyPage;
     private bool homeHubMenuOpen;
     private Coroutine homeHubMenuCoroutine;
+    private int lobbyDialogueIndex;
+    private readonly string[] koreanLobbyDialogues =
+    {
+        "오늘도 단어가 내려오기 전에 기지를 지켜보자.",
+        "콤보를 이어가면 더 높은 점수를 얻을 수 있어.",
+        "위험한 단어는 빨리 입력해서 기지에 닿지 않게 하자.",
+        "코인은 출석 보상과 게임 플레이로 모을 수 있어.",
+        "상점에서 새로운 캐릭터와 닉네임 변경권을 확인해 봐.",
+        "준비가 끝나면 게임 시작 버튼을 눌러 작전을 시작하자."
+    };
+    private readonly string[] englishLobbyDialogues =
+    {
+        "Let's protect the base before the words reach the bottom.",
+        "Keep your combo going to earn a higher score.",
+        "Type dangerous words quickly before they hit the base.",
+        "You can earn coins from attendance rewards and gameplay.",
+        "Check the shop for new characters and nickname tickets.",
+        "When you are ready, start the mission with the start button."
+    };
     private int selectedCharacter;
     private bool profileCreated;
     private int coins;
@@ -342,13 +364,29 @@ public sealed class WordfallPrototype : MonoBehaviour
         SetRect(homeHubPanel.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
         ApplyPixelLobbyBackground(homeHubPanel);
         ApplyModalDim(homeHubPanel);
-        homeHubTitleText = CreateText("플레이어 홈", homeHubPanel.transform, 42, Color.white, new Vector2(0.5f, 0.78f), new Vector2(0.5f, 0.78f));
+        homeHubTitleText = CreateText("로비", homeHubPanel.transform, 40, Color.white, new Vector2(0.5f, 0.87f), new Vector2(0.5f, 0.87f));
         homeHubCharacterImage = CreateImage("HomeHubCharacter", homeHubPanel.transform, GetLobbyCharacterResourcePath(), new Vector2(0.5f, 0.36f), new Vector2(170f, 220f));
         homeHubCharacterImage.raycastTarget = false;
         homeHubPlayerText = CreateText("PLAYER", homeHubPanel.transform, 22, new Color32(214, 222, 238, 255), new Vector2(0.5f, 0.64f), new Vector2(0.5f, 0.64f));
         homeHubCoinText = CreateText("COINS 0", homeHubPanel.transform, 20, new Color32(255, 211, 94, 255), new Vector2(0.5f, 0.59f), new Vector2(0.5f, 0.59f));
-        homeHubStartButton = CreateButton("게임 시작", homeHubPanel.transform, new Vector2(0.5f, 0.23f), new Vector2(300f, 64f), new Color32(67, 149, 255, 255));
+        homeHubStartButton = CreateButton("게임 시작", homeHubPanel.transform, new Vector2(0.5f, 0.10f), new Vector2(290f, 58f), new Color32(67, 149, 255, 255));
         homeHubStartButton.onClick.AddListener(ShowSetupPanel);
+
+        lobbyChatPanel = CreatePanel("LobbyCharacterDialogue", homeHubPanel.transform, new Color32(9, 18, 38, 248));
+        SetRect(lobbyChatPanel.GetComponent<RectTransform>(), new Vector2(0.70f, 0.52f), new Vector2(0.70f, 0.52f), Vector2.zero, new Vector2(360f, 178f));
+        ApplyPixelWindow(lobbyChatPanel);
+        var dialogueTail = new GameObject("DialogueTail", typeof(RectTransform), typeof(Image));
+        dialogueTail.transform.SetParent(lobbyChatPanel.transform, false);
+        dialogueTail.GetComponent<Image>().color = new Color32(9, 18, 38, 248);
+        dialogueTail.GetComponent<Image>().raycastTarget = false;
+        SetRect(dialogueTail.GetComponent<RectTransform>(), new Vector2(0f, 0.18f), new Vector2(0f, 0.18f), new Vector2(-8f, 0f), new Vector2(26f, 26f));
+        dialogueTail.transform.localRotation = Quaternion.Euler(0f, 0f, 45f);
+        lobbyChatTitleText = CreateText("캐릭터의 혼잣말", lobbyChatPanel.transform, 17, new Color32(255, 211, 94, 255), new Vector2(0.5f, 0.78f), new Vector2(0.5f, 0.78f));
+        lobbyChatMessageText = CreateText("", lobbyChatPanel.transform, 16, new Color32(222, 235, 250, 255), new Vector2(0.5f, 0.49f), new Vector2(0.5f, 0.49f));
+        lobbyChatMessageText.rectTransform.sizeDelta = new Vector2(310f, 82f);
+        lobbyChatMessageText.horizontalOverflow = HorizontalWrapMode.Wrap;
+        lobbyChatMessageText.verticalOverflow = VerticalWrapMode.Truncate;
+        lobbyChatPanel.SetActive(false);
 
         homeHubMenuPanel = CreatePanel("HomeHubSideMenu", homeHubPanel.transform, new Color32(4, 10, 26, 220));
         SetRect(homeHubMenuPanel.GetComponent<RectTransform>(), new Vector2(0f, 0f), new Vector2(0f, 1f), Vector2.zero, new Vector2(270f, 0f));
@@ -613,9 +651,13 @@ public sealed class WordfallPrototype : MonoBehaviour
         SetLabelText(homeHubShopLabelText, language == Language.Korean ? "상점" : "SHOP");
         SetLabelText(homeHubAnnouncementLabelText, language == Language.Korean ? "공지사항" : "ANNOUNCEMENTS");
         SetButtonText(homeHubBackButton, language == Language.Korean ? "뒤로" : "BACK");
-        homeHubTitleText.text = language == Language.Korean ? "플레이어 홈" : "PLAYER HOME";
+        homeHubTitleText.text = language == Language.Korean ? "로비" : "LOBBY";
         homeHubPlayerText.text = language == Language.Korean ? "플레이어" : "PLAYER";
         homeHubCoinText.text = language == Language.Korean ? "코인 " + coins : "COINS " + coins;
+        if (lobbyChatTitleText != null)
+        {
+            lobbyChatTitleText.text = language == Language.Korean ? GetCharacterName() + "의 혼잣말" : GetCharacterName() + "'S THOUGHT";
+        }
         SetButtonText(startButton, language == Language.Korean ? "게임 시작" : "START GAME");
         SetButtonText(setupBackButton, language == Language.Korean ? "뒤로" : "BACK");
         SetButtonText(languageCloseButton, language == Language.Korean ? "닫기" : "CLOSE");
@@ -881,12 +923,25 @@ public sealed class WordfallPrototype : MonoBehaviour
         UpdateCoinText();
         UpdateHomeHubCharacter();
         homeHubPanel.SetActive(true);
+        ShowLobbyDialogue();
         CheckAttendanceReward();
     }
 
     private void CloseHomeHub()
     {
+        if (lobbyChatPanel != null) lobbyChatPanel.SetActive(false);
         homeHubPanel.SetActive(false);
+    }
+
+    private void ShowLobbyDialogue()
+    {
+        if (lobbyChatPanel == null) return;
+        string[] dialogues = language == Language.Korean ? koreanLobbyDialogues : englishLobbyDialogues;
+        string dialogue = dialogues[lobbyDialogueIndex % dialogues.Length];
+        lobbyDialogueIndex++;
+        lobbyChatTitleText.text = language == Language.Korean ? GetCharacterName() + "의 혼잣말" : GetCharacterName() + "'S THOUGHT";
+        lobbyChatMessageText.text = "\"" + dialogue + "\"";
+        lobbyChatPanel.SetActive(true);
     }
 
     private void ToggleHomeHubMenu()
@@ -954,6 +1009,7 @@ public sealed class WordfallPrototype : MonoBehaviour
             return;
         }
         homeHubPanel.SetActive(false);
+        if (lobbyChatPanel != null) lobbyChatPanel.SetActive(false);
         languagePanel.SetActive(false);
         setupPanel.SetActive(true);
         SetDifficulty(difficulty);
@@ -963,7 +1019,11 @@ public sealed class WordfallPrototype : MonoBehaviour
     private void CloseSetupPanel()
     {
         setupPanel.SetActive(false);
-        if (profileCreated) homeHubPanel.SetActive(true);
+        if (profileCreated)
+        {
+            homeHubPanel.SetActive(true);
+            ShowLobbyDialogue();
+        }
     }
 
     private void ShowLanguagePanel()
@@ -978,7 +1038,11 @@ public sealed class WordfallPrototype : MonoBehaviour
     private void CloseLanguagePanel()
     {
         languagePanel.SetActive(false);
-        if (languageOpenedFromHomeHub && profileCreated) homeHubPanel.SetActive(true);
+        if (languageOpenedFromHomeHub && profileCreated)
+        {
+            homeHubPanel.SetActive(true);
+            ShowLobbyDialogue();
+        }
         languageOpenedFromHomeHub = false;
     }
 
@@ -1006,6 +1070,10 @@ public sealed class WordfallPrototype : MonoBehaviour
             mainPanel.SetActive(false);
             gamePanel.SetActive(true);
             pausePanel.SetActive(true);
+        }
+        else
+        {
+            ShowLobbyDialogue();
         }
         myPageOpenedFromGame = false;
     }
@@ -1038,6 +1106,7 @@ public sealed class WordfallPrototype : MonoBehaviour
         else
         {
             homeHubPanel.SetActive(true);
+            ShowLobbyDialogue();
         }
         shopOpenedFromMyPage = false;
     }
@@ -1071,6 +1140,7 @@ public sealed class WordfallPrototype : MonoBehaviour
     {
         announcementPanel.SetActive(false);
         homeHubPanel.SetActive(true);
+        ShowLobbyDialogue();
     }
 
     private void UpdateShopText()
