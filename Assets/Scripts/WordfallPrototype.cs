@@ -659,7 +659,7 @@ public sealed class WordfallPrototype : MonoBehaviour
         SetRect(gameOverPanel.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
         ApplyModalDim(gameOverPanel);
         var gameOverWindow = CreatePanel("GameOverWindow", gameOverPanel.transform, new Color32(9, 18, 38, 250));
-        SetRect(gameOverWindow.GetComponent<RectTransform>(), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(520f, 330f));
+        SetRect(gameOverWindow.GetComponent<RectTransform>(), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(760f, 340f));
         ApplyPixelGameOverWindow(gameOverWindow);
         gameOverTitleText = CreateText("게임 오버", gameOverWindow.transform, 38, Color.white, new Vector2(0.5f, 0.73f), new Vector2(0.5f, 0.73f));
         gameOverSummaryText = CreateText("점수 0000\n정확도 0%", gameOverWindow.transform, 20, new Color32(214, 222, 238, 255), new Vector2(0.5f, 0.53f), new Vector2(0.5f, 0.53f));
@@ -2061,16 +2061,9 @@ public sealed class WordfallPrototype : MonoBehaviour
         texture.filterMode = FilterMode.Point;
         texture.wrapMode = TextureWrapMode.Clamp;
         var image = panel.GetComponent<Image>();
-        image.sprite = Sprite.Create(
-            texture,
-            new Rect(0f, 0f, texture.width, texture.height),
-            new Vector2(0.5f, 0.5f),
-            100f,
-            0u,
-            SpriteMeshType.FullRect,
-            new Vector4(150f, 150f, 150f, 150f));
-        image.type = Image.Type.Sliced;
-        image.preserveAspect = false;
+        image.sprite = Sprite.Create(texture, new Rect(0f, 0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100f);
+        image.type = Image.Type.Simple;
+        image.preserveAspect = true;
         image.color = Color.white;
         image.raycastTarget = false;
     }
