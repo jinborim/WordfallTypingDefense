@@ -130,7 +130,6 @@ public sealed class WordfallPrototype : MonoBehaviour
     private Button announcementButton;
     private Button announcementCloseButton;
     private Button menuButton;
-    private Button pauseButton;
     private Button resumeButton;
     private Button pauseMyPageButton;
     private Button pauseMenuButton;
@@ -641,10 +640,8 @@ public sealed class WordfallPrototype : MonoBehaviour
         var statusOutline = statusText.gameObject.AddComponent<Outline>();
         statusOutline.effectColor = new Color32(0, 0, 0, 230);
         statusOutline.effectDistance = new Vector2(2f, -2f);
-        menuButton = CreateButton("메뉴", gamePanel.transform, new Vector2(0.08f, 0.93f), new Vector2(120f, 46f), new Color32(58, 80, 122, 255));
-        menuButton.onClick.AddListener(ShowMainMenu);
-        pauseButton = CreateButton("일시정지", gamePanel.transform, new Vector2(0.96f, 0.93f), new Vector2(112f, 46f), new Color32(58, 80, 122, 255));
-        pauseButton.onClick.AddListener(TogglePause);
+        menuButton = CreateButton("일시정지", gamePanel.transform, new Vector2(0.08f, 0.93f), new Vector2(120f, 46f), new Color32(58, 80, 122, 255));
+        menuButton.onClick.AddListener(TogglePause);
         inputField.onEndEdit.AddListener(HandleSubmitted);
 
         pausePanel = CreatePanel("PausePanel", gamePanel.transform, new Color32(9, 18, 38, 235));
@@ -725,7 +722,6 @@ public sealed class WordfallPrototype : MonoBehaviour
         SetButtonText(characterButtons[1], language == Language.Korean ? "마법사" : "MAGE");
         SetButtonText(characterButtons[2], language == Language.Korean ? "해커" : "HACKER");
         SetButtonText(menuButton, language == Language.Korean ? "메뉴" : "MENU");
-        SetButtonText(pauseButton, language == Language.Korean ? "일시정지" : "PAUSE");
         SetButtonText(resumeButton, language == Language.Korean ? "계속하기" : "RESUME");
         SetButtonText(pauseMyPageButton, language == Language.Korean ? "마이페이지" : "MY PAGE");
         SetButtonText(pauseMenuButton, language == Language.Korean ? "메뉴" : "MENU");
@@ -1939,10 +1935,10 @@ public sealed class WordfallPrototype : MonoBehaviour
         texture.filterMode = FilterMode.Point;
         texture.wrapMode = TextureWrapMode.Clamp;
         var image = panel.GetComponent<Image>();
-        var cropHeight = texture.height * 0.32f;
-        var cropY = texture.height * 0.34f;
-        image.sprite = Sprite.Create(texture, new Rect(0f, cropY, texture.width, cropHeight), new Vector2(0.5f, 0.5f), 100f, 0u, SpriteMeshType.FullRect, new Vector4(120f, 120f, 120f, 120f));
-        image.type = Image.Type.Sliced;
+        var cropHeight = texture.height * 0.20f;
+        var cropY = texture.height * 0.40f;
+        image.sprite = Sprite.Create(texture, new Rect(0f, cropY, texture.width, cropHeight), new Vector2(0.5f, 0.5f), 100f);
+        image.type = Image.Type.Simple;
         image.preserveAspect = false;
         image.color = Color.white;
         image.raycastTarget = false;
