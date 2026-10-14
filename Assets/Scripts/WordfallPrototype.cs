@@ -420,30 +420,30 @@ public sealed class WordfallPrototype : MonoBehaviour
         setupPanel = CreatePanel("SetupPanel", mainPanel.transform, new Color32(9, 18, 38, 245));
         SetRect(setupPanel.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
         ApplyPixelSettingsWindow(setupPanel);
-        setupTitleText = CreateText("게임 설정", setupPanel.transform, 38, Color.white, new Vector2(0.5f, 0.78f), new Vector2(0.5f, 0.78f));
-        difficultyText = CreateText("난이도  보통", setupPanel.transform, 22, new Color32(255, 211, 94, 255), new Vector2(0.5f, 0.65f), new Vector2(0.5f, 0.65f));
+        setupTitleText = CreateText("게임 설정", setupPanel.transform, 38, Color.white, new Vector2(0.5f, 0.84f), new Vector2(0.5f, 0.84f));
+        difficultyText = CreateText("난이도  보통", setupPanel.transform, 22, new Color32(255, 211, 94, 255), new Vector2(0.27f, 0.69f), new Vector2(0.27f, 0.69f));
         difficultyButtons = new Button[3];
-        difficultyButtons[0] = CreateButton("쉬움", setupPanel.transform, new Vector2(0.29f, 0.55f), new Vector2(210f, 62f), new Color32(55, 102, 149, 255));
-        difficultyButtons[1] = CreateButton("보통", setupPanel.transform, new Vector2(0.5f, 0.55f), new Vector2(210f, 62f), new Color32(67, 149, 255, 255));
-        difficultyButtons[2] = CreateButton("어려움", setupPanel.transform, new Vector2(0.71f, 0.55f), new Vector2(210f, 62f), new Color32(149, 71, 92, 255));
+        difficultyButtons[0] = CreateButton("쉬움", setupPanel.transform, new Vector2(0.27f, 0.58f), new Vector2(260f, 58f), new Color32(55, 102, 149, 255));
+        difficultyButtons[1] = CreateButton("보통", setupPanel.transform, new Vector2(0.27f, 0.46f), new Vector2(260f, 58f), new Color32(67, 149, 255, 255));
+        difficultyButtons[2] = CreateButton("어려움", setupPanel.transform, new Vector2(0.27f, 0.34f), new Vector2(260f, 58f), new Color32(149, 71, 92, 255));
         difficultyButtons[0].onClick.AddListener(() => SetDifficulty(0));
         difficultyButtons[1].onClick.AddListener(() => SetDifficulty(1));
         difficultyButtons[2].onClick.AddListener(() => SetDifficulty(2));
-        modeText = CreateText("모드  혼합", setupPanel.transform, 20, new Color32(147, 232, 189, 255), new Vector2(0.5f, 0.38f), new Vector2(0.5f, 0.38f));
+        modeText = CreateText("모드  혼합", setupPanel.transform, 20, new Color32(147, 232, 189, 255), new Vector2(0.70f, 0.69f), new Vector2(0.70f, 0.69f));
         modeButtons = new Button[5];
-        modeButtons[0] = CreateButton("혼합", setupPanel.transform, new Vector2(0.12f, 0.28f), new Vector2(150f, 52f), new Color32(58, 80, 122, 255));
-        modeButtons[1] = CreateButton("한글", setupPanel.transform, new Vector2(0.31f, 0.28f), new Vector2(150f, 52f), new Color32(58, 80, 122, 255));
-        modeButtons[2] = CreateButton("영어", setupPanel.transform, new Vector2(0.50f, 0.28f), new Vector2(150f, 52f), new Color32(58, 80, 122, 255));
-        modeButtons[3] = CreateButton("60초", setupPanel.transform, new Vector2(0.69f, 0.28f), new Vector2(150f, 52f), new Color32(58, 80, 122, 255));
-        modeButtons[4] = CreateButton("오늘", setupPanel.transform, new Vector2(0.88f, 0.28f), new Vector2(150f, 52f), new Color32(58, 80, 122, 255));
+        modeButtons[0] = CreateButton("혼합", setupPanel.transform, new Vector2(0.56f, 0.58f), new Vector2(150f, 52f), new Color32(58, 80, 122, 255));
+        modeButtons[1] = CreateButton("한글", setupPanel.transform, new Vector2(0.70f, 0.58f), new Vector2(150f, 52f), new Color32(58, 80, 122, 255));
+        modeButtons[2] = CreateButton("영어", setupPanel.transform, new Vector2(0.84f, 0.58f), new Vector2(150f, 52f), new Color32(58, 80, 122, 255));
+        modeButtons[3] = CreateButton("60초", setupPanel.transform, new Vector2(0.63f, 0.42f), new Vector2(150f, 52f), new Color32(58, 80, 122, 255));
+        modeButtons[4] = CreateButton("오늘", setupPanel.transform, new Vector2(0.77f, 0.42f), new Vector2(150f, 52f), new Color32(58, 80, 122, 255));
         for (int i = 0; i < modeButtons.Length; i++)
         {
             int selectedMode = i;
             modeButtons[i].onClick.AddListener(() => SetGameMode((GameMode)selectedMode));
         }
-        startButton = CreateButton("게임 시작", setupPanel.transform, new Vector2(0.5f, 0.14f), new Vector2(360f, 72f), new Color32(255, 196, 61, 255));
+        startButton = CreateButton("게임 시작", setupPanel.transform, new Vector2(0.56f, 0.14f), new Vector2(360f, 72f), new Color32(255, 196, 61, 255));
         startButton.onClick.AddListener(StartGame);
-        setupBackButton = CreateButton("뒤로", setupPanel.transform, new Vector2(0.12f, 0.14f), new Vector2(180f, 60f), new Color32(78, 160, 255, 255));
+        setupBackButton = CreateButton("뒤로", setupPanel.transform, new Vector2(0.28f, 0.14f), new Vector2(180f, 60f), new Color32(78, 160, 255, 255));
         setupBackButton.onClick.AddListener(CloseSetupPanel);
         setupPanel.SetActive(false);
 
