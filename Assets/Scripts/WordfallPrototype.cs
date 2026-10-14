@@ -42,7 +42,7 @@ public sealed class WordfallPrototype : MonoBehaviour
     private GameObject insufficientCoinsPanel;
     private GameObject announcementPanel;
     private Text scoreText;
-    private Text livesText;
+    private Image[] lifeHeartImages;
     private Text comboText;
     private Text statusText;
     private Text difficultyText;
@@ -585,7 +585,13 @@ public sealed class WordfallPrototype : MonoBehaviour
         SetRect(scoreHud.GetComponent<RectTransform>(), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(760f, 64f));
         ApplyPixelScoreHud(scoreHud);
         scoreText = CreateText("SCORE 0000", header.transform, 24, Color.white, new Vector2(0.31f, 0.5f), new Vector2(0.31f, 0.5f));
-        livesText = CreateText("LIVES 5", header.transform, 24, new Color32(255, 211, 94, 255), new Vector2(0.76f, 0.5f), new Vector2(0.76f, 0.5f));
+        lifeHeartImages = new Image[5];
+        for (int i = 0; i < lifeHeartImages.Length; i++)
+        {
+            lifeHeartImages[i] = CreateImage("LifeHeart" + (i + 1), header.transform, "Pixel/life-heart", new Vector2(0.76f, 0.5f), new Vector2(28f, 28f));
+            lifeHeartImages[i].rectTransform.anchoredPosition = new Vector2(-56f + i * 28f, 0f);
+            lifeHeartImages[i].raycastTarget = false;
+        }
         comboText = CreateText("COMBO x0", header.transform, 20, new Color32(147, 232, 189, 255), new Vector2(0.61f, 0.5f), new Vector2(0.61f, 0.5f));
         waveText = CreateText("WAVE 1", header.transform, 18, new Color32(193, 205, 230, 255), new Vector2(0.46f, 0.5f), new Vector2(0.46f, 0.5f));
         timerText = CreateText("", header.transform, 18, new Color32(255, 142, 142, 255), new Vector2(0.88f, 0.5f), new Vector2(0.88f, 0.5f));
@@ -1603,7 +1609,13 @@ public sealed class WordfallPrototype : MonoBehaviour
     private void UpdateHud()
     {
         scoreText.text = string.Format(language == Language.Korean ? "점수 {0:0000}" : "SCORE {0:0000}", score);
-        livesText.text = (language == Language.Korean ? "목숨 " : "LIVES ") + lives;
+        if (lifeHeartImages != null)
+        {
+            for (int i = 0; i < lifeHeartImages.Length; i++)
+            {
+                lifeHeartImages[i].gameObject.SetActive(i < lives);
+            }
+        }
         comboText.text = (language == Language.Korean ? "콤보 x" : "COMBO x") + combo;
         waveText.text = (language == Language.Korean ? "웨이브 " : "WAVE ") + wave;
         timerText.text = gameMode == GameMode.TimeAttack ? (language == Language.Korean ? "시간 " : "TIME ") + Mathf.CeilToInt(timeRemaining) : "";
