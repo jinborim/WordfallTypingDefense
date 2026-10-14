@@ -146,7 +146,8 @@ public sealed class WordfallPrototype : MonoBehaviour
     private bool editingProfile;
     private bool profileEditReturnToMyPage;
     private bool shopOpenedFromMyPage;
-    private bool homeHubMenuOpen = true;
+    private bool homeHubMenuOpen;
+    private Coroutine homeHubMenuCoroutine;
     private int selectedCharacter;
     private bool profileCreated;
     private int coins;
@@ -351,6 +352,7 @@ public sealed class WordfallPrototype : MonoBehaviour
 
         homeHubMenuPanel = CreatePanel("HomeHubSideMenu", homeHubPanel.transform, new Color32(4, 10, 26, 220));
         SetRect(homeHubMenuPanel.GetComponent<RectTransform>(), new Vector2(0f, 0f), new Vector2(0f, 1f), Vector2.zero, new Vector2(270f, 0f));
+        homeHubMenuPanel.GetComponent<RectTransform>().anchoredPosition = new Vector2(-270f, 0f);
         var menuOutline = homeHubMenuPanel.AddComponent<Outline>();
         menuOutline.effectColor = new Color32(20, 66, 126, 220);
         menuOutline.effectDistance = new Vector2(3f, 0f);
@@ -365,8 +367,9 @@ public sealed class WordfallPrototype : MonoBehaviour
         announcementButton.onClick.AddListener(ShowAnnouncementPanel);
         homeHubBackButton = CreateButton("뒤로", homeHubMenuPanel.transform, new Vector2(0.5f, 0.07f), new Vector2(180f, 48f), new Color32(58, 80, 122, 255));
         homeHubBackButton.onClick.AddListener(CloseHomeHub);
-        homeHubMenuToggleButton = CreateButton("메뉴", homeHubPanel.transform, new Vector2(0.04f, 0.50f), new Vector2(100f, 50f), new Color32(58, 80, 122, 255));
+        homeHubMenuToggleButton = CreateHamburgerButton("HomeHubMenuToggle", homeHubPanel.transform, new Vector2(0.04f, 0.50f), new Vector2(62f, 62f));
         homeHubMenuToggleButton.onClick.AddListener(ToggleHomeHubMenu);
+        homeHubMenuPanel.SetActive(false);
         homeHubPanel.SetActive(false);
 
         setupPanel = CreatePanel("SetupPanel", mainPanel.transform, new Color32(9, 18, 38, 245));
@@ -610,7 +613,6 @@ public sealed class WordfallPrototype : MonoBehaviour
         SetLabelText(homeHubShopLabelText, language == Language.Korean ? "상점" : "SHOP");
         SetLabelText(homeHubAnnouncementLabelText, language == Language.Korean ? "공지사항" : "ANNOUNCEMENTS");
         SetButtonText(homeHubBackButton, language == Language.Korean ? "뒤로" : "BACK");
-        SetButtonText(homeHubMenuToggleButton, language == Language.Korean ? "메뉴" : "MENU");
         homeHubTitleText.text = language == Language.Korean ? "플레이어 홈" : "PLAYER HOME";
         homeHubPlayerText.text = language == Language.Korean ? "플레이어" : "PLAYER";
         homeHubCoinText.text = language == Language.Korean ? "코인 " + coins : "COINS " + coins;
@@ -890,8 +892,30 @@ public sealed class WordfallPrototype : MonoBehaviour
     private void ToggleHomeHubMenu()
     {
         homeHubMenuOpen = !homeHubMenuOpen;
-        if (homeHubMenuPanel != null) homeHubMenuPanel.SetActive(homeHubMenuOpen);
-        SetButtonText(homeHubMenuToggleButton, language == Language.Korean ? "메뉴" : "MENU");
+        if (homeHubMenuPanel == null) return;
+        if (homeHubMenuCoroutine != null) StopCoroutine(homeHubMenuCoroutine);
+        if (homeHubMenuOpen) homeHubMenuPanel.SetActive(true);
+        homeHubMenuCoroutine = StartCoroutine(AnimateHomeHubMenu(homeHubMenuOpen));
+    }
+
+    private IEnumerator AnimateHomeHubMenu(bool open)
+    {
+        var rect = homeHubMenuPanel.GetComponent<RectTransform>();
+        float start = rect.anchoredPosition.x;
+        float target = open ? 0f : -270f;
+        const float duration = 0.22f;
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            elapsed += Time.unscaledDeltaTime;
+            float progress = Mathf.Clamp01(elapsed / duration);
+            progress = progress * progress * (3f - 2f * progress);
+            rect.anchoredPosition = new Vector2(Mathf.Lerp(start, target, progress), 0f);
+            yield return null;
+        }
+        rect.anchoredPosition = new Vector2(target, 0f);
+        if (!open) homeHubMenuPanel.SetActive(false);
+        homeHubMenuCoroutine = null;
     }
 
     private void StartQuickGame()
@@ -1901,6 +1925,43 @@ public sealed class WordfallPrototype : MonoBehaviour
         labelText.horizontalOverflow = HorizontalWrapMode.Overflow;
         labelText.verticalOverflow = VerticalWrapMode.Truncate;
         labelText.raycastTarget = false;
+        return button;
+    }
+
+    private Button CreateHamburgerButton(string name, Transform parent, Vector2 anchor, Vector2 size)
+    {
+        var objectToCreate = new GameObject(name, typeof(RectTransform), typeof(Image), typeof(Button));
+        objectToCreate.transform.SetParent(parent, false);
+        SetRect(objectToCreate.GetComponent<RectTransform>(), anchor, anchor, Vector2.zero, size);
+
+        var hitImage = objectToCreate.GetComponent<Image>();
+        hitImage.color = new Color(1f, 1f, 1f, 0f);
+        hitImage.raycastTarget = true;
+        var button = objectToCreate.GetComponent<Button>();
+        button.targetGraphic = hitImage;
+        button.transition = Selectable.Transition.ColorTint;
+        var navigation = button.navigation;
+        navigation.mode = Navigation.Mode.None;
+        button.navigation = navigation;
+        var colors = button.colors;
+        colors.normalColor = new Color(1f, 1f, 1f, 0f);
+        colors.highlightedColor = new Color(1f, 1f, 1f, 0f);
+        colors.pressedColor = new Color(1f, 1f, 1f, 0f);
+        colors.selectedColor = new Color(1f, 1f, 1f, 0f);
+        colors.disabledColor = new Color(1f, 1f, 1f, 0f);
+        button.colors = colors;
+        objectToCreate.AddComponent<ButtonPressFeedback>();
+
+        for (int i = -1; i <= 1; i++)
+        {
+            var lineObject = new GameObject("MenuLine" + (i + 2), typeof(RectTransform), typeof(Image));
+            lineObject.transform.SetParent(objectToCreate.transform, false);
+            var lineImage = lineObject.GetComponent<Image>();
+            lineImage.color = new Color32(230, 241, 255, 255);
+            lineImage.raycastTarget = false;
+            SetRect(lineObject.GetComponent<RectTransform>(), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, i * 12f), new Vector2(38f, 4f));
+        }
+
         return button;
     }
 
