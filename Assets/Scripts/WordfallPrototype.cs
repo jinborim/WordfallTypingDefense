@@ -419,8 +419,7 @@ public sealed class WordfallPrototype : MonoBehaviour
 
         setupPanel = CreatePanel("SetupPanel", mainPanel.transform, new Color32(9, 18, 38, 245));
         SetRect(setupPanel.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
-        ApplyPixelWindow(setupPanel);
-        ApplyModalDim(setupPanel);
+        ApplyPixelSettingsWindow(setupPanel);
         setupTitleText = CreateText("게임 설정", setupPanel.transform, 38, Color.white, new Vector2(0.5f, 0.78f), new Vector2(0.5f, 0.78f));
         difficultyText = CreateText("난이도  보통", setupPanel.transform, 22, new Color32(255, 211, 94, 255), new Vector2(0.5f, 0.65f), new Vector2(0.5f, 0.65f));
         difficultyButtons = new Button[3];
@@ -1968,6 +1967,30 @@ public sealed class WordfallPrototype : MonoBehaviour
         image.type = Image.Type.Sliced;
         image.preserveAspect = false;
         image.color = Color.white;
+    }
+
+    private void ApplyPixelSettingsWindow(GameObject panel)
+    {
+        var texture = Resources.Load<Texture2D>("Pixel/settings-window");
+        if (texture == null)
+        {
+            ApplyPixelWindow(panel);
+            ApplyModalDim(panel);
+            return;
+        }
+
+        texture.filterMode = FilterMode.Point;
+        texture.wrapMode = TextureWrapMode.Clamp;
+        var image = panel.GetComponent<Image>();
+        image.sprite = Sprite.Create(
+            texture,
+            new Rect(0f, 0f, texture.width, texture.height),
+            new Vector2(0.5f, 0.5f),
+            100f);
+        image.type = Image.Type.Simple;
+        image.preserveAspect = false;
+        image.color = Color.white;
+        image.raycastTarget = true;
     }
 
     private void ApplyModalDim(GameObject panel)
