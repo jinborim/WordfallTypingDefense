@@ -441,9 +441,9 @@ public sealed class WordfallPrototype : MonoBehaviour
             int selectedMode = i;
             modeButtons[i].onClick.AddListener(() => SetGameMode((GameMode)selectedMode));
         }
-        startButton = CreateButton("게임 시작", setupPanel.transform, new Vector2(0.56f, 0.14f), new Vector2(360f, 72f), new Color32(255, 196, 61, 255));
+        startButton = CreateButton("게임 시작", setupPanel.transform, new Vector2(0.62f, 0.18f), new Vector2(300f, 68f), new Color32(255, 196, 61, 255));
         startButton.onClick.AddListener(StartGame);
-        setupBackButton = CreateButton("뒤로", setupPanel.transform, new Vector2(0.28f, 0.14f), new Vector2(180f, 60f), new Color32(78, 160, 255, 255));
+        setupBackButton = CreateButton("뒤로", setupPanel.transform, new Vector2(0.38f, 0.18f), new Vector2(220f, 60f), new Color32(78, 160, 255, 255));
         setupBackButton.onClick.AddListener(CloseSetupPanel);
         setupPanel.SetActive(false);
 
@@ -735,8 +735,8 @@ public sealed class WordfallPrototype : MonoBehaviour
         updateTitleText.text = language == Language.Korean ? "업데이트" : "UPDATE";
         SetButtonText(updateLaterButton, language == Language.Korean ? "나중에" : "LATER");
         SetButtonText(updateNowButton, language == Language.Korean ? "업데이트" : "UPDATE");
-        difficultyText.text = (language == Language.Korean ? "난이도  " : "DIFFICULTY  ") + GetDifficultyName();
-        modeText.text = (language == Language.Korean ? "모드  " : "MODE  ") + GetGameModeName();
+        difficultyText.text = language == Language.Korean ? "난이도" : "DIFFICULTY";
+        modeText.text = language == Language.Korean ? "모드" : "MODE";
         UpdateHighScoreText();
         UpdateProfileSummary();
         UpdateCoinText();
@@ -1464,7 +1464,7 @@ public sealed class WordfallPrototype : MonoBehaviour
     private void SetGameMode(GameMode selectedMode)
     {
         gameMode = selectedMode;
-        modeText.text = (language == Language.Korean ? "모드  " : "MODE  ") + GetGameModeName();
+        modeText.text = language == Language.Korean ? "모드" : "MODE";
         for (int i = 0; i < modeButtons.Length; i++)
         {
             var colors = modeButtons[i].colors;
@@ -1612,7 +1612,7 @@ public sealed class WordfallPrototype : MonoBehaviour
     private void SetDifficulty(int selectedDifficulty)
     {
         difficulty = selectedDifficulty;
-        difficultyText.text = (language == Language.Korean ? "난이도  " : "DIFFICULTY  ") + GetDifficultyName();
+        difficultyText.text = language == Language.Korean ? "난이도" : "DIFFICULTY";
         for (int i = 0; i < difficultyButtons.Length; i++)
         {
             var colors = difficultyButtons[i].colors;
