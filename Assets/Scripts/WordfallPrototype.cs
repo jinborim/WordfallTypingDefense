@@ -583,23 +583,37 @@ public sealed class WordfallPrototype : MonoBehaviour
         SetRect(scoreHud.GetComponent<RectTransform>(), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(760f, 64f));
         ApplyPixelScoreHud(scoreHud);
         scoreText = CreateText("SCORE 0000", header.transform, 24, Color.white, new Vector2(0.31f, 0.5f), new Vector2(0.31f, 0.5f));
+        scoreText.rectTransform.sizeDelta = new Vector2(190f, 36f);
         lifeHeartImages = new Image[5];
+        var heartTexture = Resources.Load<Texture2D>("Pixel/life-heart");
+        Sprite heartSprite = null;
+        if (heartTexture != null)
+        {
+            heartTexture.filterMode = FilterMode.Point;
+            heartTexture.wrapMode = TextureWrapMode.Clamp;
+            heartSprite = Sprite.Create(heartTexture, new Rect(heartTexture.width * 0.20f, heartTexture.height * 0.23f, heartTexture.width * 0.60f, heartTexture.height * 0.54f), new Vector2(0.5f, 0.5f), 100f);
+        }
         for (int i = 0; i < lifeHeartImages.Length; i++)
         {
-            lifeHeartImages[i] = CreateImage("LifeHeart" + (i + 1), header.transform, "Pixel/life-heart", new Vector2(0.76f, 0.5f), new Vector2(28f, 28f));
-            lifeHeartImages[i].rectTransform.anchoredPosition = new Vector2(-56f + i * 28f, 0f);
+            lifeHeartImages[i] = CreateImage("LifeHeart" + (i + 1), header.transform, "Pixel/life-heart", new Vector2(0.78f, 0.5f), new Vector2(40f, 36f));
+            if (heartSprite != null) lifeHeartImages[i].sprite = heartSprite;
+            lifeHeartImages[i].preserveAspect = true;
+            lifeHeartImages[i].rectTransform.anchoredPosition = new Vector2(-80f + i * 40f, 0f);
             lifeHeartImages[i].raycastTarget = false;
         }
         comboText = CreateText("COMBO x0", header.transform, 20, new Color32(147, 232, 189, 255), new Vector2(0.61f, 0.5f), new Vector2(0.61f, 0.5f));
+        comboText.rectTransform.sizeDelta = new Vector2(150f, 34f);
         waveText = CreateText("WAVE 1", header.transform, 18, new Color32(193, 205, 230, 255), new Vector2(0.46f, 0.5f), new Vector2(0.46f, 0.5f));
+        waveText.rectTransform.sizeDelta = new Vector2(110f, 32f);
         timerText = CreateText("", header.transform, 18, new Color32(255, 142, 142, 255), new Vector2(0.88f, 0.5f), new Vector2(0.88f, 0.5f));
+        timerText.rectTransform.sizeDelta = new Vector2(130f, 32f);
         activeCharacterImage = CreateCharacterProfile(gamePanel.transform);
         var wordLayerObject = CreatePanel("WordLayer", gamePanel.transform, new Color32(0, 0, 0, 0));
         wordLayer = wordLayerObject.GetComponent<RectTransform>();
         SetRect(wordLayer, new Vector2(0f, 0f), new Vector2(1f, 1f), new Vector2(26f, 92f), new Vector2(-26f, -190f));
         wordLayerObject.AddComponent<RectMask2D>();
         var inputBackground = CreatePanel("InputBackground", gamePanel.transform, new Color32(0, 0, 0, 0));
-        SetRect(inputBackground.GetComponent<RectTransform>(), new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, 122f), new Vector2(780f, 88f));
+        SetRect(inputBackground.GetComponent<RectTransform>(), new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, 122f), new Vector2(780f, 104f));
         ApplyPixelInputFrame(inputBackground);
         inputBackground.transform.SetAsLastSibling();
         inputField = CreateInputField(inputBackground.transform);
@@ -1795,7 +1809,7 @@ public sealed class WordfallPrototype : MonoBehaviour
         texture.filterMode = FilterMode.Point;
         texture.wrapMode = TextureWrapMode.Clamp;
         var image = panel.GetComponent<Image>();
-        image.sprite = Sprite.Create(texture, new Rect(0f, 0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100f, 0u, SpriteMeshType.FullRect, new Vector4(150f, 150f, 150f, 150f));
+        image.sprite = Sprite.Create(texture, new Rect(0f, texture.height * 0.16f, texture.width, texture.height * 0.70f), new Vector2(0.5f, 0.5f), 100f, 0u, SpriteMeshType.FullRect, new Vector4(110f, 110f, 110f, 110f));
         image.type = Image.Type.Sliced;
         image.color = Color.white;
         image.raycastTarget = false;
@@ -1808,7 +1822,7 @@ public sealed class WordfallPrototype : MonoBehaviour
         texture.filterMode = FilterMode.Point;
         texture.wrapMode = TextureWrapMode.Clamp;
         var image = panel.GetComponent<Image>();
-        image.sprite = Sprite.Create(texture, new Rect(0f, 0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100f, 0u, SpriteMeshType.FullRect, new Vector4(180f, 180f, 180f, 180f));
+        image.sprite = Sprite.Create(texture, new Rect(0f, texture.height * 0.14f, texture.width, texture.height * 0.72f), new Vector2(0.5f, 0.5f), 100f, 0u, SpriteMeshType.FullRect, new Vector4(130f, 130f, 130f, 130f));
         image.type = Image.Type.Sliced;
         image.color = Color.white;
         image.raycastTarget = false;
