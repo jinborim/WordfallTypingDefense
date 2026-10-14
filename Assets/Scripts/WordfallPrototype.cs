@@ -903,6 +903,9 @@ public sealed class WordfallPrototype : MonoBehaviour
         var rect = homeHubMenuPanel.GetComponent<RectTransform>();
         float start = rect.anchoredPosition.x;
         float target = open ? 0f : -270f;
+        var toggleRect = homeHubMenuToggleButton.GetComponent<RectTransform>();
+        float toggleStart = toggleRect.anchoredPosition.x;
+        float toggleTarget = open ? 270f : 0f;
         const float duration = 0.22f;
         float elapsed = 0f;
         while (elapsed < duration)
@@ -911,9 +914,11 @@ public sealed class WordfallPrototype : MonoBehaviour
             float progress = Mathf.Clamp01(elapsed / duration);
             progress = progress * progress * (3f - 2f * progress);
             rect.anchoredPosition = new Vector2(Mathf.Lerp(start, target, progress), 0f);
+            toggleRect.anchoredPosition = new Vector2(Mathf.Lerp(toggleStart, toggleTarget, progress), 0f);
             yield return null;
         }
         rect.anchoredPosition = new Vector2(target, 0f);
+        toggleRect.anchoredPosition = new Vector2(toggleTarget, 0f);
         if (!open) homeHubMenuPanel.SetActive(false);
         homeHubMenuCoroutine = null;
     }
@@ -1952,15 +1957,8 @@ public sealed class WordfallPrototype : MonoBehaviour
         button.colors = colors;
         objectToCreate.AddComponent<ButtonPressFeedback>();
 
-        for (int i = -1; i <= 1; i++)
-        {
-            var lineObject = new GameObject("MenuLine" + (i + 2), typeof(RectTransform), typeof(Image));
-            lineObject.transform.SetParent(objectToCreate.transform, false);
-            var lineImage = lineObject.GetComponent<Image>();
-            lineImage.color = new Color32(230, 241, 255, 255);
-            lineImage.raycastTarget = false;
-            SetRect(lineObject.GetComponent<RectTransform>(), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, i * 12f), new Vector2(38f, 4f));
-        }
+        var icon = CreateImage("HamburgerMenuIcon", objectToCreate.transform, "Pixel/menu-hamburger-icon", new Vector2(0.5f, 0.5f), new Vector2(58f, 58f));
+        icon.raycastTarget = false;
 
         return button;
     }
