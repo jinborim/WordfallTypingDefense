@@ -48,6 +48,7 @@ public sealed class WordfallPrototype : MonoBehaviour
     private Text difficultyText;
     private Text highScoreText;
     private Text modeText;
+    private Text modeDescriptionText;
     private Text waveText;
     private Text timerText;
     private Text statsText;
@@ -441,6 +442,9 @@ public sealed class WordfallPrototype : MonoBehaviour
             int selectedMode = i;
             modeButtons[i].onClick.AddListener(() => SetGameMode((GameMode)selectedMode));
         }
+        modeDescriptionText = CreateText("한글과 영어 단어가 함께 등장합니다.", setupPanel.transform, 16, new Color32(171, 190, 220, 255), new Vector2(0.70f, 0.30f), new Vector2(0.70f, 0.30f));
+        modeDescriptionText.rectTransform.sizeDelta = new Vector2(520f, 42f);
+        modeDescriptionText.alignment = TextAnchor.MiddleCenter;
         startButton = CreateButton("게임 시작", setupPanel.transform, new Vector2(0.62f, 0.18f), new Vector2(300f, 68f), new Color32(255, 196, 61, 255));
         startButton.onClick.AddListener(StartGame);
         setupBackButton = CreateButton("뒤로", setupPanel.transform, new Vector2(0.38f, 0.18f), new Vector2(220f, 60f), new Color32(78, 160, 255, 255));
@@ -737,6 +741,7 @@ public sealed class WordfallPrototype : MonoBehaviour
         SetButtonText(updateNowButton, language == Language.Korean ? "업데이트" : "UPDATE");
         difficultyText.text = language == Language.Korean ? "난이도" : "DIFFICULTY";
         modeText.text = language == Language.Korean ? "모드" : "MODE";
+        UpdateModeDescription();
         UpdateHighScoreText();
         UpdateProfileSummary();
         UpdateCoinText();
@@ -1465,6 +1470,7 @@ public sealed class WordfallPrototype : MonoBehaviour
     {
         gameMode = selectedMode;
         modeText.text = language == Language.Korean ? "모드" : "MODE";
+        UpdateModeDescription();
         for (int i = 0; i < modeButtons.Length; i++)
         {
             var colors = modeButtons[i].colors;
@@ -1472,6 +1478,28 @@ public sealed class WordfallPrototype : MonoBehaviour
             colors.highlightedColor = new Color32(255, 232, 150, 255);
             colors.pressedColor = new Color32(216, 173, 68, 255);
             modeButtons[i].colors = colors;
+        }
+    }
+
+    private void UpdateModeDescription()
+    {
+        if (modeDescriptionText == null) return;
+
+        if (language == Language.Korean)
+        {
+            if (gameMode == GameMode.Korean) modeDescriptionText.text = "한글 단어만 등장합니다.";
+            else if (gameMode == GameMode.English) modeDescriptionText.text = "영어 단어만 등장합니다.";
+            else if (gameMode == GameMode.TimeAttack) modeDescriptionText.text = "60초 동안 최대한 높은 점수에 도전합니다.";
+            else if (gameMode == GameMode.Daily) modeDescriptionText.text = "오늘만 플레이할 수 있는 특별 도전입니다.";
+            else modeDescriptionText.text = "한글과 영어 단어가 함께 등장합니다.";
+        }
+        else
+        {
+            if (gameMode == GameMode.Korean) modeDescriptionText.text = "Korean words only.";
+            else if (gameMode == GameMode.English) modeDescriptionText.text = "English words only.";
+            else if (gameMode == GameMode.TimeAttack) modeDescriptionText.text = "Score as high as possible in 60 seconds.";
+            else if (gameMode == GameMode.Daily) modeDescriptionText.text = "A special challenge available today.";
+            else modeDescriptionText.text = "Korean and English words appear together.";
         }
     }
 
@@ -2102,6 +2130,7 @@ public sealed class WordfallPrototype : MonoBehaviour
         SetRect(objectToCreate.GetComponent<RectTransform>(), anchor, anchor, Vector2.zero, size);
         var text = CreateText(label, objectToCreate.transform, 22, Color.white, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f));
         text.rectTransform.sizeDelta = size;
+        text.alignment = TextAnchor.MiddleCenter;
         text.fontSize = Mathf.Clamp(Mathf.RoundToInt(size.y * 0.42f), 12, 20);
         text.resizeTextForBestFit = true;
         text.resizeTextMinSize = 10;
