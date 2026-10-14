@@ -324,7 +324,6 @@ public sealed class WordfallPrototype : MonoBehaviour
         ApplyPixelBackground(mainPanel);
         mainAmbientMotion = CreateMainAmbientMotion(mainPanel);
         ApplyPixelBackground(gamePanel);
-        CreateImage("PixelShieldLogo", mainPanel.transform, "Pixel/wordfall-shield", new Vector2(0.5f, 0.80f), new Vector2(150f, 150f));
         titleText = CreateText("WORDFALL", mainPanel.transform, 64, new Color32(241, 247, 255, 0), new Vector2(0.5f, 0.65f), new Vector2(0.5f, 0.65f));
         CreateImage("WordfallEnglishLogo", mainPanel.transform, "Pixel/wordfall-logo-en", new Vector2(0.5f, 0.65f), new Vector2(430f, 92f));
         subtitleText = CreateText("한글 & 영어 타자 디펜스", mainPanel.transform, 22, new Color32(158, 180, 220, 255), new Vector2(0.5f, 0.53f), new Vector2(0.5f, 0.53f));
