@@ -224,7 +224,6 @@ public sealed class WordfallPrototype : MonoBehaviour
         var updateChecker = gameObject.AddComponent<UpdateChecker>();
         updateChecker.UpdateAvailable += ShowUpdatePanel;
         ShowMainMenu();
-        if (profileCreated) CheckAttendanceReward();
     }
 
     private string[] LoadWords(string resourcePath, string[] fallback)
@@ -450,14 +449,16 @@ public sealed class WordfallPrototype : MonoBehaviour
         deleteAccountButton.onClick.AddListener(DeleteAccount);
         myPagePanel.SetActive(false);
 
-        attendancePanel = CreatePanel("AttendancePanel", mainPanel.transform, new Color32(9, 18, 38, 250));
+        attendancePanel = CreatePanel("AttendancePanel", mainPanel.transform, new Color32(0, 0, 0, 0));
         SetRect(attendancePanel.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
-        ApplyPixelWindow(attendancePanel);
         ApplyModalDim(attendancePanel);
-        attendanceTitleText = CreateText("출석 보상", attendancePanel.transform, 42, Color.white, new Vector2(0.5f, 0.70f), new Vector2(0.5f, 0.70f));
-        attendanceBodyText = CreateText("오늘의 출석 보상을 받았습니다!", attendancePanel.transform, 20, new Color32(171, 190, 220, 255), new Vector2(0.5f, 0.58f), new Vector2(0.5f, 0.58f));
-        attendanceCoinText = CreateText("+10 COINS", attendancePanel.transform, 34, new Color32(255, 211, 94, 255), new Vector2(0.5f, 0.43f), new Vector2(0.5f, 0.43f));
-        attendanceCloseButton = CreateButton("확인", attendancePanel.transform, new Vector2(0.5f, 0.22f), new Vector2(220f, 64f), new Color32(67, 149, 255, 255));
+        var attendanceWindow = CreatePanel("AttendanceWindow", attendancePanel.transform, new Color32(9, 18, 38, 250));
+        SetRect(attendanceWindow.GetComponent<RectTransform>(), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(520f, 300f));
+        ApplyPixelWindow(attendanceWindow);
+        attendanceTitleText = CreateText("출석 보상", attendanceWindow.transform, 30, Color.white, new Vector2(0.5f, 0.70f), new Vector2(0.5f, 0.70f));
+        attendanceBodyText = CreateText("오늘의 출석 보상을 받았습니다!", attendanceWindow.transform, 17, new Color32(171, 190, 220, 255), new Vector2(0.5f, 0.50f), new Vector2(0.5f, 0.50f));
+        attendanceCoinText = CreateText("+10 COINS", attendanceWindow.transform, 27, new Color32(255, 211, 94, 255), new Vector2(0.5f, 0.34f), new Vector2(0.5f, 0.34f));
+        attendanceCloseButton = CreateButton("확인", attendanceWindow.transform, new Vector2(0.5f, 0.16f), new Vector2(180f, 52f), new Color32(67, 149, 255, 255));
         attendanceCloseButton.onClick.AddListener(CloseAttendancePanel);
         attendancePanel.SetActive(false);
 
@@ -772,7 +773,6 @@ public sealed class WordfallPrototype : MonoBehaviour
             return;
         }
         ShowSetupPanel();
-        CheckAttendanceReward();
     }
 
     private string GetCharacterName()
@@ -867,6 +867,7 @@ public sealed class WordfallPrototype : MonoBehaviour
         UpdateCoinText();
         UpdateHomeHubCharacter();
         homeHubPanel.SetActive(true);
+        CheckAttendanceReward();
     }
 
     private void CloseHomeHub()
