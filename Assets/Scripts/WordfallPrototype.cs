@@ -1530,7 +1530,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         return GameRules.GetMaximumWordSpeed(difficulty);
     }
 
-    private void UpdateHud()
+    private void LegacyUpdateHud()
     {
         scoreText.text = string.Format(language == Language.Korean ? "점수 {0:0000}" : "SCORE {0:0000}", score);
         if (lifeHeartImages != null)
@@ -1608,7 +1608,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         RefocusInputField();
     }
 
-    private string GetCharacterResourcePath(bool alarm)
+    private string LegacyGetCharacterResourcePath(bool alarm)
     {
         string[] normalPaths = { "Pixel/character-knight", "Pixel/character-mage", "Pixel/character-hacker" };
         string[] alarmPaths = { "Pixel/character-knight-alarm", "Pixel/character-mage-alarm", "Pixel/character-hacker-alarm" };
@@ -1616,7 +1616,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         return alarm ? alarmPaths[index] : normalPaths[index];
     }
 
-    private string GetLobbyCharacterResourcePath()
+    private string LegacyGetLobbyCharacterResourcePath()
     {
         string[] fullBodyPaths = { "Pixel/character-knight-full", "Pixel/character-mage-full", "Pixel/character-hacker-full" };
         int index = Mathf.Clamp(selectedCharacter, 0, fullBodyPaths.Length - 1);
@@ -1625,7 +1625,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
             : GetCharacterResourcePath(false);
     }
 
-    private void SetCharacterEmotion(bool alarm)
+    private void LegacySetCharacterEmotion(bool alarm)
     {
         if (activeCharacterImage == null) return;
         characterEmotionTimer = alarm ? 1.5f : 0f;
@@ -1641,7 +1641,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         activeCharacterImage.color = Color.white;
     }
 
-    private Image CreateCharacterProfile(Transform parent)
+    private Image LegacyCreateCharacterProfile(Transform parent)
     {
         characterStatusPanel = new GameObject("CharacterProfile", typeof(RectTransform), typeof(Image), typeof(Mask));
         characterStatusPanel.transform.SetParent(parent, false);
@@ -1661,7 +1661,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         return portrait;
     }
 
-    private Sprite CreateCircleSprite(int size)
+    private Sprite LegacyCreateCircleSprite(int size)
     {
         var texture = new Texture2D(size, size, TextureFormat.RGBA32, false);
         texture.filterMode = FilterMode.Point;
@@ -1684,7 +1684,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         return Sprite.Create(texture, new Rect(0f, 0f, size, size), new Vector2(0.5f, 0.5f), 100f);
     }
 
-    private void UpdateHighScoreText()
+    private void LegacyUpdateHighScoreText()
     {
         if (highScoreText != null) highScoreText.text = string.Format(language == Language.Korean ? "최고 점수 {0:0000}" : "BEST SCORE {0:0000}", highScore);
     }
