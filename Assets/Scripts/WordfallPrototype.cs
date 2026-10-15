@@ -760,7 +760,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         }
     }
 
-    private void SetLanguage(Language selectedLanguage)
+    private void LegacySetLanguage(Language selectedLanguage)
     {
         language = selectedLanguage;
         titleText.text = language == Language.Korean ? "워드폴" : "WORDFALL";
