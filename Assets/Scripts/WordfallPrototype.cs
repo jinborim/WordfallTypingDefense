@@ -1545,7 +1545,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         timerText.text = gameMode == GameMode.TimeAttack ? (language == Language.Korean ? "시간 " : "TIME ") + Mathf.CeilToInt(timeRemaining) : "";
     }
 
-    private void HandleSubmitted(string value)
+    private void LegacyHandleSubmitted(string value)
     {
         if (!playing || paused) return;
         if (string.IsNullOrWhiteSpace(value))
