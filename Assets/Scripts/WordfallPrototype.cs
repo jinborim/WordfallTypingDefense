@@ -965,7 +965,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         }
     }
 
-    private void ResetHomeHubMenuState()
+    private void LegacyResetHomeHubMenuState()
     {
         homeHubMenuOpen = false;
         if (homeHubMenuCoroutine != null)
