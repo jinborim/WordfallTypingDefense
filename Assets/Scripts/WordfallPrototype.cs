@@ -927,7 +927,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         homeHubCharacterImage.preserveAspect = true;
     }
 
-    private void ShowSetupPanel()
+    private void LegacyShowSetupPanel()
     {
         if (playing) return;
         if (!profileCreated)
@@ -943,7 +943,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         SetGameMode(gameMode);
     }
 
-    private void CloseSetupPanel()
+    private void LegacyCloseSetupPanel()
     {
         setupPanel.SetActive(false);
         if (profileCreated)
@@ -953,7 +953,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         }
     }
 
-    private void ShowLanguagePanel()
+    private void LegacyShowLanguagePanel()
     {
         if (playing) return;
         languageOpenedFromHomeHub = homeHubPanel != null && homeHubPanel.activeSelf;
@@ -962,7 +962,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         languagePanel.SetActive(true);
     }
 
-    private void CloseLanguagePanel()
+    private void LegacyCloseLanguagePanel()
     {
         languagePanel.SetActive(false);
         if (languageOpenedFromHomeHub && profileCreated)
@@ -1350,7 +1350,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         }
     }
 
-    private void SetGameMode(GameMode selectedMode)
+    private void LegacySetGameMode(GameMode selectedMode)
     {
         gameMode = selectedMode;
         modeText.text = language == Language.Korean ? "모드" : "MODE";
@@ -1365,7 +1365,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         }
     }
 
-    private void UpdateModeDescription()
+    private void LegacyUpdateModeDescription()
     {
         if (modeDescriptionText == null) return;
 
@@ -1489,7 +1489,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         return GameRules.GetWordColor(type, useKorean);
     }
 
-    private void SetDifficulty(int selectedDifficulty)
+    private void LegacySetDifficulty(int selectedDifficulty)
     {
         difficulty = selectedDifficulty;
         difficultyText.text = language == Language.Korean ? "난이도" : "DIFFICULTY";
