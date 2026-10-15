@@ -1696,7 +1696,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         if (inputField != null) inputField.text = string.Empty;
     }
 
-    private GameObject CreatePanel(string name, Transform parent, Color color)
+    private GameObject LegacyCreatePanel(string name, Transform parent, Color color)
     {
         var objectToCreate = new GameObject(name, typeof(RectTransform), typeof(Image));
         objectToCreate.transform.SetParent(parent, false);
@@ -1706,7 +1706,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         return objectToCreate;
     }
 
-    private GameObject CreateShopItemCard(string name, Transform parent, Vector2 anchor, Vector2 size)
+    private GameObject LegacyCreateShopItemCard(string name, Transform parent, Vector2 anchor, Vector2 size)
     {
         var card = CreatePanel(name, parent, new Color32(0, 0, 0, 0));
         SetRect(card.GetComponent<RectTransform>(), anchor, anchor, Vector2.zero, size);
@@ -1974,7 +1974,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         dimObject.transform.SetAsFirstSibling();
     }
 
-    private Image CreateImage(string name, Transform parent, string resourcePath, Vector2 anchor, Vector2 size)
+    private Image LegacyCreateImage(string name, Transform parent, string resourcePath, Vector2 anchor, Vector2 size)
     {
         var objectToCreate = new GameObject(name, typeof(RectTransform), typeof(Image));
         objectToCreate.transform.SetParent(parent, false);
@@ -1991,7 +1991,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         return image;
     }
 
-    private Text CreateText(string content, Transform parent, int size, Color color, Vector2 anchor, Vector2 pivot)
+    private Text LegacyCreateText(string content, Transform parent, int size, Color color, Vector2 anchor, Vector2 pivot)
     {
         var objectToCreate = new GameObject("Text", typeof(RectTransform), typeof(Text));
         objectToCreate.transform.SetParent(parent, false);
@@ -2009,7 +2009,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         return text;
     }
 
-    private Button CreateButton(string label, Transform parent, Vector2 anchor, Vector2 size, Color color)
+    private Button LegacyCreateButton(string label, Transform parent, Vector2 anchor, Vector2 size, Color color)
     {
         var objectToCreate = new GameObject(label + "Button", typeof(RectTransform), typeof(Image), typeof(Button));
         objectToCreate.transform.SetParent(parent, false);
@@ -2206,7 +2206,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         return input;
     }
 
-    private static void SetRect(RectTransform rect, Vector2 anchorMin, Vector2 anchorMax, Vector2 position, Vector2 size)
+    private static void LegacySetRect(RectTransform rect, Vector2 anchorMin, Vector2 anchorMax, Vector2 position, Vector2 size)
     {
         rect.anchorMin = anchorMin;
         rect.anchorMax = anchorMax;
