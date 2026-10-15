@@ -742,7 +742,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         gameOverPanel.SetActive(false);
     }
 
-    private void EnsureInputSystemEventSystem()
+    private void LegacyEnsureInputSystemEventSystem()
     {
         var eventSystem = EventSystem.current;
         if (eventSystem == null)
@@ -854,26 +854,26 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         UpdateHud();
     }
 
-    private void SetButtonText(Button button, string value)
+    private void LegacySetButtonText(Button button, string value)
     {
         if (button == null) return;
         var text = button.GetComponentInChildren<Text>();
         if (text != null) text.text = value;
     }
 
-    private void SetLabelText(Text label, string value)
+    private void LegacySetLabelText(Text label, string value)
     {
         if (label != null) label.text = value;
     }
 
-    private void UpdateCoinText()
+    private void LegacyUpdateCoinText()
     {
         string value = language == Language.Korean ? "코인 " + coins : "COINS " + coins;
         if (coinText != null) coinText.text = value;
         if (homeHubCoinText != null) homeHubCoinText.text = value;
     }
 
-    private void CheckAttendanceReward()
+    private void LegacyCheckAttendanceReward()
     {
         if (!profileCreated) return;
         System.DateTime koreaNow = System.DateTime.UtcNow.AddHours(9);
