@@ -1414,7 +1414,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         UpdateHud();
     }
 
-    private void SpawnWord()
+    private void LegacySpawnWord()
     {
         bool useKorean = gameMode == GameMode.Korean || (gameMode != GameMode.English && Random.value > 0.5f);
         string[] source = useKorean ? koreanWords : englishWords;
@@ -1447,7 +1447,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         }
     }
 
-    private bool IsWordAlreadyFalling(string word)
+    private bool LegacyIsWordAlreadyFalling(string word)
     {
         for (int i = 0; i < fallingWords.Count; i++)
         {
@@ -1457,7 +1457,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         return false;
     }
 
-    private Vector2 GetNonOverlappingSpawnPosition()
+    private Vector2 LegacyGetNonOverlappingSpawnPosition()
     {
         for (int attempt = 0; attempt < 40; attempt++)
         {
