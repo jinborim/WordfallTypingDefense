@@ -80,6 +80,8 @@ public sealed class WordfallPrototype : MonoBehaviour
     private Text homeHubShopLabelText;
     private Text homeHubAnnouncementLabelText;
     private Text homeHubProfileLabelText;
+    private Text homeHubPrivacyLabelText;
+    private Text homeHubWithdrawLabelText;
     private Text homeHubBackLabelText;
     private Text myPageTitleText;
     private Text myPageInfoText;
@@ -430,24 +432,24 @@ public sealed class WordfallPrototype : MonoBehaviour
 
         homeHubMenuPanel = CreatePanel("HomeHubSideMenu", homeHubPanel.transform, new Color32(4, 10, 26, 220));
         var homeHubMenuRect = homeHubMenuPanel.GetComponent<RectTransform>();
-        SetRect(homeHubMenuRect, new Vector2(0f, 0f), new Vector2(0f, 1f), Vector2.zero, new Vector2(270f, 0f));
+        SetRect(homeHubMenuRect, new Vector2(0f, 0f), new Vector2(0f, 1f), Vector2.zero, new Vector2(560f, 0f));
         homeHubMenuRect.pivot = new Vector2(0f, 0.5f);
-        homeHubMenuRect.anchoredPosition = new Vector2(-270f, 0f);
+        homeHubMenuRect.anchoredPosition = new Vector2(-560f, 0f);
         var menuOutline = homeHubMenuPanel.AddComponent<Outline>();
         menuOutline.effectColor = new Color32(20, 66, 126, 220);
         menuOutline.effectDistance = new Vector2(3f, 0f);
 
-        homeHubMyPageButton = CreateImageAction("HomeHubMyPageAction", homeHubMenuPanel.transform, "Pixel/score-hud-frame", "기록 보기", new Vector2(0.5f, 0.73f), new Vector2(238f, 118f), new Vector2(112f, 58f), out homeHubMyPageLabelText);
+        homeHubMyPageButton = CreateImageAction("HomeHubMyPageAction", homeHubMenuPanel.transform, "Pixel/score-hud-frame", "기록 보기", new Vector2(0.50f, 0.78f), new Vector2(170f, 130f), new Vector2(82f, 70f), out homeHubMyPageLabelText);
         homeHubMyPageButton.onClick.AddListener(ShowMyPage);
-        homeHubShopButton = CreateImageAction("HomeHubShopAction", homeHubMenuPanel.transform, "Pixel/shop-store-icon", "상점", new Vector2(0.5f, 0.49f), new Vector2(238f, 118f), new Vector2(112f, 104f), out homeHubShopLabelText);
+        homeHubShopButton = CreateImageAction("HomeHubShopAction", homeHubMenuPanel.transform, "Pixel/shop-store-icon", "상점", new Vector2(0.80f, 0.78f), new Vector2(170f, 130f), new Vector2(82f, 78f), out homeHubShopLabelText);
         homeHubShopButton.onClick.AddListener(ShowShopFromHome);
-        announcementButton = CreateImageAction("HomeHubAnnouncementAction", homeHubMenuPanel.transform, "Pixel/announcement-icon", "공지사항", new Vector2(0.5f, 0.25f), new Vector2(238f, 118f), new Vector2(60f, 60f), out homeHubAnnouncementLabelText);
+        announcementButton = CreateImageAction("HomeHubAnnouncementAction", homeHubMenuPanel.transform, "Pixel/announcement-icon", "공지사항", new Vector2(0.20f, 0.48f), new Vector2(170f, 130f), new Vector2(72f, 72f), out homeHubAnnouncementLabelText);
         announcementButton.onClick.AddListener(ShowAnnouncementPanel);
-        homeHubProfileButton = CreateImageAction("HomeHubProfileAction", homeHubMenuPanel.transform, "Pixel/character-profile-frame", "프로필 수정", new Vector2(0.5f, 0.88f), new Vector2(180f, 92f), new Vector2(68f, 68f), out homeHubProfileLabelText);
+        homeHubProfileButton = CreateImageAction("HomeHubProfileAction", homeHubMenuPanel.transform, "Pixel/character-profile-frame", "프로필 수정", new Vector2(0.20f, 0.78f), new Vector2(170f, 130f), new Vector2(82f, 82f), out homeHubProfileLabelText);
         homeHubProfileButton.onClick.AddListener(ShowProfileEditFromHome);
-        privacyButton = CreateButton("개인정보 처리방침", homeHubMenuPanel.transform, new Vector2(0.5f, 0.14f), new Vector2(220f, 46f), new Color32(58, 80, 122, 255));
+        privacyButton = CreateImageAction("HomeHubPrivacyAction", homeHubMenuPanel.transform, "Pixel/announcement-icon", "개인정보 처리방침", new Vector2(0.50f, 0.48f), new Vector2(170f, 130f), new Vector2(72f, 72f), out homeHubPrivacyLabelText);
         privacyButton.onClick.AddListener(ShowPrivacyPanel);
-        withdrawButton = CreateButton("회원 탈퇴", homeHubMenuPanel.transform, new Vector2(0.5f, 0.07f), new Vector2(220f, 46f), new Color32(149, 71, 92, 255));
+        withdrawButton = CreateImageAction("HomeHubWithdrawAction", homeHubMenuPanel.transform, "Pixel/character-profile-frame", "회원 탈퇴", new Vector2(0.80f, 0.48f), new Vector2(170f, 130f), new Vector2(72f, 72f), out homeHubWithdrawLabelText);
         withdrawButton.onClick.AddListener(ShowWithdrawConfirm);
         homeHubMenuToggleButton = CreateHamburgerButton("HomeHubMenuToggle", homeHubPanel.transform, new Vector2(0.04f, 0.50f), new Vector2(62f, 62f));
         homeHubHamburgerIcon = homeHubMenuToggleButton.transform.Find("HamburgerMenuIcon").GetComponent<Image>();
@@ -813,6 +815,8 @@ public sealed class WordfallPrototype : MonoBehaviour
         SetLabelText(homeHubShopLabelText, language == Language.Korean ? "상점" : "SHOP");
         SetLabelText(homeHubAnnouncementLabelText, language == Language.Korean ? "공지사항" : "ANNOUNCEMENTS");
         SetLabelText(homeHubProfileLabelText, language == Language.Korean ? "프로필 수정" : "EDIT PROFILE");
+        SetLabelText(homeHubPrivacyLabelText, language == Language.Korean ? "개인정보 처리방침" : "PRIVACY POLICY");
+        SetLabelText(homeHubWithdrawLabelText, language == Language.Korean ? "회원 탈퇴" : "DELETE ACCOUNT");
         SetButtonText(privacyButton, language == Language.Korean ? "개인정보 처리방침" : "PRIVACY POLICY");
         SetButtonText(withdrawButton, language == Language.Korean ? "회원 탈퇴" : "DELETE ACCOUNT");
         privacyTitleText.text = language == Language.Korean ? "개인정보 처리방침" : "PRIVACY POLICY";
@@ -1152,10 +1156,10 @@ public sealed class WordfallPrototype : MonoBehaviour
     {
         var rect = homeHubMenuPanel.GetComponent<RectTransform>();
         float start = rect.anchoredPosition.x;
-        float target = open ? 0f : -270f;
+        float target = open ? 0f : -560f;
         var toggleRect = homeHubMenuToggleButton.GetComponent<RectTransform>();
         float toggleStart = toggleRect.anchoredPosition.x;
-        float toggleTarget = open ? 300f : 0f;
+        float toggleTarget = open ? 590f : 0f;
         const float duration = 0.22f;
         float elapsed = 0f;
         while (elapsed < duration)
@@ -1390,7 +1394,7 @@ public sealed class WordfallPrototype : MonoBehaviour
         if (homeHubMenuPanel != null)
         {
             homeHubMenuPanel.SetActive(false);
-            homeHubMenuPanel.GetComponent<RectTransform>().anchoredPosition = new Vector2(-270f, 0f);
+            homeHubMenuPanel.GetComponent<RectTransform>().anchoredPosition = new Vector2(-560f, 0f);
         }
         if (homeHubMenuToggleButton != null)
         {
