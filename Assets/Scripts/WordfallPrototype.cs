@@ -1052,7 +1052,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         UpdateShopText();
     }
 
-    private void ShowUpdatePanel(UpdateChecker.UpdateInfo updateInfo)
+    private void LegacyShowUpdatePanel(UpdateChecker.UpdateInfo updateInfo)
     {
         if (updateInfo == null || updatePanel == null) return;
         pendingUpdateUrl = string.IsNullOrWhiteSpace(updateInfo.downloadUrl)
@@ -1072,18 +1072,18 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         updatePanel.SetActive(true);
     }
 
-    private void CloseUpdatePanel()
+    private void LegacyCloseUpdatePanel()
     {
         updatePanel.SetActive(false);
     }
 
-    private void OpenUpdatePage()
+    private void LegacyOpenUpdatePage()
     {
         if (!string.IsNullOrWhiteSpace(pendingUpdateUrl)) Application.OpenURL(pendingUpdateUrl);
         updatePanel.SetActive(false);
     }
 
-    private void UpdateMyPage()
+    private void LegacyUpdateMyPage()
     {
         if (myPagePanel == null) return;
         string nickname = string.IsNullOrEmpty(playerDataManager.Data.nickname)
@@ -1109,7 +1109,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         }
     }
 
-    private void DeleteAccount()
+    private void LegacyDeleteAccount()
     {
         playerDataManager.DeleteAccount();
 
