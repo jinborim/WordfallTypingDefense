@@ -10,9 +10,8 @@ public sealed class WordfallPrototype : MonoBehaviour
 {
     private const string RootName = "WordfallPrototypeRuntime";
     private PlayerDataManager playerDataManager;
+    private WordDatabase wordDatabase;
     private readonly List<FallingWord> fallingWords = new List<FallingWord>();
-    private readonly string[] defaultKoreanWords = { "사과", "하늘", "컴퓨터", "게임", "방어", "키보드", "단어", "우주" };
-    private readonly string[] defaultEnglishWords = { "apple", "sky", "computer", "game", "defense", "keyboard", "word", "space" };
     private string[] koreanWords;
     private string[] englishWords;
     private Font uiFont;
@@ -262,8 +261,9 @@ public sealed class WordfallPrototype : MonoBehaviour
         playerDataManager = gameObject.GetComponent<PlayerDataManager>();
         if (playerDataManager == null) playerDataManager = gameObject.AddComponent<PlayerDataManager>();
         playerDataManager.Load();
-        koreanWords = LoadWords("Words/korean", defaultKoreanWords);
-        englishWords = LoadWords("Words/english", defaultEnglishWords);
+        wordDatabase = new WordDatabase();
+        koreanWords = wordDatabase.KoreanWords;
+        englishWords = wordDatabase.EnglishWords;
         uiFont = Resources.Load<Font>("Fonts/Mulmaru");
         if (uiFont == null) uiFont = Font.CreateDynamicFontFromOSFont("Malgun Gothic", 32);
         if (uiFont == null) uiFont = Resources.GetBuiltinResource<Font>("Arial.ttf");
@@ -277,23 +277,6 @@ public sealed class WordfallPrototype : MonoBehaviour
         var updateChecker = gameObject.AddComponent<UpdateChecker>();
         updateChecker.UpdateAvailable += ShowUpdatePanel;
         ShowMainMenu();
-    }
-
-    private string[] LoadWords(string resourcePath, string[] fallback)
-    {
-        var wordAsset = Resources.Load<TextAsset>(resourcePath);
-        if (wordAsset == null) return fallback;
-
-        var lines = wordAsset.text.Split(new[] { '\r', '\n' }, System.StringSplitOptions.RemoveEmptyEntries);
-        var words = new List<string>();
-        for (int i = 0; i < lines.Length; i++)
-        {
-            string word = lines[i].Trim();
-            if (string.IsNullOrEmpty(word) || word.StartsWith("#")) continue;
-            words.Add(word);
-        }
-
-        return words.Count > 0 ? words.ToArray() : fallback;
     }
 
     private void Update()
