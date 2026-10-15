@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public sealed partial class WordfallPrototype
 {
     private void HandleSubmitted(string value)

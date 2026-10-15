@@ -887,7 +887,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         attendancePanel.SetActive(true);
     }
 
-    private void CloseAttendancePanel()
+    private void LegacyCloseAttendancePanel()
     {
         attendancePanel.SetActive(false);
     }
@@ -1006,7 +1006,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         myPageOpenedFromGame = false;
     }
 
-    private void ShowInsufficientCoinsPanel()
+    private void LegacyShowInsufficientCoinsPanel()
     {
         insufficientCoinsTitleText.text = language == Language.Korean ? "코인 부족" : "NOT ENOUGH COINS";
         insufficientCoinsMessageText.text = language == Language.Korean ? "코인이 부족합니다." : "You do not have enough coins.";
@@ -1014,12 +1014,12 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         insufficientCoinsPanel.SetActive(true);
     }
 
-    private void CloseInsufficientCoinsPanel()
+    private void LegacyCloseInsufficientCoinsPanel()
     {
         insufficientCoinsPanel.SetActive(false);
     }
 
-    private void ShowAnnouncementPanel()
+    private void LegacyShowAnnouncementPanel()
     {
         if (playing) return;
         homeHubPanel.SetActive(false);
@@ -1031,7 +1031,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         announcementPanel.SetActive(true);
     }
 
-    private void CloseAnnouncementPanel()
+    private void LegacyCloseAnnouncementPanel()
     {
         announcementPanel.SetActive(false);
         ResetHomeHubMenuState();
@@ -1039,7 +1039,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         ShowLobbyDialogue();
     }
 
-    private void ShowPrivacyPanel()
+    private void LegacyShowPrivacyPanel()
     {
         if (playing) return;
         homeHubMenuPanel.SetActive(false);
@@ -1047,7 +1047,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         privacyPanel.SetActive(true);
     }
 
-    private void ClosePrivacyPanel()
+    private void LegacyClosePrivacyPanel()
     {
         privacyPanel.SetActive(false);
         ResetHomeHubMenuState();
@@ -1055,7 +1055,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         ShowLobbyDialogue();
     }
 
-    private void ShowWithdrawConfirm()
+    private void LegacyShowWithdrawConfirm()
     {
         if (playing) return;
         homeHubMenuPanel.SetActive(false);
@@ -1065,7 +1065,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         withdrawConfirmPanel.SetActive(true);
     }
 
-    private void CloseWithdrawConfirm()
+    private void LegacyCloseWithdrawConfirm()
     {
         withdrawConfirmPanel.SetActive(false);
         if (profileCreated)
@@ -1101,7 +1101,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         if (homeHubCloseIcon != null) homeHubCloseIcon.SetActive(false);
     }
 
-    private void ConfirmDeleteAccount()
+    private void LegacyConfirmDeleteAccount()
     {
         withdrawConfirmPanel.SetActive(false);
         DeleteAccount();
