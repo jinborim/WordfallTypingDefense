@@ -1813,7 +1813,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         image.raycastTarget = false;
     }
 
-    private void ApplyPixelLobbyBackground(GameObject panel)
+    private void LegacyApplyPixelLobbyBackground(GameObject panel)
     {
         var background = Resources.Load<Texture2D>("Pixel/lobby-background");
         if (background == null) return;
@@ -1826,7 +1826,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         image.color = Color.white;
     }
 
-    private void ApplyPixelShopWindow(GameObject panel)
+    private void LegacyApplyPixelShopWindow(GameObject panel)
     {
         var texture = Resources.Load<Texture2D>("Pixel/coin-shop-window");
         if (texture == null) return;
@@ -1839,7 +1839,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         image.raycastTarget = false;
     }
 
-    private void ApplyPixelBackground(GameObject panel)
+    private void LegacyApplyPixelBackground(GameObject panel)
     {
         var background = Resources.Load<Texture2D>("Pixel/wordfall-background");
         if (background == null) return;
@@ -1861,7 +1861,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         return motionObject.AddComponent<PixelAmbientMotion>();
     }
 
-    private void ApplyPixelWindow(GameObject panel)
+    private void LegacyApplyPixelWindow(GameObject panel)
     {
         var windowTexture = Resources.Load<Texture2D>("Pixel/wordfall-window");
         if (windowTexture == null) return;
@@ -1881,7 +1881,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         image.color = Color.white;
     }
 
-    private void ApplyPixelLobbyDialogueWindow(GameObject panel)
+    private void LegacyApplyPixelLobbyDialogueWindow(GameObject panel)
     {
         var texture = Resources.Load<Texture2D>("Pixel/lobby-dialogue-window-clean");
         if (texture == null)
@@ -1901,7 +1901,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         image.color = Color.white;
     }
 
-    private void ApplyPixelSettingsWindow(GameObject panel)
+    private void LegacyApplyPixelSettingsWindow(GameObject panel)
     {
         var texture = Resources.Load<Texture2D>("Pixel/settings-window");
         if (texture == null)
@@ -1925,7 +1925,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         image.raycastTarget = true;
     }
 
-    private void ApplyPixelGameOverWindow(GameObject panel)
+    private void LegacyApplyPixelGameOverWindow(GameObject panel)
     {
         var texture = Resources.Load<Texture2D>("Pixel/game-over-window");
         if (texture == null)
@@ -1944,7 +1944,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         image.raycastTarget = false;
     }
 
-    private void ApplyPixelAttendanceWindow(GameObject panel)
+    private void LegacyApplyPixelAttendanceWindow(GameObject panel)
     {
         var texture = Resources.Load<Texture2D>("Pixel/attendance-reward-window");
         if (texture == null)
@@ -1963,7 +1963,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         image.raycastTarget = false;
     }
 
-    private void ApplyModalDim(GameObject panel)
+    private void LegacyApplyModalDim(GameObject panel)
     {
         var dimObject = new GameObject("ModalDim", typeof(RectTransform), typeof(Image));
         dimObject.transform.SetParent(panel.transform, false);
