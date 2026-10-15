@@ -42,6 +42,8 @@ public sealed class WordfallPrototype : MonoBehaviour
     private GameObject shopPanel;
     private GameObject insufficientCoinsPanel;
     private GameObject announcementPanel;
+    private GameObject privacyPanel;
+    private GameObject withdrawConfirmPanel;
     private Text scoreText;
     private Image[] lifeHeartImages;
     private Text comboText;
@@ -94,6 +96,10 @@ public sealed class WordfallPrototype : MonoBehaviour
     private Text insufficientCoinsMessageText;
     private Text announcementTitleText;
     private Text announcementMessageText;
+    private Text privacyTitleText;
+    private Text privacyMessageText;
+    private Text withdrawTitleText;
+    private Text withdrawMessageText;
     private InputField inputField;
     private RectTransform wordLayer;
     private Button[] difficultyButtons;
@@ -133,6 +139,11 @@ public sealed class WordfallPrototype : MonoBehaviour
     private Button insufficientCoinsCloseButton;
     private Button announcementButton;
     private Button announcementCloseButton;
+    private Button privacyButton;
+    private Button withdrawButton;
+    private Button privacyCloseButton;
+    private Button withdrawConfirmButton;
+    private Button withdrawCancelButton;
     private Button menuButton;
     private Button resumeButton;
     private Button pauseMyPageButton;
@@ -418,6 +429,10 @@ public sealed class WordfallPrototype : MonoBehaviour
         announcementButton.onClick.AddListener(ShowAnnouncementPanel);
         homeHubProfileButton = CreateImageAction("HomeHubProfileAction", homeHubMenuPanel.transform, "Pixel/character-profile-frame", "프로필 수정", new Vector2(0.5f, 0.88f), new Vector2(180f, 92f), new Vector2(68f, 68f), out homeHubProfileLabelText);
         homeHubProfileButton.onClick.AddListener(ShowProfileEditFromHome);
+        privacyButton = CreateButton("개인정보 처리방침", homeHubMenuPanel.transform, new Vector2(0.5f, 0.14f), new Vector2(220f, 46f), new Color32(58, 80, 122, 255));
+        privacyButton.onClick.AddListener(ShowPrivacyPanel);
+        withdrawButton = CreateButton("회원 탈퇴", homeHubMenuPanel.transform, new Vector2(0.5f, 0.07f), new Vector2(220f, 46f), new Color32(149, 71, 92, 255));
+        withdrawButton.onClick.AddListener(ShowWithdrawConfirm);
         homeHubMenuToggleButton = CreateHamburgerButton("HomeHubMenuToggle", homeHubPanel.transform, new Vector2(0.04f, 0.50f), new Vector2(62f, 62f));
         homeHubHamburgerIcon = homeHubMenuToggleButton.transform.Find("HamburgerMenuIcon").GetComponent<Image>();
         homeHubCloseIcon = CreateMenuCloseIcon(homeHubMenuToggleButton.transform);
@@ -530,7 +545,7 @@ public sealed class WordfallPrototype : MonoBehaviour
         myPageProfileButton = CreateButton("프로필 수정", myPagePanel.transform, new Vector2(0.59f, 0.16f), new Vector2(180f, 62f), new Color32(67, 149, 255, 255));
         myPageProfileButton.onClick.AddListener(ShowProfileEdit);
         deleteAccountButton = CreateButton("탈퇴하기", myPagePanel.transform, new Vector2(0.86f, 0.16f), new Vector2(150f, 62f), new Color32(149, 71, 92, 255));
-        deleteAccountButton.onClick.AddListener(DeleteAccount);
+        deleteAccountButton.onClick.AddListener(ShowWithdrawConfirm);
         myPagePanel.SetActive(false);
 
         attendancePanel = CreatePanel("AttendancePanel", mainPanel.transform, new Color32(0, 0, 0, 0));
@@ -601,6 +616,34 @@ public sealed class WordfallPrototype : MonoBehaviour
         announcementCloseButton = CreateButton("닫기", announcementPanel.transform, new Vector2(0.5f, 0.25f), new Vector2(220f, 64f), new Color32(67, 149, 255, 255));
         announcementCloseButton.onClick.AddListener(CloseAnnouncementPanel);
         announcementPanel.SetActive(false);
+
+        privacyPanel = CreatePanel("PrivacyPanel", mainPanel.transform, new Color32(9, 18, 38, 250));
+        SetRect(privacyPanel.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
+        ApplyPixelWindow(privacyPanel);
+        ApplyModalDim(privacyPanel);
+        privacyTitleText = CreateText("개인정보 처리방침", privacyPanel.transform, 36, Color.white, new Vector2(0.5f, 0.72f), new Vector2(0.5f, 0.72f));
+        privacyMessageText = CreateText("닉네임, 캐릭터, 코인, 게임 기록은 현재 기기 안에만 저장됩니다.\n외부 서버로 전송하지 않으며, 회원 탈퇴 시 저장된 정보가 삭제됩니다.", privacyPanel.transform, 19, new Color32(214, 222, 238, 255), new Vector2(0.5f, 0.50f), new Vector2(0.5f, 0.50f));
+        privacyMessageText.rectTransform.sizeDelta = new Vector2(760f, 100f);
+        privacyMessageText.alignment = TextAnchor.MiddleCenter;
+        privacyMessageText.horizontalOverflow = HorizontalWrapMode.Wrap;
+        privacyCloseButton = CreateButton("닫기", privacyPanel.transform, new Vector2(0.5f, 0.23f), new Vector2(220f, 62f), new Color32(67, 149, 255, 255));
+        privacyCloseButton.onClick.AddListener(ClosePrivacyPanel);
+        privacyPanel.SetActive(false);
+
+        withdrawConfirmPanel = CreatePanel("WithdrawConfirmPanel", mainPanel.transform, new Color32(9, 18, 38, 250));
+        SetRect(withdrawConfirmPanel.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
+        ApplyPixelWindow(withdrawConfirmPanel);
+        ApplyModalDim(withdrawConfirmPanel);
+        withdrawTitleText = CreateText("회원 탈퇴", withdrawConfirmPanel.transform, 38, new Color32(255, 211, 94, 255), new Vector2(0.5f, 0.67f), new Vector2(0.5f, 0.67f));
+        withdrawMessageText = CreateText("회원 탈퇴를 하시겠습니까?\n저장된 닉네임, 캐릭터, 코인, 기록이 모두 삭제됩니다.", withdrawConfirmPanel.transform, 19, new Color32(214, 222, 238, 255), new Vector2(0.5f, 0.49f), new Vector2(0.5f, 0.49f));
+        withdrawMessageText.rectTransform.sizeDelta = new Vector2(760f, 90f);
+        withdrawMessageText.alignment = TextAnchor.MiddleCenter;
+        withdrawMessageText.horizontalOverflow = HorizontalWrapMode.Wrap;
+        withdrawConfirmButton = CreateButton("확인", withdrawConfirmPanel.transform, new Vector2(0.38f, 0.23f), new Vector2(190f, 58f), new Color32(149, 71, 92, 255));
+        withdrawConfirmButton.onClick.AddListener(ConfirmDeleteAccount);
+        withdrawCancelButton = CreateButton("취소", withdrawConfirmPanel.transform, new Vector2(0.62f, 0.23f), new Vector2(190f, 58f), new Color32(67, 149, 255, 255));
+        withdrawCancelButton.onClick.AddListener(CloseWithdrawConfirm);
+        withdrawConfirmPanel.SetActive(false);
 
         updatePanel = CreatePanel("UpdatePanel", mainPanel.transform, new Color32(9, 18, 38, 250));
         SetRect(updatePanel.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
@@ -729,6 +772,19 @@ public sealed class WordfallPrototype : MonoBehaviour
         SetLabelText(homeHubShopLabelText, language == Language.Korean ? "상점" : "SHOP");
         SetLabelText(homeHubAnnouncementLabelText, language == Language.Korean ? "공지사항" : "ANNOUNCEMENTS");
         SetLabelText(homeHubProfileLabelText, language == Language.Korean ? "프로필 수정" : "EDIT PROFILE");
+        SetButtonText(privacyButton, language == Language.Korean ? "개인정보 처리방침" : "PRIVACY POLICY");
+        SetButtonText(withdrawButton, language == Language.Korean ? "회원 탈퇴" : "DELETE ACCOUNT");
+        privacyTitleText.text = language == Language.Korean ? "개인정보 처리방침" : "PRIVACY POLICY";
+        privacyMessageText.text = language == Language.Korean
+            ? "닉네임, 캐릭터, 코인, 게임 기록은 현재 기기 안에만 저장됩니다.\n외부 서버로 전송하지 않으며, 회원 탈퇴 시 저장된 정보가 삭제됩니다."
+            : "Your nickname, character, coins, and records are stored only on this device.\nNo data is sent to an external server, and deleting your account removes the saved data.";
+        SetButtonText(privacyCloseButton, language == Language.Korean ? "닫기" : "CLOSE");
+        withdrawTitleText.text = language == Language.Korean ? "회원 탈퇴" : "DELETE ACCOUNT";
+        withdrawMessageText.text = language == Language.Korean
+            ? "회원 탈퇴를 하시겠습니까?\n저장된 닉네임, 캐릭터, 코인, 기록이 모두 삭제됩니다."
+            : "Delete your account?\nYour nickname, character, coins, and records will be removed.";
+        SetButtonText(withdrawConfirmButton, language == Language.Korean ? "확인" : "CONFIRM");
+        SetButtonText(withdrawCancelButton, language == Language.Korean ? "취소" : "CANCEL");
         homeHubTitleText.text = language == Language.Korean ? "로비" : "LOBBY";
         homeHubPlayerText.text = language == Language.Korean ? "플레이어" : "PLAYER";
         homeHubCoinText.text = language == Language.Korean ? "코인 " + coins : "COINS " + coins;
@@ -980,6 +1036,8 @@ public sealed class WordfallPrototype : MonoBehaviour
         if (shopPanel != null) shopPanel.SetActive(false);
         if (insufficientCoinsPanel != null) insufficientCoinsPanel.SetActive(false);
         if (announcementPanel != null) announcementPanel.SetActive(false);
+        if (privacyPanel != null) privacyPanel.SetActive(false);
+        if (withdrawConfirmPanel != null) withdrawConfirmPanel.SetActive(false);
         if (insufficientCoinsPanel != null) insufficientCoinsPanel.SetActive(false);
         if (attendancePanel != null) attendancePanel.SetActive(false);
         if (updatePanel != null) updatePanel.SetActive(false);
@@ -1225,6 +1283,51 @@ public sealed class WordfallPrototype : MonoBehaviour
         announcementPanel.SetActive(false);
         homeHubPanel.SetActive(true);
         ShowLobbyDialogue();
+    }
+
+    private void ShowPrivacyPanel()
+    {
+        if (playing) return;
+        homeHubMenuPanel.SetActive(false);
+        homeHubPanel.SetActive(false);
+        privacyPanel.SetActive(true);
+    }
+
+    private void ClosePrivacyPanel()
+    {
+        privacyPanel.SetActive(false);
+        homeHubPanel.SetActive(true);
+        ShowLobbyDialogue();
+    }
+
+    private void ShowWithdrawConfirm()
+    {
+        if (playing) return;
+        homeHubMenuPanel.SetActive(false);
+        homeHubPanel.SetActive(false);
+        myPagePanel.SetActive(false);
+        privacyPanel.SetActive(false);
+        withdrawConfirmPanel.SetActive(true);
+    }
+
+    private void CloseWithdrawConfirm()
+    {
+        withdrawConfirmPanel.SetActive(false);
+        if (profileCreated)
+        {
+            homeHubPanel.SetActive(true);
+            ShowLobbyDialogue();
+        }
+        else
+        {
+            ShowMainMenu();
+        }
+    }
+
+    private void ConfirmDeleteAccount()
+    {
+        withdrawConfirmPanel.SetActive(false);
+        DeleteAccount();
     }
 
     private void UpdateShopText()
