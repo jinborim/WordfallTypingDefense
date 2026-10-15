@@ -2215,7 +2215,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         else { rect.offsetMin = position; rect.offsetMax = position + size; }
     }
 
-    private sealed class ButtonPressFeedback : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
+    private sealed class LegacyButtonPressFeedback : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
     {
         private Vector3 baseScale;
 
@@ -2353,7 +2353,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         }
     }
 
-    private sealed class FallingWord
+    private sealed class LegacyFallingWord
     {
         public readonly string word;
         public readonly WordType type;
