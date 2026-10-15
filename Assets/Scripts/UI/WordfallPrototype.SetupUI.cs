@@ -88,4 +88,10 @@ public sealed partial class WordfallPrototype
             difficultyButtons[i].colors = colors;
         }
     }
+
+    private void SelectLanguageAndClose(Language selectedLanguage)
+    {
+        SetLanguage(selectedLanguage);
+        if (languagePanel != null) languagePanel.SetActive(false);
+    }
 }

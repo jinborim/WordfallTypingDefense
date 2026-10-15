@@ -1240,7 +1240,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         ShowMainMenu();
     }
 
-    private void SelectLanguageAndClose(Language selectedLanguage)
+    private void LegacySelectLanguageAndClose(Language selectedLanguage)
     {
         SetLanguage(selectedLanguage);
         languagePanel.SetActive(false);
