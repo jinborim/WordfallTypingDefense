@@ -1,0 +1,32 @@
+using UnityEngine;
+
+public sealed partial class WordfallPrototype
+{
+    private void Awake()
+    {
+        playerDataManager = gameObject.GetComponent<PlayerDataManager>();
+        if (playerDataManager == null) playerDataManager = gameObject.AddComponent<PlayerDataManager>();
+        playerDataManager.Load();
+
+        wordDatabase = new WordDatabase();
+        koreanWords = wordDatabase.KoreanWords;
+        englishWords = wordDatabase.EnglishWords;
+
+        uiFont = Resources.Load<Font>("Fonts/Mulmaru");
+        if (uiFont == null) uiFont = Font.CreateDynamicFontFromOSFont("Malgun Gothic", 32);
+        if (uiFont == null) uiFont = Resources.GetBuiltinResource<Font>("Arial.ttf");
+
+        highScore = playerDataManager.Data.highScore;
+        profileCreated = playerDataManager.Data.profileCreated;
+        selectedCharacter = playerDataManager.Data.selectedCharacter;
+        coins = playerDataManager.Data.coins;
+        nicknameTickets = playerDataManager.Data.nicknameTickets;
+        ownedCharacterMask = playerDataManager.Data.ownedCharacterMask;
+
+        BuildInterface();
+
+        var updateChecker = gameObject.AddComponent<UpdateChecker>();
+        updateChecker.UpdateAvailable += ShowUpdatePanel;
+        ShowMainMenu();
+    }
+}

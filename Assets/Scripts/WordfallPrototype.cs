@@ -243,7 +243,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         root.AddComponent<WordfallPrototype>();
     }
 
-    private void Awake()
+    private void LegacyAwake()
     {
         playerDataManager = gameObject.GetComponent<PlayerDataManager>();
         if (playerDataManager == null) playerDataManager = gameObject.AddComponent<PlayerDataManager>();
