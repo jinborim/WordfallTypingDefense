@@ -2056,7 +2056,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         return button;
     }
 
-    private Button CreateImageAction(string name, Transform parent, string iconPath, string label, Vector2 anchor, Vector2 size, Vector2 iconSize, out Text labelText)
+    private Button LegacyCreateImageAction(string name, Transform parent, string iconPath, string label, Vector2 anchor, Vector2 size, Vector2 iconSize, out Text labelText)
     {
         var objectToCreate = new GameObject(name, typeof(RectTransform), typeof(Image), typeof(Button));
         objectToCreate.transform.SetParent(parent, false);
@@ -2096,7 +2096,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         return button;
     }
 
-    private Button CreateHamburgerButton(string name, Transform parent, Vector2 anchor, Vector2 size)
+    private Button LegacyCreateHamburgerButton(string name, Transform parent, Vector2 anchor, Vector2 size)
     {
         var objectToCreate = new GameObject(name, typeof(RectTransform), typeof(Image), typeof(Button));
         objectToCreate.transform.SetParent(parent, false);
@@ -2126,7 +2126,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         return button;
     }
 
-    private GameObject CreateMenuCloseIcon(Transform parent)
+    private GameObject LegacyCreateMenuCloseIcon(Transform parent)
     {
         var closeIcon = new GameObject("MenuCloseIcon", typeof(RectTransform), typeof(Image));
         closeIcon.transform.SetParent(parent, false);
@@ -2142,7 +2142,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         return closeIcon;
     }
 
-    private void CreateCloseBar(Transform parent, float angle)
+    private void LegacyCreateCloseBar(Transform parent, float angle)
     {
         var bar = new GameObject("CloseBar", typeof(RectTransform), typeof(Image));
         bar.transform.SetParent(parent, false);
@@ -2153,7 +2153,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         image.raycastTarget = false;
     }
 
-    private Button CreateCharacterButton(string label, string portraitPath, Transform parent, Vector2 anchor, Color color)
+    private Button LegacyCreateCharacterButton(string label, string portraitPath, Transform parent, Vector2 anchor, Color color)
     {
         var button = CreateButton(label, parent, anchor, new Vector2(210f, 130f), color);
         var portrait = CreateImage("CharacterPortrait", button.transform, portraitPath, new Vector2(0.5f, 0.64f), new Vector2(78f, 78f));
@@ -2168,7 +2168,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         return button;
     }
 
-    private InputField CreateInputField(Transform parent)
+    private InputField LegacyCreateInputField(Transform parent)
     {
         var objectToCreate = new GameObject("TypingInput", typeof(RectTransform), typeof(Image), typeof(InputField));
         objectToCreate.transform.SetParent(parent, false);
@@ -2186,7 +2186,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         return input;
     }
 
-    private InputField CreateNicknameInput(Transform parent)
+    private InputField LegacyCreateNicknameInput(Transform parent)
     {
         var objectToCreate = new GameObject("NicknameInput", typeof(RectTransform), typeof(Image), typeof(InputField));
         objectToCreate.transform.SetParent(parent, false);
