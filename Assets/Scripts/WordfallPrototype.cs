@@ -992,7 +992,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         DeleteAccount();
     }
 
-    private void UpdateShopText()
+    private void LegacyUpdateShopText()
     {
         if (shopPanel == null) return;
         shopCoinText.text = language == Language.Korean ? "코인 " + coins + "  ·  변경권 " + nicknameTickets : "COINS " + coins + "  ·  TICKETS " + nicknameTickets;
@@ -1012,7 +1012,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         SetShopCategory(shopCategory);
     }
 
-    private void BuyNicknameTicket()
+    private void LegacyBuyNicknameTicket()
     {
         if (nicknameTickets > 0)
         {
@@ -1032,7 +1032,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         UpdateShopText();
     }
 
-    private void BuyCharacter(int characterIndex)
+    private void LegacyBuyCharacter(int characterIndex)
     {
         if (OwnsCharacter(characterIndex))
         {
