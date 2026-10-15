@@ -182,6 +182,7 @@ public sealed class WordfallPrototype : MonoBehaviour
     private bool languageOpenedFromHomeHub;
     private bool editingProfile;
     private bool profileEditReturnToMyPage;
+    private bool profileEditReturnToHomeHub;
     private bool shopOpenedFromMyPage;
     private bool homeHubMenuOpen;
     private Coroutine homeHubMenuCoroutine;
@@ -918,6 +919,8 @@ public sealed class WordfallPrototype : MonoBehaviour
         if (!profileCreated) return;
         homeHubMenuPanel.SetActive(false);
         homeHubMenuOpen = false;
+        profileEditReturnToMyPage = false;
+        profileEditReturnToHomeHub = true;
         ShowProfileEdit();
     }
 
@@ -925,7 +928,7 @@ public sealed class WordfallPrototype : MonoBehaviour
     {
         if (!profileCreated) return;
         editingProfile = true;
-        profileEditReturnToMyPage = true;
+        if (!profileEditReturnToHomeHub) profileEditReturnToMyPage = true;
         myPagePanel.SetActive(false);
         setupPanel.SetActive(false);
         languagePanel.SetActive(false);
@@ -956,7 +959,7 @@ public sealed class WordfallPrototype : MonoBehaviour
             colors.highlightedColor = new Color32(255, 232, 150, 255);
             colors.pressedColor = new Color32(216, 173, 68, 255);
             characterButtons[i].colors = colors;
-            characterButtons[i].interactable = !editingProfile || OwnsCharacter(i);
+            characterButtons[i].interactable = OwnsCharacter(i);
         }
     }
 
@@ -979,7 +982,7 @@ public sealed class WordfallPrototype : MonoBehaviour
             ShowShopPanel();
             return;
         }
-        if (editingProfile && !OwnsCharacter(selectedCharacter))
+        if (!OwnsCharacter(selectedCharacter))
         {
             profileErrorText.text = language == Language.Korean ? "구매한 캐릭터 프로필만 선택할 수 있습니다." : "You can only select profiles you own.";
             return;
@@ -1006,6 +1009,13 @@ public sealed class WordfallPrototype : MonoBehaviour
             {
                 myPagePanel.SetActive(true);
                 profileEditReturnToMyPage = false;
+            }
+            else if (profileEditReturnToHomeHub)
+            {
+                profileEditReturnToHomeHub = false;
+                UpdateHomeHubCharacter();
+                homeHubPanel.SetActive(true);
+                ShowLobbyDialogue();
             }
             return;
         }
@@ -1473,6 +1483,7 @@ public sealed class WordfallPrototype : MonoBehaviour
         nicknameTickets++;
         SaveShopData();
         UpdateCoinText();
+        UpdateCharacterButtonStates();
         UpdateShopText();
     }
 
@@ -1492,6 +1503,7 @@ public sealed class WordfallPrototype : MonoBehaviour
         ownedCharacterMask |= 1 << characterIndex;
         SaveShopData();
         UpdateCoinText();
+        UpdateCharacterButtonStates();
         UpdateShopText();
     }
 
@@ -2575,7 +2587,7 @@ public sealed class WordfallPrototype : MonoBehaviour
         objectToCreate.transform.SetParent(parent, false);
         objectToCreate.GetComponent<Image>().color = new Color32(245, 248, 255, 255);
         var rect = objectToCreate.GetComponent<RectTransform>();
-        SetRect(rect, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, 100f), new Vector2(560f, 58f));
+        SetRect(rect, new Vector2(0.5f, 0.57f), new Vector2(0.5f, 0.57f), Vector2.zero, new Vector2(560f, 58f));
         var input = objectToCreate.GetComponent<InputField>();
         input.lineType = InputField.LineType.SingleLine;
         input.contentType = InputField.ContentType.Name;
