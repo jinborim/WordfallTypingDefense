@@ -44,6 +44,8 @@ public sealed class WordfallPrototype : MonoBehaviour
     private GameObject announcementPanel;
     private GameObject privacyPanel;
     private GameObject withdrawConfirmPanel;
+    private RectTransform shopProductContent;
+    private ScrollRect shopScrollRect;
     private Text scoreText;
     private Image[] lifeHeartImages;
     private Text comboText;
@@ -144,6 +146,9 @@ public sealed class WordfallPrototype : MonoBehaviour
     private Button privacyCloseButton;
     private Button withdrawConfirmButton;
     private Button withdrawCancelButton;
+    private Button shopAllCategoryButton;
+    private Button shopProfileCategoryButton;
+    private Button shopItemCategoryButton;
     private Button menuButton;
     private Button resumeButton;
     private Button pauseMyPageButton;
@@ -165,6 +170,11 @@ public sealed class WordfallPrototype : MonoBehaviour
     private Image shopHackerImage;
     private Image homeHubShopImage;
     private Image homeHubAnnouncementImage;
+    private GameObject shopTicketCard;
+    private GameObject shopKnightCard;
+    private GameObject shopMageCard;
+    private GameObject shopHackerCard;
+    private int shopCategory;
     private PixelAmbientMotion mainAmbientMotion;
     private string pendingUpdateUrl;
     private bool myPageOpenedFromGame;
@@ -570,25 +580,50 @@ public sealed class WordfallPrototype : MonoBehaviour
         ApplyModalDim(shopPanel);
         shopTitleText = CreateText("코인 상점", shopPanel.transform, 42, Color.white, new Vector2(0.5f, 0.78f), new Vector2(0.5f, 0.78f));
         shopCoinText = CreateText("코인 0", shopPanel.transform, 22, new Color32(255, 211, 94, 255), new Vector2(0.5f, 0.68f), new Vector2(0.5f, 0.68f));
-        CreateShopItemCard("ShopTicketCard", shopPanel.transform, new Vector2(0.125f, 0.46f), new Vector2(230f, 230f));
-        CreateShopItemCard("ShopKnightCard", shopPanel.transform, new Vector2(0.375f, 0.46f), new Vector2(230f, 230f));
-        CreateShopItemCard("ShopMageCard", shopPanel.transform, new Vector2(0.625f, 0.46f), new Vector2(230f, 230f));
-        CreateShopItemCard("ShopHackerCard", shopPanel.transform, new Vector2(0.875f, 0.46f), new Vector2(230f, 230f));
-        shopTicketImage = CreateImage("ShopNicknameTicket", shopPanel.transform, "Pixel/nickname-ticket", new Vector2(0.125f, 0.55f), new Vector2(66f, 66f));
+        shopAllCategoryButton = CreateButton("전체", shopPanel.transform, new Vector2(0.39f, 0.59f), new Vector2(170f, 46f), new Color32(67, 149, 255, 255));
+        shopAllCategoryButton.onClick.AddListener(() => SetShopCategory(0));
+        shopProfileCategoryButton = CreateButton("프로필", shopPanel.transform, new Vector2(0.50f, 0.59f), new Vector2(170f, 46f), new Color32(58, 80, 122, 255));
+        shopProfileCategoryButton.onClick.AddListener(() => SetShopCategory(1));
+        shopItemCategoryButton = CreateButton("아이템", shopPanel.transform, new Vector2(0.61f, 0.59f), new Vector2(170f, 46f), new Color32(58, 80, 122, 255));
+        shopItemCategoryButton.onClick.AddListener(() => SetShopCategory(2));
+
+        var shopViewportObject = CreatePanel("ShopProductViewport", shopPanel.transform, new Color32(0, 0, 0, 0));
+        SetRect(shopViewportObject.GetComponent<RectTransform>(), new Vector2(0.5f, 0.41f), new Vector2(0.5f, 0.41f), Vector2.zero, new Vector2(1160f, 275f));
+        var viewport = shopViewportObject.GetComponent<RectTransform>();
+        viewport.gameObject.AddComponent<RectMask2D>();
+        var contentObject = new GameObject("ShopProductContent", typeof(RectTransform));
+        contentObject.transform.SetParent(viewport, false);
+        shopProductContent = contentObject.GetComponent<RectTransform>();
+        SetRect(shopProductContent, new Vector2(0f, 0.5f), new Vector2(0f, 0.5f), Vector2.zero, new Vector2(1420f, 260f));
+        shopProductContent.pivot = new Vector2(0f, 0.5f);
+        shopScrollRect = shopViewportObject.AddComponent<ScrollRect>();
+        shopScrollRect.viewport = viewport;
+        shopScrollRect.content = shopProductContent;
+        shopScrollRect.horizontal = true;
+        shopScrollRect.vertical = false;
+        shopScrollRect.movementType = ScrollRect.MovementType.Clamped;
+        shopScrollRect.inertia = true;
+        shopScrollRect.scrollSensitivity = 35f;
+
+        shopTicketCard = CreateShopItemCard("ShopTicketCard", shopProductContent, new Vector2(0.10f, 0.5f), new Vector2(230f, 230f));
+        shopKnightCard = CreateShopItemCard("ShopKnightCard", shopProductContent, new Vector2(0.36f, 0.5f), new Vector2(230f, 230f));
+        shopMageCard = CreateShopItemCard("ShopMageCard", shopProductContent, new Vector2(0.62f, 0.5f), new Vector2(230f, 230f));
+        shopHackerCard = CreateShopItemCard("ShopHackerCard", shopProductContent, new Vector2(0.88f, 0.5f), new Vector2(230f, 230f));
+        shopTicketImage = CreateImage("ShopNicknameTicket", shopProductContent, "Pixel/nickname-ticket", new Vector2(0.10f, 0.60f), new Vector2(66f, 66f));
         shopTicketImage.raycastTarget = false;
-        nicknameTicketButton = CreateButton("닉네임 변경권 30코인", shopPanel.transform, new Vector2(0.125f, 0.36f), new Vector2(210f, 58f), new Color32(67, 149, 255, 255));
+        nicknameTicketButton = CreateButton("닉네임 변경권 30코인", shopProductContent, new Vector2(0.10f, 0.30f), new Vector2(210f, 58f), new Color32(67, 149, 255, 255));
         nicknameTicketButton.onClick.AddListener(BuyNicknameTicket);
-        shopKnightImage = CreateImage("ShopKnightProfile", shopPanel.transform, "Pixel/character-knight", new Vector2(0.375f, 0.55f), new Vector2(74f, 74f));
+        shopKnightImage = CreateImage("ShopKnightProfile", shopProductContent, "Pixel/character-knight", new Vector2(0.36f, 0.60f), new Vector2(74f, 74f));
         shopKnightImage.raycastTarget = false;
-        knightShopButton = CreateButton("기사 프로필 100코인", shopPanel.transform, new Vector2(0.375f, 0.36f), new Vector2(210f, 58f), new Color32(55, 102, 149, 255));
+        knightShopButton = CreateButton("기사 프로필 100코인", shopProductContent, new Vector2(0.36f, 0.30f), new Vector2(210f, 58f), new Color32(55, 102, 149, 255));
         knightShopButton.onClick.AddListener(() => BuyCharacter(0));
-        shopMageImage = CreateImage("ShopMageProfile", shopPanel.transform, "Pixel/character-mage", new Vector2(0.625f, 0.55f), new Vector2(74f, 74f));
+        shopMageImage = CreateImage("ShopMageProfile", shopProductContent, "Pixel/character-mage", new Vector2(0.62f, 0.60f), new Vector2(74f, 74f));
         shopMageImage.raycastTarget = false;
-        shopHackerImage = CreateImage("ShopHackerProfile", shopPanel.transform, "Pixel/character-hacker", new Vector2(0.875f, 0.55f), new Vector2(74f, 74f));
+        shopHackerImage = CreateImage("ShopHackerProfile", shopProductContent, "Pixel/character-hacker", new Vector2(0.88f, 0.60f), new Vector2(74f, 74f));
         shopHackerImage.raycastTarget = false;
-        mageShopButton = CreateButton("마법사 프로필 100코인", shopPanel.transform, new Vector2(0.625f, 0.36f), new Vector2(210f, 58f), new Color32(105, 76, 162, 255));
+        mageShopButton = CreateButton("마법사 프로필 100코인", shopProductContent, new Vector2(0.62f, 0.30f), new Vector2(210f, 58f), new Color32(105, 76, 162, 255));
         mageShopButton.onClick.AddListener(() => BuyCharacter(1));
-        hackerShopButton = CreateButton("해커 프로필 100코인", shopPanel.transform, new Vector2(0.875f, 0.36f), new Vector2(210f, 58f), new Color32(53, 137, 105, 255));
+        hackerShopButton = CreateButton("해커 프로필 100코인", shopProductContent, new Vector2(0.88f, 0.30f), new Vector2(210f, 58f), new Color32(53, 137, 105, 255));
         hackerShopButton.onClick.AddListener(() => BuyCharacter(2));
         shopStatusText = CreateText("", shopPanel.transform, 18, new Color32(171, 190, 220, 255), new Vector2(0.5f, 0.27f), new Vector2(0.5f, 0.27f));
         shopCloseButton = CreateButton("닫기", shopPanel.transform, new Vector2(0.5f, 0.16f), new Vector2(220f, 62f), new Color32(58, 80, 122, 255));
@@ -837,6 +872,9 @@ public sealed class WordfallPrototype : MonoBehaviour
         attendanceCoinText.text = language == Language.Korean ? "+10 코인" : "+10 COINS";
         shopTitleText.text = language == Language.Korean ? "코인 상점" : "COIN SHOP";
         shopCoinText.text = language == Language.Korean ? "코인 " + coins : "COINS " + coins;
+        SetButtonText(shopAllCategoryButton, language == Language.Korean ? "전체" : "ALL");
+        SetButtonText(shopProfileCategoryButton, language == Language.Korean ? "프로필" : "PROFILES");
+        SetButtonText(shopItemCategoryButton, language == Language.Korean ? "아이템" : "ITEMS");
         SetButtonText(nicknameTicketButton, language == Language.Korean ? "닉네임 변경권 30코인" : "NICKNAME TICKET 30 COINS");
         SetButtonText(mageShopButton, language == Language.Korean ? "마법사 프로필 100코인" : "MAGE PROFILE 100 COINS");
         SetButtonText(hackerShopButton, language == Language.Korean ? "해커 프로필 100코인" : "HACKER PROFILE 100 COINS");
@@ -1347,6 +1385,43 @@ public sealed class WordfallPrototype : MonoBehaviour
         SetButtonText(hackerShopButton, OwnsCharacter(2)
             ? (language == Language.Korean ? "해커 프로필 보유" : "HACKER PROFILE OWNED")
             : (language == Language.Korean ? "해커 프로필 100코인" : "HACKER PROFILE 100 COINS"));
+        SetShopCategory(shopCategory);
+    }
+
+    private void SetShopCategory(int category)
+    {
+        shopCategory = Mathf.Clamp(category, 0, 2);
+        if (shopTicketCard == null) return;
+
+        bool showProfiles = shopCategory == 0 || shopCategory == 1;
+        bool showItems = shopCategory == 0 || shopCategory == 2;
+        shopTicketCard.SetActive(showItems);
+        shopTicketImage.gameObject.SetActive(showItems);
+        nicknameTicketButton.gameObject.SetActive(showItems);
+        shopKnightCard.SetActive(showProfiles);
+        shopMageCard.SetActive(showProfiles);
+        shopHackerCard.SetActive(showProfiles);
+        shopKnightImage.gameObject.SetActive(showProfiles);
+        shopMageImage.gameObject.SetActive(showProfiles);
+        shopHackerImage.gameObject.SetActive(showProfiles);
+        knightShopButton.gameObject.SetActive(showProfiles);
+        mageShopButton.gameObject.SetActive(showProfiles);
+        hackerShopButton.gameObject.SetActive(showProfiles);
+
+        SetCategoryButtonColor(shopAllCategoryButton, shopCategory == 0);
+        SetCategoryButtonColor(shopProfileCategoryButton, shopCategory == 1);
+        SetCategoryButtonColor(shopItemCategoryButton, shopCategory == 2);
+        if (shopScrollRect != null) shopScrollRect.horizontalNormalizedPosition = 0f;
+    }
+
+    private void SetCategoryButtonColor(Button button, bool selected)
+    {
+        if (button == null) return;
+        var colors = button.colors;
+        colors.normalColor = selected ? new Color32(67, 149, 255, 255) : new Color32(58, 80, 122, 255);
+        colors.highlightedColor = new Color32(116, 190, 255, 255);
+        colors.pressedColor = new Color32(216, 173, 68, 255);
+        button.colors = colors;
     }
 
     private bool OwnsCharacter(int characterIndex)
@@ -2005,11 +2080,12 @@ public sealed class WordfallPrototype : MonoBehaviour
         return objectToCreate;
     }
 
-    private void CreateShopItemCard(string name, Transform parent, Vector2 anchor, Vector2 size)
+    private GameObject CreateShopItemCard(string name, Transform parent, Vector2 anchor, Vector2 size)
     {
         var card = CreatePanel(name, parent, new Color32(0, 0, 0, 0));
         SetRect(card.GetComponent<RectTransform>(), anchor, anchor, Vector2.zero, size);
         card.GetComponent<Image>().raycastTarget = false;
+        return card;
     }
 
     private void ApplyPixelInputFrame(GameObject panel)
