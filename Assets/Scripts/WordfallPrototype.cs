@@ -1388,29 +1388,29 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         }
     }
 
-    private string GetDifficultyName()
+    private string LegacyGetDifficultyName()
     {
         if (difficulty == 0) return language == Language.Korean ? "쉬움" : "EASY";
         if (difficulty == 2) return language == Language.Korean ? "어려움" : "HARD";
         return language == Language.Korean ? "보통" : "NORMAL";
     }
 
-    private float GetBaseSpawnInterval()
+    private float LegacyGetBaseSpawnInterval()
     {
         return GameRules.GetBaseSpawnInterval(difficulty);
     }
 
-    private float GetMinimumSpawnInterval()
+    private float LegacyGetMinimumSpawnInterval()
     {
         return GameRules.GetMinimumSpawnInterval(difficulty);
     }
 
-    private float GetMinimumWordSpeed()
+    private float LegacyGetMinimumWordSpeed()
     {
         return GameRules.GetMinimumWordSpeed(difficulty);
     }
 
-    private float GetMaximumWordSpeed()
+    private float LegacyGetMaximumWordSpeed()
     {
         return GameRules.GetMaximumWordSpeed(difficulty);
     }
@@ -1574,7 +1574,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         if (highScoreText != null) highScoreText.text = string.Format(language == Language.Korean ? "최고 점수 {0:0000}" : "BEST SCORE {0:0000}", highScore);
     }
 
-    private void ClearWords()
+    private void LegacyClearWords()
     {
         for (int i = 0; i < fallingWords.Count; i++) Destroy(fallingWords[i].objectToDestroy);
         fallingWords.Clear();
