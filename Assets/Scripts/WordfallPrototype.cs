@@ -234,6 +234,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
 
     private GameMode gameMode { get => settings.Mode; set => settings.Mode = value; }
 
+    #if false
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void LegacyBoot()
     {
@@ -2254,4 +2255,5 @@ public sealed partial class WordfallPrototype : MonoBehaviour
             this.speed = speed;
         }
     }
+    #endif
 }
