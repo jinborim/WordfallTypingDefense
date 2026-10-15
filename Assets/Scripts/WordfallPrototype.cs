@@ -1852,13 +1852,13 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         image.color = Color.white;
     }
 
-    private PixelAmbientMotion CreateMainAmbientMotion(GameObject panel)
+    private LegacyPixelAmbientMotion LegacyCreateMainAmbientMotion(GameObject panel)
     {
         var motionObject = new GameObject("MainAmbientMotion", typeof(RectTransform));
         motionObject.transform.SetParent(panel.transform, false);
         SetRect(motionObject.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
         motionObject.transform.SetAsFirstSibling();
-        return motionObject.AddComponent<PixelAmbientMotion>();
+        return motionObject.AddComponent<LegacyPixelAmbientMotion>();
     }
 
     private void LegacyApplyPixelWindow(GameObject panel)
@@ -2245,7 +2245,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         }
     }
 
-    private sealed class PixelAmbientMotion : MonoBehaviour
+    private sealed class LegacyPixelAmbientMotion : MonoBehaviour
     {
         private Image backgroundLayer;
         private readonly List<RectTransform> motes = new List<RectTransform>();
