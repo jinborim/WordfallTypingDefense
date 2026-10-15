@@ -328,7 +328,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         if (Keyboard.current.f2Key.wasPressedThisFrame && !paused) ClearScreenSkill();
     }
 
-    private void BuildInterface()
+    private void LegacyBuildInterface()
     {
         var canvasObject = new GameObject("WordfallCanvas", typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
         canvasObject.transform.SetParent(transform, false);
