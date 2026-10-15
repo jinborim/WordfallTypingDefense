@@ -1298,7 +1298,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         if (gameOverPanel != null) gameOverPanel.SetActive(true);
     }
 
-    private void ShowSetupFromGameOver()
+    private void LegacyShowSetupFromGameOver()
     {
         if (gameOverPanel != null) gameOverPanel.SetActive(false);
         mainPanel.SetActive(true);
