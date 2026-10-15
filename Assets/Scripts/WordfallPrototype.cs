@@ -9,18 +9,7 @@ using UnityEngine.UI;
 public sealed class WordfallPrototype : MonoBehaviour
 {
     private const string RootName = "WordfallPrototypeRuntime";
-    private const string HighScoreKey = "WordfallTypingDefense.HighScore";
-    private const string ProfileCreatedKey = "WordfallTypingDefense.ProfileCreated";
-    private const string NicknameKey = "WordfallTypingDefense.Nickname";
-    private const string CharacterKey = "WordfallTypingDefense.Character";
-    private const string CoinsKey = "WordfallTypingDefense.Coins";
-    private const string NicknameTicketsKey = "WordfallTypingDefense.NicknameTickets";
-    private const string OwnedCharactersKey = "WordfallTypingDefense.OwnedCharacters";
-    private const string AttendanceDayKey = "WordfallTypingDefense.LastAttendanceDay";
-    private const string GamesPlayedKey = "WordfallTypingDefense.GamesPlayed";
-    private const string WordsTypedKey = "WordfallTypingDefense.WordsTyped";
-    private const string CorrectWordsKey = "WordfallTypingDefense.CorrectWords";
-    private const string LastScoreKey = "WordfallTypingDefense.LastScore";
+    private PlayerDataManager playerDataManager;
     private readonly List<FallingWord> fallingWords = new List<FallingWord>();
     private readonly string[] defaultKoreanWords = { "사과", "하늘", "컴퓨터", "게임", "방어", "키보드", "단어", "우주" };
     private readonly string[] defaultEnglishWords = { "apple", "sky", "computer", "game", "defense", "keyboard", "word", "space" };
@@ -270,19 +259,20 @@ public sealed class WordfallPrototype : MonoBehaviour
 
     private void Awake()
     {
+        playerDataManager = gameObject.GetComponent<PlayerDataManager>();
+        if (playerDataManager == null) playerDataManager = gameObject.AddComponent<PlayerDataManager>();
+        playerDataManager.Load();
         koreanWords = LoadWords("Words/korean", defaultKoreanWords);
         englishWords = LoadWords("Words/english", defaultEnglishWords);
         uiFont = Resources.Load<Font>("Fonts/Mulmaru");
         if (uiFont == null) uiFont = Font.CreateDynamicFontFromOSFont("Malgun Gothic", 32);
         if (uiFont == null) uiFont = Resources.GetBuiltinResource<Font>("Arial.ttf");
-        highScore = PlayerPrefs.GetInt(HighScoreKey, 0);
-        profileCreated = PlayerPrefs.GetInt(ProfileCreatedKey, 0) == 1;
-        selectedCharacter = Mathf.Clamp(PlayerPrefs.GetInt(CharacterKey, 0), 0, 2);
-        coins = PlayerPrefs.GetInt(CoinsKey, 0);
-        nicknameTickets = PlayerPrefs.GetInt(NicknameTicketsKey, 0);
-        ownedCharacterMask = PlayerPrefs.GetInt(OwnedCharactersKey, 1);
-        if (ownedCharacterMask == 0) ownedCharacterMask = 1;
-        if (profileCreated) ownedCharacterMask |= 1 << selectedCharacter;
+        highScore = playerDataManager.Data.highScore;
+        profileCreated = playerDataManager.Data.profileCreated;
+        selectedCharacter = playerDataManager.Data.selectedCharacter;
+        coins = playerDataManager.Data.coins;
+        nicknameTickets = playerDataManager.Data.nicknameTickets;
+        ownedCharacterMask = playerDataManager.Data.ownedCharacterMask;
         BuildInterface();
         var updateChecker = gameObject.AddComponent<UpdateChecker>();
         updateChecker.UpdateAvailable += ShowUpdatePanel;
@@ -941,9 +931,9 @@ public sealed class WordfallPrototype : MonoBehaviour
         profilePanel.SetActive(true);
         profileTitleText.text = language == Language.Korean ? "프로필 수정" : "EDIT PROFILE";
         profilePromptText.text = language == Language.Korean ? "닉네임과 캐릭터를 수정하세요" : "Update your nickname and character";
-        nicknameInput.text = PlayerPrefs.GetString(NicknameKey, string.Empty);
+        nicknameInput.text = playerDataManager.Data.nickname;
         profileErrorText.text = string.Empty;
-        SelectCharacter(Mathf.Clamp(PlayerPrefs.GetInt(CharacterKey, selectedCharacter), 0, 2));
+        SelectCharacter(Mathf.Clamp(playerDataManager.Data.selectedCharacter, 0, 2));
         SetButtonText(createProfileButton, language == Language.Korean ? "저장하기" : "SAVE PROFILE");
         EventSystem.current.SetSelectedGameObject(nicknameInput.gameObject);
         nicknameInput.ActivateInputField();
@@ -979,7 +969,7 @@ public sealed class WordfallPrototype : MonoBehaviour
             return;
         }
 
-        bool nicknameChanged = !profileCreated || nickname != PlayerPrefs.GetString(NicknameKey, string.Empty);
+        bool nicknameChanged = !profileCreated || nickname != playerDataManager.Data.nickname;
         if (editingProfile && nicknameChanged && nicknameTickets <= 0)
         {
             profileErrorText.text = language == Language.Korean ? "닉네임 변경권이 필요합니다. 상점에서 구매하세요." : "You need a nickname ticket. Buy one in the shop.";
@@ -994,10 +984,7 @@ public sealed class WordfallPrototype : MonoBehaviour
             return;
         }
 
-        PlayerPrefs.SetString(NicknameKey, nickname);
-        PlayerPrefs.SetInt(CharacterKey, selectedCharacter);
-        PlayerPrefs.SetInt(ProfileCreatedKey, 1);
-        PlayerPrefs.Save();
+        playerDataManager.SaveProfile(nickname, selectedCharacter);
         profileCreated = true;
         ownedCharacterMask |= 1 << selectedCharacter;
         SaveShopData();
@@ -1044,7 +1031,7 @@ public sealed class WordfallPrototype : MonoBehaviour
             return;
         }
 
-        string nickname = PlayerPrefs.GetString(NicknameKey, "PLAYER");
+        string nickname = string.IsNullOrEmpty(playerDataManager.Data.nickname) ? "PLAYER" : playerDataManager.Data.nickname;
         string summary = language == Language.Korean
             ? "플레이어  " + nickname + "  /  " + GetCharacterName()
             : "PLAYER  " + nickname + "  /  " + GetCharacterName();
@@ -1065,12 +1052,10 @@ public sealed class WordfallPrototype : MonoBehaviour
         System.DateTime koreaNow = System.DateTime.UtcNow.AddHours(9);
         System.DateTime attendanceDay = koreaNow.Hour < 6 ? koreaNow.Date.AddDays(-1) : koreaNow.Date;
         string attendanceKey = attendanceDay.ToString("yyyy-MM-dd");
-        if (PlayerPrefs.GetString(AttendanceDayKey, string.Empty) == attendanceKey) return;
+        if (playerDataManager.HasAttendance(attendanceKey)) return;
 
-        coins += 10;
-        PlayerPrefs.SetInt(CoinsKey, coins);
-        PlayerPrefs.SetString(AttendanceDayKey, attendanceKey);
-        PlayerPrefs.Save();
+        playerDataManager.GrantAttendance(attendanceKey, 10);
+        coins = playerDataManager.Data.coins;
         UpdateCoinText();
         attendancePanel.SetActive(true);
     }
@@ -1519,10 +1504,7 @@ public sealed class WordfallPrototype : MonoBehaviour
 
     private void SaveShopData()
     {
-        PlayerPrefs.SetInt(CoinsKey, coins);
-        PlayerPrefs.SetInt(NicknameTicketsKey, nicknameTickets);
-        PlayerPrefs.SetInt(OwnedCharactersKey, ownedCharacterMask);
-        PlayerPrefs.Save();
+        playerDataManager.SaveShopData(coins, nicknameTickets, ownedCharacterMask);
     }
 
     private void ShowUpdatePanel(UpdateChecker.UpdateInfo updateInfo)
@@ -1559,10 +1541,12 @@ public sealed class WordfallPrototype : MonoBehaviour
     private void UpdateMyPage()
     {
         if (myPagePanel == null) return;
-        string nickname = PlayerPrefs.GetString(NicknameKey, language == Language.Korean ? "플레이어" : "PLAYER");
-        int gamesPlayed = PlayerPrefs.GetInt(GamesPlayedKey, 0);
-        int wordsTyped = PlayerPrefs.GetInt(WordsTypedKey, 0);
-        int correctWords = PlayerPrefs.GetInt(CorrectWordsKey, 0);
+        string nickname = string.IsNullOrEmpty(playerDataManager.Data.nickname)
+            ? (language == Language.Korean ? "플레이어" : "PLAYER")
+            : playerDataManager.Data.nickname;
+        int gamesPlayed = playerDataManager.Data.gamesPlayed;
+        int wordsTyped = playerDataManager.Data.wordsTyped;
+        int correctWords = playerDataManager.Data.correctWords;
         int accuracy = wordsTyped > 0 ? Mathf.RoundToInt((float)correctWords / wordsTyped * 100f) : 0;
         myPageInfoText.text = language == Language.Korean
             ? nickname + "  /  " + GetCharacterName()
@@ -1582,19 +1566,7 @@ public sealed class WordfallPrototype : MonoBehaviour
 
     private void DeleteAccount()
     {
-        PlayerPrefs.DeleteKey(ProfileCreatedKey);
-        PlayerPrefs.DeleteKey(NicknameKey);
-        PlayerPrefs.DeleteKey(CharacterKey);
-        PlayerPrefs.DeleteKey(CoinsKey);
-        PlayerPrefs.DeleteKey(NicknameTicketsKey);
-        PlayerPrefs.DeleteKey(OwnedCharactersKey);
-        PlayerPrefs.DeleteKey(AttendanceDayKey);
-        PlayerPrefs.DeleteKey(GamesPlayedKey);
-        PlayerPrefs.DeleteKey(WordsTypedKey);
-        PlayerPrefs.DeleteKey(CorrectWordsKey);
-        PlayerPrefs.DeleteKey(LastScoreKey);
-        PlayerPrefs.DeleteKey(HighScoreKey);
-        PlayerPrefs.Save();
+        playerDataManager.DeleteAccount();
 
         profileCreated = false;
         selectedCharacter = 0;
@@ -1650,21 +1622,16 @@ public sealed class WordfallPrototype : MonoBehaviour
         playing = false;
         paused = false;
         if (pausePanel != null) pausePanel.SetActive(false);
-        PlayerPrefs.SetInt(GamesPlayedKey, PlayerPrefs.GetInt(GamesPlayedKey, 0) + 1);
-        PlayerPrefs.SetInt(WordsTypedKey, PlayerPrefs.GetInt(WordsTypedKey, 0) + totalTyped);
-        PlayerPrefs.SetInt(CorrectWordsKey, PlayerPrefs.GetInt(CorrectWordsKey, 0) + correctTyped);
-        PlayerPrefs.SetInt(LastScoreKey, score);
         int gameCoinReward = Mathf.Max(1, score / 50);
-        coins += gameCoinReward;
-        PlayerPrefs.SetInt(CoinsKey, coins);
-        PlayerPrefs.Save();
+        playerDataManager.RecordGame(score, totalTyped, correctTyped, gameCoinReward);
+        coins = playerDataManager.Data.coins;
         UpdateCoinText();
         string accuracy = totalTyped > 0 ? Mathf.RoundToInt((float)correctTyped / totalTyped * 100f) + "% accuracy" : "0% accuracy";
         if (score > highScore)
         {
             highScore = score;
-            PlayerPrefs.SetInt(HighScoreKey, highScore);
-            PlayerPrefs.Save();
+            playerDataManager.Data.highScore = highScore;
+            playerDataManager.Save();
             UpdateHighScoreText();
             statusText.text = language == Language.Korean ? "최고 기록!  " + score + "  " + accuracy + "  -  메뉴를 눌러 다시 시작하세요" : "NEW BEST!  " + score + "  " + accuracy + "  -  Press MENU to try again";
         }
