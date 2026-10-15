@@ -90,7 +90,8 @@ public sealed partial class WordfallPrototype
         withdrawButton = CreateImageAction("HomeHubWithdrawAction", homeHubMenuPanel.transform, "Pixel/character-profile-frame", "?????????????뉖쐾", new Vector2(0.80f, 0.48f), new Vector2(170f, 130f), new Vector2(72f, 72f), out homeHubWithdrawLabelText);
         withdrawButton.onClick.AddListener(ShowWithdrawConfirm);
         homeHubMenuToggleButton = CreateHamburgerButton("HomeHubMenuToggle", homeHubPanel.transform, new Vector2(0.04f, 0.50f), new Vector2(62f, 62f));
-        homeHubHamburgerIcon = homeHubMenuToggleButton.transform.Find("HamburgerMenuIcon").GetComponent<Image>();
+        var hamburgerIconTransform = homeHubMenuToggleButton.transform.Find("HomeHubMenuToggleIcon");
+        homeHubHamburgerIcon = hamburgerIconTransform != null ? hamburgerIconTransform.GetComponent<Image>() : null;
         homeHubCloseIcon = CreateMenuCloseIcon(homeHubMenuToggleButton.transform);
         homeHubCloseIcon.SetActive(false);
         homeHubMenuToggleButton.onClick.AddListener(ToggleHomeHubMenu);
