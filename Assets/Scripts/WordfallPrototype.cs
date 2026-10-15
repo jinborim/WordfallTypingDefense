@@ -74,6 +74,7 @@ public sealed class WordfallPrototype : MonoBehaviour
     private Text homeHubQuickStartLabelText;
     private Text homeHubShopLabelText;
     private Text homeHubAnnouncementLabelText;
+    private Text homeHubProfileLabelText;
     private Text homeHubBackLabelText;
     private Text myPageTitleText;
     private Text myPageInfoText;
@@ -110,6 +111,7 @@ public sealed class WordfallPrototype : MonoBehaviour
     private Button homeHubLanguageButton;
     private Button homeHubBackButton;
     private Button homeHubShopButton;
+    private Button homeHubProfileButton;
     private Button homeHubMenuToggleButton;
     private Image homeHubHamburgerIcon;
     private GameObject homeHubCloseIcon;
@@ -124,6 +126,7 @@ public sealed class WordfallPrototype : MonoBehaviour
     private Button profileResetButton;
     private Button attendanceCloseButton;
     private Button nicknameTicketButton;
+    private Button knightShopButton;
     private Button mageShopButton;
     private Button hackerShopButton;
     private Button shopCloseButton;
@@ -146,6 +149,7 @@ public sealed class WordfallPrototype : MonoBehaviour
     private Image homeHubCharacterImage;
     private Image myPageCharacterImage;
     private Image shopTicketImage;
+    private Image shopKnightImage;
     private Image shopMageImage;
     private Image shopHackerImage;
     private Image homeHubShopImage;
@@ -412,6 +416,8 @@ public sealed class WordfallPrototype : MonoBehaviour
         homeHubShopButton.onClick.AddListener(ShowShopFromHome);
         announcementButton = CreateImageAction("HomeHubAnnouncementAction", homeHubMenuPanel.transform, "Pixel/announcement-icon", "공지사항", new Vector2(0.5f, 0.25f), new Vector2(238f, 118f), new Vector2(60f, 60f), out homeHubAnnouncementLabelText);
         announcementButton.onClick.AddListener(ShowAnnouncementPanel);
+        homeHubProfileButton = CreateImageAction("HomeHubProfileAction", homeHubMenuPanel.transform, "Pixel/character-profile-frame", "프로필 수정", new Vector2(0.5f, 0.88f), new Vector2(180f, 92f), new Vector2(68f, 68f), out homeHubProfileLabelText);
+        homeHubProfileButton.onClick.AddListener(ShowProfileEditFromHome);
         homeHubMenuToggleButton = CreateHamburgerButton("HomeHubMenuToggle", homeHubPanel.transform, new Vector2(0.04f, 0.50f), new Vector2(62f, 62f));
         homeHubHamburgerIcon = homeHubMenuToggleButton.transform.Find("HamburgerMenuIcon").GetComponent<Image>();
         homeHubCloseIcon = CreateMenuCloseIcon(homeHubMenuToggleButton.transform);
@@ -549,20 +555,25 @@ public sealed class WordfallPrototype : MonoBehaviour
         ApplyModalDim(shopPanel);
         shopTitleText = CreateText("코인 상점", shopPanel.transform, 42, Color.white, new Vector2(0.5f, 0.78f), new Vector2(0.5f, 0.78f));
         shopCoinText = CreateText("코인 0", shopPanel.transform, 22, new Color32(255, 211, 94, 255), new Vector2(0.5f, 0.68f), new Vector2(0.5f, 0.68f));
-        CreateShopItemCard("ShopTicketCard", shopPanel.transform, new Vector2(0.20f, 0.46f), new Vector2(300f, 230f));
-        CreateShopItemCard("ShopMageCard", shopPanel.transform, new Vector2(0.50f, 0.46f), new Vector2(300f, 230f));
-        CreateShopItemCard("ShopHackerCard", shopPanel.transform, new Vector2(0.80f, 0.46f), new Vector2(300f, 230f));
-        shopTicketImage = CreateImage("ShopNicknameTicket", shopPanel.transform, "Pixel/nickname-ticket", new Vector2(0.20f, 0.55f), new Vector2(66f, 66f));
+        CreateShopItemCard("ShopTicketCard", shopPanel.transform, new Vector2(0.125f, 0.46f), new Vector2(230f, 230f));
+        CreateShopItemCard("ShopKnightCard", shopPanel.transform, new Vector2(0.375f, 0.46f), new Vector2(230f, 230f));
+        CreateShopItemCard("ShopMageCard", shopPanel.transform, new Vector2(0.625f, 0.46f), new Vector2(230f, 230f));
+        CreateShopItemCard("ShopHackerCard", shopPanel.transform, new Vector2(0.875f, 0.46f), new Vector2(230f, 230f));
+        shopTicketImage = CreateImage("ShopNicknameTicket", shopPanel.transform, "Pixel/nickname-ticket", new Vector2(0.125f, 0.55f), new Vector2(66f, 66f));
         shopTicketImage.raycastTarget = false;
-        nicknameTicketButton = CreateButton("닉네임 변경권 30코인", shopPanel.transform, new Vector2(0.20f, 0.36f), new Vector2(270f, 58f), new Color32(67, 149, 255, 255));
+        nicknameTicketButton = CreateButton("닉네임 변경권 30코인", shopPanel.transform, new Vector2(0.125f, 0.36f), new Vector2(210f, 58f), new Color32(67, 149, 255, 255));
         nicknameTicketButton.onClick.AddListener(BuyNicknameTicket);
-        shopMageImage = CreateImage("ShopMageProfile", shopPanel.transform, "Pixel/character-mage", new Vector2(0.50f, 0.55f), new Vector2(74f, 74f));
+        shopKnightImage = CreateImage("ShopKnightProfile", shopPanel.transform, "Pixel/character-knight", new Vector2(0.375f, 0.55f), new Vector2(74f, 74f));
+        shopKnightImage.raycastTarget = false;
+        knightShopButton = CreateButton("기사 프로필 100코인", shopPanel.transform, new Vector2(0.375f, 0.36f), new Vector2(210f, 58f), new Color32(55, 102, 149, 255));
+        knightShopButton.onClick.AddListener(() => BuyCharacter(0));
+        shopMageImage = CreateImage("ShopMageProfile", shopPanel.transform, "Pixel/character-mage", new Vector2(0.625f, 0.55f), new Vector2(74f, 74f));
         shopMageImage.raycastTarget = false;
-        shopHackerImage = CreateImage("ShopHackerProfile", shopPanel.transform, "Pixel/character-hacker", new Vector2(0.80f, 0.55f), new Vector2(74f, 74f));
+        shopHackerImage = CreateImage("ShopHackerProfile", shopPanel.transform, "Pixel/character-hacker", new Vector2(0.875f, 0.55f), new Vector2(74f, 74f));
         shopHackerImage.raycastTarget = false;
-        mageShopButton = CreateButton("마법사 프로필 100코인", shopPanel.transform, new Vector2(0.50f, 0.36f), new Vector2(270f, 58f), new Color32(105, 76, 162, 255));
+        mageShopButton = CreateButton("마법사 프로필 100코인", shopPanel.transform, new Vector2(0.625f, 0.36f), new Vector2(210f, 58f), new Color32(105, 76, 162, 255));
         mageShopButton.onClick.AddListener(() => BuyCharacter(1));
-        hackerShopButton = CreateButton("해커 프로필 100코인", shopPanel.transform, new Vector2(0.80f, 0.36f), new Vector2(270f, 58f), new Color32(53, 137, 105, 255));
+        hackerShopButton = CreateButton("해커 프로필 100코인", shopPanel.transform, new Vector2(0.875f, 0.36f), new Vector2(210f, 58f), new Color32(53, 137, 105, 255));
         hackerShopButton.onClick.AddListener(() => BuyCharacter(2));
         shopStatusText = CreateText("", shopPanel.transform, 18, new Color32(171, 190, 220, 255), new Vector2(0.5f, 0.27f), new Vector2(0.5f, 0.27f));
         shopCloseButton = CreateButton("닫기", shopPanel.transform, new Vector2(0.5f, 0.16f), new Vector2(220f, 62f), new Color32(58, 80, 122, 255));
@@ -717,6 +728,7 @@ public sealed class WordfallPrototype : MonoBehaviour
         SetLabelText(homeHubMyPageLabelText, language == Language.Korean ? "기록 보기" : "RECORDS");
         SetLabelText(homeHubShopLabelText, language == Language.Korean ? "상점" : "SHOP");
         SetLabelText(homeHubAnnouncementLabelText, language == Language.Korean ? "공지사항" : "ANNOUNCEMENTS");
+        SetLabelText(homeHubProfileLabelText, language == Language.Korean ? "프로필 수정" : "EDIT PROFILE");
         homeHubTitleText.text = language == Language.Korean ? "로비" : "LOBBY";
         homeHubPlayerText.text = language == Language.Korean ? "플레이어" : "PLAYER";
         homeHubCoinText.text = language == Language.Korean ? "코인 " + coins : "COINS " + coins;
@@ -800,6 +812,14 @@ public sealed class WordfallPrototype : MonoBehaviour
         SelectCharacter(selectedCharacter);
         EventSystem.current.SetSelectedGameObject(nicknameInput.gameObject);
         nicknameInput.ActivateInputField();
+    }
+
+    private void ShowProfileEditFromHome()
+    {
+        if (!profileCreated) return;
+        homeHubMenuPanel.SetActive(false);
+        homeHubMenuOpen = false;
+        ShowProfileEdit();
     }
 
     private void ShowProfileEdit()
@@ -1215,6 +1235,9 @@ public sealed class WordfallPrototype : MonoBehaviour
         SetButtonText(nicknameTicketButton, nicknameTickets > 0
             ? (language == Language.Korean ? "닉네임 변경권 보유 " + nicknameTickets : "NICKNAME TICKETS " + nicknameTickets)
             : (language == Language.Korean ? "닉네임 변경권 30코인" : "NICKNAME TICKET 30 COINS"));
+        SetButtonText(knightShopButton, OwnsCharacter(0)
+            ? (language == Language.Korean ? "기사 프로필 보유" : "KNIGHT PROFILE OWNED")
+            : (language == Language.Korean ? "기사 프로필 100코인" : "KNIGHT PROFILE 100 COINS"));
         SetButtonText(mageShopButton, OwnsCharacter(1)
             ? (language == Language.Korean ? "마법사 프로필 보유" : "MAGE PROFILE OWNED")
             : (language == Language.Korean ? "마법사 프로필 100코인" : "MAGE PROFILE 100 COINS"));
@@ -1881,9 +1904,8 @@ public sealed class WordfallPrototype : MonoBehaviour
 
     private void CreateShopItemCard(string name, Transform parent, Vector2 anchor, Vector2 size)
     {
-        var card = CreatePanel(name, parent, new Color32(8, 18, 39, 235));
+        var card = CreatePanel(name, parent, new Color32(0, 0, 0, 0));
         SetRect(card.GetComponent<RectTransform>(), anchor, anchor, Vector2.zero, size);
-        ApplyPixelShopWindow(card);
         card.GetComponent<Image>().raycastTarget = false;
     }
 
