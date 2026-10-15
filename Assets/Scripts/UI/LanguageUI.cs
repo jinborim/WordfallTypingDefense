@@ -24,7 +24,7 @@ public sealed partial class WordfallPrototype
         SetButtonText(pauseMyPageButton, korean ? "\uB9C8\uC774\uD398\uC774\uC9C0" : "MY PAGE");
         SetButtonText(difficultyButtons != null && difficultyButtons.Length > 0 ? difficultyButtons[0] : null, korean ? "\uC26C\uC6C0" : "EASY");
         SetButtonText(difficultyButtons != null && difficultyButtons.Length > 1 ? difficultyButtons[1] : null, korean ? "\uBCF4\uD1B5" : "NORMAL");
-        SetButtonText(difficultyButtons != null && difficultyButtons.Length > 2 ? difficultyButtons[2] : null, korean ? "??????" : "HARD");
+        SetButtonText(difficultyButtons != null && difficultyButtons.Length > 2 ? difficultyButtons[2] : null, korean ? "\\uC5B4\\uB824\\uC6C0" : "HARD");
         SetButtonText(modeButtons != null && modeButtons.Length > 0 ? modeButtons[0] : null, korean ? "\uD63C\uD569" : "MIX");
         SetButtonText(modeButtons != null && modeButtons.Length > 1 ? modeButtons[1] : null, korean ? "\uD55C\uAD6D\uC5B4" : "KOR");
         SetButtonText(modeButtons != null && modeButtons.Length > 2 ? modeButtons[2] : null, korean ? "ENG" : "ENG");
@@ -36,7 +36,7 @@ public sealed partial class WordfallPrototype
         if (setupTitleText != null) setupTitleText.text = korean ? "GAME SETTINGS" : "GAME SETTINGS";
         if (languageTitleText != null) languageTitleText.text = korean ? "LANGUAGE" : "LANGUAGE";
         if (profileTitleText != null) profileTitleText.text = korean ? "\uD504\uB85C\uD544 \uB9CC\uB4E4\uAE30" : "CREATE PLAYER";
-        if (myPageTitleText != null) myPageTitleText.text = korean ? "????釉먮폁??????????????ㅼ뒧???怨????????????" : "MY PAGE";
+        if (myPageTitleText != null) myPageTitleText.text = korean ? "\\uB9C8\\uC774\\uD398\\uC774\\uC9C0" : "MY PAGE";
         if (shopTitleText != null) shopTitleText.text = korean ? "COIN SHOP" : "COIN SHOP";
         if (inputPlaceholder != null) inputPlaceholder.text = korean ? "\uC5EC\uAE30\uC5D0 \uC785\uB825..." : "TYPE HERE...";
 

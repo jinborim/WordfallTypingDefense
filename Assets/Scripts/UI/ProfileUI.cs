@@ -36,8 +36,8 @@ public sealed partial class WordfallPrototype
         setupPanel.SetActive(false);
         languagePanel.SetActive(false);
         profilePanel.SetActive(true);
-        profilePromptText.text = language == Language.Korean ? "?꾨줈???섏젙" : "EDIT PROFILE";
-        profilePromptText.text = language == Language.Korean ? "TEXT" : "Update your nickname and character";
+        profilePromptText.text = language == Language.Korean ? "\\uD504\\uB85C\\uD544 \\uC218\\uC815" : "EDIT PROFILE";
+        profilePromptText.text = language == Language.Korean ? "\\uB2C9\\uB124\\uC784\\uACFC \\uCE90\\uB9AD\\uD130\\uB97C \\uC218\\uC815\\uD558\\uC138\\uC694" : "Update your nickname and character";
         nicknameInput.text = playerDataManager.Data.nickname;
         profileErrorText.text = string.Empty;
         SelectCharacter(Mathf.Clamp(playerDataManager.Data.selectedCharacter, 0, 2));
@@ -71,7 +71,7 @@ public sealed partial class WordfallPrototype
         var nickname = nicknameInput.text.Trim();
         if (nickname.Length < 2)
         {
-            profileErrorText.text = language == Language.Korean ? "??????怨???????獄쏅챶留?????2?????筌?????????????????쇨덫櫻???轅붽틓??影?놁쟼???" : "Enter at least 2 characters.";
+            profileErrorText.text = language == Language.Korean ? "\\uB2C9\\uB124\\uC784\\uC740 2\\uAE00\\uC790 \\uC774\\uC0C1 \\uC785\\uB825\\uD558\\uC138\\uC694." : "Enter at least 2 characters.";
             nicknameInput.ActivateInputField();
             return;
         }
@@ -79,7 +79,7 @@ public sealed partial class WordfallPrototype
         bool nicknameChanged = !profileCreated || nickname != playerDataManager.Data.nickname;
         if (editingProfile && nicknameChanged && nicknameTickets <= 0)
         {
-            profileErrorText.text = language == Language.Korean ? "??????怨?????????곕츥????汝뷴젆?琉??????????獄쏅챶留????轅붽틓?????? ???????살몝??????????傭????轅붽틓??影?놁쟼???" : "You need a nickname ticket. Buy one in the shop.";
+            profileErrorText.text = language == Language.Korean ? "\\uB2C9\\uB124\\uC784 \\uBCC0\\uACBD\\uAD8C\\uC774 \\uD544\\uC694\\uD569\\uB2C8\\uB2E4. \\uC0C1\\uC810\\uC5D0\\uC11C \\uAD6C\\uB9E4\\uD558\\uC138\\uC694." : "You need a nickname ticket. Buy one in the shop.";
             profilePanel.SetActive(false);
             myPagePanel.SetActive(true);
             ShowShopPanel();
@@ -87,7 +87,7 @@ public sealed partial class WordfallPrototype
         }
         if (!OwnsCharacter(selectedCharacter))
         {
-            profileErrorText.text = language == Language.Korean ? "????傭??????????????獄쏅챶留??貫???????獄쏅챶留????????壤굿??Β??????????????????곸죩." : "You can only select profiles you own.";
+            profileErrorText.text = language == Language.Korean ? "\\uBCF4\\uC720\\uD558\\uC9C0 \\uC54A\\uC740 \\uCE90\\uB9AD\\uD130\\uB294 \\uC120\\uD0DD\\uD560 \\uC218 \\uC5C6\\uC2B5\\uB2C8\\uB2E4." : "You can only select profiles you own.";
             return;
         }
 
@@ -125,7 +125,7 @@ public sealed partial class WordfallPrototype
     private string GetCharacterName()
     {
         if (selectedCharacter == 1) return language == Language.Korean ? "MAGE" : "MAGE";
-        if (selectedCharacter == 2) return language == Language.Korean ? "??怨룸Ы" : "HACKER";
+        if (selectedCharacter == 2) return language == Language.Korean ? "\\uD574\\uCEE4" : "HACKER";
         return language == Language.Korean ? "KNIGHT" : "KNIGHT";
     }
 
@@ -140,7 +140,7 @@ public sealed partial class WordfallPrototype
 
         string nickname = string.IsNullOrEmpty(playerDataManager.Data.nickname) ? "PLAYER" : playerDataManager.Data.nickname;
         string summary = language == Language.Korean
-            ? "??????????源낆┸?? " + nickname + "  /  " + GetCharacterName()
+            ? "\\uD50C\\uB808\\uC774\\uC5B4 " + nickname + "  /  " + GetCharacterName()
             : "PLAYER  " + nickname + "  /  " + GetCharacterName();
         if (profileSummaryText != null) profileSummaryText.text = summary;
         if (homeHubPlayerText != null) homeHubPlayerText.text = summary;

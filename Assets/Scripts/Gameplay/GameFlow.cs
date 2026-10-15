@@ -18,15 +18,15 @@ public sealed partial class WordfallPrototype
         if (pausePanel != null) pausePanel.SetActive(false);
         SetCharacterEmotion(false);
         statusText.text = language == Language.Korean
-            ? GetDifficultyName() + " / " + GetGameModeName() + " - ESC ?쇱떆?뺤?  F1 鍮숆껐  F2 ?쒓굅"
+            ? GetDifficultyName() + " / " + GetGameModeName() + " - ESC: \uC77C\uC2DC\uC815\uC9C0  F1: \uBE59\uACB0  F2: \uC81C\uAC70"
             : GetDifficultyName() + " / " + GetGameModeName() + " - ESC: pause  F1: freeze  F2: clear";
         if (gameMode == GameMode.TimeAttack)
         {
-            statusText.text = language == Language.Korean ? "60珥??꾩쟾 - 理쒕? ?먯닔???꾩쟾?섏꽭??" : "60 second challenge - Type as many words as possible!";
+            statusText.text = language == Language.Korean ? "60\uCD08 \uB3C4\uC804 - \uCD5C\uB300\uD55C \uB9CE\uC740 \uC810\uC218\uB97C \uC5BB\uC73C\uC138\uC694!" : "60 second challenge - Type as many words as possible!";
         }
         if (gameMode == GameMode.Daily)
         {
-            statusText.text = language == Language.Korean ? "?ㅻ뒛???꾩쟾 - 紐⑤몢 媛숈? ?⑥뼱瑜?留뚮굹??" : "TODAY'S CHALLENGE - Same seed for everyone!";
+            statusText.text = language == Language.Korean ? "\uC624\uB298\uC758 \uB3C4\uC804 - \uBAA8\uB450 \uAC19\uC740 \uB2E8\uC5B4\uB97C \uB9CC\uB098\uC694!" : "TODAY'S CHALLENGE - Same seed for everyone!";
         }
 
         inputField.text = string.Empty;
@@ -68,7 +68,7 @@ public sealed partial class WordfallPrototype
         if (gameOverSummaryText != null)
         {
             gameOverSummaryText.text = language == Language.Korean
-                ? "?먯닔 " + score + "\n?뺥솗??" + accuracy.Replace(" accuracy", "") + "\n?띾뱷 肄붿씤 +" + gameCoinReward
+                ? "\uC810\uC218 " + score + "\\n\uC815\uD655\uB3C4 " + accuracy.Replace(" accuracy", "") + "\\n\uD68D\uB4DD \uCF54\uC778 +" + gameCoinReward
                 : "SCORE " + score + "\n" + accuracy + "\nCOINS +" + gameCoinReward;
         }
         if (gameOverPanel != null) gameOverPanel.SetActive(true);
