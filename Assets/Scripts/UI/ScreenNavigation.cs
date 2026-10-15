@@ -115,6 +115,4 @@ public sealed partial class WordfallPrototype
         }
         myPageOpenedFromGame = false;
     }
-
-
-
+}

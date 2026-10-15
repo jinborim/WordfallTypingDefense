@@ -25,11 +25,11 @@ public sealed partial class WordfallPrototype
         ApplyPixelBackground(gamePanel);
         titleText = CreateText("WORDFALL", mainPanel.transform, 64, new Color32(241, 247, 255, 0), new Vector2(0.5f, 0.65f), new Vector2(0.5f, 0.65f));
         CreateImage("WordfallEnglishLogo", mainPanel.transform, "Pixel/wordfall-logo-en", new Vector2(0.5f, 0.65f), new Vector2(430f, 92f));
-        subtitleText = CreateText("??癰궽살쐿??& ???ㅼ굡?????????????", mainPanel.transform, 22, new Color32(158, 180, 220, 255), new Vector2(0.5f, 0.53f), new Vector2(0.5f, 0.53f));
-        descriptionText = CreateText("???????뗭삪????源녾텛???????????歷????癲???????ㅼ굣塋????????????饔낅떽????????潁뺛깾???", mainPanel.transform, 18, new Color32(214, 222, 238, 255), new Vector2(0.5f, 0.48f), new Vector2(0.5f, 0.48f));
-        mainStartButton = CreateButton("??棺堉?뤃???????꿔꺂???影?우Ŀ?", mainPanel.transform, new Vector2(0.38f, 0.21f), new Vector2(340f, 78f), new Color32(255, 196, 61, 255));
+        subtitleText = CreateText("???곌떽?댁맾??& ????쇨덧??????????????", mainPanel.transform, 22, new Color32(158, 180, 220, 255), new Vector2(0.5f, 0.53f), new Vector2(0.5f, 0.53f));
+        descriptionText = CreateText("?????????궕????繹먮끍????????????癲?????????????쇨덫櫻????????????耀붾굝?????????逆곷틳源???", mainPanel.transform, 18, new Color32(214, 222, 238, 255), new Vector2(0.5f, 0.48f), new Vector2(0.5f, 0.48f));
+        mainStartButton = CreateButton("??汝뷴젆?琉???????轅붽틓???壤굿??걜?", mainPanel.transform, new Vector2(0.38f, 0.21f), new Vector2(340f, 78f), new Color32(255, 196, 61, 255));
         mainStartButton.onClick.AddListener(ShowHomeHub);
-        languageOpenButton = CreateButton("??轅붽틓????????嚥싲갭큔???, mainPanel.transform, new Vector2(0.66f, 0.21f), new Vector2(250f, 78f), new Color32(58, 80, 122", 255));
+        languageOpenButton = CreateButton("LANGUAGE", mainPanel.transform, new Vector2(0.66f, 0.21f), new Vector2(250f, 78f), new Color32(58, 80, 122, 255));
         languageOpenButton.onClick.AddListener(ShowLanguagePanel);
         profileSummaryText = CreateText("", mainPanel.transform, 16, new Color32(171, 190, 220, 255), new Vector2(0.5f, 0.105f), new Vector2(0.5f, 0.105f));
 
@@ -37,7 +37,7 @@ public sealed partial class WordfallPrototype
         SetRect(homeHubPanel.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
         ApplyPixelLobbyBackground(homeHubPanel);
         ApplyModalDim(homeHubPanel);
-        homeHubTitleText = CreateText("?汝??吏??", homeHubPanel.transform, 40, Color.white, new Vector2(0.5f, 0.87f), new Vector2(0.5f, 0.87f));
+        homeHubTitleText = CreateText("?黎??筌??", homeHubPanel.transform, 40, Color.white, new Vector2(0.5f, 0.87f), new Vector2(0.5f, 0.87f));
         homeHubCharacterImage = CreateImage("HomeHubCharacter", homeHubPanel.transform, GetLobbyCharacterResourcePath(), new Vector2(0.5f, 0.42f), new Vector2(220f, 360f));
         homeHubCharacterImage.raycastTarget = false;
         homeHubInfoPanel = CreatePanel("HomeHubPlayerInfo", homeHubPanel.transform, new Color32(5, 18, 48, 245));
@@ -51,7 +51,7 @@ public sealed partial class WordfallPrototype
         SetRect(homeHubCoinText.rectTransform, new Vector2(0.18f, 0.735f), new Vector2(0.18f, 0.735f), Vector2.zero, new Vector2(440f, 30f));
         homeHubCoinText.rectTransform.pivot = new Vector2(0.5f, 0.5f);
         homeHubCoinText.alignment = TextAnchor.MiddleCenter;
-        homeHubStartButton = CreateButton("??棺堉?뤃???????꿔꺂???影?우Ŀ?", homeHubPanel.transform, new Vector2(0.5f, 0.10f), new Vector2(290f, 58f), new Color32(67, 149, 255, 255));
+        homeHubStartButton = CreateButton("??汝뷴젆?琉???????轅붽틓???壤굿??걜?", homeHubPanel.transform, new Vector2(0.5f, 0.10f), new Vector2(290f, 58f), new Color32(67, 149, 255, 255));
         homeHubStartButton.onClick.AddListener(ShowSetupPanel);
 
         lobbyChatPanel = CreatePanel("LobbyCharacterDialogue", homeHubPanel.transform, new Color32(9, 18, 38, 248));
@@ -77,17 +77,17 @@ public sealed partial class WordfallPrototype
         menuOutline.effectColor = new Color32(20, 66, 126, 220);
         menuOutline.effectDistance = new Vector2(3f, 0f);
 
-        homeHubMyPageButton = CreateImageAction("HomeHubMyPageAction", homeHubMenuPanel.transform, "Pixel/score-hud-frame", "?꿔꺂????????볥궙?袁р뵾????", new Vector2(0.50f, 0.78f), new Vector2(170f, 130f), new Vector2(82f, 70f), out homeHubMyPageLabelText);
+        homeHubMyPageButton = CreateImageAction("HomeHubMyPageAction", homeHubMenuPanel.transform, "Pixel/score-hud-frame", "?轅붽틓????????蹂κ텤?熬곎逾????", new Vector2(0.50f, 0.78f), new Vector2(170f, 130f), new Vector2(82f, 70f), out homeHubMyPageLabelText);
         homeHubMyPageButton.onClick.AddListener(ShowMyPage);
         homeHubShopButton = CreateImageAction("HomeHubShopAction", homeHubMenuPanel.transform, "Pixel/shop-store-icon", "SHOP", new Vector2(0.80f, 0.78f), new Vector2(170f, 130f), new Vector2(82f, 78f), out homeHubShopLabelText);
         homeHubShopButton.onClick.AddListener(ShowShopFromHome);
-        announcementButton = CreateImageAction("HomeHubAnnouncementAction"", homeHubMenuPanel.transform, "Pixel/announcement-icon", "????댁벖?????, new Vector2(0.20f, 0.48f), new Vector2(170f, 130f), new Vector2(72f, 72f), out homeHubAnnouncementLabelText);
+        announcementButton = CreateImageAction("HomeHubAnnouncementAction", homeHubMenuPanel.transform, "Pixel/announcement-icon", "ANNOUNCEMENTS", new Vector2(0.20f, 0.48f), new Vector2(170f, 130f), new Vector2(72f, 72f), out homeHubAnnouncementLabelText);
         announcementButton.onClick.AddListener(ShowAnnouncementPanel);
-        homeHubProfileButton = CreateImageAction("HomeHubProfileAction"", homeHubMenuPanel.transform, "Pixel/character-profile-frame", "?????諛몃마??λ????????癰궽블뀯??, new Vector2(0.20f, 0.78f), new Vector2(170f, 130f), new Vector2(82f, 82f), out homeHubProfileLabelText);
+        homeHubProfileButton = CreateImageAction("HomeHubProfileAction", homeHubMenuPanel.transform, "Pixel/character-profile-frame", "PROFILE", new Vector2(0.20f, 0.78f), new Vector2(170f, 130f), new Vector2(82f, 82f), out homeHubProfileLabelText);
         homeHubProfileButton.onClick.AddListener(ShowProfileEditFromHome);
-        privacyButton = CreateImageAction("HomeHubPrivacyAction"", homeHubMenuPanel.transform, "Pixel/announcement-icon", "????ル늉?????轅붽틓????????饔낅떽???壤굿?戮㏐광??????熬곣뫖利당춯??, new Vector2(0.50f, 0.48f), new Vector2(170f, 130f), new Vector2(72f, 72f), out homeHubPrivacyLabelText);
+        privacyButton = CreateImageAction("HomeHubPrivacyAction", homeHubMenuPanel.transform, "Pixel/announcement-icon", "PRIVACY", new Vector2(0.50f, 0.48f), new Vector2(170f, 130f), new Vector2(72f, 72f), out homeHubPrivacyLabelText);
         privacyButton.onClick.AddListener(ShowPrivacyPanel);
-        withdrawButton = CreateImageAction("HomeHubWithdrawAction", homeHubMenuPanel.transform, "Pixel/character-profile-frame", "????????????낇뜞", new Vector2(0.80f, 0.48f), new Vector2(170f, 130f), new Vector2(72f, 72f), out homeHubWithdrawLabelText);
+        withdrawButton = CreateImageAction("HomeHubWithdrawAction", homeHubMenuPanel.transform, "Pixel/character-profile-frame", "?????????????뉖쐾", new Vector2(0.80f, 0.48f), new Vector2(170f, 130f), new Vector2(72f, 72f), out homeHubWithdrawLabelText);
         withdrawButton.onClick.AddListener(ShowWithdrawConfirm);
         homeHubMenuToggleButton = CreateHamburgerButton("HomeHubMenuToggle", homeHubPanel.transform, new Vector2(0.04f, 0.50f), new Vector2(62f, 62f));
         homeHubHamburgerIcon = homeHubMenuToggleButton.transform.Find("HamburgerMenuIcon").GetComponent<Image>();
@@ -104,18 +104,18 @@ public sealed partial class WordfallPrototype
         setupWindow = CreatePanel("SettingsWindow", setupPanel.transform, new Color32(9, 18, 38, 250));
         SetRect(setupWindow.GetComponent<RectTransform>(), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(1220f, 680f));
         ApplyPixelSettingsWindow(setupWindow);
-        setupTitleText = CreateText("??棺堉?뤃???????嚥싲갭큔???, setupPanel.transform, 38, Color.white, new Vector2(0.5f, 0.84f), new Vector2(0.5f", 0.84f));
-        difficultyText = CreateText("??嶺뚮???????⑤슢????", setupPanel.transform, 22, new Color32(255, 211, 94, 255), new Vector2(0.27f, 0.69f), new Vector2(0.27f, 0.69f));
+        setupTitleText = CreateText("GAME SETTINGS", setupPanel.transform, 38, Color.white, new Vector2(0.5f, 0.84f), new Vector2(0.5f, 0.84f));
+        difficultyText = CreateText("??癲ル슢????????ㅼ뒧????", setupPanel.transform, 22, new Color32(255, 211, 94, 255), new Vector2(0.27f, 0.69f), new Vector2(0.27f, 0.69f));
         difficultyText.rectTransform.pivot = new Vector2(0.5f, 0.5f);
         difficultyText.rectTransform.sizeDelta = new Vector2(260f, 36f);
         difficultyButtons = new Button[3];
         difficultyButtons[0] = CreateButton("???", setupPanel.transform, new Vector2(0.27f, 0.58f), new Vector2(260f, 58f), new Color32(55, 102, 149, 255));
-        difficultyButtons[1] = CreateButton("??⑤슢????", setupPanel.transform, new Vector2(0.27f, 0.46f), new Vector2(260f, 58f), new Color32(67, 149, 255, 255));
+        difficultyButtons[1] = CreateButton("???ㅼ뒧????", setupPanel.transform, new Vector2(0.27f, 0.46f), new Vector2(260f, 58f), new Color32(67, 149, 255, 255));
         difficultyButtons[2] = CreateButton("??????", setupPanel.transform, new Vector2(0.27f, 0.34f), new Vector2(260f, 58f), new Color32(149, 71, 92, 255));
         difficultyButtons[0].onClick.AddListener(() => SetDifficulty(0));
         difficultyButtons[1].onClick.AddListener(() => SetDifficulty(1));
         difficultyButtons[2].onClick.AddListener(() => SetDifficulty(2));
-        modeText = CreateText("?饔낅떽????ш낄?뉔뇡??? ????", setupPanel.transform, 20, new Color32(147, 232, 189, 255), new Vector2(0.70f, 0.69f), new Vector2(0.70f, 0.69f));
+        modeText = CreateText("?耀붾굝?????????붾눀??? ????", setupPanel.transform, 20, new Color32(147, 232, 189, 255), new Vector2(0.70f, 0.69f), new Vector2(0.70f, 0.69f));
         modeText.rectTransform.pivot = new Vector2(0.5f, 0.5f);
         modeText.rectTransform.sizeDelta = new Vector2(420f, 36f);
         modeButtons = new Button[5];
@@ -129,11 +129,11 @@ public sealed partial class WordfallPrototype
             int selectedMode = i;
             modeButtons[i].onClick.AddListener(() => SetGameMode((GameMode)selectedMode));
         }
-        modeDescriptionText = CreateText("???????????ㅻ쑄???????釉뚰??롢뀋?????쎛 ??傭?끆?????ル벥????關?쒎첎?嫄?????꿔꺂??????", setupPanel.transform, 16, new Color32(171, 190, 220, 255), new Vector2(0.70f, 0.30f), new Vector2(0.70f, 0.30f));
+        modeDescriptionText = CreateText("????????????살몖????????됰슦???濡???????쎛 ???????????ル꺄???????롮쾸?椰?????轅붽틓??????", setupPanel.transform, 16, new Color32(171, 190, 220, 255), new Vector2(0.70f, 0.30f), new Vector2(0.70f, 0.30f));
         modeDescriptionText.rectTransform.pivot = new Vector2(0.5f, 0.5f);
         modeDescriptionText.rectTransform.sizeDelta = new Vector2(520f, 42f);
         modeDescriptionText.alignment = TextAnchor.MiddleCenter;
-        startButton = CreateButton("??棺堉?뤃???????꿔꺂???影?우Ŀ?", setupPanel.transform, new Vector2(0.62f, 0.18f), new Vector2(300f, 68f), new Color32(255, 196, 61, 255));
+        startButton = CreateButton("??汝뷴젆?琉???????轅붽틓???壤굿??걜?", setupPanel.transform, new Vector2(0.62f, 0.18f), new Vector2(300f, 68f), new Color32(255, 196, 61, 255));
         startButton.onClick.AddListener(StartGame);
         setupBackButton = CreateButton("??????", setupPanel.transform, new Vector2(0.38f, 0.18f), new Vector2(220f, 60f), new Color32(78, 160, 255, 255));
         setupBackButton.onClick.AddListener(CloseSetupPanel);
@@ -148,13 +148,13 @@ public sealed partial class WordfallPrototype
         SetRect(languagePanel.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
         ApplyPixelWindow(languagePanel);
         ApplyModalDim(languagePanel);
-        languageTitleText = CreateText("??轅붽틓????????嚥싲갭큔???, languagePanel.transform, 42, Color.white, new Vector2(0.5f, 0.70f), new Vector2(0.5f", 0.70f));
+        languageTitleText = CreateText("LANGUAGE", languagePanel.transform, 42, Color.white, new Vector2(0.5f, 0.70f), new Vector2(0.5f, 0.70f));
         languageButtons = new Button[2];
-        languageButtons[0] = CreateButton("??癰궽살쐿??", languagePanel.transform, new Vector2(0.37f, 0.48f), new Vector2(260f, 76f), new Color32(67, 149, 255, 255));
+        languageButtons[0] = CreateButton("???곌떽?댁맾??", languagePanel.transform, new Vector2(0.37f, 0.48f), new Vector2(260f, 76f), new Color32(67, 149, 255, 255));
         languageButtons[1] = CreateButton("ENGLISH", languagePanel.transform, new Vector2(0.63f, 0.48f), new Vector2(260f, 76f), new Color32(58, 80, 122, 255));
         languageButtons[0].onClick.AddListener(() => SelectLanguageAndClose(Language.Korean));
         languageButtons[1].onClick.AddListener(() => SelectLanguageAndClose(Language.English));
-        languageCloseButton = CreateButton("???????, languagePanel.transform, new Vector2(0.5f, 0.22f), new Vector2(220f, 60f), new Color32(58, 80, 122", 255));
+        languageCloseButton = CreateButton("CLOSE", languagePanel.transform, new Vector2(0.5f, 0.22f), new Vector2(220f, 60f), new Color32(58, 80, 122, 255));
         languageCloseButton.onClick.AddListener(CloseLanguagePanel);
         languagePanel.SetActive(false);
 
@@ -162,20 +162,20 @@ public sealed partial class WordfallPrototype
         SetRect(profilePanel.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
         ApplyPixelWindow(profilePanel);
         ApplyModalDim(profilePanel);
-        profileTitleText = CreateText("???????⑤９苑?癲ル슢?????琉왈?", profilePanel.transform, 42, Color.white, new Vector2(0.5f, 0.74f), new Vector2(0.5f, 0.74f));
-        profilePromptText = CreateText("???⑤슦留??ш낄猷쀦쾮?癲?????? ???ャ뀕???筌뚯뼚???", profilePanel.transform, 20, new Color32(171, 190, 220, 255), new Vector2(0.5f, 0.65f), new Vector2(0.5f, 0.65f));
+        profileTitleText = CreateText("????????ㅿ폎???꿔꺂??????筌뚯솃?", profilePanel.transform, 42, Color.white, new Vector2(0.5f, 0.74f), new Vector2(0.5f, 0.74f));
+        profilePromptText = CreateText("????ㅼ뒭筌????꾤뙴??쒜???????? ????ｋ???嶺뚮슣堉???", profilePanel.transform, 20, new Color32(171, 190, 220, 255), new Vector2(0.5f, 0.65f), new Vector2(0.5f, 0.65f));
         nicknameInput = CreateNicknameInput(profilePanel.transform);
         characterButtons = new Button[3];
-        characterButtons[0] = CreateCharacterButton("???뚯??影?곸뮏?", "Pixel/character-knight", profilePanel.transform, new Vector2(0.28f, 0.40f), new Color32(55, 102, 149, 255));
-        characterButtons[1] = CreateCharacterButton("癲ル슢??袁λ뼀??", "Pixel/character-mage", profilePanel.transform, new Vector2(0.50f, 0.40f), new Color32(105, 76, 162, 255));
-        characterButtons[2] = CreateCharacterButton("??????깅즽輿?", "Pixel/character-hacker", profilePanel.transform, new Vector2(0.72f, 0.40f), new Color32(53, 137, 105, 255));
+        characterButtons[0] = CreateCharacterButton("??????壤굿?怨몃츕?", "Pixel/character-knight", profilePanel.transform, new Vector2(0.28f, 0.40f), new Color32(55, 102, 149, 255));
+        characterButtons[1] = CreateCharacterButton("?꿔꺂???熬곊삳???", "Pixel/character-mage", profilePanel.transform, new Vector2(0.50f, 0.40f), new Color32(105, 76, 162, 255));
+        characterButtons[2] = CreateCharacterButton("??????源낆┰雍?", "Pixel/character-hacker", profilePanel.transform, new Vector2(0.72f, 0.40f), new Color32(53, 137, 105, 255));
         for (int i = 0; i < characterButtons.Length; i++)
         {
             int characterIndex = i;
             characterButtons[i].onClick.AddListener(() => SelectCharacter(characterIndex));
         }
         profileErrorText = CreateText("", profilePanel.transform, 16, new Color32(255, 142, 142, 255), new Vector2(0.5f, 0.27f), new Vector2(0.5f, 0.27f));
-        createProfileButton = CreateButton("??ш끽維곩ㅇ??????", profilePanel.transform, new Vector2(0.5f, 0.20f), new Vector2(330f, 68f), new Color32(67, 149, 255, 255));
+        createProfileButton = CreateButton("????썹땟怨⒲뀋??????", profilePanel.transform, new Vector2(0.5f, 0.20f), new Vector2(330f, 68f), new Color32(67, 149, 255, 255));
         createProfileButton.onClick.AddListener(CreateProfile);
         profilePanel.SetActive(false);
         UpdateCharacterButtonStates();
@@ -186,19 +186,19 @@ public sealed partial class WordfallPrototype
         SetRect(myPagePanel.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
         ApplyPixelWindow(myPagePanel);
         ApplyModalDim(myPagePanel);
-        myPageTitleText = CreateText("?饔낅떽?????????癰궽블뀮??ш퀚??????", myPagePanel.transform, 42, Color.white, new Vector2(0.5f, 0.78f), new Vector2(0.5f, 0.78f));
+        myPageTitleText = CreateText("?耀붾굝???????????곌떽釉붾??????????", myPagePanel.transform, 42, Color.white, new Vector2(0.5f, 0.78f), new Vector2(0.5f, 0.78f));
         myPageCharacterImage = CreateImage("MyPageCharacter", myPagePanel.transform, GetCharacterResourcePath(false), new Vector2(0.5f, 0.58f), new Vector2(132f, 132f));
         myPageCharacterImage.raycastTarget = false;
         var myPageFrame = CreateImage("MyPageProfileFrame", myPagePanel.transform, "Pixel/character-profile-frame", new Vector2(0.5f, 0.58f), new Vector2(154f, 154f));
         myPageFrame.raycastTarget = false;
-        myPageInfoText = CreateText("????썹땟怨⒲뀋???癲ル슢???ъ쒜?, myPagePanel.transform, 22, new Color32(214, 222, 238, 255), new Vector2(0.5f, 0.37f), new Vector2(0.5f", 0.37f));
-        myPageCoinText = CreateText("?????밸븶????0", myPagePanel.transform, 22, new Color32(255, 211, 94, 255), new Vector2(0.5f, 0.30f), new Vector2(0.5f, 0.30f));
-        myPageStatsText = CreateText("???뚯????덈춣?", myPagePanel.transform, 16, new Color32(171, 190, 220, 255), new Vector2(0.5f, 0.25f), new Vector2(0.5f, 0.25f));
-        myPageCloseButton = CreateButton("???????, myPagePanel.transform, new Vector2(0.16f, 0.16f), new Vector2(160f, 62f), new Color32(58, 80, 122", 255));
+        myPageInfoText = CreateText("PROFILE INFO", myPagePanel.transform, 22, new Color32(214, 222, 238, 255), new Vector2(0.5f, 0.37f), new Vector2(0.5f, 0.37f));
+        myPageCoinText = CreateText("?????諛몃마????0", myPagePanel.transform, 22, new Color32(255, 211, 94, 255), new Vector2(0.5f, 0.30f), new Vector2(0.5f, 0.30f));
+        myPageStatsText = CreateText("?????????덉땃?", myPagePanel.transform, 16, new Color32(171, 190, 220, 255), new Vector2(0.5f, 0.25f), new Vector2(0.5f, 0.25f));
+        myPageCloseButton = CreateButton("CLOSE", myPagePanel.transform, new Vector2(0.16f, 0.16f), new Vector2(160f, 62f), new Color32(58, 80, 122, 255));
         myPageCloseButton.onClick.AddListener(CloseMyPage);
         myPageShopButton = CreateButton("SHOP", myPagePanel.transform, new Vector2(0.34f, 0.16f), new Vector2(150f, 62f), new Color32(105, 76, 162, 255));
         myPageShopButton.onClick.AddListener(ShowShopPanel);
-        myPageProfileButton = CreateButton("?????諛몃마??λ????????癰궽블뀯??", myPagePanel.transform, new Vector2(0.59f, 0.16f), new Vector2(180f, 62f), new Color32(67, 149, 255, 255));
+        myPageProfileButton = CreateButton("?????獄쏅챶留??貫?????????곌떽釉붾??", myPagePanel.transform, new Vector2(0.59f, 0.16f), new Vector2(180f, 62f), new Color32(67, 149, 255, 255));
         myPageProfileButton.onClick.AddListener(ShowProfileEdit);
         deleteAccountButton = CreateButton("DELETE ACCOUNT", myPagePanel.transform, new Vector2(0.86f, 0.16f), new Vector2(150f, 62f), new Color32(149, 71, 92, 255));
         deleteAccountButton.onClick.AddListener(ShowWithdrawConfirm);
@@ -210,8 +210,8 @@ public sealed partial class WordfallPrototype
         var attendanceWindow = CreatePanel("AttendanceWindow", attendancePanel.transform, new Color32(9, 18, 38, 250));
         SetRect(attendanceWindow.GetComponent<RectTransform>(), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(680f, 320f));
         ApplyPixelAttendanceWindow(attendanceWindow);
-        attendanceTitleText = CreateText("???Β?ы닎????⑤슢???貫糾?", attendanceWindow.transform, 30, Color.white, new Vector2(0.5f, 0.70f), new Vector2(0.5f, 0.70f));
-        attendanceBodyText = CreateText("????嶺뚮ㅎ??????????????????쇰뮛???潁뺛깾???????썹땟戮녹???猷몄굡????????", attendanceWindow.transform, 17, new Color32(171, 190, 220, 255), new Vector2(0.5f, 0.50f), new Vector2(0.5f, 0.50f));
+        attendanceTitleText = CreateText("?????????????ㅼ뒧???縕ョ낼?", attendanceWindow.transform, 30, Color.white, new Vector2(0.5f, 0.70f), new Vector2(0.5f, 0.70f));
+        attendanceBodyText = CreateText("????癲ル슢????????????????????곕츥???逆곷틳源????????밸븶筌믩끃????룸챷援????????", attendanceWindow.transform, 17, new Color32(171, 190, 220, 255), new Vector2(0.5f, 0.50f), new Vector2(0.5f, 0.50f));
         attendanceCoinText = CreateText("+10 COINS", attendanceWindow.transform, 27, new Color32(255, 211, 94, 255), new Vector2(0.5f, 0.34f), new Vector2(0.5f, 0.34f));
         attendanceCloseButton = CreateButton("OK", attendanceWindow.transform, new Vector2(0.5f, 0.16f), new Vector2(180f, 52f), new Color32(67, 149, 255, 255));
         attendanceCloseButton.onClick.AddListener(CloseAttendancePanel);
@@ -225,12 +225,12 @@ public sealed partial class WordfallPrototype
         ApplyPixelShopWindow(shopPanel);
         ApplyModalDim(shopPanel);
         shopTitleText = CreateText("COIN SHOP", shopPanel.transform, 42, Color.white, new Vector2(0.5f, 0.78f), new Vector2(0.5f, 0.78f));
-        shopCoinText = CreateText("?????밸븶????0", shopPanel.transform, 22, new Color32(255, 211, 94, 255), new Vector2(0.5f, 0.68f), new Vector2(0.5f, 0.68f));
+        shopCoinText = CreateText("?????諛몃마????0", shopPanel.transform, 22, new Color32(255, 211, 94, 255), new Vector2(0.5f, 0.68f), new Vector2(0.5f, 0.68f));
         shopAllCategoryButton = CreateButton("ALL", shopPanel.transform, new Vector2(0.39f, 0.59f), new Vector2(170f, 46f), new Color32(67, 149, 255, 255));
         shopAllCategoryButton.onClick.AddListener(() => SetShopCategory(0));
-        shopProfileCategoryButton = CreateButton("??ш끽維곩ㅇ??", shopPanel.transform, new Vector2(0.50f, 0.59f), new Vector2(170f, 46f), new Color32(58, 80, 122, 255));
+        shopProfileCategoryButton = CreateButton("????썹땟怨⒲뀋??", shopPanel.transform, new Vector2(0.50f, 0.59f), new Vector2(170f, 46f), new Color32(58, 80, 122, 255));
         shopProfileCategoryButton.onClick.AddListener(() => SetShopCategory(1));
-        shopItemCategoryButton = CreateButton("??ш끽維쀩??", shopPanel.transform, new Vector2(0.61f, 0.59f), new Vector2(170f, 46f), new Color32(58, 80, 122, 255));
+        shopItemCategoryButton = CreateButton("????썹땟?㈑??", shopPanel.transform, new Vector2(0.61f, 0.59f), new Vector2(170f, 46f), new Color32(58, 80, 122, 255));
         shopItemCategoryButton.onClick.AddListener(() => SetShopCategory(2));
 
         var shopViewportObject = CreatePanel("ShopProductViewport", shopPanel.transform, new Color32(0, 0, 0, 0));
@@ -257,22 +257,22 @@ public sealed partial class WordfallPrototype
         shopHackerCard = CreateShopItemCard("ShopHackerCard", shopProductContent, new Vector2(0.88f, 0.5f), new Vector2(230f, 230f));
         shopTicketImage = CreateImage("ShopNicknameTicket", shopProductContent, "Pixel/nickname-ticket", new Vector2(0.10f, 0.60f), new Vector2(66f, 66f));
         shopTicketImage.raycastTarget = false;
-        nicknameTicketButton = CreateButton("????ㅼ뒭筌????⑤슢堉??嚥▲굧????30??ш끽維驪??", shopProductContent, new Vector2(0.10f, 0.30f), new Vector2(210f, 58f), new Color32(67, 149, 255, 255));
+        nicknameTicketButton = CreateButton("?????쇰뮡嶺?????ㅼ뒧????β뼯援????30????썹땟?癲??", shopProductContent, new Vector2(0.10f, 0.30f), new Vector2(210f, 58f), new Color32(67, 149, 255, 255));
         nicknameTicketButton.onClick.AddListener(BuyNicknameTicket);
         shopKnightImage = CreateImage("ShopKnightProfile", shopProductContent, "Pixel/character-knight", new Vector2(0.36f, 0.60f), new Vector2(74f, 74f));
         shopKnightImage.raycastTarget = false;
-        knightShopButton = CreateButton("???뚯??影?곸뮏?????썹땟怨⒲뀋??100??ш끽維驪??", shopProductContent, new Vector2(0.36f, 0.30f), new Vector2(210f, 58f), new Color32(55, 102, 149, 255));
+        knightShopButton = CreateButton("??????壤굿?怨몃츕??????밸븶?ⓥ뮧???100????썹땟?癲??", shopProductContent, new Vector2(0.36f, 0.30f), new Vector2(210f, 58f), new Color32(55, 102, 149, 255));
         knightShopButton.onClick.AddListener(() => BuyCharacter(0));
         shopMageImage = CreateImage("ShopMageProfile", shopProductContent, "Pixel/character-mage", new Vector2(0.62f, 0.60f), new Vector2(74f, 74f));
         shopMageImage.raycastTarget = false;
         shopHackerImage = CreateImage("ShopHackerProfile", shopProductContent, "Pixel/character-hacker", new Vector2(0.88f, 0.60f), new Vector2(74f, 74f));
         shopHackerImage.raycastTarget = false;
-        mageShopButton = CreateButton("?꿔꺂???熬곊삳???????썹땟怨⒲뀋??100??ш끽維驪??", shopProductContent, new Vector2(0.62f, 0.30f), new Vector2(210f, 58f), new Color32(105, 76, 162, 255));
+        mageShopButton = CreateButton("?轅붽틓????ш퀕?????????밸븶?ⓥ뮧???100????썹땟?癲??", shopProductContent, new Vector2(0.62f, 0.30f), new Vector2(210f, 58f), new Color32(105, 76, 162, 255));
         mageShopButton.onClick.AddListener(() => BuyCharacter(1));
-        hackerShopButton = CreateButton("????ㅿ폍塋?????썹땟怨⒲뀋??100??ш끽維驪??", shopProductContent, new Vector2(0.88f, 0.30f), new Vector2(210f, 58f), new Color32(53, 137, 105, 255));
+        hackerShopButton = CreateButton("?????욱룏櫻??????밸븶?ⓥ뮧???100????썹땟?癲??", shopProductContent, new Vector2(0.88f, 0.30f), new Vector2(210f, 58f), new Color32(53, 137, 105, 255));
         hackerShopButton.onClick.AddListener(() => BuyCharacter(2));
         shopStatusText = CreateText("", shopPanel.transform, 18, new Color32(171, 190, 220, 255), new Vector2(0.5f, 0.27f), new Vector2(0.5f, 0.27f));
-        shopCloseButton = CreateButton("???????, shopPanel.transform, new Vector2(0.5f, 0.16f), new Vector2(220f, 62f), new Color32(58, 80, 122", 255));
+        shopCloseButton = CreateButton("CLOSE", shopPanel.transform, new Vector2(0.5f, 0.16f), new Vector2(220f, 62f), new Color32(58, 80, 122, 255));
         shopCloseButton.onClick.AddListener(CloseShopPanel);
         shopPanel.SetActive(false);
 
@@ -282,8 +282,8 @@ public sealed partial class WordfallPrototype
         var insufficientWindow = CreatePanel("InsufficientCoinsWindow", insufficientCoinsPanel.transform, new Color32(9, 18, 38, 250));
         SetRect(insufficientWindow.GetComponent<RectTransform>(), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(560f, 290f));
         ApplyPixelShopWindow(insufficientWindow);
-        insufficientCoinsTitleText = CreateText("?熬곣뫀毓????딅텑???", insufficientWindow.transform, 34, new Color32(255, 211, 94, 255), new Vector2(0.5f, 0.67f), new Vector2(0.5f, 0.67f));
-        insufficientCoinsMessageText = CreateText("?????밸븶??????????뼿????怨쀫뮡???遺얘턁??????????놁졄.", insufficientWindow.transform, 20, new Color32(214, 222, 238, 255), new Vector2(0.5f, 0.49f), new Vector2(0.5f, 0.49f));
+        insufficientCoinsTitleText = CreateText("??ш끽維驪?????낇뀘???", insufficientWindow.transform, 34, new Color32(255, 211, 94, 255), new Vector2(0.5f, 0.67f), new Vector2(0.5f, 0.67f));
+        insufficientCoinsMessageText = CreateText("?????諛몃마??????????堉온?????⑥ル??????븐뼐????????????곸죩.", insufficientWindow.transform, 20, new Color32(214, 222, 238, 255), new Vector2(0.5f, 0.49f), new Vector2(0.5f, 0.49f));
         insufficientCoinsCloseButton = CreateButton("OK", insufficientWindow.transform, new Vector2(0.5f, 0.25f), new Vector2(190f, 56f), new Color32(67, 149, 255, 255));
         insufficientCoinsCloseButton.onClick.AddListener(CloseInsufficientCoinsPanel);
         insufficientCoinsPanel.SetActive(false);
@@ -292,9 +292,9 @@ public sealed partial class WordfallPrototype
         SetRect(announcementPanel.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
         ApplyPixelWindow(announcementPanel);
         ApplyModalDim(announcementPanel);
-        announcementTitleText = CreateText("????댁벖?????", announcementPanel.transform, 42, Color.white, new Vector2(0.5f, 0.70f), new Vector2(0.5f, 0.70f));
-        announcementMessageText = CreateText("??????????깅짆????????살퓢????棺堉?뤃????????癰궽블뀪???굿???꿔꺂??????\n????雅???????? ?????猷밴텭????????轅붽틓??????????꿔꺂??節낆젂???", announcementPanel.transform, 22, new Color32(214, 222, 238, 255), new Vector2(0.5f, 0.51f), new Vector2(0.5f, 0.51f));
-        announcementCloseButton = CreateButton("???????, announcementPanel.transform, new Vector2(0.5f, 0.25f), new Vector2(220f, 64f), new Color32(67, 149, 255", 255));
+        announcementTitleText = CreateText("?????곷쿀?????", announcementPanel.transform, 42, Color.white, new Vector2(0.5f, 0.70f), new Vector2(0.5f, 0.70f));
+        announcementMessageText = CreateText("??????????源낆쭍?????????댄뱼????汝뷴젆?琉?????????곌떽釉붾???援온???轅붽틓??????\n????????????? ??????룸객?????????饔낅떽???????????轅붽틓??影?놁쟼???", announcementPanel.transform, 22, new Color32(214, 222, 238, 255), new Vector2(0.5f, 0.51f), new Vector2(0.5f, 0.51f));
+        announcementCloseButton = CreateButton("CLOSE", announcementPanel.transform, new Vector2(0.5f, 0.25f), new Vector2(220f, 64f), new Color32(67, 149, 255, 255));
         announcementCloseButton.onClick.AddListener(CloseAnnouncementPanel);
         announcementPanel.SetActive(false);
 
@@ -302,12 +302,12 @@ public sealed partial class WordfallPrototype
         SetRect(privacyPanel.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
         ApplyPixelWindow(privacyPanel);
         ApplyModalDim(privacyPanel);
-        privacyTitleText = CreateText("????ル늉?????轅붽틓????????饔낅떽???壤굿?戮㏐광??????熬곣뫖利당춯??", privacyPanel.transform, 36, Color.white, new Vector2(0.5f, 0.72f), new Vector2(0.5f, 0.72f));
-        privacyMessageText = CreateText("??????곕?癲?? ?????? ?????밸븶???? ??棺堉?뤃??????????????됰븗?? ?????諛몃마??????????癰궽살젛??????關履??욱???????얜궙??뺣뙀?洹?㎦???????놁졄.\n??? ???꿔꺂??틝???彛???????諛몃마嶺뚮칾?고뒌??? ??????쇱춮濾곌풁?녿뀋? ????????????낇뜞 ???????얜궙??뺣뙀?洹?㎦???轅붽틓???????먯땡沃섃넄?곈툣?????쎛 ??????꿔꺂??????", privacyPanel.transform, 19, new Color32(214, 222, 238, 255), new Vector2(0.5f, 0.50f), new Vector2(0.5f, 0.50f));
+        privacyTitleText = CreateText("?????ル뒌?????饔낅떽?????????耀붾굝????鶯ㅺ동??筌믡룓愿???????ш끽維뽳쭩?뱀땡??", privacyPanel.transform, 36, Color.white, new Vector2(0.5f, 0.72f), new Vector2(0.5f, 0.72f));
+        privacyMessageText = CreateText("??????怨???? ?????? ?????諛몃마???? ??汝뷴젆?琉???????????????곕툠?? ?????獄쏅챶留???????????곌떽?댁젢???????쒙쭫???굿????????쒓텤??類ｋ??域??????????곸죩.\n??? ???轅붽틓??????壤???????獄쏅챶留덌┼??뭬?怨좊뭽??? ???????깆땠癲꾧퀗???용? ?????????????뉖쐾 ????????쒓텤??類ｋ??域?????饔낅떽????????癒?븸亦껋꼦??怨덊닧??????쎛 ??????轅붽틓??????", privacyPanel.transform, 19, new Color32(214, 222, 238, 255), new Vector2(0.5f, 0.50f), new Vector2(0.5f, 0.50f));
         privacyMessageText.rectTransform.sizeDelta = new Vector2(760f, 100f);
         privacyMessageText.alignment = TextAnchor.MiddleCenter;
         privacyMessageText.horizontalOverflow = HorizontalWrapMode.Wrap;
-        privacyCloseButton = CreateButton("???????, privacyPanel.transform, new Vector2(0.5f, 0.23f), new Vector2(220f, 62f), new Color32(67, 149, 255", 255));
+        privacyCloseButton = CreateButton("CLOSE", privacyPanel.transform, new Vector2(0.5f, 0.23f), new Vector2(220f, 62f), new Color32(67, 149, 255, 255));
         privacyCloseButton.onClick.AddListener(ClosePrivacyPanel);
         privacyPanel.SetActive(false);
 
@@ -315,8 +315,8 @@ public sealed partial class WordfallPrototype
         SetRect(withdrawConfirmPanel.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
         ApplyPixelWindow(withdrawConfirmPanel);
         ApplyModalDim(withdrawConfirmPanel);
-        withdrawTitleText = CreateText("????????????낇뜞", withdrawConfirmPanel.transform, 38, new Color32(255, 211, 94, 255), new Vector2(0.5f, 0.67f), new Vector2(0.5f, 0.67f));
-        withdrawMessageText = CreateText("????????????낇뜞?????꿔꺂?????덉뗄??棺堉?뤃??얜슦寃????????\n?????얜궙??뺣뙀?洹?㎦???????곕?癲?? ?????? ?????밸븶???? ??????????됰븗???饔낅떽????ш낄?뉔뇡?????????꿔꺂??????", withdrawConfirmPanel.transform, 19, new Color32(214, 222, 238, 255), new Vector2(0.5f, 0.49f), new Vector2(0.5f, 0.49f));
+        withdrawTitleText = CreateText("?????????????뉖쐾", withdrawConfirmPanel.transform, 38, new Color32(255, 211, 94, 255), new Vector2(0.5f, 0.67f), new Vector2(0.5f, 0.67f));
+        withdrawMessageText = CreateText("?????????????뉖쐾?????轅붽틓??????됰뾼??汝뷴젆?琉???쒖뒭野????????\n??????쒓텤??類ｋ??域?????????怨???? ?????? ?????諛몃마???? ???????????곕툠???耀붾굝?????????붾눀?????????轅붽틓??????", withdrawConfirmPanel.transform, 19, new Color32(214, 222, 238, 255), new Vector2(0.5f, 0.49f), new Vector2(0.5f, 0.49f));
         withdrawMessageText.rectTransform.sizeDelta = new Vector2(760f, 90f);
         withdrawMessageText.alignment = TextAnchor.MiddleCenter;
         withdrawMessageText.horizontalOverflow = HorizontalWrapMode.Wrap;
@@ -330,12 +330,12 @@ public sealed partial class WordfallPrototype
         SetRect(updatePanel.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
         ApplyPixelWindow(updatePanel);
         ApplyModalDim(updatePanel);
-        updateTitleText = CreateText("???????살숲??????밸븶???", updatePanel.transform, 42, Color.white, new Vector2(0.5f, 0.72f), new Vector2(0.5f, 0.72f));
-        updateMessageText = CreateText("????雅?????????살숲??????밸븶??????ル늉?? ????????????놁졄.", updatePanel.transform, 20, new Color32(214, 222, 238, 255), new Vector2(0.5f, 0.57f), new Vector2(0.5f, 0.57f));
-        updateVersionText = CreateText("???癲?????0.1.0", updatePanel.transform, 22, new Color32(255, 211, 94, 255), new Vector2(0.5f, 0.45f), new Vector2(0.5f, 0.45f));
-        updateLaterButton = CreateButton("???쒓낄???", updatePanel.transform, new Vector2(0.32f, 0.25f), new Vector2(220f, 64f), new Color32(58, 80, 122, 255));
+        updateTitleText = CreateText("????????댁댉??????諛몃마???", updatePanel.transform, 42, Color.white, new Vector2(0.5f, 0.72f), new Vector2(0.5f, 0.72f));
+        updateMessageText = CreateText("???????????????댁댉??????諛몃마???????ル뒌?? ?????????????곸죩.", updatePanel.transform, 20, new Color32(214, 222, 238, 255), new Vector2(0.5f, 0.57f), new Vector2(0.5f, 0.57f));
+        updateVersionText = CreateText("?????????0.1.0", updatePanel.transform, 22, new Color32(255, 211, 94, 255), new Vector2(0.5f, 0.45f), new Vector2(0.5f, 0.45f));
+        updateLaterButton = CreateButton("????볥굜???", updatePanel.transform, new Vector2(0.32f, 0.25f), new Vector2(220f, 64f), new Color32(58, 80, 122, 255));
         updateLaterButton.onClick.AddListener(CloseUpdatePanel);
-        updateNowButton = CreateButton("???????살숲??????밸븶???", updatePanel.transform, new Vector2(0.68f, 0.25f), new Vector2(220f, 64f), new Color32(67, 149, 255, 255));
+        updateNowButton = CreateButton("????????댁댉??????諛몃마???", updatePanel.transform, new Vector2(0.68f, 0.25f), new Vector2(220f, 64f), new Color32(67, 149, 255, 255));
         updateNowButton.onClick.AddListener(OpenUpdatePage);
         updatePanel.SetActive(false);
 
@@ -387,18 +387,18 @@ public sealed partial class WordfallPrototype
         var statusOutline = statusText.gameObject.AddComponent<Outline>();
         statusOutline.effectColor = new Color32(0, 0, 0, 230);
         statusOutline.effectDistance = new Vector2(2f, -2f);
-        menuButton = CreateButton("???μ떜媛?걫??곷묄壤???", gamePanel.transform, new Vector2(0.08f, 0.93f), new Vector2(120f, 46f), new Color32(58, 80, 122, 255));
+        menuButton = CreateButton("???關?쒎첎?嫄??怨룸쵂鶯???", gamePanel.transform, new Vector2(0.08f, 0.93f), new Vector2(120f, 46f), new Color32(58, 80, 122, 255));
         menuButton.onClick.AddListener(TogglePause);
         inputField.onEndEdit.AddListener(HandleSubmitted);
 
         pausePanel = CreatePanel("PausePanel", gamePanel.transform, new Color32(9, 18, 38, 235));
-        CreateText("???μ떜媛?걫??곷묄壤???", pausePanel.transform, 52, Color.white, new Vector2(0.5f, 0.62f), new Vector2(0.5f, 0.62f));
-        CreateText("ESC??????썼キ??????影??낟??", pausePanel.transform, 18, new Color32(171, 190, 220, 255), new Vector2(0.5f, 0.53f), new Vector2(0.5f, 0.53f));
+        CreateText("???關?쒎첎?嫄??怨룸쵂鶯???", pausePanel.transform, 52, Color.white, new Vector2(0.5f, 0.62f), new Vector2(0.5f, 0.62f));
+        CreateText("ESC???????쇈궘??????壤굿?????", pausePanel.transform, 18, new Color32(171, 190, 220, 255), new Vector2(0.5f, 0.53f), new Vector2(0.5f, 0.53f));
         resumeButton = CreateButton("RESUME", pausePanel.transform, new Vector2(0.5f, 0.39f), new Vector2(220f, 58f), new Color32(67, 149, 255, 255));
         resumeButton.onClick.AddListener(TogglePause);
-        pauseMyPageButton = CreateButton("?饔낅떽?????????癰궽블뀮??ш퀚??????", pausePanel.transform, new Vector2(0.5f, 0.27f), new Vector2(220f, 52f), new Color32(105, 76, 162, 255));
+        pauseMyPageButton = CreateButton("?耀붾굝???????????곌떽釉붾??????????", pausePanel.transform, new Vector2(0.5f, 0.27f), new Vector2(220f, 52f), new Color32(105, 76, 162, 255));
         pauseMyPageButton.onClick.AddListener(ShowMyPage);
-        pauseMenuButton = CreateButton("?꿔꺂??????", pausePanel.transform, new Vector2(0.5f, 0.15f), new Vector2(220f, 52f), new Color32(58, 80, 122, 255));
+        pauseMenuButton = CreateButton("?轅붽틓??????", pausePanel.transform, new Vector2(0.5f, 0.15f), new Vector2(220f, 52f), new Color32(58, 80, 122, 255));
         pauseMenuButton.onClick.AddListener(ShowMainMenu);
         pausePanel.SetActive(false);
 
@@ -409,11 +409,11 @@ public sealed partial class WordfallPrototype
         SetRect(gameOverWindow.GetComponent<RectTransform>(), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(760f, 340f));
         ApplyPixelGameOverWindow(gameOverWindow);
         gameOverTitleText = CreateText("GAME OVER", gameOverWindow.transform, 38, Color.white, new Vector2(0.5f, 0.73f), new Vector2(0.5f, 0.73f));
-        gameOverSummaryText = CreateText("?????0000\n??轅붽틓??????ㅼ뒩???0%", gameOverWindow.transform, 20, new Color32(214, 222, 238, 255), new Vector2(0.5f, 0.53f), new Vector2(0.5f, 0.53f));
+        gameOverSummaryText = CreateText("?????0000\n??饔낅떽?????????쇰뮝???0%", gameOverWindow.transform, 20, new Color32(214, 222, 238, 255), new Vector2(0.5f, 0.53f), new Vector2(0.5f, 0.53f));
         gameOverSummaryText.alignment = TextAnchor.MiddleCenter;
         gameOverRetryButton = CreateButton("RETRY", gameOverWindow.transform, new Vector2(0.32f, 0.28f), new Vector2(210f, 56f), new Color32(67, 149, 255, 255));
         gameOverRetryButton.onClick.AddListener(StartGame);
-        gameOverSetupButton = CreateButton("??棺堉?뤃???????嚥싲갭큔???, gameOverWindow.transform, new Vector2(0.68f, 0.28f), new Vector2(210f, 56f), new Color32(105, 76, 162", 255));
+        gameOverSetupButton = CreateButton("GAME SETTINGS", gameOverWindow.transform, new Vector2(0.68f, 0.28f), new Vector2(210f, 56f), new Color32(105, 76, 162, 255));
         gameOverSetupButton.onClick.AddListener(ShowSetupFromGameOver);
         gameOverPanel.SetActive(false);
     }
