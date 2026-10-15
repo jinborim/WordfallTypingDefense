@@ -11,6 +11,7 @@ public sealed class WordfallPrototype : MonoBehaviour
     private const string RootName = "WordfallPrototypeRuntime";
     private PlayerDataManager playerDataManager;
     private WordDatabase wordDatabase;
+    private readonly GameSessionState session = new GameSessionState();
     private readonly List<FallingWord> fallingWords = new List<FallingWord>();
     private string[] koreanWords;
     private string[] englishWords;
@@ -200,24 +201,24 @@ public sealed class WordfallPrototype : MonoBehaviour
     private int coins;
     private int nicknameTickets;
     private int ownedCharacterMask;
-    private float spawnTimer;
-    private int score;
-    private int lives;
-    private int combo;
+    private float spawnTimer { get => session.SpawnTimer; set => session.SpawnTimer = value; }
+    private int score { get => session.Score; set => session.Score = value; }
+    private int lives { get => session.Lives; set => session.Lives = value; }
+    private int combo { get => session.Combo; set => session.Combo = value; }
     private int highScore;
-    private int wave;
-    private int spawnedThisWave;
+    private int wave { get => session.Wave; set => session.Wave = value; }
+    private int spawnedThisWave { get => session.SpawnedThisWave; set => session.SpawnedThisWave = value; }
     private string lastSpawnedWord = string.Empty;
-    private int totalTyped;
-    private int correctTyped;
-    private float timeRemaining;
-    private float freezeTimer;
-    private float characterEmotionTimer;
-    private bool characterIsAlarm;
+    private int totalTyped { get => session.TotalTyped; set => session.TotalTyped = value; }
+    private int correctTyped { get => session.CorrectTyped; set => session.CorrectTyped = value; }
+    private float timeRemaining { get => session.TimeRemaining; set => session.TimeRemaining = value; }
+    private float freezeTimer { get => session.FreezeTimer; set => session.FreezeTimer = value; }
+    private float characterEmotionTimer { get => session.CharacterEmotionTimer; set => session.CharacterEmotionTimer = value; }
+    private bool characterIsAlarm { get => session.CharacterIsAlarm; set => session.CharacterIsAlarm = value; }
     private int displayedCharacter = -1;
     private int difficulty = 1;
-    private bool playing;
-    private bool paused;
+    private bool playing { get => session.Playing; set => session.Playing = value; }
+    private bool paused { get => session.Paused; set => session.Paused = value; }
 
     private enum Language
     {
@@ -1571,20 +1572,10 @@ public sealed class WordfallPrototype : MonoBehaviour
 
     private void StartGame()
     {
-        score = 0;
-        lives = 5;
-        combo = 0;
-        wave = 1;
-        spawnedThisWave = 0;
+        session.ResetForNewGame();
         lastSpawnedWord = string.Empty;
-        totalTyped = 0;
-        correctTyped = 0;
-        paused = false;
-        freezeTimer = 0f;
-        timeRemaining = 60f;
         if (gameMode == GameMode.Daily) Random.InitState(System.DateTime.Now.DayOfYear + System.DateTime.Now.Year * 1000);
         spawnTimer = 0.2f;
-        playing = true;
         mainPanel.SetActive(false);
         gamePanel.SetActive(true);
         if (gameOverPanel != null) gameOverPanel.SetActive(false);
@@ -1602,8 +1593,7 @@ public sealed class WordfallPrototype : MonoBehaviour
 
     private void EndGame()
     {
-        playing = false;
-        paused = false;
+        session.ResetToIdle();
         if (pausePanel != null) pausePanel.SetActive(false);
         int gameCoinReward = Mathf.Max(1, score / 50);
         playerDataManager.RecordGame(score, totalTyped, correctTyped, gameCoinReward);
