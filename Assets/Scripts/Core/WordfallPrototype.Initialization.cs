@@ -2,6 +2,15 @@ using UnityEngine;
 
 public sealed partial class WordfallPrototype
 {
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+    private static void Boot()
+    {
+        if (GameObject.Find(RootName) != null) return;
+        var root = new GameObject(RootName);
+        DontDestroyOnLoad(root);
+        root.AddComponent<WordfallPrototype>();
+    }
+
     private void Awake()
     {
         playerDataManager = gameObject.GetComponent<PlayerDataManager>();

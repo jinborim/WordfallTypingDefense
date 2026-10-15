@@ -235,7 +235,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
     private GameMode gameMode { get => settings.Mode; set => settings.Mode = value; }
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
-    private static void Boot()
+    private static void LegacyBoot()
     {
         if (GameObject.Find(RootName) != null) return;
         var root = new GameObject(RootName);
