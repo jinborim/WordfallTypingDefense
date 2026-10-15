@@ -405,8 +405,8 @@ public sealed class WordfallPrototype : MonoBehaviour
         homeHubCharacterImage = CreateImage("HomeHubCharacter", homeHubPanel.transform, GetLobbyCharacterResourcePath(), new Vector2(0.5f, 0.42f), new Vector2(220f, 290f));
         homeHubCharacterImage.raycastTarget = false;
         homeHubInfoPanel = CreatePanel("HomeHubPlayerInfo", homeHubPanel.transform, new Color32(5, 18, 48, 245));
-        SetRect(homeHubInfoPanel.GetComponent<RectTransform>(), new Vector2(0.18f, 0.78f), new Vector2(0.18f, 0.78f), Vector2.zero, new Vector2(500f, 112f));
-        ApplyCompactPixelRectImage(homeHubInfoPanel);
+        SetRect(homeHubInfoPanel.GetComponent<RectTransform>(), new Vector2(0.18f, 0.78f), new Vector2(0.18f, 0.78f), Vector2.zero, new Vector2(500f, 167f));
+        ApplyPixelPlayerInfoCard(homeHubInfoPanel);
         homeHubPlayerText = CreateText("PLAYER", homeHubPanel.transform, 22, new Color32(235, 241, 255, 255), new Vector2(0.18f, 0.795f), new Vector2(0.18f, 0.795f));
         SetRect(homeHubPlayerText.rectTransform, new Vector2(0.18f, 0.795f), new Vector2(0.18f, 0.795f), Vector2.zero, new Vector2(440f, 34f));
         homeHubPlayerText.alignment = TextAnchor.MiddleCenter;
@@ -1120,6 +1120,7 @@ public sealed class WordfallPrototype : MonoBehaviour
         UpdateProfileSummary();
         UpdateCoinText();
         UpdateHomeHubCharacter();
+        ResetHomeHubMenuState();
         homeHubPanel.SetActive(true);
         ShowLobbyDialogue();
         CheckAttendanceReward();
@@ -1272,6 +1273,7 @@ public sealed class WordfallPrototype : MonoBehaviour
         }
         else
         {
+            ResetHomeHubMenuState();
             ShowLobbyDialogue();
         }
         myPageOpenedFromGame = false;
@@ -1304,6 +1306,7 @@ public sealed class WordfallPrototype : MonoBehaviour
         }
         else
         {
+            ResetHomeHubMenuState();
             homeHubPanel.SetActive(true);
             ShowLobbyDialogue();
         }
@@ -1338,6 +1341,7 @@ public sealed class WordfallPrototype : MonoBehaviour
     private void CloseAnnouncementPanel()
     {
         announcementPanel.SetActive(false);
+        ResetHomeHubMenuState();
         homeHubPanel.SetActive(true);
         ShowLobbyDialogue();
     }
@@ -2174,6 +2178,25 @@ public sealed class WordfallPrototype : MonoBehaviour
         var image = panel.GetComponent<Image>();
         image.sprite = Sprite.Create(texture, new Rect(0f, 0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100f, 0u, SpriteMeshType.FullRect, new Vector4(120f, 120f, 120f, 120f));
         image.type = Image.Type.Sliced;
+        image.color = Color.white;
+        image.raycastTarget = false;
+    }
+
+    private void ApplyPixelPlayerInfoCard(GameObject panel)
+    {
+        var texture = Resources.Load<Texture2D>("Pixel/lobby-player-info-card");
+        if (texture == null)
+        {
+            ApplyCompactPixelRectImage(panel);
+            return;
+        }
+
+        texture.filterMode = FilterMode.Point;
+        texture.wrapMode = TextureWrapMode.Clamp;
+        var image = panel.GetComponent<Image>();
+        image.sprite = Sprite.Create(texture, new Rect(0f, 0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100f);
+        image.type = Image.Type.Simple;
+        image.preserveAspect = true;
         image.color = Color.white;
         image.raycastTarget = false;
     }
