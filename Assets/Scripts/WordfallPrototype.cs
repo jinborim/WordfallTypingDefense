@@ -375,10 +375,12 @@ public sealed class WordfallPrototype : MonoBehaviour
         homeHubTitleText = CreateText("로비", homeHubPanel.transform, 40, Color.white, new Vector2(0.5f, 0.87f), new Vector2(0.5f, 0.87f));
         homeHubCharacterImage = CreateImage("HomeHubCharacter", homeHubPanel.transform, GetLobbyCharacterResourcePath(), new Vector2(0.5f, 0.42f), new Vector2(220f, 290f));
         homeHubCharacterImage.raycastTarget = false;
-        homeHubPlayerText = CreateText("PLAYER", homeHubPanel.transform, 22, new Color32(235, 241, 255, 255), new Vector2(0.5f, 0.69f), new Vector2(0.5f, 0.69f));
-        homeHubPlayerText.rectTransform.sizeDelta = new Vector2(420f, 34f);
-        homeHubCoinText = CreateText("COINS 0", homeHubPanel.transform, 20, new Color32(255, 211, 94, 255), new Vector2(0.5f, 0.635f), new Vector2(0.5f, 0.635f));
-        homeHubCoinText.rectTransform.sizeDelta = new Vector2(260f, 30f);
+        homeHubPlayerText = CreateText("PLAYER", homeHubPanel.transform, 22, new Color32(235, 241, 255, 255), new Vector2(0.20f, 0.76f), new Vector2(0.20f, 0.76f));
+        SetRect(homeHubPlayerText.rectTransform, new Vector2(0.20f, 0.76f), new Vector2(0.20f, 0.76f), Vector2.zero, new Vector2(380f, 34f));
+        homeHubPlayerText.alignment = TextAnchor.MiddleCenter;
+        homeHubCoinText = CreateText("COINS 0", homeHubPanel.transform, 20, new Color32(255, 211, 94, 255), new Vector2(0.20f, 0.70f), new Vector2(0.20f, 0.70f));
+        SetRect(homeHubCoinText.rectTransform, new Vector2(0.20f, 0.70f), new Vector2(0.20f, 0.70f), Vector2.zero, new Vector2(220f, 30f));
+        homeHubCoinText.alignment = TextAnchor.MiddleCenter;
         homeHubStartButton = CreateButton("게임 시작", homeHubPanel.transform, new Vector2(0.5f, 0.10f), new Vector2(290f, 58f), new Color32(67, 149, 255, 255));
         homeHubStartButton.onClick.AddListener(ShowSetupPanel);
 
@@ -387,6 +389,8 @@ public sealed class WordfallPrototype : MonoBehaviour
         ApplyPixelLobbyDialogueWindow(lobbyChatPanel);
         lobbyChatPanel.GetComponent<Image>().raycastTarget = false;
         lobbyChatMessageText = CreateText("", lobbyChatPanel.transform, 18, new Color32(255, 211, 94, 255), new Vector2(0.5f, 0.50f), new Vector2(0.5f, 0.50f));
+        lobbyChatMessageText.rectTransform.pivot = new Vector2(0.5f, 0.5f);
+        lobbyChatMessageText.rectTransform.anchoredPosition = Vector2.zero;
         lobbyChatMessageText.rectTransform.sizeDelta = new Vector2(540f, 120f);
         lobbyChatMessageText.alignment = TextAnchor.MiddleCenter;
         lobbyChatMessageText.horizontalOverflow = HorizontalWrapMode.Wrap;
@@ -2033,7 +2037,9 @@ public sealed class WordfallPrototype : MonoBehaviour
 
     private void ApplyPixelLobbyDialogueWindow(GameObject panel)
     {
-        var texture = Resources.Load<Texture2D>("Pixel/lobby-dialogue-window");
+        var texture = Resources.Load<Texture2D>("Pixel/lobby-dialogue-window-clean");
+        if (texture == null)
+            texture = Resources.Load<Texture2D>("Pixel/lobby-dialogue-window");
         if (texture == null)
         {
             ApplyPixelWindow(panel);
