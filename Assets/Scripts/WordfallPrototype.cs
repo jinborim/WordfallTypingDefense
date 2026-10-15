@@ -223,15 +223,6 @@ public sealed partial class WordfallPrototype : MonoBehaviour
 
     private Language language { get => settings.Language; set => settings.Language = value; }
 
-    public enum WordType
-    {
-        Normal,
-        Golden,
-        Bomb,
-        Heal,
-        Boss
-    }
-
     private GameMode gameMode { get => settings.Mode; set => settings.Mode = value; }
 
     #if false

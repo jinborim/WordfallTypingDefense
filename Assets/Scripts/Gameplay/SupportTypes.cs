@@ -3,6 +3,15 @@ using UnityEngine.EventSystems;
 
 public sealed partial class WordfallPrototype
 {
+    public enum WordType
+    {
+        Normal,
+        Golden,
+        Bomb,
+        Heal,
+        Boss
+    }
+
     private sealed class ButtonPressFeedback : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
     {
         private Vector3 baseScale;
