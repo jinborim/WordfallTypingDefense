@@ -399,16 +399,12 @@ public sealed class WordfallPrototype : MonoBehaviour
         menuOutline.effectColor = new Color32(20, 66, 126, 220);
         menuOutline.effectDistance = new Vector2(3f, 0f);
 
-        homeHubMyPageButton = CreateImageAction("HomeHubMyPageAction", homeHubMenuPanel.transform, "Pixel/score-hud-frame", "기록 보기", new Vector2(0.5f, 0.84f), new Vector2(238f, 118f), new Vector2(112f, 58f), out homeHubMyPageLabelText);
+        homeHubMyPageButton = CreateImageAction("HomeHubMyPageAction", homeHubMenuPanel.transform, "Pixel/score-hud-frame", "기록 보기", new Vector2(0.5f, 0.73f), new Vector2(238f, 118f), new Vector2(112f, 58f), out homeHubMyPageLabelText);
         homeHubMyPageButton.onClick.AddListener(ShowMyPage);
-        homeHubLanguageButton = CreateImageAction("HomeHubQuickStartAction", homeHubMenuPanel.transform, "Pixel/wordfall-shield", "빠른 시작", new Vector2(0.5f, 0.65f), new Vector2(238f, 118f), new Vector2(72f, 72f), out homeHubQuickStartLabelText);
-        homeHubLanguageButton.onClick.AddListener(StartQuickGame);
-        homeHubShopButton = CreateImageAction("HomeHubShopAction", homeHubMenuPanel.transform, "Pixel/shop-store-icon", "상점", new Vector2(0.5f, 0.46f), new Vector2(238f, 118f), new Vector2(112f, 104f), out homeHubShopLabelText);
+        homeHubShopButton = CreateImageAction("HomeHubShopAction", homeHubMenuPanel.transform, "Pixel/shop-store-icon", "상점", new Vector2(0.5f, 0.49f), new Vector2(238f, 118f), new Vector2(112f, 104f), out homeHubShopLabelText);
         homeHubShopButton.onClick.AddListener(ShowShopFromHome);
-        announcementButton = CreateImageAction("HomeHubAnnouncementAction", homeHubMenuPanel.transform, "Pixel/announcement-icon", "공지사항", new Vector2(0.5f, 0.27f), new Vector2(238f, 118f), new Vector2(60f, 60f), out homeHubAnnouncementLabelText);
+        announcementButton = CreateImageAction("HomeHubAnnouncementAction", homeHubMenuPanel.transform, "Pixel/announcement-icon", "공지사항", new Vector2(0.5f, 0.25f), new Vector2(238f, 118f), new Vector2(60f, 60f), out homeHubAnnouncementLabelText);
         announcementButton.onClick.AddListener(ShowAnnouncementPanel);
-        homeHubBackButton = CreateButton("뒤로", homeHubMenuPanel.transform, new Vector2(0.5f, 0.07f), new Vector2(180f, 48f), new Color32(58, 80, 122, 255));
-        homeHubBackButton.onClick.AddListener(CloseHomeHub);
         homeHubMenuToggleButton = CreateHamburgerButton("HomeHubMenuToggle", homeHubPanel.transform, new Vector2(0.04f, 0.50f), new Vector2(62f, 62f));
         homeHubHamburgerIcon = homeHubMenuToggleButton.transform.Find("HamburgerMenuIcon").GetComponent<Image>();
         homeHubCloseIcon = CreateMenuCloseIcon(homeHubMenuToggleButton.transform);
@@ -703,10 +699,8 @@ public sealed class WordfallPrototype : MonoBehaviour
         }
         SetButtonText(homeHubStartButton, language == Language.Korean ? "게임 시작" : "START GAME");
         SetLabelText(homeHubMyPageLabelText, language == Language.Korean ? "기록 보기" : "RECORDS");
-        SetLabelText(homeHubQuickStartLabelText, language == Language.Korean ? "빠른 시작" : "QUICK START");
         SetLabelText(homeHubShopLabelText, language == Language.Korean ? "상점" : "SHOP");
         SetLabelText(homeHubAnnouncementLabelText, language == Language.Korean ? "공지사항" : "ANNOUNCEMENTS");
-        SetButtonText(homeHubBackButton, language == Language.Korean ? "뒤로" : "BACK");
         homeHubTitleText.text = language == Language.Korean ? "로비" : "LOBBY";
         homeHubPlayerText.text = language == Language.Korean ? "플레이어" : "PLAYER";
         homeHubCoinText.text = language == Language.Korean ? "코인 " + coins : "COINS " + coins;
@@ -2256,9 +2250,9 @@ public sealed class WordfallPrototype : MonoBehaviour
         closeIcon.transform.SetParent(parent, false);
         SetRect(closeIcon.GetComponent<RectTransform>(), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(58f, 58f));
         var background = closeIcon.GetComponent<Image>();
-        background.sprite = Resources.Load<Sprite>("Pixel/menu-hamburger-icon");
+        background.sprite = null;
         background.type = Image.Type.Simple;
-        background.color = Color.white;
+        background.color = new Color(1f, 1f, 1f, 0f);
         background.raycastTarget = false;
 
         CreateCloseBar(closeIcon.transform, 45f);
