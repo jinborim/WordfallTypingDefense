@@ -1191,7 +1191,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         ShowSetupPanel();
     }
 
-    private void HandleInput(string value)
+    private void LegacyHandleInput(string value)
     {
         if (!playing || string.IsNullOrWhiteSpace(value)) return;
         for (int i = fallingWords.Count - 1; i >= 0; i--)
@@ -1272,7 +1272,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         }
     }
 
-    private string GetGameModeName()
+    private string LegacyGetGameModeName()
     {
         if (gameMode == GameMode.Korean) return language == Language.Korean ? "한글" : "KOREAN";
         if (gameMode == GameMode.English) return language == Language.Korean ? "영어" : "ENGLISH";
@@ -1281,13 +1281,13 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         return language == Language.Korean ? "혼합" : "MIXED";
     }
 
-    private void ActivateFreezeSkill()
+    private void LegacyActivateFreezeSkill()
     {
         freezeTimer = 5f;
         statusText.text = language == Language.Korean ? "빙결 스킬! 5초" : "FREEZE SKILL!  5 seconds";
     }
 
-    private void ClearScreenSkill()
+    private void LegacyClearScreenSkill()
     {
         for (int i = fallingWords.Count - 1; i >= 0; i--)
         {
