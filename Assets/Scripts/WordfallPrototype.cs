@@ -1246,7 +1246,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         languagePanel.SetActive(false);
     }
 
-    private void StartGame()
+    private void LegacyStartGame()
     {
         session.ResetForNewGame();
         lastSpawnedWord = string.Empty;
@@ -1267,7 +1267,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         inputField.ActivateInputField();
     }
 
-    private void EndGame()
+    private void LegacyEndGame()
     {
         session.ResetToIdle();
         if (pausePanel != null) pausePanel.SetActive(false);
