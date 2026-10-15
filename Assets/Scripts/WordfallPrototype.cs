@@ -30,6 +30,7 @@ public sealed class WordfallPrototype : MonoBehaviour
     private GameObject mainPanel;
     private GameObject gamePanel;
     private GameObject setupPanel;
+    private GameObject setupWindow;
     private GameObject homeHubPanel;
     private GameObject homeHubMenuPanel;
     private GameObject lobbyChatPanel;
@@ -415,7 +416,11 @@ public sealed class WordfallPrototype : MonoBehaviour
 
         setupPanel = CreatePanel("SetupPanel", mainPanel.transform, new Color32(9, 18, 38, 245));
         SetRect(setupPanel.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
-        ApplyPixelSettingsWindow(setupPanel);
+        setupPanel.GetComponent<Image>().color = new Color32(0, 0, 0, 0);
+        ApplyModalDim(setupPanel);
+        setupWindow = CreatePanel("SettingsWindow", setupPanel.transform, new Color32(9, 18, 38, 250));
+        SetRect(setupWindow.GetComponent<RectTransform>(), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(1220f, 680f));
+        ApplyPixelSettingsWindow(setupWindow);
         setupTitleText = CreateText("게임 설정", setupPanel.transform, 38, Color.white, new Vector2(0.5f, 0.84f), new Vector2(0.5f, 0.84f));
         difficultyText = CreateText("난이도  보통", setupPanel.transform, 22, new Color32(255, 211, 94, 255), new Vector2(0.27f, 0.69f), new Vector2(0.27f, 0.69f));
         difficultyText.rectTransform.pivot = new Vector2(0.5f, 0.5f);
@@ -449,6 +454,11 @@ public sealed class WordfallPrototype : MonoBehaviour
         startButton.onClick.AddListener(StartGame);
         setupBackButton = CreateButton("뒤로", setupPanel.transform, new Vector2(0.38f, 0.18f), new Vector2(220f, 60f), new Color32(78, 160, 255, 255));
         setupBackButton.onClick.AddListener(CloseSetupPanel);
+        for (int i = setupPanel.transform.childCount - 1; i >= 0; i--)
+        {
+            var child = setupPanel.transform.GetChild(i);
+            if (child != setupWindow.transform && child.name != "ModalDim") child.SetParent(setupWindow.transform, false);
+        }
         setupPanel.SetActive(false);
 
         languagePanel = CreatePanel("LanguagePanel", mainPanel.transform, new Color32(9, 18, 38, 245));
