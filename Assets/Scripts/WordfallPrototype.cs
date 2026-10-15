@@ -519,8 +519,8 @@ public sealed class WordfallPrototype : MonoBehaviour
         SetRect(attendancePanel.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
         ApplyModalDim(attendancePanel);
         var attendanceWindow = CreatePanel("AttendanceWindow", attendancePanel.transform, new Color32(9, 18, 38, 250));
-        SetRect(attendanceWindow.GetComponent<RectTransform>(), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(520f, 300f));
-        ApplyPixelWindow(attendanceWindow);
+        SetRect(attendanceWindow.GetComponent<RectTransform>(), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(680f, 320f));
+        ApplyPixelAttendanceWindow(attendanceWindow);
         attendanceTitleText = CreateText("출석 보상", attendanceWindow.transform, 30, Color.white, new Vector2(0.5f, 0.70f), new Vector2(0.5f, 0.70f));
         attendanceBodyText = CreateText("오늘의 출석 보상을 받았습니다!", attendanceWindow.transform, 17, new Color32(171, 190, 220, 255), new Vector2(0.5f, 0.50f), new Vector2(0.5f, 0.50f));
         attendanceCoinText = CreateText("+10 COINS", attendanceWindow.transform, 27, new Color32(255, 211, 94, 255), new Vector2(0.5f, 0.34f), new Vector2(0.5f, 0.34f));
@@ -2052,6 +2052,25 @@ public sealed class WordfallPrototype : MonoBehaviour
     private void ApplyPixelGameOverWindow(GameObject panel)
     {
         var texture = Resources.Load<Texture2D>("Pixel/game-over-window");
+        if (texture == null)
+        {
+            ApplyPixelWindow(panel);
+            return;
+        }
+
+        texture.filterMode = FilterMode.Point;
+        texture.wrapMode = TextureWrapMode.Clamp;
+        var image = panel.GetComponent<Image>();
+        image.sprite = Sprite.Create(texture, new Rect(0f, 0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100f);
+        image.type = Image.Type.Simple;
+        image.preserveAspect = true;
+        image.color = Color.white;
+        image.raycastTarget = false;
+    }
+
+    private void ApplyPixelAttendanceWindow(GameObject panel)
+    {
+        var texture = Resources.Load<Texture2D>("Pixel/attendance-reward-window");
         if (texture == null)
         {
             ApplyPixelWindow(panel);
