@@ -12,6 +12,7 @@ public sealed class WordfallPrototype : MonoBehaviour
     private PlayerDataManager playerDataManager;
     private WordDatabase wordDatabase;
     private readonly GameSessionState session = new GameSessionState();
+    private readonly GameSettingsData settings = new GameSettingsData();
     private readonly List<FallingWord> fallingWords = new List<FallingWord>();
     private string[] koreanWords;
     private string[] englishWords;
@@ -216,17 +217,11 @@ public sealed class WordfallPrototype : MonoBehaviour
     private float characterEmotionTimer { get => session.CharacterEmotionTimer; set => session.CharacterEmotionTimer = value; }
     private bool characterIsAlarm { get => session.CharacterIsAlarm; set => session.CharacterIsAlarm = value; }
     private int displayedCharacter = -1;
-    private int difficulty = 1;
+    private int difficulty { get => settings.Difficulty; set => settings.Difficulty = value; }
     private bool playing { get => session.Playing; set => session.Playing = value; }
     private bool paused { get => session.Paused; set => session.Paused = value; }
 
-    private enum Language
-    {
-        Korean,
-        English
-    }
-
-    private Language language = Language.Korean;
+    private Language language { get => settings.Language; set => settings.Language = value; }
 
     private enum WordType
     {
@@ -237,16 +232,7 @@ public sealed class WordfallPrototype : MonoBehaviour
         Boss
     }
 
-    private enum GameMode
-    {
-        Mixed,
-        Korean,
-        English,
-        TimeAttack,
-        Daily
-    }
-
-    private GameMode gameMode = GameMode.Mixed;
+    private GameMode gameMode { get => settings.Mode; set => settings.Mode = value; }
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void Boot()
