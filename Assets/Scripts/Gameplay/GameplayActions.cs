@@ -32,17 +32,17 @@ public sealed partial class WordfallPrototype
 
     private string GetGameModeName()
     {
-        if (gameMode == GameMode.Korean) return language == Language.Korean ? "한국어" : "KOREAN";
-        if (gameMode == GameMode.English) return language == Language.Korean ? "영어" : "ENGLISH";
-        if (gameMode == GameMode.TimeAttack) return language == Language.Korean ? "60초" : "60 SEC";
-        if (gameMode == GameMode.Daily) return language == Language.Korean ? "오늘" : "DAILY";
-        return language == Language.Korean ? "혼합" : "MIXED";
+        if (gameMode == GameMode.Korean) return language == Language.Korean ? "TEXT" : "KOREAN";
+        if (gameMode == GameMode.English) return language == Language.Korean ? "?곸뼱" : "ENGLISH";
+        if (gameMode == GameMode.TimeAttack) return language == Language.Korean ? "TEXT" : "60 SEC";
+        if (gameMode == GameMode.Daily) return language == Language.Korean ? "?ㅻ뒛" : "DAILY";
+        return language == Language.Korean ? "?쇳빀" : "MIXED";
     }
 
     private void ActivateFreezeSkill()
     {
         freezeTimer = 5f;
-        statusText.text = language == Language.Korean ? "빙결 스킬! 5초" : "FREEZE SKILL! 5 seconds";
+        statusText.text = language == Language.Korean ? "TEXT" : "FREEZE SKILL! 5 seconds";
     }
 
     private void ClearScreenSkill()
@@ -53,7 +53,7 @@ public sealed partial class WordfallPrototype
             fallingWords.RemoveAt(i);
         }
         score += 25;
-        statusText.text = language == Language.Korean ? "제거 스킬! 모든 단어 제거" : "CLEAR SKILL! All words removed";
+        statusText.text = language == Language.Korean ? "?쒓굅 ?ㅽ궗! 紐⑤뱺 ?⑥뼱 ?쒓굅" : "CLEAR SKILL! All words removed";
         UpdateHud();
     }
 }

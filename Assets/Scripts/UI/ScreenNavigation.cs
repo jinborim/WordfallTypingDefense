@@ -116,5 +116,5 @@ public sealed partial class WordfallPrototype
         myPageOpenedFromGame = false;
     }
 
-    private void LegacyShowInsufficientCoinsPanel()
-}
+
+

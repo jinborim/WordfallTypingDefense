@@ -42,7 +42,7 @@ public sealed partial class WordfallPrototype
     private void SetGameMode(GameMode selectedMode)
     {
         gameMode = selectedMode;
-        modeText.text = language == Language.Korean ? "모드" : "MODE";
+        modeText.text = language == Language.Korean ? "MODE" : "MODE";
         UpdateModeDescription();
         for (int i = 0; i < modeButtons.Length; i++)
         {
@@ -59,11 +59,11 @@ public sealed partial class WordfallPrototype
         if (modeDescriptionText == null) return;
         if (language == Language.Korean)
         {
-            if (gameMode == GameMode.Korean) modeDescriptionText.text = "한글 단어만 등장합니다.";
-            else if (gameMode == GameMode.English) modeDescriptionText.text = "영어 단어만 등장합니다.";
-            else if (gameMode == GameMode.TimeAttack) modeDescriptionText.text = "60초 동안 최대한 높은 점수에 도전합니다.";
-            else if (gameMode == GameMode.Daily) modeDescriptionText.text = "오늘만 플레이할 수 있는 특별 도전입니다.";
-            else modeDescriptionText.text = "한글과 영어 단어가 함께 등장합니다.";
+            if (gameMode == GameMode.Korean) modeDescriptionText.text = "??? ?????????궕???????롮쾸?椰?????轅붽틓??????";
+            else if (gameMode == GameMode.English) modeDescriptionText.text = "???????살몖???????????궕???????롮쾸?椰?????轅붽틓??????";
+            else if (gameMode == GameMode.TimeAttack) modeDescriptionText.text = "60??????????뉖즵 ?耀붾굝??????鶯?????? ???????????獄쏅챶留????轅붽틓??????";
+            else if (gameMode == GameMode.Daily) modeDescriptionText.text = "????癲ル슢???????????????諛몃마????????????????????썹땟戮녹??諭????????獄쏅챶留???????筌?캉??";
+            else modeDescriptionText.text = "????????????살몖????????됰슦???濡???????쎛 ???????????ル꺄???????롮쾸?椰?????轅붽틓??????";
         }
         else
         {
@@ -78,7 +78,7 @@ public sealed partial class WordfallPrototype
     private void SetDifficulty(int selectedDifficulty)
     {
         difficulty = Mathf.Clamp(selectedDifficulty, 0, 2);
-        difficultyText.text = language == Language.Korean ? "난이도" : "DIFFICULTY";
+        difficultyText.text = language == Language.Korean ? "DIFFICULTY" : "DIFFICULTY";
         for (int i = 0; i < difficultyButtons.Length; i++)
         {
             var colors = difficultyButtons[i].colors;
@@ -95,3 +95,4 @@ public sealed partial class WordfallPrototype
         if (languagePanel != null) languagePanel.SetActive(false);
     }
 }
+

@@ -18,15 +18,15 @@ public sealed partial class WordfallPrototype
         if (pausePanel != null) pausePanel.SetActive(false);
         SetCharacterEmotion(false);
         statusText.text = language == Language.Korean
-            ? GetDifficultyName() + " / " + GetGameModeName() + " - ESC 일시정지  F1 빙결  F2 제거"
+            ? GetDifficultyName() + " / " + GetGameModeName() + " - ESC ?쇱떆?뺤?  F1 鍮숆껐  F2 ?쒓굅"
             : GetDifficultyName() + " / " + GetGameModeName() + " - ESC: pause  F1: freeze  F2: clear";
         if (gameMode == GameMode.TimeAttack)
         {
-            statusText.text = language == Language.Korean ? "60초 도전 - 최대 점수에 도전하세요!" : "60 second challenge - Type as many words as possible!";
+            statusText.text = language == Language.Korean ? "60珥??꾩쟾 - 理쒕? ?먯닔???꾩쟾?섏꽭??" : "60 second challenge - Type as many words as possible!";
         }
         if (gameMode == GameMode.Daily)
         {
-            statusText.text = language == Language.Korean ? "오늘의 도전 - 모두 같은 단어를 만나요!" : "TODAY'S CHALLENGE - Same seed for everyone!";
+            statusText.text = language == Language.Korean ? "?ㅻ뒛???꾩쟾 - 紐⑤몢 媛숈? ?⑥뼱瑜?留뚮굹??" : "TODAY'S CHALLENGE - Same seed for everyone!";
         }
 
         inputField.text = string.Empty;
@@ -54,13 +54,13 @@ public sealed partial class WordfallPrototype
             playerDataManager.Save();
             UpdateHighScoreText();
             statusText.text = language == Language.Korean
-                ? "최고 기록!  " + score + "  " + accuracy + " - 메뉴를 눌러 다시 시작하세요"
+                ? "BEST " + score + " " + accuracy
                 : "NEW BEST!  " + score + "  " + accuracy + " - Press MENU to try again";
         }
         else
         {
             statusText.text = language == Language.Korean
-                ? "게임 종료  점수 " + score + "  " + accuracy + " - 메뉴를 눌러 다시 시작하세요"
+                ? "GAME OVER " + score + " " + accuracy
                 : "GAME OVER  SCORE " + score + "  " + accuracy + " - Press MENU to try again";
         }
 
@@ -68,7 +68,7 @@ public sealed partial class WordfallPrototype
         if (gameOverSummaryText != null)
         {
             gameOverSummaryText.text = language == Language.Korean
-                ? "점수 " + score + "\n정확도 " + accuracy.Replace(" accuracy", "") + "\n획득 코인 +" + gameCoinReward
+                ? "?먯닔 " + score + "\n?뺥솗??" + accuracy.Replace(" accuracy", "") + "\n?띾뱷 肄붿씤 +" + gameCoinReward
                 : "SCORE " + score + "\n" + accuracy + "\nCOINS +" + gameCoinReward;
         }
         if (gameOverPanel != null) gameOverPanel.SetActive(true);
