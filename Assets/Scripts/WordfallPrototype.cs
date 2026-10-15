@@ -266,7 +266,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         ShowMainMenu();
     }
 
-    private void Update()
+    private void LegacyUpdate()
     {
         if (!playing) return;
         HandleShortcuts();
@@ -320,7 +320,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         }
     }
 
-    private void HandleShortcuts()
+    private void LegacyHandleShortcuts()
     {
         if (Keyboard.current == null) return;
         if (Keyboard.current.escapeKey.wasPressedThisFrame) TogglePause();
