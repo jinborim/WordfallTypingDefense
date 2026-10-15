@@ -1364,12 +1364,12 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         return new Vector2(Random.Range(-500f, 500f), 330f);
     }
 
-    private WordType GetRandomWordType()
+    private WordType LegacyGetRandomWordType()
     {
         return GameRules.GetRandomWordType();
     }
 
-    private Color GetWordColor(WordType type, bool useKorean)
+    private Color LegacyGetWordColor(WordType type, bool useKorean)
     {
         return GameRules.GetWordColor(type, useKorean);
     }

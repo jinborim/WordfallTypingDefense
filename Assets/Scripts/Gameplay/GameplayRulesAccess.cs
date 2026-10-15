@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public sealed partial class WordfallPrototype
 {
     private string GetDifficultyName()
@@ -5,6 +7,16 @@ public sealed partial class WordfallPrototype
         if (difficulty == 0) return language == Language.Korean ? "쉬움" : "EASY";
         if (difficulty == 2) return language == Language.Korean ? "어려움" : "HARD";
         return language == Language.Korean ? "보통" : "NORMAL";
+    }
+
+    private WordType GetRandomWordType()
+    {
+        return GameRules.GetRandomWordType();
+    }
+
+    private Color GetWordColor(WordType type, bool useKorean)
+    {
+        return GameRules.GetWordColor(type, useKorean);
     }
 
     private float GetBaseSpawnInterval()
