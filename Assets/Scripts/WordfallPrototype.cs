@@ -1714,7 +1714,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         return card;
     }
 
-    private void ApplyPixelInputFrame(GameObject panel)
+    private void LegacyApplyPixelInputFrame(GameObject panel)
     {
         var texture = Resources.Load<Texture2D>("Pixel/wordfall-input");
         if (texture == null) return;
@@ -1727,7 +1727,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         image.raycastTarget = false;
     }
 
-    private void ApplyPixelRectBackground(GameObject panel, Color fillColor, Color borderColor)
+    private void LegacyApplyPixelRectBackground(GameObject panel, Color fillColor, Color borderColor)
     {
         var image = panel.GetComponent<Image>();
         image.sprite = null;
@@ -1742,7 +1742,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         outline.useGraphicAlpha = true;
     }
 
-    private void ApplyCompactPixelRectImage(GameObject panel)
+    private void LegacyApplyCompactPixelRectImage(GameObject panel)
     {
         var texture = Resources.Load<Texture2D>("Pixel/compact-pixel-rect");
         if (texture == null)
@@ -1760,7 +1760,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         image.raycastTarget = false;
     }
 
-    private void ApplyPixelPlayerInfoCard(GameObject panel)
+    private void LegacyApplyPixelPlayerInfoCard(GameObject panel)
     {
         var texture = Resources.Load<Texture2D>("Pixel/lobby-player-info-card");
         if (texture == null)
@@ -1779,7 +1779,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         image.raycastTarget = false;
     }
 
-    private void ApplyPixelHudStrip(GameObject panel, string resourcePath)
+    private void LegacyApplyPixelHudStrip(GameObject panel, string resourcePath)
     {
         var texture = Resources.Load<Texture2D>(resourcePath);
         if (texture == null)
@@ -1800,7 +1800,7 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         image.raycastTarget = false;
     }
 
-    private void ApplyPixelScoreHud(GameObject panel)
+    private void LegacyApplyPixelScoreHud(GameObject panel)
     {
         var texture = Resources.Load<Texture2D>("Pixel/score-hud-frame");
         if (texture == null) return;
