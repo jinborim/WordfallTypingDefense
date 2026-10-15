@@ -1396,15 +1396,6 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         return language == Language.Korean ? "혼합" : "MIXED";
     }
 
-    private void TogglePause()
-    {
-        if (!playing) return;
-        paused = !paused;
-        pausePanel.SetActive(paused);
-        if (paused) inputField.DeactivateInputField();
-        else RefocusInputField();
-    }
-
     private void ActivateFreezeSkill()
     {
         freezeTimer = 5f;
@@ -1421,21 +1412,6 @@ public sealed partial class WordfallPrototype : MonoBehaviour
         score += 25;
         statusText.text = language == Language.Korean ? "삭제 스킬! 모든 단어 제거" : "CLEAR SKILL!  All words removed";
         UpdateHud();
-    }
-
-    private void RefocusInputField()
-    {
-        if (!playing) return;
-        StartCoroutine(RefocusInputFieldNextFrame());
-    }
-
-    private IEnumerator RefocusInputFieldNextFrame()
-    {
-        yield return null;
-        if (!playing || inputField == null) yield break;
-        EventSystem.current.SetSelectedGameObject(inputField.gameObject);
-        inputField.ActivateInputField();
-        inputField.caretPosition = inputField.text.Length;
     }
 
     private void SpawnWord()
