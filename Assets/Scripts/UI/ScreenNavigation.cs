@@ -35,8 +35,31 @@ public sealed partial class WordfallPrototype
         texture.wrapMode = TextureWrapMode.Clamp;
         homeHubCharacterImage.sprite = Sprite.Create(texture, new Rect(0f, 0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100f);
         homeHubCharacterImage.preserveAspect = true;
-        homeHubCharacterImage.rectTransform.sizeDelta = new Vector2(188f, 308f);
-        homeHubCharacterImage.rectTransform.anchoredPosition = new Vector2(0f, -26f);
+        ApplyLobbyCharacterLayout(homeHubCharacterImage.rectTransform);
+    }
+
+    private void ApplyLobbyCharacterLayout(RectTransform characterRect)
+    {
+        if (characterRect == null) return;
+
+        // 기사와 마법사는 머리 장비와 망토가 넓게 그려져 있어
+        // 해커와 같은 프레임을 사용하면 상대적으로 크게 보입니다.
+        // 폭을 캐릭터별로 보정하고 발끝은 같은 바닥선에 맞춥니다.
+        if (selectedCharacter == 0)
+        {
+            characterRect.sizeDelta = new Vector2(160f, 270f);
+            characterRect.anchoredPosition = new Vector2(0f, -47f);
+        }
+        else if (selectedCharacter == 1)
+        {
+            characterRect.sizeDelta = new Vector2(168f, 282f);
+            characterRect.anchoredPosition = new Vector2(0f, -41f);
+        }
+        else
+        {
+            characterRect.sizeDelta = new Vector2(188f, 308f);
+            characterRect.anchoredPosition = new Vector2(0f, -26f);
+        }
     }
 
     private void ShowMyPage()
