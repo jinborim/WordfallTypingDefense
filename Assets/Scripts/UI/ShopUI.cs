@@ -60,12 +60,17 @@ public sealed partial class WordfallPrototype
         SetCategoryButtonColor(shopAllCategoryButton, shopCategory == 0);
         SetCategoryButtonColor(shopProfileCategoryButton, shopCategory == 1);
         SetCategoryButtonColor(shopItemCategoryButton, shopCategory == 2);
-        if (shopScrollRect != null) shopScrollRect.horizontalNormalizedPosition = 0f;
+        if (shopScrollRect != null)
+        {
+            shopScrollRect.horizontalNormalizedPosition = 0f;
+            shopScrollRect.verticalNormalizedPosition = 1f;
+        }
     }
 
     private void SetCategoryButtonColor(Button button, bool selected)
     {
         if (button == null) return;
+        button.interactable = true;
         var colors = button.colors;
         colors.normalColor = selected ? new Color32(67, 149, 255, 255) : new Color32(58, 80, 122, 255);
         colors.highlightedColor = new Color32(116, 190, 255, 255);
