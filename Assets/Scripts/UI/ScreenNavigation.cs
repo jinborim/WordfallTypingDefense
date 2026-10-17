@@ -34,7 +34,6 @@ public sealed partial class WordfallPrototype
         texture.filterMode = FilterMode.Point;
         texture.wrapMode = TextureWrapMode.Clamp;
         homeHubCharacterImage.sprite = Sprite.Create(texture, new Rect(0f, 0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100f);
-        homeHubCharacterImage.preserveAspect = true;
         ApplyLobbyCharacterLayout(homeHubCharacterImage.rectTransform);
     }
 
@@ -47,18 +46,21 @@ public sealed partial class WordfallPrototype
         // 폭을 캐릭터별로 보정하고 발끝은 같은 바닥선에 맞춥니다.
         if (selectedCharacter == 0)
         {
-            characterRect.sizeDelta = new Vector2(160f, 270f);
-            characterRect.anchoredPosition = new Vector2(0f, -47f);
+            characterRect.sizeDelta = new Vector2(150f, 320f);
+            characterRect.anchoredPosition = new Vector2(0f, -20f);
+            homeHubCharacterImage.preserveAspect = false;
         }
         else if (selectedCharacter == 1)
         {
-            characterRect.sizeDelta = new Vector2(168f, 282f);
-            characterRect.anchoredPosition = new Vector2(0f, -41f);
+            characterRect.sizeDelta = new Vector2(160f, 330f);
+            characterRect.anchoredPosition = new Vector2(0f, -15f);
+            homeHubCharacterImage.preserveAspect = false;
         }
         else
         {
             characterRect.sizeDelta = new Vector2(188f, 308f);
             characterRect.anchoredPosition = new Vector2(0f, -26f);
+            homeHubCharacterImage.preserveAspect = true;
         }
     }
 
