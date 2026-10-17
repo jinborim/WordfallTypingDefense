@@ -7,9 +7,9 @@ public sealed partial class WordfallPrototype
 
     private void ShowInsufficientCoinsPanel()
     {
-        insufficientCoinsTitleText.text = language == Language.Korean ? "NOT ENOUGH COINS" : "NOT ENOUGH COINS";
-        insufficientCoinsMessageText.text = language == Language.Korean ? "\\uCF54\\uC778\\uC774 \\uBD80\\uC871\\uD569\\uB2C8\\uB2E4." : "You do not have enough coins.";
-        SetButtonText(insufficientCoinsCloseButton, language == Language.Korean ? "OK" : "OK");
+        insufficientCoinsTitleText.text = language == Language.Korean ? "\uCF54\uC778 \uBD80\uC871" : "NOT ENOUGH COINS";
+        insufficientCoinsMessageText.text = language == Language.Korean ? "\uCF54\uC778\uC774 \uBD80\uC871\uD569\uB2C8\uB2E4." : "You do not have enough coins.";
+        SetButtonText(insufficientCoinsCloseButton, language == Language.Korean ? "\uD655\uC778" : "OK");
         insufficientCoinsPanel.SetActive(true);
     }
 
@@ -22,11 +22,11 @@ public sealed partial class WordfallPrototype
     {
         if (playing) return;
         homeHubPanel.SetActive(false);
-        announcementTitleText.text = language == Language.Korean ? "ANNOUNCEMENTS" : "ANNOUNCEMENTS";
+        announcementTitleText.text = language == Language.Korean ? "\uACF5\uC9C0\uC0AC\uD56D" : "ANNOUNCEMENTS";
         announcementMessageText.text = language == Language.Korean
-            ? "\\uC0C8\\uB85C\\uC6B4 \\uC18C\\uC2DD\\uC774 \\uC788\\uC2B5\\uB2C8\\uB2E4.\\n\\uACF5\\uC9C0\\uC0AC\\uD56D\\uC744 \\uD655\\uC778\\uD574\\uC8FC\\uC138\\uC694."
+            ? "\uC0C8\uB85C\uC6B4 \uC18C\uC2DD\uC774 \uC788\uC2B5\uB2C8\uB2E4.\n\uACF5\uC9C0\uC0AC\uD56D\uC744 \uD655\uC778\uD574\uC8FC\uC138\uC694."
             : "Welcome to Wordfall!\nCheck this panel for the latest news.";
-        SetButtonText(announcementCloseButton, language == Language.Korean ? "\\uB2EB\\uAE30" : "CLOSE");
+        SetButtonText(announcementCloseButton, language == Language.Korean ? "\uB2EB\uAE30" : "CLOSE");
         announcementPanel.SetActive(true);
     }
 

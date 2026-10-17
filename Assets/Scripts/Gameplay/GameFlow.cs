@@ -68,7 +68,7 @@ public sealed partial class WordfallPrototype
         if (gameOverSummaryText != null)
         {
             gameOverSummaryText.text = language == Language.Korean
-                ? "\uC810\uC218 " + score + "\\n\uC815\uD655\uB3C4 " + accuracy.Replace(" accuracy", "") + "\\n\uD68D\uB4DD \uCF54\uC778 +" + gameCoinReward
+                ? "\uC810\uC218 " + score + "\n\uC815\uD655\uB3C4 " + accuracy.Replace(" accuracy", "") + "\n\uD68D\uB4DD \uCF54\uC778 +" + gameCoinReward
                 : "SCORE " + score + "\n" + accuracy + "\nCOINS +" + gameCoinReward;
         }
         if (gameOverPanel != null) gameOverPanel.SetActive(true);

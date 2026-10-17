@@ -298,7 +298,7 @@ public sealed partial class WordfallPrototype
         ApplyPixelWindow(announcementPanel);
         ApplyModalDim(announcementPanel);
         announcementTitleText = CreateText("\uACF5\uC9C0\uC0AC\uD56D", announcementPanel.transform, 42, Color.white, new Vector2(0.5f, 0.70f), new Vector2(0.5f, 0.70f));
-        announcementMessageText = CreateText("\uC0C8\uB85C\uC6B4 \uC18C\uC2DD\uC774 \uC788\uC2B5\uB2C8\uB2E4.\\n\uACF5\uC9C0\uC0AC\uD56D\uC744 \uD655\uC778\uD574\uC8FC\uC138\uC694.", announcementPanel.transform, 22, new Color32(214, 222, 238, 255), new Vector2(0.5f, 0.51f), new Vector2(0.5f, 0.51f));
+        announcementMessageText = CreateText("\uC0C8\uB85C\uC6B4 \uC18C\uC2DD\uC774 \uC788\uC2B5\uB2C8\uB2E4.\n\uACF5\uC9C0\uC0AC\uD56D\uC744 \uD655\uC778\uD574\uC8FC\uC138\uC694.", announcementPanel.transform, 22, new Color32(214, 222, 238, 255), new Vector2(0.5f, 0.51f), new Vector2(0.5f, 0.51f));
         announcementCloseButton = CreateButton("CLOSE", announcementPanel.transform, new Vector2(0.5f, 0.25f), new Vector2(220f, 64f), new Color32(67, 149, 255, 255));
         announcementCloseButton.onClick.AddListener(CloseAnnouncementPanel);
         announcementPanel.SetActive(false);
@@ -308,7 +308,7 @@ public sealed partial class WordfallPrototype
         ApplyPixelWindow(privacyPanel);
         ApplyModalDim(privacyPanel);
         privacyTitleText = CreateText("\uAC1C\uC778\uC815\uBCF4 \uCC98\uB9AC\uBC29\uCE68", privacyPanel.transform, 36, Color.white, new Vector2(0.5f, 0.72f), new Vector2(0.5f, 0.72f));
-        privacyMessageText = CreateText("\uB2C9\uB124\uC784, \uCE90\uB9AD\uD130, \uCF54\uC778, \uAC8C\uC784 \uAE30\uB85D\uC740 \uC774 \uAE30\uAE30\uC5D0 \uC800\uC7A5\uB429\uB2C8\uB2E4.\\n\uC11C\uBC84 \uC804\uC1A1\uC774\uB098 \uAD11\uACE0 \uBAA9\uC801\uC758 \uC218\uC9D1\uC740 \uD558\uC9C0 \uC54A\uC2B5\uB2C8\uB2E4.", privacyPanel.transform, 19, new Color32(214, 222, 238, 255), new Vector2(0.5f, 0.50f), new Vector2(0.5f, 0.50f));
+        privacyMessageText = CreateText("\uB2C9\uB124\uC784, \uCE90\uB9AD\uD130, \uCF54\uC778, \uAC8C\uC784 \uAE30\uB85D\uC740 \uC774 \uAE30\uAE30\uC5D0 \uC800\uC7A5\uB429\uB2C8\uB2E4.\n\uC11C\uBC84 \uC804\uC1A1\uC774\uB098 \uAD11\uACE0 \uBAA9\uC801\uC758 \uC218\uC9D1\uC740 \uD558\uC9C0 \uC54A\uC2B5\uB2C8\uB2E4.", privacyPanel.transform, 19, new Color32(214, 222, 238, 255), new Vector2(0.5f, 0.50f), new Vector2(0.5f, 0.50f));
         privacyMessageText.rectTransform.sizeDelta = new Vector2(760f, 100f);
         privacyMessageText.alignment = TextAnchor.MiddleCenter;
         privacyMessageText.horizontalOverflow = HorizontalWrapMode.Wrap;
@@ -321,7 +321,7 @@ public sealed partial class WordfallPrototype
         ApplyPixelWindow(withdrawConfirmPanel);
         ApplyModalDim(withdrawConfirmPanel);
         withdrawTitleText = CreateText("\uD68C\uC6D0 \uD0C8\uD1F4", withdrawConfirmPanel.transform, 38, new Color32(255, 211, 94, 255), new Vector2(0.5f, 0.67f), new Vector2(0.5f, 0.67f));
-        withdrawMessageText = CreateText("\uC815\uB9D0 \uD0C8\uD1F4\uD558\uC2DC\uACA0\uC2B5\uB2C8\uAE4C?\\n\uC800\uC7A5\uB41C \uACC4\uC815 \uB370\uC774\uD130\uAC00 \uC0AD\uC81C\uB429\uB2C8\uB2E4.", withdrawConfirmPanel.transform, 19, new Color32(214, 222, 238, 255), new Vector2(0.5f, 0.49f), new Vector2(0.5f, 0.49f));
+        withdrawMessageText = CreateText("\uC815\uB9D0 \uD0C8\uD1F4\uD558\uC2DC\uACA0\uC2B5\uB2C8\uAE4C?\n\uC800\uC7A5\uB41C \uACC4\uC815 \uB370\uC774\uD130\uAC00 \uC0AD\uC81C\uB429\uB2C8\uB2E4.", withdrawConfirmPanel.transform, 19, new Color32(214, 222, 238, 255), new Vector2(0.5f, 0.49f), new Vector2(0.5f, 0.49f));
         withdrawMessageText.rectTransform.sizeDelta = new Vector2(760f, 90f);
         withdrawMessageText.alignment = TextAnchor.MiddleCenter;
         withdrawMessageText.horizontalOverflow = HorizontalWrapMode.Wrap;
@@ -414,7 +414,7 @@ public sealed partial class WordfallPrototype
         SetRect(gameOverWindow.GetComponent<RectTransform>(), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(760f, 340f));
         ApplyPixelGameOverWindow(gameOverWindow);
         gameOverTitleText = CreateText("GAME OVER", gameOverWindow.transform, 38, Color.white, new Vector2(0.5f, 0.73f), new Vector2(0.5f, 0.73f));
-        gameOverSummaryText = CreateText("\uC810\uC218 0\\n\uC815\uD655\uB3C4 0%\\n\uD68D\uB4DD \uCF54\uC778 +0", gameOverWindow.transform, 20, new Color32(214, 222, 238, 255), new Vector2(0.5f, 0.53f), new Vector2(0.5f, 0.53f));
+        gameOverSummaryText = CreateText("\uC810\uC218 0\n\uC815\uD655\uB3C4 0%\n\uD68D\uB4DD \uCF54\uC778 +0", gameOverWindow.transform, 20, new Color32(214, 222, 238, 255), new Vector2(0.5f, 0.53f), new Vector2(0.5f, 0.53f));
         gameOverSummaryText.alignment = TextAnchor.MiddleCenter;
         gameOverRetryButton = CreateButton("RETRY", gameOverWindow.transform, new Vector2(0.32f, 0.28f), new Vector2(210f, 56f), new Color32(67, 149, 255, 255));
         gameOverRetryButton.onClick.AddListener(StartGame);

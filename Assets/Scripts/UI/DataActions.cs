@@ -16,9 +16,9 @@ public sealed partial class WordfallPrototype
         myPagePanel.SetActive(false);
         attendancePanel.SetActive(false);
         updateMessageText.text = string.IsNullOrWhiteSpace(updateInfo.message)
-            ? (language == Language.Korean ? "새로운 업데이트가 있습니다." : "A new update is available.")
+            ? (language == Language.Korean ? "\uC0C8\uB85C\uC6B4 \uC5C5\uB370\uC774\uD2B8\uAC00 \uC788\uC2B5\uB2C8\uB2E4." : "A new update is available.")
             : updateInfo.message;
-        updateVersionText.text = (language == Language.Korean ? "새 버전 " : "NEW VERSION ") + updateInfo.version;
+        updateVersionText.text = (language == Language.Korean ? "\uC0C8 \uBC84\uC804 " : "NEW VERSION ") + updateInfo.version;
         updatePanel.SetActive(true);
     }
 
@@ -42,10 +42,10 @@ public sealed partial class WordfallPrototype
         int correctWords = playerDataManager.Data.correctWords;
         int accuracy = wordsTyped > 0 ? Mathf.RoundToInt((float)correctWords / wordsTyped * 100f) : 0;
         myPageInfoText.text = nickname + " / " + GetCharacterName();
-        myPageCoinText.text = language == Language.Korean ? "코인 " + coins : "COINS " + coins;
+        myPageCoinText.text = language == Language.Korean ? "\uCF54\uC778 " + coins : "COINS " + coins;
         myPageStatsText.text = language == Language.Korean
-            ? $"게임 {gamesPlayed} · 입력 {wordsTyped} · 정확도 {accuracy}%"
-            : $"GAMES {gamesPlayed} · TYPED {wordsTyped} · ACCURACY {accuracy}%";
+            ? $"\uAC8C\uC784 {gamesPlayed} \u00B7 \uC785\uB825 {wordsTyped} \u00B7 \uC815\uD655\uB3C4 {accuracy}%"
+            : $"GAMES {gamesPlayed} \u00B7 TYPED {wordsTyped} \u00B7 ACCURACY {accuracy}%";
         var texture = Resources.Load<Texture2D>(GetCharacterResourcePath(false));
         if (texture == null) return;
         texture.filterMode = FilterMode.Point;

@@ -6,23 +6,23 @@ public sealed partial class WordfallPrototype
     {
         if (shopPanel == null) return;
         shopCoinText.text = language == Language.Korean
-            ? $"코인 {coins} · 변경권 {nicknameTickets}"
-            : $"COINS {coins} · TICKETS {nicknameTickets}";
+            ? $"\uCF54\uC778 {coins} \u00B7 \uBCC0\uACBD\uAD8C {nicknameTickets}"
+            : $"COINS {coins} \u00B7 TICKETS {nicknameTickets}";
         shopStatusText.text = language == Language.Korean
-            ? "구매한 상품은 프로필 수정에서 사용할 수 있습니다."
+            ? "\uAD6C\uB9E4\uD55C \uC0C1\uD488\uC740 \uD504\uB85C\uD544 \uC218\uC815\uC5D0\uC11C \uC0AC\uC6A9\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4."
             : "Purchased items can be used in Edit Profile.";
         SetButtonText(nicknameTicketButton, nicknameTickets > 0
-            ? (language == Language.Korean ? $"닉네임 변경권 보유 {nicknameTickets}" : $"NICKNAME TICKETS {nicknameTickets}")
-            : (language == Language.Korean ? "닉네임 변경권 30코인" : "NICKNAME TICKET 30 COINS"));
+            ? (language == Language.Korean ? $"\uB2C9\uB124\uC784 \uBCC0\uACBD\uAD8C \uBCF4\uC720 {nicknameTickets}" : $"NICKNAME TICKETS {nicknameTickets}")
+            : (language == Language.Korean ? "\uB2C9\uB124\uC784 \uBCC0\uACBD\uAD8C 30\uCF54\uC778" : "NICKNAME TICKET 30 COINS"));
         SetButtonText(knightShopButton, OwnsCharacter(0)
-            ? (language == Language.Korean ? "기사 프로필 보유" : "KNIGHT PROFILE OWNED")
-            : (language == Language.Korean ? "기사 프로필 100코인" : "KNIGHT PROFILE 100 COINS"));
+            ? (language == Language.Korean ? "\uAE30\uC0AC \uD504\uB85C\uD544 \uBCF4\uC720" : "KNIGHT PROFILE OWNED")
+            : (language == Language.Korean ? "\uAE30\uC0AC \uD504\uB85C\uD544 100\uCF54\uC778" : "KNIGHT PROFILE 100 COINS"));
         SetButtonText(mageShopButton, OwnsCharacter(1)
-            ? (language == Language.Korean ? "마법사 프로필 보유" : "MAGE PROFILE OWNED")
-            : (language == Language.Korean ? "마법사 프로필 100코인" : "MAGE PROFILE 100 COINS"));
+            ? (language == Language.Korean ? "\uB9C8\uBC95\uC0AC \uD504\uB85C\uD544 \uBCF4\uC720" : "MAGE PROFILE OWNED")
+            : (language == Language.Korean ? "\uB9C8\uBC95\uC0AC \uD504\uB85C\uD544 100\uCF54\uC778" : "MAGE PROFILE 100 COINS"));
         SetButtonText(hackerShopButton, OwnsCharacter(2)
-            ? (language == Language.Korean ? "해커 프로필 보유" : "HACKER PROFILE OWNED")
-            : (language == Language.Korean ? "해커 프로필 100코인" : "HACKER PROFILE 100 COINS"));
+            ? (language == Language.Korean ? "\uD574\uCEE4 \uD504\uB85C\uD544 \uBCF4\uC720" : "HACKER PROFILE OWNED")
+            : (language == Language.Korean ? "\uD574\uCEE4 \uD504\uB85C\uD544 100\uCF54\uC778" : "HACKER PROFILE 100 COINS"));
         SetShopCategory(shopCategory);
     }
 
@@ -51,7 +51,7 @@ public sealed partial class WordfallPrototype
         if (characterIndex < 0 || characterIndex > 2) return;
         if (OwnsCharacter(characterIndex))
         {
-            shopStatusText.text = language == Language.Korean ? "이미 보유한 프로필입니다." : "You already own this profile.";
+            shopStatusText.text = language == Language.Korean ? "\uC774\uBBF8 \uBCF4\uC720\uD55C \uD504\uB85C\uD544\uC785\uB2C8\uB2E4." : "You already own this profile.";
             return;
         }
         if (coins < 100)

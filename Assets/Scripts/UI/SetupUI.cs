@@ -59,11 +59,11 @@ public sealed partial class WordfallPrototype
         if (modeDescriptionText == null) return;
         if (language == Language.Korean)
         {
-            if (gameMode == GameMode.Korean) modeDescriptionText.text = "\\uD55C\\uAE00 \\uB2E8\\uC5B4\\uB9CC \\uB4F1\\uC7A5\\uD569\\uB2C8\\uB2E4.";
-            else if (gameMode == GameMode.English) modeDescriptionText.text = "\\uC601\\uC5B4 \\uB2E8\\uC5B4\\uB9CC \\uB4F1\\uC7A5\\uD569\\uB2C8\\uB2E4.";
-            else if (gameMode == GameMode.TimeAttack) modeDescriptionText.text = "60\\uCD08 \\uB3D9\\uC548 \\uCD5C\\uB300\\uD55C \\uB192\\uC740 \\uC810\\uC218\\uC5D0 \\uB3C4\\uC804\\uD569\\uB2C8\\uB2E4.";
-            else if (gameMode == GameMode.Daily) modeDescriptionText.text = "\\uC624\\uB298\\uB9CC \\uD50C\\uB808\\uC774\\uD560 \\uC218 \\uC788\\uB294 \\uD2B9\\uBCC4 \\uB3C4\\uC804\\uC785\\uB2C8\\uB2E4.";
-            else modeDescriptionText.text = "\\uD55C\\uAD6D\\uC5B4\\uC640 \\uC601\\uC5B4 \\uB2E8\\uC5B4\\uAC00 \\uD568\\uAED8 \\uB4F1\\uC7A5\\uD569\\uB2C8\\uB2E4.";
+            if (gameMode == GameMode.Korean) modeDescriptionText.text = "\uD55C\uAE00 \uB2E8\uC5B4\uB9CC \uB4F1\uC7A5\uD569\uB2C8\uB2E4.";
+            else if (gameMode == GameMode.English) modeDescriptionText.text = "\uC601\uC5B4 \uB2E8\uC5B4\uB9CC \uB4F1\uC7A5\uD569\uB2C8\uB2E4.";
+            else if (gameMode == GameMode.TimeAttack) modeDescriptionText.text = "60\uCD08 \uB3D9\uC548 \uCD5C\uB300\uD55C \uB192\uC740 \uC810\uC218\uC5D0 \uB3C4\uC804\uD569\uB2C8\uB2E4.";
+            else if (gameMode == GameMode.Daily) modeDescriptionText.text = "\uC624\uB298\uB9CC \uD50C\uB808\uC774\uD560 \uC218 \uC788\uB294 \uD2B9\uBCC4 \uB3C4\uC804\uC785\uB2C8\uB2E4.";
+            else modeDescriptionText.text = "\uD55C\uAD6D\uC5B4\uC640 \uC601\uC5B4 \uB2E8\uC5B4\uAC00 \uD568\uAED8 \uB4F1\uC7A5\uD569\uB2C8\uB2E4.";
         }
         else
         {

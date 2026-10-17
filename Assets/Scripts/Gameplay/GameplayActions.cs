@@ -33,10 +33,10 @@ public sealed partial class WordfallPrototype
     private string GetGameModeName()
     {
         if (gameMode == GameMode.Korean) return language == Language.Korean ? "\uD55C\uAD6D\uC5B4" : "KOREAN";
-        if (gameMode == GameMode.English) return language == Language.Korean ? "\\uC601\\uC5B4" : "ENGLISH";
+        if (gameMode == GameMode.English) return language == Language.Korean ? "\uC601\uC5B4" : "ENGLISH";
         if (gameMode == GameMode.TimeAttack) return language == Language.Korean ? "60\uCD08" : "60 SEC";
-        if (gameMode == GameMode.Daily) return language == Language.Korean ? "\\uC624\\uB298" : "DAILY";
-        return language == Language.Korean ? "\\uD63C\\uD569" : "MIXED";
+        if (gameMode == GameMode.Daily) return language == Language.Korean ? "\uC624\uB298" : "DAILY";
+        return language == Language.Korean ? "\uD63C\uD569" : "MIXED";
     }
 
     private void ActivateFreezeSkill()
