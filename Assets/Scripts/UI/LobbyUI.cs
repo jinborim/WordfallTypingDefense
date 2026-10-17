@@ -6,6 +6,7 @@ public sealed partial class WordfallPrototype
     private void ShowHomeHub()
     {
         if (playing) return;
+        LoadLobbyScene();
         if (!profileCreated)
         {
             ShowProfilePanel();

@@ -37,6 +37,7 @@ public sealed partial class WordfallPrototype
 
         var updateChecker = gameObject.AddComponent<UpdateChecker>();
         updateChecker.UpdateAvailable += ShowUpdatePanel;
+        LoadMainMenuScene();
         ShowMainMenu();
     }
 }
