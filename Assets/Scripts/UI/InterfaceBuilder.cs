@@ -471,8 +471,8 @@ public sealed partial class WordfallPrototype
         gameOverSummaryText.alignment = TextAnchor.MiddleCenter;
         gameOverRetryButton = CreateButton("RETRY", gameOverWindow.transform, new Vector2(0.32f, 0.28f), new Vector2(210f, 56f), new Color32(67, 149, 255, 255));
         gameOverRetryButton.onClick.AddListener(StartGame);
-        gameOverSetupButton = CreateButton("GAME SETTINGS", gameOverWindow.transform, new Vector2(0.68f, 0.28f), new Vector2(210f, 56f), new Color32(105, 76, 162, 255));
-        gameOverSetupButton.onClick.AddListener(ShowSetupFromGameOver);
+        gameOverSetupButton = CreateButton("EXIT", gameOverWindow.transform, new Vector2(0.68f, 0.28f), new Vector2(210f, 56f), new Color32(105, 76, 162, 255));
+        gameOverSetupButton.onClick.AddListener(ExitToLobbyFromGameOver);
         gameOverPanel.SetActive(false);
     }
 }

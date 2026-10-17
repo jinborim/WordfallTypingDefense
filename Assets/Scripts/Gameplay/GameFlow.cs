@@ -4,6 +4,7 @@ public sealed partial class WordfallPrototype
 {
     private void StartGame()
     {
+        ClearWords();
         session.ResetForNewGame();
         lastSpawnedWord = string.Empty;
         if (gameMode == GameMode.Daily)

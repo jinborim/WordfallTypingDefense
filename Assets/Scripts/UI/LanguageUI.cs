@@ -72,7 +72,7 @@ public sealed partial class WordfallPrototype
         SetButtonText(purchaseCompleteCloseButton, korean ? "\uD655\uC778" : "OK");
         SetButtonText(announcementCloseButton, korean ? "\uB2EB\uAE30" : "CLOSE");
         SetButtonText(gameOverRetryButton, korean ? "\uB2E4\uC2DC\uD558\uAE30" : "RETRY");
-        SetButtonText(gameOverSetupButton, korean ? "\uAC8C\uC784 \uC124\uC815" : "GAME SETTINGS");
+        SetButtonText(gameOverSetupButton, korean ? "\uB098\uAC00\uAE30" : "EXIT");
         UpdateModeDescription();
         UpdateHighScoreText();
         UpdateProfileSummary();

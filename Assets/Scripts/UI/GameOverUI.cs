@@ -1,10 +1,10 @@
 public sealed partial class WordfallPrototype
 {
-    private void ShowSetupFromGameOver()
+    private void ExitToLobbyFromGameOver()
     {
         if (gameOverPanel != null) gameOverPanel.SetActive(false);
         mainPanel.SetActive(true);
         gamePanel.SetActive(false);
-        ShowSetupPanel();
+        ShowHomeHub();
     }
 }
