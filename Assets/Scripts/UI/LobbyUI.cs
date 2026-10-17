@@ -6,7 +6,11 @@ public sealed partial class WordfallPrototype
     private void ShowHomeHub()
     {
         if (playing) return;
-        LoadLobbyScene();
+        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name != "LobbyScene")
+        {
+            LoadLobbyScene();
+            return;
+        }
         if (!profileCreated)
         {
             ShowProfilePanel();

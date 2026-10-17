@@ -2,15 +2,6 @@ using UnityEngine;
 
 public sealed partial class WordfallPrototype
 {
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
-    private static void Boot()
-    {
-        if (GameObject.Find(RootName) != null) return;
-        var root = new GameObject(RootName);
-        DontDestroyOnLoad(root);
-        root.AddComponent<WordfallPrototype>();
-    }
-
     private void Awake()
     {
         playerDataManager = gameObject.GetComponent<PlayerDataManager>();
@@ -32,12 +23,20 @@ public sealed partial class WordfallPrototype
         nicknameTickets = playerDataManager.Data.nicknameTickets;
         ownedCharacterMask = playerDataManager.Data.ownedCharacterMask;
 
-        BuildInterface();
+        var sceneReferences = GetComponent<SceneUiReferences>();
+        if (sceneReferences == null || !sceneReferences.ApplyTo(this)) BuildInterface();
+        else WireSceneEvents();
         SetLanguage(language);
 
         var updateChecker = gameObject.AddComponent<UpdateChecker>();
         updateChecker.UpdateAvailable += ShowUpdatePanel;
-        LoadMainMenuScene();
-        ShowMainMenu();
+        var sceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+        if (sceneName == "MainMenuScene") ShowMainMenu();
+        else if (sceneName == "LobbyScene") ShowHomeHub();
+        else if (sceneName == "GameScene" && SceneTransitionState.StartGameRequested)
+        {
+            SceneTransitionState.StartGameRequested = false;
+            StartGame();
+        }
     }
 }

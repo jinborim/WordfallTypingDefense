@@ -4,7 +4,12 @@ public sealed partial class WordfallPrototype
 {
     private void StartGame()
     {
-        LoadGameScene();
+        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name != "GameScene")
+        {
+            SceneTransitionState.StartGameRequested = true;
+            LoadGameScene();
+            return;
+        }
         ClearWords();
         session.ResetForNewGame();
         lastSpawnedWord = string.Empty;

@@ -20,7 +20,11 @@ public sealed partial class WordfallPrototype
 
     private void ShowMainMenu()
     {
-        LoadMainMenuScene();
+        if (SceneManager.GetActiveScene().name != MainMenuSceneName)
+        {
+            LoadMainMenuScene();
+            return;
+        }
         playing = false;
         paused = false;
         ClearWords();
