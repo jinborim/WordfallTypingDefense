@@ -44,6 +44,7 @@ public sealed partial class WordfallPrototype
         UpdateCoinText();
         UpdateCharacterButtonStates();
         UpdateShopText();
+        ShowPurchaseCompletePanel(language == Language.Korean ? "닉네임 변경권" : "nickname ticket");
     }
 
     private void BuyCharacter(int characterIndex)
@@ -65,5 +66,11 @@ public sealed partial class WordfallPrototype
         UpdateCoinText();
         UpdateCharacterButtonStates();
         UpdateShopText();
+        string characterName = characterIndex == 0
+            ? (language == Language.Korean ? "기사 프로필" : "knight profile")
+            : characterIndex == 1
+                ? (language == Language.Korean ? "마법사 프로필" : "mage profile")
+                : (language == Language.Korean ? "해커 프로필" : "hacker profile");
+        ShowPurchaseCompletePanel(characterName);
     }
 }

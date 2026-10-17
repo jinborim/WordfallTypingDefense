@@ -67,6 +67,9 @@ public sealed partial class WordfallPrototype
         SetButtonText(createProfileButton, korean ? "\uD504\uB85C\uD544 \uC800\uC7A5" : "SAVE PROFILE");
         SetButtonText(attendanceCloseButton, korean ? "\uD655\uC778" : "OK");
         SetButtonText(insufficientCoinsCloseButton, korean ? "\uD655\uC778" : "OK");
+        if (purchaseCompleteTitleText != null) purchaseCompleteTitleText.text = korean ? "\uAD6C\uB9E4 \uC644\uB8CC" : "PURCHASE COMPLETE";
+        if (purchaseCompleteMessageText != null) purchaseCompleteMessageText.text = korean ? "\uC0C1\uD488\uC744 \uAD6C\uB9E4\uD588\uC2B5\uB2C8\uB2E4." : "Purchase complete.";
+        SetButtonText(purchaseCompleteCloseButton, korean ? "\uD655\uC778" : "OK");
         SetButtonText(announcementCloseButton, korean ? "\uB2EB\uAE30" : "CLOSE");
         SetButtonText(gameOverRetryButton, korean ? "\uB2E4\uC2DC\uD558\uAE30" : "RETRY");
         SetButtonText(gameOverSetupButton, korean ? "\uAC8C\uC784 \uC124\uC815" : "GAME SETTINGS");

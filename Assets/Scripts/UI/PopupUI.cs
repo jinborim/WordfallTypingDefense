@@ -18,6 +18,21 @@ public sealed partial class WordfallPrototype
         insufficientCoinsPanel.SetActive(false);
     }
 
+    private void ShowPurchaseCompletePanel(string itemName)
+    {
+        purchaseCompleteTitleText.text = language == Language.Korean ? "구매 완료" : "PURCHASE COMPLETE";
+        purchaseCompleteMessageText.text = language == Language.Korean
+            ? $"{itemName} 상품을 구매했습니다."
+            : $"Purchased {itemName}.";
+        SetButtonText(purchaseCompleteCloseButton, language == Language.Korean ? "확인" : "OK");
+        purchaseCompletePanel.SetActive(true);
+    }
+
+    private void ClosePurchaseCompletePanel()
+    {
+        purchaseCompletePanel.SetActive(false);
+    }
+
     private void ShowAnnouncementPanel()
     {
         if (playing) return;

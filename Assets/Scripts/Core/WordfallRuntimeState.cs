@@ -28,11 +28,13 @@ public sealed partial class WordfallPrototype
     private GameObject attendancePanel;
     private GameObject shopPanel;
     private GameObject insufficientCoinsPanel;
+    private GameObject purchaseCompletePanel;
     private GameObject announcementPanel;
     private GameObject privacyPanel;
     private GameObject withdrawConfirmPanel;
     private RectTransform shopProductContent;
     private ScrollRect shopScrollRect;
+    private Scrollbar shopVerticalScrollbar;
     private Text scoreText;
     private Image[] lifeHeartImages;
     private Text comboText;
@@ -85,6 +87,8 @@ public sealed partial class WordfallPrototype
     private Text shopStatusText;
     private Text insufficientCoinsTitleText;
     private Text insufficientCoinsMessageText;
+    private Text purchaseCompleteTitleText;
+    private Text purchaseCompleteMessageText;
     private Text announcementTitleText;
     private Text announcementMessageText;
     private Text privacyTitleText;
@@ -128,6 +132,7 @@ public sealed partial class WordfallPrototype
     private Button hackerShopButton;
     private Button shopCloseButton;
     private Button insufficientCoinsCloseButton;
+    private Button purchaseCompleteCloseButton;
     private Button announcementButton;
     private Button announcementCloseButton;
     private Button privacyButton;

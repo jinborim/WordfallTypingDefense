@@ -256,6 +256,30 @@ public sealed partial class WordfallPrototype
         shopScrollRect.inertia = true;
         shopScrollRect.scrollSensitivity = 45f;
         shopScrollRect.verticalNormalizedPosition = 1f;
+        var scrollbarObject = new GameObject("ShopVerticalScrollbar", typeof(RectTransform), typeof(Image), typeof(Scrollbar));
+        scrollbarObject.transform.SetParent(shopPanel.transform, false);
+        var scrollbarRect = scrollbarObject.GetComponent<RectTransform>();
+        SetRect(scrollbarRect, new Vector2(0.94f, 0.39f), new Vector2(0.94f, 0.39f), Vector2.zero, new Vector2(18f, 300f));
+        var scrollbarImage = scrollbarObject.GetComponent<Image>();
+        scrollbarImage.color = new Color32(7, 24, 58, 230);
+        scrollbarImage.raycastTarget = true;
+        var scrollbarHandleObject = new GameObject("Handle", typeof(RectTransform), typeof(Image));
+        scrollbarHandleObject.transform.SetParent(scrollbarObject.transform, false);
+        var scrollbarHandleRect = scrollbarHandleObject.GetComponent<RectTransform>();
+        scrollbarHandleRect.anchorMin = new Vector2(0f, 0f);
+        scrollbarHandleRect.anchorMax = new Vector2(1f, 0.35f);
+        scrollbarHandleRect.offsetMin = new Vector2(1f, 1f);
+        scrollbarHandleRect.offsetMax = new Vector2(-1f, -1f);
+        var scrollbarHandleImage = scrollbarHandleObject.GetComponent<Image>();
+        scrollbarHandleImage.color = new Color32(67, 199, 255, 255);
+        scrollbarHandleImage.raycastTarget = true;
+        shopVerticalScrollbar = scrollbarObject.GetComponent<Scrollbar>();
+        shopVerticalScrollbar.direction = Scrollbar.Direction.BottomToTop;
+        shopVerticalScrollbar.handleRect = scrollbarHandleRect;
+        shopVerticalScrollbar.targetGraphic = scrollbarHandleImage;
+        shopScrollRect.verticalScrollbar = shopVerticalScrollbar;
+        shopScrollRect.verticalScrollbarVisibility = ScrollRect.ScrollbarVisibility.Permanent;
+        shopScrollRect.verticalScrollbarSpacing = 8f;
 
         shopTicketCard = CreateShopItemCard("ShopTicketCard", shopProductContent, new Vector2(0.25f, 0.78f), new Vector2(230f, 230f));
         shopKnightCard = CreateShopItemCard("ShopKnightCard", shopProductContent, new Vector2(0.75f, 0.78f), new Vector2(230f, 230f));
@@ -305,6 +329,22 @@ public sealed partial class WordfallPrototype
         insufficientCoinsCloseButton = CreateButton("OK", insufficientWindow.transform, new Vector2(0.5f, 0.25f), new Vector2(190f, 56f), new Color32(67, 149, 255, 255));
         insufficientCoinsCloseButton.onClick.AddListener(CloseInsufficientCoinsPanel);
         insufficientCoinsPanel.SetActive(false);
+
+        purchaseCompletePanel = CreatePanel("PurchaseCompletePanel", shopPanel.transform, new Color32(0, 0, 0, 0));
+        SetRect(purchaseCompletePanel.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
+        ApplyModalDim(purchaseCompletePanel);
+        var purchaseCompleteWindow = CreatePanel("PurchaseCompleteWindow", purchaseCompletePanel.transform, new Color32(9, 18, 38, 250));
+        SetRect(purchaseCompleteWindow.GetComponent<RectTransform>(), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(640f, 320f));
+        ApplyPixelInsufficientCoinsWindow(purchaseCompleteWindow);
+        purchaseCompleteTitleText = CreateText("구매 완료", purchaseCompleteWindow.transform, 34, new Color32(255, 211, 94, 255), new Vector2(0.5f, 0.67f), new Vector2(0.5f, 0.67f));
+        SetRect(purchaseCompleteTitleText.rectTransform, new Vector2(0.5f, 0.67f), new Vector2(0.5f, 0.67f), Vector2.zero, new Vector2(500f, 52f));
+        purchaseCompleteTitleText.alignment = TextAnchor.MiddleCenter;
+        purchaseCompleteMessageText = CreateText("상품을 구매했습니다.", purchaseCompleteWindow.transform, 20, new Color32(214, 222, 238, 255), new Vector2(0.5f, 0.49f), new Vector2(0.5f, 0.49f));
+        SetRect(purchaseCompleteMessageText.rectTransform, new Vector2(0.5f, 0.49f), new Vector2(0.5f, 0.49f), Vector2.zero, new Vector2(500f, 48f));
+        purchaseCompleteMessageText.alignment = TextAnchor.MiddleCenter;
+        purchaseCompleteCloseButton = CreateButton("확인", purchaseCompleteWindow.transform, new Vector2(0.5f, 0.25f), new Vector2(190f, 56f), new Color32(67, 149, 255, 255));
+        purchaseCompleteCloseButton.onClick.AddListener(ClosePurchaseCompletePanel);
+        purchaseCompletePanel.SetActive(false);
 
         announcementPanel = CreatePanel("AnnouncementPanel", mainPanel.transform, new Color32(9, 18, 38, 250));
         SetRect(announcementPanel.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
