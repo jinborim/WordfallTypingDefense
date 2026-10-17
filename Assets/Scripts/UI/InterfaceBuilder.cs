@@ -81,7 +81,7 @@ public sealed partial class WordfallPrototype
         menuOutline.effectColor = new Color32(20, 66, 126, 220);
         menuOutline.effectDistance = new Vector2(3f, 0f);
 
-        homeHubMyPageButton = CreateImageAction("HomeHubMyPageAction", homeHubMenuPanel.transform, "Pixel/score-hud-frame", "\uB9C8\uC774\uD398\uC774\uC9C0", new Vector2(0.50f, 0.78f), new Vector2(170f, 130f), new Vector2(82f, 70f), out homeHubMyPageLabelText);
+        homeHubMyPageButton = CreateImageAction("HomeHubMyPageAction", homeHubMenuPanel.transform, "Pixel/menu-mypage-icon", "\uB9C8\uC774\uD398\uC774\uC9C0", new Vector2(0.50f, 0.78f), new Vector2(170f, 130f), new Vector2(82f, 70f), out homeHubMyPageLabelText);
         homeHubMyPageButton.onClick.AddListener(ShowMyPage);
         homeHubShopButton = CreateImageAction("HomeHubShopAction", homeHubMenuPanel.transform, "Pixel/shop-store-icon", "SHOP", new Vector2(0.80f, 0.78f), new Vector2(170f, 130f), new Vector2(82f, 78f), out homeHubShopLabelText);
         homeHubShopButton.onClick.AddListener(ShowShopFromHome);
@@ -89,9 +89,9 @@ public sealed partial class WordfallPrototype
         announcementButton.onClick.AddListener(ShowAnnouncementPanel);
         homeHubProfileButton = CreateImageAction("HomeHubProfileAction", homeHubMenuPanel.transform, "Pixel/character-profile-frame", "PROFILE", new Vector2(0.20f, 0.78f), new Vector2(170f, 130f), new Vector2(82f, 82f), out homeHubProfileLabelText);
         homeHubProfileButton.onClick.AddListener(ShowProfileEditFromHome);
-        privacyButton = CreateImageAction("HomeHubPrivacyAction", homeHubMenuPanel.transform, "Pixel/announcement-icon", "PRIVACY", new Vector2(0.50f, 0.48f), new Vector2(170f, 130f), new Vector2(72f, 72f), out homeHubPrivacyLabelText);
+        privacyButton = CreateImageAction("HomeHubPrivacyAction", homeHubMenuPanel.transform, "Pixel/menu-privacy-icon", "PRIVACY", new Vector2(0.50f, 0.48f), new Vector2(170f, 130f), new Vector2(72f, 72f), out homeHubPrivacyLabelText);
         privacyButton.onClick.AddListener(ShowPrivacyPanel);
-        withdrawButton = CreateImageAction("HomeHubWithdrawAction", homeHubMenuPanel.transform, "Pixel/character-profile-frame", "\uD68C\uC6D0 \uD0C8\uD1F4", new Vector2(0.80f, 0.48f), new Vector2(170f, 130f), new Vector2(72f, 72f), out homeHubWithdrawLabelText);
+        withdrawButton = CreateImageAction("HomeHubWithdrawAction", homeHubMenuPanel.transform, "Pixel/menu-withdraw-icon", "\uD68C\uC6D0 \uD0C8\uD1F4", new Vector2(0.80f, 0.48f), new Vector2(170f, 130f), new Vector2(72f, 72f), out homeHubWithdrawLabelText);
         withdrawButton.onClick.AddListener(ShowWithdrawConfirm);
         homeHubMenuToggleButton = CreateHamburgerButton("HomeHubMenuToggle", homeHubPanel.transform, new Vector2(0.04f, 0.50f), new Vector2(62f, 62f));
         var hamburgerIconTransform = homeHubMenuToggleButton.transform.Find("HomeHubMenuToggleIcon");
