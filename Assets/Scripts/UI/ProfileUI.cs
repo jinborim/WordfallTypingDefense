@@ -20,8 +20,7 @@ public sealed partial class WordfallPrototype
     private void ShowProfileEditFromHome()
     {
         if (!profileCreated) return;
-        homeHubMenuPanel.SetActive(false);
-        homeHubMenuOpen = false;
+        ResetHomeHubMenuState();
         profileEditReturnToMyPage = false;
         profileEditReturnToHomeHub = true;
         ShowProfileEdit();
