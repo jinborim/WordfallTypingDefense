@@ -21,6 +21,18 @@ public sealed partial class WordfallPrototype
         image.raycastTarget = false;
     }
 
+    private void ApplyPixelInsufficientCoinsWindow(GameObject panel)
+    {
+        var texture = Resources.Load<Texture2D>("Pixel/coin-shop-window");
+        if (texture == null)
+        {
+            ApplyPixelShopWindow(panel);
+            return;
+        }
+
+        ApplySimplePixelTexture(panel, texture, true, false);
+    }
+
     private void ApplyPixelBackground(GameObject panel)
     {
         ApplyPixelTexture(panel, "Pixel/wordfall-background", false, false);
