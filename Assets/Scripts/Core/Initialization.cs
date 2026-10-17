@@ -33,6 +33,7 @@ public sealed partial class WordfallPrototype
         ownedCharacterMask = playerDataManager.Data.ownedCharacterMask;
 
         BuildInterface();
+        SetLanguage(language);
 
         var updateChecker = gameObject.AddComponent<UpdateChecker>();
         updateChecker.UpdateAvailable += ShowUpdatePanel;

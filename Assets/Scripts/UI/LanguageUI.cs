@@ -33,6 +33,9 @@ public sealed partial class WordfallPrototype
 
         if (homeHubTitleText != null) homeHubTitleText.text = korean ? "\uB85C\uBE44" : "LOBBY";
         if (homeHubPlayerText != null) homeHubPlayerText.text = korean ? "\uD50C\uB808\uC774\uC5B4" : "PLAYER";
+        if (homeHubStartLabelText != null) homeHubStartLabelText.text = korean ? "\uAC8C\uC784 \uC2DC\uC791" : "START GAME";
+        if (homeHubQuickStartLabelText != null) homeHubQuickStartLabelText.text = korean ? "\uBE60\uB978 \uC2DC\uC791" : "QUICK START";
+        if (homeHubBackLabelText != null) homeHubBackLabelText.text = korean ? "\uB4A4\uB85C" : "BACK";
         if (setupTitleText != null) setupTitleText.text = korean ? "\uAC8C\uC784 \uC124\uC815" : "GAME SETTINGS";
         if (languageTitleText != null) languageTitleText.text = korean ? "\uC5B8\uC5B4 \uC124\uC815" : "LANGUAGE";
         if (profileTitleText != null) profileTitleText.text = korean ? "\uD504\uB85C\uD544 \uB9CC\uB4E4\uAE30" : "CREATE PLAYER";
