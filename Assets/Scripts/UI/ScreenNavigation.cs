@@ -18,6 +18,7 @@ public sealed partial class WordfallPrototype
 
     private void ShowMainMenu()
     {
+        LoadMainMenuScene();
         playing = false;
         paused = false;
         ClearWords();
