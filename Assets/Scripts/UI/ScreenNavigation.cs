@@ -41,27 +41,11 @@ public sealed partial class WordfallPrototype
     {
         if (characterRect == null) return;
 
-        // 기사와 마법사는 머리 장비와 망토가 넓게 그려져 있어
-        // 해커와 같은 프레임을 사용하면 상대적으로 크게 보입니다.
-        // 폭을 캐릭터별로 보정하고 발끝은 같은 바닥선에 맞춥니다.
-        if (selectedCharacter == 0)
-        {
-            characterRect.sizeDelta = new Vector2(150f, 320f);
-            characterRect.anchoredPosition = new Vector2(0f, -20f);
-            homeHubCharacterImage.preserveAspect = false;
-        }
-        else if (selectedCharacter == 1)
-        {
-            characterRect.sizeDelta = new Vector2(160f, 330f);
-            characterRect.anchoredPosition = new Vector2(0f, -15f);
-            homeHubCharacterImage.preserveAspect = false;
-        }
-        else
-        {
-            characterRect.sizeDelta = new Vector2(188f, 308f);
-            characterRect.anchoredPosition = new Vector2(0f, -26f);
-            homeHubCharacterImage.preserveAspect = true;
-        }
+        // 캐릭터 원본 이미지 자체의 비율을 유지하고, 모든 캐릭터가
+        // 해커와 같은 전신 표시 영역 안에서 자연스럽게 보이도록 합니다.
+        homeHubCharacterImage.preserveAspect = true;
+        characterRect.sizeDelta = new Vector2(188f, 308f);
+        characterRect.anchoredPosition = new Vector2(0f, -26f);
     }
 
     private void ShowMyPage()
