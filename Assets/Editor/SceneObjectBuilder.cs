@@ -49,10 +49,14 @@ public static class SceneObjectBuilder
     private static void BuildMainMenu()
     {
         PrepareScene("Assets/Scenes/MainMenuScene.unity", "MAIN MENU", out var root);
+        root.GetComponent<Canvas>().sortingOrder = 10;
         CreateImage("MainMenuBackground", root, MainBackgroundPath, new Vector2(0.5f, 0.5f), new Vector2(1280f, 720f));
         CreateImage("WordfallLogo", root, "Pixel/wordfall-logo-en", new Vector2(0.5f, 0.66f), new Vector2(430f, 92f));
+        CreateText("한국어 & 영어 타자 디펜스", root, "SubtitleText", 22, new Vector2(0.5f, 0.53f), new Vector2(720f, 40f));
+        CreateText("떨어지는 단어를 빠르게 입력해 기지를 지키세요.", root, "DescriptionText", 18, new Vector2(0.5f, 0.48f), new Vector2(860f, 34f));
         CreateButton("GameStartButton", root, "게임 시작", new Vector2(0.38f, 0.22f), new Vector2(340f, 78f), "ShowHomeHub");
         CreateButton("LanguageButton", root, "언어", new Vector2(0.66f, 0.22f), new Vector2(250f, 78f), "ShowLanguagePanel");
+        CreateText("게스트 플레이어", root, "ProfileSummaryText", 16, new Vector2(0.5f, 0.105f), new Vector2(520f, 30f));
         SaveCurrentScene();
     }
 
