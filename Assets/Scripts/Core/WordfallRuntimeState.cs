@@ -4,7 +4,6 @@ using UnityEngine.UI;
 
 public sealed partial class WordfallPrototype
 {
-+{
     private const string RootName = "WordfallPrototypeRuntime";
     private PlayerDataManager playerDataManager;
     private WordDatabase wordDatabase;
