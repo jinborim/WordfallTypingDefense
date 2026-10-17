@@ -39,52 +39,6 @@ public sealed partial class WordfallPrototype
         homeHubCharacterImage.rectTransform.anchoredPosition = new Vector2(0f, -26f);
     }
 
-    private void LegacyShowSetupPanel()
-    {
-        if (playing) return;
-        if (!profileCreated)
-        {
-            ShowProfilePanel();
-            return;
-        }
-        homeHubPanel.SetActive(false);
-        if (lobbyChatPanel != null) lobbyChatPanel.SetActive(false);
-        languagePanel.SetActive(false);
-        setupPanel.SetActive(true);
-        SetDifficulty(difficulty);
-        SetGameMode(gameMode);
-    }
-
-    private void LegacyCloseSetupPanel()
-    {
-        setupPanel.SetActive(false);
-        if (profileCreated)
-        {
-            homeHubPanel.SetActive(true);
-            ShowLobbyDialogue();
-        }
-    }
-
-    private void LegacyShowLanguagePanel()
-    {
-        if (playing) return;
-        languageOpenedFromHomeHub = homeHubPanel != null && homeHubPanel.activeSelf;
-        if (languageOpenedFromHomeHub) homeHubPanel.SetActive(false);
-        setupPanel.SetActive(false);
-        languagePanel.SetActive(true);
-    }
-
-    private void LegacyCloseLanguagePanel()
-    {
-        languagePanel.SetActive(false);
-        if (languageOpenedFromHomeHub && profileCreated)
-        {
-            homeHubPanel.SetActive(true);
-            ShowLobbyDialogue();
-        }
-        languageOpenedFromHomeHub = false;
-    }
-
     private void ShowMyPage()
     {
         if (!profileCreated || (playing && !paused)) return;
