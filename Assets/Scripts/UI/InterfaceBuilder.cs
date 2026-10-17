@@ -38,7 +38,8 @@ public sealed partial class WordfallPrototype
         ApplyPixelLobbyBackground(homeHubPanel);
         ApplyModalDim(homeHubPanel);
         homeHubTitleText = CreateText("\uB85C\uBE44", homeHubPanel.transform, 40, Color.white, new Vector2(0.5f, 0.87f), new Vector2(0.5f, 0.87f));
-        homeHubCharacterImage = CreateImage("HomeHubCharacter", homeHubPanel.transform, GetLobbyCharacterResourcePath(), new Vector2(0.5f, 0.42f), new Vector2(220f, 360f));
+        homeHubCharacterImage = CreateImage("HomeHubCharacter", homeHubPanel.transform, GetLobbyCharacterResourcePath(), new Vector2(0.5f, 0.42f), new Vector2(188f, 308f));
+        homeHubCharacterImage.rectTransform.anchoredPosition = new Vector2(0f, -26f);
         homeHubCharacterImage.raycastTarget = false;
         homeHubInfoPanel = CreatePanel("HomeHubPlayerInfo", homeHubPanel.transform, new Color32(5, 18, 48, 245));
         SetRect(homeHubInfoPanel.GetComponent<RectTransform>(), new Vector2(0.18f, 0.78f), new Vector2(0.18f, 0.78f), Vector2.zero, new Vector2(500f, 167f));
@@ -55,17 +56,20 @@ public sealed partial class WordfallPrototype
         homeHubStartButton.onClick.AddListener(ShowSetupPanel);
 
         lobbyChatPanel = CreatePanel("LobbyCharacterDialogue", homeHubPanel.transform, new Color32(9, 18, 38, 248));
-        SetRect(lobbyChatPanel.GetComponent<RectTransform>(), new Vector2(0.73f, 0.54f), new Vector2(0.73f, 0.54f), Vector2.zero, new Vector2(680f, 220f));
+        SetRect(lobbyChatPanel.GetComponent<RectTransform>(), new Vector2(0.73f, 0.54f), new Vector2(0.73f, 0.54f), Vector2.zero, new Vector2(560f, 182f));
         lobbyChatPanel.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);
         ApplyPixelLobbyDialogueWindow(lobbyChatPanel);
         lobbyChatPanel.GetComponent<Image>().raycastTarget = false;
         lobbyChatMessageText = CreateText("", lobbyChatPanel.transform, 18, new Color32(255, 211, 94, 255), new Vector2(0.5f, 0.50f), new Vector2(0.5f, 0.50f));
-        SetRect(lobbyChatMessageText.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(540f, 120f));
+        SetRect(lobbyChatMessageText.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(448f, 96f));
         lobbyChatMessageText.rectTransform.pivot = new Vector2(0.5f, 0.5f);
         lobbyChatMessageText.rectTransform.localPosition = Vector3.zero;
         lobbyChatMessageText.alignment = TextAnchor.MiddleCenter;
         lobbyChatMessageText.horizontalOverflow = HorizontalWrapMode.Wrap;
-        lobbyChatMessageText.verticalOverflow = VerticalWrapMode.Truncate;
+        lobbyChatMessageText.verticalOverflow = VerticalWrapMode.Overflow;
+        lobbyChatMessageText.resizeTextForBestFit = true;
+        lobbyChatMessageText.resizeTextMinSize = 14;
+        lobbyChatMessageText.resizeTextMaxSize = 18;
         lobbyChatPanel.SetActive(false);
 
         homeHubMenuPanel = CreatePanel("HomeHubSideMenu", homeHubPanel.transform, new Color32(4, 10, 26, 220));

@@ -35,6 +35,8 @@ public sealed partial class WordfallPrototype
         texture.wrapMode = TextureWrapMode.Clamp;
         homeHubCharacterImage.sprite = Sprite.Create(texture, new Rect(0f, 0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100f);
         homeHubCharacterImage.preserveAspect = true;
+        homeHubCharacterImage.rectTransform.sizeDelta = new Vector2(188f, 308f);
+        homeHubCharacterImage.rectTransform.anchoredPosition = new Vector2(0f, -26f);
     }
 
     private void LegacyShowSetupPanel()
