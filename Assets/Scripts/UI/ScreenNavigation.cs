@@ -1,7 +1,5 @@
 using UnityEngine;
 
-using UnityEngine.SceneManagement;
-
 public sealed partial class WordfallPrototype
 {
     private const string MainMenuSceneName = "MainMenuScene";
@@ -20,7 +18,6 @@ public sealed partial class WordfallPrototype
 
     private void ShowMainMenu()
     {
-        LoadMainMenuScene();
         playing = false;
         paused = false;
         ClearWords();
