@@ -42,7 +42,7 @@ public sealed partial class WordfallPrototype
     private void SetGameMode(GameMode selectedMode)
     {
         gameMode = selectedMode;
-        modeText.text = language == Language.Korean ? "MODE" : "MODE";
+        modeText.text = language == Language.Korean ? "\uBAA8\uB4DC" : "MODE";
         UpdateModeDescription();
         for (int i = 0; i < modeButtons.Length; i++)
         {
@@ -78,7 +78,7 @@ public sealed partial class WordfallPrototype
     private void SetDifficulty(int selectedDifficulty)
     {
         difficulty = Mathf.Clamp(selectedDifficulty, 0, 2);
-        difficultyText.text = language == Language.Korean ? "DIFFICULTY" : "DIFFICULTY";
+        difficultyText.text = language == Language.Korean ? "\uB09C\uC774\uB3C4" : "DIFFICULTY";
         for (int i = 0; i < difficultyButtons.Length; i++)
         {
             var colors = difficultyButtons[i].colors;
