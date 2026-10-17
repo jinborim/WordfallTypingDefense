@@ -177,6 +177,17 @@ public sealed partial class WordfallPrototype
     private int lobbyDialogueIndex;
     private readonly string[] koreanLobbyDialogues =
     {
+        "\uC624\uB298\uB3C4 \uB2E8\uC5B4\uAC00 \uB0B4\uB824\uC624\uAE30 \uC804\uC5D0 \uAE30\uC9C0\uB97C \uC9C0\uCF1C\uBCF4\uC790.",
+        "\uCF64\uBCF4\uB97C \uC774\uC5B4\uAC00\uBA74 \uB354 \uB192\uC740 \uC810\uC218\uB97C \uC5BB\uC744 \uC218 \uC788\uC5B4.",
+        "\uC704\uD5D8\uD55C \uB2E8\uC5B4\uB294 \uBE60\uB974\uAC8C \uC785\uB825\uD574\uC11C \uAE30\uC9C0\uB97C \uC548\uC804\uD558\uAC8C \uC9C0\uD0A4\uC790.",
+        "\uCD9C\uC11D \uBCF4\uC0C1\uACFC \uAC8C\uC784 \uD50C\uB808\uC774\uB85C \uCF54\uC778\uC744 \uBAA8\uC744 \uC218 \uC788\uC5B4.",
+        "\uC0C1\uC810\uC5D0\uC11C \uC0C8\uB85C\uC6B4 \uCE90\uB9AD\uD130\uC640 \uB2C9\uB124\uC784 \uBCC0\uACBD\uAD8C\uC744 \uD655\uC778\uD574\uBD10.",
+        "\uC900\uBE44\uAC00 \uB05D\uB098\uBA74 \uAC8C\uC784 \uC2DC\uC791 \uBC84\uD2BC\uC744 \uB20C\uB7EC \uC791\uC804\uC744 \uC2DC\uC791\uD558\uC790."
+    };
+
+    #if false
+    private readonly string[] legacyKoreanLobbyDialogues =
+    {
         "??삳뮎????λ선揶쎛 ?????븍┛ ?袁⑸퓠 疫꿸퀣???筌왖?녹뮆???",
         "?꾠끇?ョ몴???곷선揶쎛筌????誘? ?癒?땾????댁뱽 ????됰선.",
         "?袁る퓮????λ선????뫀????낆젾??곴퐣 疫꿸퀣?????? ??꾩쓺 ??륁쁽.",
@@ -184,6 +195,7 @@ public sealed partial class WordfallPrototype
         "?怨몄젎?癒?퐣 ??덉쨮??筌?Ŧ??怨? ??곌퐬??癰궰野껋럡????類ㅼ뵥????",
         "餓Β??쑨? ??멸돌筌?野껊슣????뽰삂 甕곌쑵??????쑎 ?臾믪읈????뽰삂??륁쁽."
     };
+    #endif
     private readonly string[] englishLobbyDialogues =
     {
         "Let's protect the base before the words reach the bottom.",
