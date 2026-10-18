@@ -28,12 +28,14 @@ public static class RuntimeUiSceneExporter
         var scene = EditorSceneManager.OpenScene(path, OpenSceneMode.Single);
         foreach (var oldObject in Resources.FindObjectsOfTypeAll<GameObject>())
         {
+            if (oldObject == null) continue;
             if (oldObject.scene != scene || oldObject.hideFlags != HideFlags.None) continue;
             if (oldObject.name == "EditableSceneUI" || oldObject.name == "WordfallCanvas" || oldObject.name == "SceneUI" || oldObject.name == "SceneRuntime")
                 Object.DestroyImmediate(oldObject);
         }
         foreach (var sceneObject in Resources.FindObjectsOfTypeAll<GameObject>())
         {
+            if (sceneObject == null) continue;
             if (sceneObject.scene != scene || sceneObject.hideFlags != HideFlags.None) continue;
             GameObjectUtility.RemoveMonoBehavioursWithMissingScript(sceneObject);
         }
