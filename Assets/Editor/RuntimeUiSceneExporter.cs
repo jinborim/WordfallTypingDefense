@@ -26,10 +26,17 @@ public static class RuntimeUiSceneExporter
     private static void ExportScene(string path)
     {
         var scene = EditorSceneManager.OpenScene(path, OpenSceneMode.Single);
-        var oldCanvas = GameObject.Find("EditableSceneUI");
-        if (oldCanvas != null) Object.DestroyImmediate(oldCanvas);
-        var oldRuntimeCanvas = GameObject.Find("WordfallCanvas");
-        if (oldRuntimeCanvas != null) Object.DestroyImmediate(oldRuntimeCanvas);
+        foreach (var oldObject in Resources.FindObjectsOfTypeAll<GameObject>())
+        {
+            if (oldObject.scene != scene || oldObject.hideFlags != HideFlags.None) continue;
+            if (oldObject.name == "EditableSceneUI" || oldObject.name == "WordfallCanvas" || oldObject.name == "SceneUI" || oldObject.name == "SceneRuntime")
+                Object.DestroyImmediate(oldObject);
+        }
+        foreach (var sceneObject in Resources.FindObjectsOfTypeAll<GameObject>())
+        {
+            if (sceneObject.scene != scene || sceneObject.hideFlags != HideFlags.None) continue;
+            GameObjectUtility.RemoveMonoBehavioursWithMissingScript(sceneObject);
+        }
         foreach (var bridge in Object.FindObjectsByType<SceneButtonBridge>(FindObjectsSortMode.None))
             Object.DestroyImmediate(bridge);
 
