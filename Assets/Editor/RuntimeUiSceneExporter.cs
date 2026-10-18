@@ -2,6 +2,7 @@ using System.Reflection;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public static class RuntimeUiSceneExporter
@@ -38,6 +39,11 @@ public static class RuntimeUiSceneExporter
             if (sceneObject == null) continue;
             if (sceneObject.scene != scene || sceneObject.hideFlags != HideFlags.None) continue;
             GameObjectUtility.RemoveMonoBehavioursWithMissingScript(sceneObject);
+        }
+        if (Object.FindFirstObjectByType<EventSystem>() == null)
+        {
+            var eventSystem = new GameObject("EventSystem", typeof(EventSystem), typeof(UnityEngine.InputSystem.UI.InputSystemUIInputModule));
+            SceneManager.MoveGameObjectToScene(eventSystem, scene);
         }
         foreach (var bridge in Object.FindObjectsByType<SceneButtonBridge>(FindObjectsSortMode.None))
             Object.DestroyImmediate(bridge);
