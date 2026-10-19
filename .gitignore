@@ -70,6 +70,11 @@ ExportedObj/
 *.opendb
 *.VC.db
 
+# Chrome extension build output and local npm dependencies
+/ChromeExtension/node_modules/
+/ChromeExtension/game/
+/ChromeExtension/UnityWebGL/
+
 # Unity3D generated meta files
 *.pidb.meta
 *.pdb.meta

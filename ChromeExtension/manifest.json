@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "Wordfall",
+  "version": "1.0.0",
+  "description": "Pixel typing defense game",
+  "action": {
+    "default_title": "Wordfall",
+    "default_popup": "game/index.html"
+  },
+  "permissions": [
+    "offscreen",
+    "storage"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  }
+}
