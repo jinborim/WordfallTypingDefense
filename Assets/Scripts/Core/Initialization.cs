@@ -35,12 +35,25 @@ public sealed partial class WordfallPrototype
         var updateChecker = gameObject.AddComponent<UpdateChecker>();
         updateChecker.UpdateAvailable += ShowUpdatePanel;
         var sceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
-        if (sceneName == "MainMenuScene") ShowMainMenu();
-        else if (sceneName == "LobbyScene") ShowHomeHub();
+        if (sceneName == "MainMenuScene")
+        {
+            PlayLobbyMusic();
+            ShowMainMenu();
+        }
+        else if (sceneName == "LobbyScene")
+        {
+            PlayLobbyMusic();
+            ShowHomeHub();
+        }
         else if (sceneName == "GameScene" && SceneTransitionState.StartGameRequested)
         {
+            PlayGameMusic();
             SceneTransitionState.StartGameRequested = false;
             StartGame();
+        }
+        else if (sceneName == "GameScene")
+        {
+            PlayGameMusic();
         }
     }
 }

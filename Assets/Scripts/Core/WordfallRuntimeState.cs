@@ -39,6 +39,9 @@ public sealed partial class WordfallPrototype
     private AudioClip wrongSound;
     private AudioClip successSound;
     private AudioClip gameOverSound;
+    private AudioSource bgmSource;
+    private AudioClip lobbyMusic;
+    private AudioClip gameMusic;
     private RectTransform shopProductContent;
     private ScrollRect shopScrollRect;
     private Scrollbar shopVerticalScrollbar;
