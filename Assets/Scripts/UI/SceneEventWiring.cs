@@ -46,6 +46,8 @@ public sealed partial class WordfallPrototype
         shopCloseButton?.onClick.AddListener(CloseShopPanel);
         insufficientCoinsCloseButton?.onClick.AddListener(CloseInsufficientCoinsPanel);
         purchaseCompleteCloseButton?.onClick.AddListener(ClosePurchaseCompletePanel);
+        nicknameTicketCloseButton?.onClick.AddListener(CloseNicknameTicketPanel);
+        nicknameTicketShopButton?.onClick.AddListener(GoToShopFromNicknameTicketPanel);
         announcementCloseButton?.onClick.AddListener(CloseAnnouncementPanel);
         privacyCloseButton?.onClick.AddListener(ClosePrivacyPanel);
         withdrawConfirmButton?.onClick.AddListener(ConfirmDeleteAccount);

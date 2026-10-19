@@ -85,6 +85,10 @@ public sealed partial class WordfallPrototype
         if (purchaseCompleteTitleText != null) purchaseCompleteTitleText.text = korean ? "\uAD6C\uB9E4 \uC644\uB8CC" : "PURCHASE COMPLETE";
         if (purchaseCompleteMessageText != null) purchaseCompleteMessageText.text = korean ? "\uC0C1\uD488\uC744 \uAD6C\uB9E4\uD588\uC2B5\uB2C8\uB2E4." : "Purchase complete.";
         SetButtonText(purchaseCompleteCloseButton, korean ? "\uD655\uC778" : "OK");
+        if (nicknameTicketTitleText != null) nicknameTicketTitleText.text = korean ? "\uB2C9\uB124\uC784 \uBCC0\uACBD\uAD8C \uBD80\uC871" : "NICKNAME TICKET REQUIRED";
+        if (nicknameTicketMessageText != null) nicknameTicketMessageText.text = korean ? "\uB2C9\uB124\uC784\uC744 \uBCC0\uACBD\uD558\uB824\uBA74 \uBCC0\uACBD\uAD8C\uC774 \uD544\uC694\uD569\uB2C8\uB2E4." : "You need a nickname ticket to change your nickname.";
+        SetButtonText(nicknameTicketCloseButton, korean ? "\uD655\uC778" : "OK");
+        SetButtonText(nicknameTicketShopButton, korean ? "\uC0C1\uC810 \uAC00\uAE30" : "GO TO SHOP");
         SetButtonText(announcementCloseButton, korean ? "\uB2EB\uAE30" : "CLOSE");
         SetButtonText(gameOverRetryButton, korean ? "\uB2E4\uC2DC\uD558\uAE30" : "RETRY");
         SetButtonText(gameOverSetupButton, korean ? "\uB098\uAC00\uAE30" : "EXIT");

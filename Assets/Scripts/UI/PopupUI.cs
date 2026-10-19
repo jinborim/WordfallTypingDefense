@@ -33,6 +33,29 @@ public sealed partial class WordfallPrototype
         purchaseCompletePanel.SetActive(false);
     }
 
+    private void ShowNicknameTicketPanel()
+    {
+        bool korean = language == Language.Korean;
+        if (nicknameTicketTitleText != null) nicknameTicketTitleText.text = korean ? "\uB2C9\uB124\uC784 \uBCC0\uACBD\uAD8C \uBD80\uC871" : "NICKNAME TICKET REQUIRED";
+        if (nicknameTicketMessageText != null) nicknameTicketMessageText.text = korean ? "\uB2C9\uB124\uC784\uC744 \uBCC0\uACBD\uD558\uB824\uBA74 \uBCC0\uACBD\uAD8C\uC774 \uD544\uC694\uD569\uB2C8\uB2E4." : "You need a nickname ticket to change your nickname.";
+        SetButtonText(nicknameTicketCloseButton, korean ? "\uD655\uC778" : "OK");
+        SetButtonText(nicknameTicketShopButton, korean ? "\uC0C1\uC810 \uAC00\uAE30" : "GO TO SHOP");
+        if (nicknameTicketPanel != null) nicknameTicketPanel.SetActive(true);
+    }
+
+    private void CloseNicknameTicketPanel()
+    {
+        if (nicknameTicketPanel != null) nicknameTicketPanel.SetActive(false);
+        if (profilePanel != null) profilePanel.SetActive(true);
+    }
+
+    private void GoToShopFromNicknameTicketPanel()
+    {
+        if (nicknameTicketPanel != null) nicknameTicketPanel.SetActive(false);
+        if (profilePanel != null) profilePanel.SetActive(false);
+        ShowShopPanel();
+    }
+
     private void ShowAnnouncementPanel()
     {
         if (playing) return;

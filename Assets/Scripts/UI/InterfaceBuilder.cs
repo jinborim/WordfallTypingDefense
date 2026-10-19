@@ -346,6 +346,32 @@ public sealed partial class WordfallPrototype
         purchaseCompleteCloseButton.onClick.AddListener(ClosePurchaseCompletePanel);
         purchaseCompletePanel.SetActive(false);
 
+        nicknameTicketPanel = CreatePanel("NicknameTicketRequiredPanel", mainPanel.transform, new Color32(0, 0, 0, 0));
+        SetRect(nicknameTicketPanel.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
+        ApplyModalDim(nicknameTicketPanel);
+        var nicknameTicketWindow = CreatePanel("NicknameTicketRequiredWindow", nicknameTicketPanel.transform, new Color32(9, 18, 38, 250));
+        SetRect(nicknameTicketWindow.GetComponent<RectTransform>(), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(640f, 320f));
+        ApplyPixelInsufficientCoinsWindow(nicknameTicketWindow);
+        nicknameTicketTitleText = CreateText("\uB2C9\uB124\uC784 \uBCC0\uACBD\uAD8C \uBD80\uC871", nicknameTicketWindow.transform, 34, new Color32(255, 211, 94, 255), new Vector2(0.5f, 0.67f), new Vector2(0.5f, 0.67f));
+        SetRect(nicknameTicketTitleText.rectTransform, new Vector2(0.5f, 0.67f), new Vector2(0.5f, 0.67f), Vector2.zero, new Vector2(540f, 52f));
+        nicknameTicketTitleText.alignment = TextAnchor.MiddleCenter;
+        nicknameTicketTitleText.resizeTextForBestFit = true;
+        nicknameTicketTitleText.resizeTextMinSize = 22;
+        nicknameTicketTitleText.resizeTextMaxSize = 34;
+        nicknameTicketMessageText = CreateText("\uB2C9\uB124\uC784\uC744 \uBCC0\uACBD\uD558\uB824\uBA74 \uBCC0\uACBD\uAD8C\uC774 \uD544\uC694\uD569\uB2C8\uB2E4.", nicknameTicketWindow.transform, 20, new Color32(214, 222, 238, 255), new Vector2(0.5f, 0.49f), new Vector2(0.5f, 0.49f));
+        SetRect(nicknameTicketMessageText.rectTransform, new Vector2(0.5f, 0.49f), new Vector2(0.5f, 0.49f), Vector2.zero, new Vector2(560f, 48f));
+        nicknameTicketMessageText.alignment = TextAnchor.MiddleCenter;
+        nicknameTicketMessageText.resizeTextForBestFit = true;
+        nicknameTicketMessageText.resizeTextMinSize = 14;
+        nicknameTicketMessageText.resizeTextMaxSize = 22;
+        nicknameTicketMessageText.horizontalOverflow = HorizontalWrapMode.Wrap;
+        nicknameTicketMessageText.verticalOverflow = VerticalWrapMode.Truncate;
+        nicknameTicketCloseButton = CreateButton("\uD655\uC778", nicknameTicketWindow.transform, new Vector2(0.34f, 0.25f), new Vector2(190f, 56f), new Color32(67, 149, 255, 255));
+        nicknameTicketCloseButton.onClick.AddListener(CloseNicknameTicketPanel);
+        nicknameTicketShopButton = CreateButton("\uC0C1\uC810 \uAC00\uAE30", nicknameTicketWindow.transform, new Vector2(0.66f, 0.25f), new Vector2(190f, 56f), new Color32(67, 149, 255, 255));
+        nicknameTicketShopButton.onClick.AddListener(GoToShopFromNicknameTicketPanel);
+        nicknameTicketPanel.SetActive(false);
+
         announcementPanel = CreatePanel("AnnouncementPanel", mainPanel.transform, new Color32(9, 18, 38, 250));
         SetRect(announcementPanel.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
         ApplyPixelWindow(announcementPanel);

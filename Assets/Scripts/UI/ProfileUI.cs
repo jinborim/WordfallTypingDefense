@@ -78,10 +78,8 @@ public sealed partial class WordfallPrototype
         bool nicknameChanged = !profileCreated || nickname != playerDataManager.Data.nickname;
         if (editingProfile && nicknameChanged && nicknameTickets <= 0)
         {
-            profileErrorText.text = language == Language.Korean ? "\uB2C9\uB124\uC784 \uBCC0\uACBD\uAD8C\uC774 \uD544\uC694\uD569\uB2C8\uB2E4. \uC0C1\uC810\uC5D0\uC11C \uAD6C\uB9E4\uD558\uC138\uC694." : "You need a nickname ticket. Buy one in the shop.";
-            profilePanel.SetActive(false);
-            myPagePanel.SetActive(true);
-            ShowShopPanel();
+            profileErrorText.text = string.Empty;
+            ShowNicknameTicketPanel();
             return;
         }
         if (!OwnsCharacter(selectedCharacter))
