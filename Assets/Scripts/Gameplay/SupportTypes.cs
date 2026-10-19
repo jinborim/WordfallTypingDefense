@@ -23,6 +23,7 @@ public sealed partial class WordfallPrototype
 
         public void OnPointerDown(PointerEventData eventData)
         {
+            FindFirstObjectByType<WordfallPrototype>()?.PlaySoundEffect(SoundEffect.UiClick);
             transform.localScale = baseScale * 0.94f;
         }
 

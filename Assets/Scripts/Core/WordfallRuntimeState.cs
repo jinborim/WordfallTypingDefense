@@ -33,6 +33,12 @@ public sealed partial class WordfallPrototype
     private GameObject announcementPanel;
     private GameObject privacyPanel;
     private GameObject withdrawConfirmPanel;
+    private AudioSource sfxSource;
+    private AudioClip uiClickSound;
+    private AudioClip correctSound;
+    private AudioClip wrongSound;
+    private AudioClip successSound;
+    private AudioClip gameOverSound;
     private RectTransform shopProductContent;
     private ScrollRect shopScrollRect;
     private Scrollbar shopVerticalScrollbar;

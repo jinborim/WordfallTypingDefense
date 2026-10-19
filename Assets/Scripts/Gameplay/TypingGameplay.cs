@@ -49,12 +49,14 @@ public sealed partial class WordfallPrototype
                 statusText.text = language == Language.Korean ? "정답! 계속 입력하세요." : "NICE! Keep typing.";
             }
             combo++;
+            PlaySoundEffect(SoundEffect.Correct);
             SetCharacterEmotion(false);
             break;
         }
 
         if (!matched)
         {
+            PlaySoundEffect(SoundEffect.Wrong);
             combo = 0;
             SetCharacterEmotion(true);
             statusText.text = language == Language.Korean ? "오답입니다. 다시 입력하세요." : "WRONG WORD. Try again.";

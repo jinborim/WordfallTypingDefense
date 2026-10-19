@@ -43,6 +43,7 @@ public sealed partial class WordfallPrototype
 
     private void EndGame()
     {
+        PlaySoundEffect(SoundEffect.GameOver);
         session.ResetToIdle();
         if (pausePanel != null) pausePanel.SetActive(false);
 

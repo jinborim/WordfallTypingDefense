@@ -7,6 +7,7 @@ public sealed partial class WordfallPrototype
 
     private void ShowInsufficientCoinsPanel()
     {
+        PlaySoundEffect(SoundEffect.Wrong);
         insufficientCoinsTitleText.text = language == Language.Korean ? "\uCF54\uC778 \uBD80\uC871" : "NOT ENOUGH COINS";
         insufficientCoinsMessageText.text = language == Language.Korean ? "\uCF54\uC778\uC774 \uBD80\uC871\uD569\uB2C8\uB2E4." : "You do not have enough coins.";
         SetButtonText(insufficientCoinsCloseButton, language == Language.Korean ? "\uD655\uC778" : "OK");
@@ -20,6 +21,7 @@ public sealed partial class WordfallPrototype
 
     private void ShowPurchaseCompletePanel(string itemName)
     {
+        PlaySoundEffect(SoundEffect.Success);
         purchaseCompleteTitleText.text = language == Language.Korean ? "구매 완료" : "PURCHASE COMPLETE";
         purchaseCompleteMessageText.text = language == Language.Korean
             ? $"{itemName} 상품을 구매했습니다."

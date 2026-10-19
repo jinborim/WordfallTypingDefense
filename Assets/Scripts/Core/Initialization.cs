@@ -9,6 +9,7 @@ public sealed partial class WordfallPrototype
         playerDataManager = gameObject.GetComponent<PlayerDataManager>();
         if (playerDataManager == null) playerDataManager = gameObject.AddComponent<PlayerDataManager>();
         playerDataManager.Load();
+        InitializeSoundEffects();
 
         wordDatabase = new WordDatabase();
         koreanWords = wordDatabase.KoreanWords;
