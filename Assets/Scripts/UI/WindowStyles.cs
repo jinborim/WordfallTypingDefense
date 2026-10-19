@@ -10,7 +10,8 @@ public sealed partial class WordfallPrototype
 
     private void ApplyPixelShopWindow(GameObject panel)
     {
-        var texture = Resources.Load<Texture2D>("Pixel/coin-shop-window");
+        var texture = Resources.Load<Texture2D>("Pixel/coin-shop-window-clean");
+        if (texture == null) texture = Resources.Load<Texture2D>("Pixel/coin-shop-window");
         if (texture == null) return;
         texture.filterMode = FilterMode.Point;
         texture.wrapMode = TextureWrapMode.Clamp;
