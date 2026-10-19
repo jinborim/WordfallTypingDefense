@@ -1,10 +1,13 @@
 using UnityEngine.UI;
+using UnityEngine;
 
 public sealed partial class WordfallPrototype
 {
     private void SetLanguage(Language selectedLanguage)
     {
         language = selectedLanguage;
+        PlayerPrefs.SetInt("Wordfall.Language", (int)selectedLanguage);
+        PlayerPrefs.Save();
         bool korean = language == Language.Korean;
 
         if (titleText != null) titleText.text = "WORDFALL";
@@ -40,6 +43,18 @@ public sealed partial class WordfallPrototype
         if (difficultyText != null) difficultyText.text = korean ? "\uB09C\uC774\uB3C4" : "DIFFICULTY";
         if (modeText != null) modeText.text = korean ? "\uBAA8\uB4DC" : "MODE";
         if (languageTitleText != null) languageTitleText.text = korean ? "\uC5B8\uC5B4 \uC124\uC815" : "LANGUAGE";
+        if (updateTitleText != null) updateTitleText.text = korean ? "\uC5C5\uB370\uC774\uD2B8 \uC548\uB0B4" : "UPDATE NOTICE";
+        if (attendanceTitleText != null) attendanceTitleText.text = korean ? "\uCD9C\uC11D \uBCF4\uC0C1" : "ATTENDANCE REWARD";
+        if (attendanceBodyText != null) attendanceBodyText.text = korean ? "\uC624\uB298\uC758 \uCD9C\uC11D \uCF54\uC778\uC744 \uBC1B\uC558\uC2B5\uB2C8\uB2E4!" : "TODAY'S ATTENDANCE COINS RECEIVED!";
+        if (attendanceCoinText != null) attendanceCoinText.text = "+10 COINS";
+        if (privacyTitleText != null) privacyTitleText.text = korean ? "\uAC1C\uC778\uC815\uBCF4 \uCC98\uB9AC\uBC29\uCE68" : "PRIVACY POLICY";
+        if (privacyMessageText != null) privacyMessageText.text = korean
+            ? "\uB2C9\uB124\uC784, \uCE90\uB9AD\uD130, \uCF54\uC778, \uAC8C\uC784 \uAE30\uB85D\uC740 \uC774 \uAE30\uAE30\uC5D0 \uC800\uC7A5\uB429\uB2C8\uB2E4.\n\uC11C\uBC84 \uC804\uC1A1\uC774\uB098 \uAD11\uACE0 \uBAA9\uC801\uC758 \uC218\uC9D1\uC740 \uD558\uC9C0 \uC54A\uC2B5\uB2C8\uB2E4."
+            : "Your nickname, character, coins, and game records are stored on this device.\nNo data is sent to a server or collected for advertising.";
+        if (withdrawTitleText != null) withdrawTitleText.text = korean ? "\uD68C\uC6D0 \uD0C8\uD1F4" : "DELETE ACCOUNT";
+        if (withdrawMessageText != null) withdrawMessageText.text = korean
+            ? "\uC815\uB9D0 \uD0C8\uD1F4\uD558\uC2DC\uACA0\uC2B5\uB2C8\uAE4C?\n\uC800\uC7A5\uB41C \uACC4\uC815 \uB370\uC774\uD130\uAC00 \uC0AD\uC81C\uB429\uB2C8\uB2E4."
+            : "Are you sure you want to delete your account?\nAll saved account data will be deleted.";
         if (profileTitleText != null) profileTitleText.text = korean ? "\uD504\uB85C\uD544 \uB9CC\uB4E4\uAE30" : "CREATE PLAYER";
         if (myPageTitleText != null) myPageTitleText.text = korean ? "\uB9C8\uC774\uD398\uC774\uC9C0" : "MY PAGE";
         if (shopTitleText != null) shopTitleText.text = korean ? "\uCF54\uC778 \uC0C1\uC810" : "COIN SHOP";

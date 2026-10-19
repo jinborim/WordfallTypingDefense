@@ -2,6 +2,8 @@ using UnityEngine;
 
 public sealed partial class WordfallPrototype
 {
+    private const string LanguagePreferenceKey = "Wordfall.Language";
+
     private void Awake()
     {
         playerDataManager = gameObject.GetComponent<PlayerDataManager>();
@@ -22,6 +24,7 @@ public sealed partial class WordfallPrototype
         coins = playerDataManager.Data.coins;
         nicknameTickets = playerDataManager.Data.nicknameTickets;
         ownedCharacterMask = playerDataManager.Data.ownedCharacterMask;
+        language = (Language)Mathf.Clamp(PlayerPrefs.GetInt(LanguagePreferenceKey, (int)language), 0, 1);
 
         var sceneReferences = GetComponent<SceneUiReferences>();
         if (sceneReferences == null || !sceneReferences.ApplyTo(this)) BuildInterface();
