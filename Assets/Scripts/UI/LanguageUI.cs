@@ -15,6 +15,11 @@ public sealed partial class WordfallPrototype
         if (descriptionText != null) descriptionText.text = korean ? "\uB5A8\uC5B4\uC9C0\uB294 \uB2E8\uC5B4\uB97C \uBE60\uB974\uAC8C \uC785\uB825\uD574 \uAE30\uC9C0\uB97C \uC9C0\uD0A4\uC138\uC694." : "Type the falling words before they reach the bottom.";
         SetButtonText(mainStartButton, korean ? "\uAC8C\uC784 \uC2DC\uC791" : "START GAME");
         SetButtonText(languageOpenButton, korean ? "\uC5B8\uC5B4 \uC124\uC815" : "LANGUAGE");
+        if (loginTitleText != null) loginTitleText.text = korean ? "\uB85C\uADF8\uC778" : "LOGIN";
+        if (loginMessageText != null) loginMessageText.text = korean ? "\uAC8C\uC2A4\uD2B8 \uB610\uB294 Google\uB85C \uB85C\uADF8\uC778\uD558\uC138\uC694." : "Choose Guest or Google to continue.";
+        SetButtonText(guestLoginButton, korean ? "\uAC8C\uC2A4\uD2B8 \uB85C\uADF8\uC778" : "GUEST LOGIN");
+        SetButtonText(googleLoginButton, korean ? "Google \uB85C\uADF8\uC778" : "GOOGLE LOGIN");
+        SetButtonText(loginCloseButton, korean ? "\uB2EB\uAE30" : "CLOSE");
         SetButtonText(homeHubStartButton, korean ? "\uAC8C\uC784 \uC2DC\uC791" : "START GAME");
         SetButtonText(startButton, korean ? "\uAC8C\uC784 \uC2DC\uC791" : "START GAME");
         SetButtonText(setupBackButton, korean ? "\uB4A4\uB85C" : "BACK");

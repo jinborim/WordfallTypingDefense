@@ -28,10 +28,25 @@ public sealed partial class WordfallPrototype
         subtitleText = CreateText("\uD55C\uAD6D\uC5B4 & \uC601\uC5B4 \uD0C0\uC790 \uB514\uD39C\uC2A4", mainPanel.transform, 22, new Color32(158, 180, 220, 255), new Vector2(0.5f, 0.53f), new Vector2(0.5f, 0.53f));
         descriptionText = CreateText("\uB5A8\uC5B4\uC9C0\uB294 \uB2E8\uC5B4\uB97C \uBE60\uB974\uAC8C \uC785\uB825\uD574 \uAE30\uC9C0\uB97C \uC9C0\uD0A4\uC138\uC694.", mainPanel.transform, 18, new Color32(214, 222, 238, 255), new Vector2(0.5f, 0.48f), new Vector2(0.5f, 0.48f));
         mainStartButton = CreateButton("\uAC8C\uC784 \uC2DC\uC791", mainPanel.transform, new Vector2(0.38f, 0.21f), new Vector2(340f, 78f), new Color32(255, 196, 61, 255));
-        mainStartButton.onClick.AddListener(ShowHomeHub);
+        mainStartButton.onClick.AddListener(ShowLoginOrLobby);
         languageOpenButton = CreateButton("LANGUAGE", mainPanel.transform, new Vector2(0.66f, 0.21f), new Vector2(250f, 78f), new Color32(58, 80, 122, 255));
         languageOpenButton.onClick.AddListener(ShowLanguagePanel);
         profileSummaryText = CreateText("", mainPanel.transform, 16, new Color32(171, 190, 220, 255), new Vector2(0.5f, 0.105f), new Vector2(0.5f, 0.105f));
+
+        loginPanel = CreatePanel("LoginPanel", mainPanel.transform, new Color32(9, 18, 38, 250));
+        SetRect(loginPanel.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
+        ApplyPixelWindow(loginPanel);
+        ApplyModalDim(loginPanel);
+        loginTitleText = CreateText("\uB85C\uADF8\uC778", loginPanel.transform, 40, Color.white, new Vector2(0.5f, 0.72f), new Vector2(0.5f, 0.72f));
+        loginMessageText = CreateText("\uAC8C\uC2A4\uD2B8 \uB610\uB294 Google\uB85C \uB85C\uADF8\uC778\uD558\uC138\uC694.", loginPanel.transform, 20, new Color32(214, 222, 238, 255), new Vector2(0.5f, 0.59f), new Vector2(0.5f, 0.59f));
+        loginStatusText = CreateText("", loginPanel.transform, 16, new Color32(255, 211, 94, 255), new Vector2(0.5f, 0.30f), new Vector2(0.5f, 0.30f));
+        guestLoginButton = CreateButton("\uAC8C\uC2A4\uD2B8 \uB85C\uADF8\uC778", loginPanel.transform, new Vector2(0.37f, 0.43f), new Vector2(260f, 64f), new Color32(67, 149, 255, 255));
+        googleLoginButton = CreateButton("Google \uB85C\uADF8\uC778", loginPanel.transform, new Vector2(0.63f, 0.43f), new Vector2(260f, 64f), new Color32(255, 196, 61, 255));
+        loginCloseButton = CreateButton("\uB2EB\uAE30", loginPanel.transform, new Vector2(0.5f, 0.20f), new Vector2(200f, 56f), new Color32(58, 80, 122, 255));
+        guestLoginButton.onClick.AddListener(LoginAsGuest);
+        googleLoginButton.onClick.AddListener(LoginWithGoogle);
+        loginCloseButton.onClick.AddListener(CloseLoginPanel);
+        loginPanel.SetActive(false);
 
         homeHubPanel = CreatePanel("HomeHubPanel", mainPanel.transform, new Color32(0, 0, 0, 0));
         SetRect(homeHubPanel.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);

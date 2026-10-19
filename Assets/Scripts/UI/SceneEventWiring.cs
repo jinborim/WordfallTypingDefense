@@ -4,7 +4,7 @@ public sealed partial class WordfallPrototype
 {
     private void WireSceneEvents()
     {
-        mainStartButton?.onClick.AddListener(ShowHomeHub);
+        mainStartButton?.onClick.AddListener(ShowLoginOrLobby);
         languageOpenButton?.onClick.AddListener(ShowLanguagePanel);
         homeHubStartButton?.onClick.AddListener(ShowSetupPanel);
         homeHubMyPageButton?.onClick.AddListener(ShowMyPage);
@@ -52,6 +52,9 @@ public sealed partial class WordfallPrototype
         privacyCloseButton?.onClick.AddListener(ClosePrivacyPanel);
         withdrawConfirmButton?.onClick.AddListener(ConfirmDeleteAccount);
         withdrawCancelButton?.onClick.AddListener(CloseWithdrawConfirm);
+        guestLoginButton?.onClick.AddListener(LoginAsGuest);
+        googleLoginButton?.onClick.AddListener(LoginWithGoogle);
+        loginCloseButton?.onClick.AddListener(CloseLoginPanel);
         updateLaterButton?.onClick.AddListener(CloseUpdatePanel);
         updateNowButton?.onClick.AddListener(OpenUpdatePage);
         menuButton?.onClick.AddListener(TogglePause);

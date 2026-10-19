@@ -33,6 +33,7 @@ public sealed partial class WordfallPrototype
     private GameObject announcementPanel;
     private GameObject privacyPanel;
     private GameObject withdrawConfirmPanel;
+    private GameObject loginPanel;
     private AudioSource sfxSource;
     private AudioClip uiClickSound;
     private AudioClip correctSound;
@@ -154,6 +155,9 @@ public sealed partial class WordfallPrototype
     private Button privacyCloseButton;
     private Button withdrawConfirmButton;
     private Button withdrawCancelButton;
+    private Button guestLoginButton;
+    private Button googleLoginButton;
+    private Button loginCloseButton;
     private Button shopAllCategoryButton;
     private Button shopProfileCategoryButton;
     private Button shopItemCategoryButton;
@@ -165,6 +169,9 @@ public sealed partial class WordfallPrototype
     private GameObject gameOverPanel;
     private Text gameOverTitleText;
     private Text gameOverSummaryText;
+    private Text loginTitleText;
+    private Text loginMessageText;
+    private Text loginStatusText;
     private Button gameOverRetryButton;
     private Button gameOverSetupButton;
     private GameObject characterStatusPanel;
@@ -226,6 +233,7 @@ public sealed partial class WordfallPrototype
     };
     private int selectedCharacter;
     private bool profileCreated;
+    private bool authSignedIn;
     private int coins;
     private int nicknameTickets;
     private int ownedCharacterMask;

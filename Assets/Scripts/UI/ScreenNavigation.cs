@@ -32,6 +32,7 @@ public sealed partial class WordfallPrototype
         gamePanel.SetActive(false);
         if (setupPanel != null) setupPanel.SetActive(false);
         if (homeHubPanel != null) homeHubPanel.SetActive(false);
+        if (loginPanel != null) loginPanel.SetActive(false);
         if (languagePanel != null) languagePanel.SetActive(false);
         if (profilePanel != null) profilePanel.SetActive(false);
         if (myPagePanel != null) myPagePanel.SetActive(false);

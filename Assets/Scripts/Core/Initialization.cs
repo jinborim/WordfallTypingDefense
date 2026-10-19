@@ -25,6 +25,7 @@ public sealed partial class WordfallPrototype
         coins = playerDataManager.Data.coins;
         nicknameTickets = playerDataManager.Data.nicknameTickets;
         ownedCharacterMask = playerDataManager.Data.ownedCharacterMask;
+        authSignedIn = PlayerPrefs.GetInt("Wordfall.AuthSignedIn", 0) == 1;
         language = (Language)Mathf.Clamp(PlayerPrefs.GetInt(LanguagePreferenceKey, (int)language), 0, 1);
 
         var sceneReferences = GetComponent<SceneUiReferences>();
