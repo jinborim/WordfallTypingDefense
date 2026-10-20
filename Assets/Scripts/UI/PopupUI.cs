@@ -1,3 +1,6 @@
+using UnityEngine;
+using UnityEngine.UI;
+
 public sealed partial class WordfallPrototype
 {
     private void CloseAttendancePanel()
@@ -81,9 +84,45 @@ public sealed partial class WordfallPrototype
     private void ShowPrivacyPanel()
     {
         if (playing) return;
+        ApplyPrivacyPanelLayout();
         homeHubMenuPanel.SetActive(false);
         homeHubPanel.SetActive(false);
         privacyPanel.SetActive(true);
+    }
+
+    private void ApplyPrivacyPanelLayout()
+    {
+        if (privacyTitleText != null)
+        {
+            privacyTitleText.rectTransform.anchorMin = new Vector2(0.5f, 0.84f);
+            privacyTitleText.rectTransform.anchorMax = new Vector2(0.5f, 0.84f);
+            privacyTitleText.rectTransform.anchoredPosition = Vector2.zero;
+            privacyTitleText.rectTransform.sizeDelta = new Vector2(920f, 52f);
+            privacyTitleText.alignment = TextAnchor.MiddleCenter;
+        }
+
+        if (privacyMessageText != null)
+        {
+            privacyMessageText.rectTransform.anchorMin = new Vector2(0.5f, 0.49f);
+            privacyMessageText.rectTransform.anchorMax = new Vector2(0.5f, 0.49f);
+            privacyMessageText.rectTransform.anchoredPosition = Vector2.zero;
+            privacyMessageText.rectTransform.sizeDelta = new Vector2(920f, 470f);
+            privacyMessageText.alignment = TextAnchor.MiddleCenter;
+            privacyMessageText.horizontalOverflow = HorizontalWrapMode.Wrap;
+            privacyMessageText.verticalOverflow = VerticalWrapMode.Overflow;
+            privacyMessageText.resizeTextForBestFit = true;
+            privacyMessageText.resizeTextMinSize = 10;
+            privacyMessageText.resizeTextMaxSize = 15;
+        }
+
+        if (privacyCloseButton != null)
+        {
+            var rect = privacyCloseButton.GetComponent<RectTransform>();
+            rect.anchorMin = new Vector2(0.5f, 0.12f);
+            rect.anchorMax = new Vector2(0.5f, 0.12f);
+            rect.anchoredPosition = Vector2.zero;
+            rect.sizeDelta = new Vector2(220f, 58f);
+        }
     }
 
     private void ClosePrivacyPanel()

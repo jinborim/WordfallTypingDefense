@@ -401,12 +401,16 @@ public sealed partial class WordfallPrototype
         SetRect(privacyPanel.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
         ApplyPixelWindow(privacyPanel);
         ApplyModalDim(privacyPanel);
-        privacyTitleText = CreateText("\uAC1C\uC778\uC815\uBCF4 \uCC98\uB9AC\uBC29\uCE68", privacyPanel.transform, 36, Color.white, new Vector2(0.5f, 0.72f), new Vector2(0.5f, 0.72f));
-        privacyMessageText = CreateText("\uB2C9\uB124\uC784, \uCE90\uB9AD\uD130, \uCF54\uC778, \uAC8C\uC784 \uAE30\uB85D\uC740 \uC774 \uAE30\uAE30\uC5D0 \uC800\uC7A5\uB429\uB2C8\uB2E4.\n\uC11C\uBC84 \uC804\uC1A1\uC774\uB098 \uAD11\uACE0 \uBAA9\uC801\uC758 \uC218\uC9D1\uC740 \uD558\uC9C0 \uC54A\uC2B5\uB2C8\uB2E4.", privacyPanel.transform, 19, new Color32(214, 222, 238, 255), new Vector2(0.5f, 0.50f), new Vector2(0.5f, 0.50f));
-        privacyMessageText.rectTransform.sizeDelta = new Vector2(760f, 100f);
+        privacyTitleText = CreateText("\uAC1C\uC778\uC815\uBCF4 \uCC98\uB9AC\uBC29\uCE68", privacyPanel.transform, 32, Color.white, new Vector2(0.5f, 0.84f), new Vector2(0.5f, 0.84f));
+        privacyMessageText = CreateText("\uAC1C\uC778\uC815\uBCF4 \uCC98\uB9AC\uBC29\uCE68", privacyPanel.transform, 15, new Color32(214, 222, 238, 255), new Vector2(0.5f, 0.49f), new Vector2(0.5f, 0.49f));
+        privacyMessageText.rectTransform.sizeDelta = new Vector2(920f, 470f);
         privacyMessageText.alignment = TextAnchor.MiddleCenter;
         privacyMessageText.horizontalOverflow = HorizontalWrapMode.Wrap;
-        privacyCloseButton = CreateButton("CLOSE", privacyPanel.transform, new Vector2(0.5f, 0.23f), new Vector2(220f, 62f), new Color32(67, 149, 255, 255));
+        privacyMessageText.verticalOverflow = VerticalWrapMode.Overflow;
+        privacyMessageText.resizeTextForBestFit = true;
+        privacyMessageText.resizeTextMinSize = 10;
+        privacyMessageText.resizeTextMaxSize = 15;
+        privacyCloseButton = CreateButton("CLOSE", privacyPanel.transform, new Vector2(0.5f, 0.12f), new Vector2(220f, 58f), new Color32(67, 149, 255, 255));
         privacyCloseButton.onClick.AddListener(ClosePrivacyPanel);
         privacyPanel.SetActive(false);
 
