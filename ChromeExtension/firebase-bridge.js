@@ -21,6 +21,27 @@
 
   window.WordfallFirebaseAuth = {
     signInAnonymously: function () { return request("guest"); },
-    signInWithGoogle: function () { return request("google"); }
+    signInWithGoogle: function () { return request("google"); },
+    checkNickname: function (nickname, oldNickname, uid) {
+      return new Promise(function (resolve, reject) {
+        chrome.runtime.sendMessage({
+          type: "firebase-auth",
+          action: "nickname",
+          nickname: nickname,
+          oldNickname: oldNickname || "",
+          uid: uid || ""
+        }, function (result) {
+          if (chrome.runtime.lastError) {
+            reject(new Error(chrome.runtime.lastError.message));
+            return;
+          }
+          if (!result || result.error) {
+            reject(new Error(result && result.error ? result.error : "Nickname check failed"));
+            return;
+          }
+          resolve(result.available === true);
+        });
+      });
+    }
   };
 })();

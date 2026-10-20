@@ -82,13 +82,21 @@ public sealed partial class WordfallPrototype
             ShowNicknameTicketPanel();
             return;
         }
-        if (!OwnsCharacter(selectedCharacter))
+        if (profileCreated && !OwnsCharacter(selectedCharacter))
         {
             profileErrorText.text = language == Language.Korean ? "\uBCF4\uC720\uD558\uC9C0 \uC54A\uC740 \uCE90\uB9AD\uD130\uB294 \uC120\uD0DD\uD560 \uC218 \uC5C6\uC2B5\uB2C8\uB2E4." : "You can only select profiles you own.";
             return;
         }
 
+        if (nicknameChanged && nicknameCheckApprovedFor != nickname)
+        {
+            RequestNicknameCheck(nickname);
+            return;
+        }
+
         playerDataManager.SaveProfile(nickname, selectedCharacter);
+        RegisterLocalNickname(nickname);
+        nicknameCheckApprovedFor = string.Empty;
         profileCreated = true;
         ownedCharacterMask |= 1 << selectedCharacter;
         SaveShopData();
@@ -117,6 +125,59 @@ public sealed partial class WordfallPrototype
             return;
         }
         ShowSetupPanel();
+    }
+
+    private void RequestNicknameCheck(string nickname)
+    {
+        if (nicknameCheckInFlight) return;
+        nicknameCheckInFlight = true;
+        pendingNickname = nickname;
+        profileErrorText.text = language == Language.Korean ? "닉네임 중복을 확인하는 중..." : "Checking nickname availability...";
+#if UNITY_WEBGL && !UNITY_EDITOR
+        var uid = PlayerPrefs.GetString("Wordfall.AuthUid", string.Empty);
+        FirebaseWebAuthBridge.CheckNickname(gameObject.name, nickname, playerDataManager.Data.nickname, uid);
+#else
+        OnNicknameAvailabilityResult(IsLocalNicknameAvailable(nickname) ? "available|" + nickname : "taken|" + nickname);
+#endif
+    }
+
+    private void OnNicknameAvailabilityResult(string result)
+    {
+        nicknameCheckInFlight = false;
+        var parts = string.IsNullOrEmpty(result) ? new string[0] : result.Split('|');
+        var checkedNickname = parts.Length > 1 ? parts[1] : pendingNickname;
+        if (parts.Length == 0 || parts[0] == "error")
+        {
+            profileErrorText.text = language == Language.Korean ? "닉네임 확인에 실패했습니다. 잠시 후 다시 시도해주세요." : "Could not check the nickname. Please try again.";
+            return;
+        }
+        if (parts[0] != "available")
+        {
+            profileErrorText.text = language == Language.Korean ? "이미 사용 중인 닉네임입니다." : "That nickname is already in use.";
+            nicknameCheckApprovedFor = string.Empty;
+            return;
+        }
+        nicknameCheckApprovedFor = checkedNickname;
+        CreateProfile();
+    }
+
+    private static string LocalNicknameKey(string nickname)
+    {
+        return "Wordfall.NicknameRegistry." + nickname.Trim().ToLowerInvariant();
+    }
+
+    private bool IsLocalNicknameAvailable(string nickname)
+    {
+        var owner = PlayerPrefs.GetString(LocalNicknameKey(nickname), string.Empty);
+        var currentUid = PlayerPrefs.GetString("Wordfall.AuthUid", "local");
+        return string.IsNullOrEmpty(owner) || owner == currentUid;
+    }
+
+    private void RegisterLocalNickname(string nickname)
+    {
+        var currentUid = PlayerPrefs.GetString("Wordfall.AuthUid", "local");
+        PlayerPrefs.SetString(LocalNicknameKey(nickname), currentUid);
+        PlayerPrefs.Save();
     }
 
     private string GetCharacterName()

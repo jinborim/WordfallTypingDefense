@@ -195,6 +195,9 @@ public sealed partial class WordfallPrototype
     private bool myPageOpenedFromGame;
     private bool languageOpenedFromHomeHub;
     private bool editingProfile;
+    private bool nicknameCheckInFlight;
+    private string nicknameCheckApprovedFor = string.Empty;
+    private string pendingNickname = string.Empty;
     private bool profileEditReturnToMyPage;
     private bool profileEditReturnToHomeHub;
     private bool shopOpenedFromMyPage;

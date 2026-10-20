@@ -8,6 +8,9 @@ public static class FirebaseWebAuthBridge
 
     [DllImport("__Internal")]
     private static extern void WordfallFirebaseSignInGoogle(string gameObjectName);
+
+    [DllImport("__Internal")]
+    private static extern void WordfallFirebaseCheckNickname(string gameObjectName, string nickname, string oldNickname, string uid);
 #endif
 
     public static void SignInAnonymously(string gameObjectName)
@@ -21,6 +24,13 @@ public static class FirebaseWebAuthBridge
     {
 #if UNITY_WEBGL && !UNITY_EDITOR
         WordfallFirebaseSignInGoogle(gameObjectName);
+#endif
+    }
+
+    public static void CheckNickname(string gameObjectName, string nickname, string oldNickname, string uid)
+    {
+#if UNITY_WEBGL && !UNITY_EDITOR
+        WordfallFirebaseCheckNickname(gameObjectName, nickname, oldNickname, uid);
 #endif
     }
 }

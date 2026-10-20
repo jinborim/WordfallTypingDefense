@@ -30,5 +30,25 @@ mergeInto(LibraryManager.library, {
       .catch(function (error) {
         send('error|' + (error.code || error.message || 'google'));
       });
+  },
+  WordfallFirebaseCheckNickname: function (gameObjectNamePtr, nicknamePtr, oldNicknamePtr, uidPtr) {
+    var gameObjectName = UTF8ToString(gameObjectNamePtr);
+    var nickname = UTF8ToString(nicknamePtr);
+    var oldNickname = UTF8ToString(oldNicknamePtr);
+    var uid = UTF8ToString(uidPtr);
+    var send = function (payload) {
+      SendMessage(gameObjectName, 'OnNicknameAvailabilityResult', payload);
+    };
+    if (!window.WordfallFirebaseAuth || !window.WordfallFirebaseAuth.checkNickname) {
+      send('error|Firebase nickname bridge is not loaded');
+      return;
+    }
+    window.WordfallFirebaseAuth.checkNickname(nickname, oldNickname, uid)
+      .then(function (available) {
+        send((available ? 'available|' : 'taken|') + nickname);
+      })
+      .catch(function (error) {
+        send('error|' + (error.code || error.message || 'nickname'));
+      });
   }
 });
