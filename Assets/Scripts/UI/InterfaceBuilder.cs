@@ -207,8 +207,7 @@ public sealed partial class WordfallPrototype
         ApplyPixelWindow(myPagePanel);
         ApplyModalDim(myPagePanel);
         myPageTitleText = CreateText("\uB9C8\uC774\uD398\uC774\uC9C0", myPagePanel.transform, 42, Color.white, new Vector2(0.5f, 0.78f), new Vector2(0.5f, 0.78f));
-        myPageCharacterImage = CreateImage("MyPageCharacter", myPagePanel.transform, GetCharacterResourcePath(false), new Vector2(0.5f, 0.58f), new Vector2(132f, 132f));
-        myPageCharacterImage.raycastTarget = false;
+        myPageCharacterImage = CreateCircularProfileImage(myPagePanel.transform, GetCharacterResourcePath(false), new Vector2(0.5f, 0.58f), 132f);
         var myPageFrame = CreateImage("MyPageProfileFrame", myPagePanel.transform, "Pixel/character-profile-frame", new Vector2(0.5f, 0.58f), new Vector2(154f, 154f));
         myPageFrame.raycastTarget = false;
         myPageInfoText = CreateText("PROFILE INFO", myPagePanel.transform, 22, new Color32(214, 222, 238, 255), new Vector2(0.5f, 0.37f), new Vector2(0.5f, 0.37f));
