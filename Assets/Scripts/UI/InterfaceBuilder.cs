@@ -315,7 +315,14 @@ public sealed partial class WordfallPrototype
         mageShopButton.onClick.AddListener(() => BuyCharacter(1));
         hackerShopButton = CreateButton("\uD574\uCEE4 \uD504\uB85C\uD544 \uBCF4\uC720", shopProductContent, new Vector2(0.875f, 0.25f), new Vector2(220f, 52f), new Color32(53, 137, 105, 255));
         hackerShopButton.onClick.AddListener(() => BuyCharacter(2));
-        shopStatusText = CreateText("", shopPanel.transform, 18, new Color32(171, 190, 220, 255), new Vector2(0.5f, 0.27f), new Vector2(0.5f, 0.27f));
+        shopStatusText = CreateText("", shopPanel.transform, 16, new Color32(171, 190, 220, 255), new Vector2(0.5f, 0.34f), new Vector2(0.5f, 0.34f));
+        shopStatusText.rectTransform.sizeDelta = new Vector2(900f, 30f);
+        shopStatusText.alignment = TextAnchor.MiddleCenter;
+        shopStatusText.horizontalOverflow = HorizontalWrapMode.Wrap;
+        shopStatusText.verticalOverflow = VerticalWrapMode.Truncate;
+        shopStatusText.resizeTextForBestFit = true;
+        shopStatusText.resizeTextMinSize = 10;
+        shopStatusText.resizeTextMaxSize = 16;
         shopCloseButton = CreateButton("CLOSE", shopPanel.transform, new Vector2(0.5f, 0.16f), new Vector2(220f, 62f), new Color32(58, 80, 122, 255));
         shopCloseButton.onClick.AddListener(CloseShopPanel);
         shopPanel.SetActive(false);
