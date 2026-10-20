@@ -9,6 +9,11 @@ public sealed partial class WordfallPrototype
     private void ShowLoginOrLobby()
     {
         if (playing) return;
+        if (authSignedIn)
+        {
+            ShowHomeHub();
+            return;
+        }
         if (loginPanel == null)
         {
             ShowHomeHub();
