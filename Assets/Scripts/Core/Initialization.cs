@@ -8,6 +8,9 @@ public sealed partial class WordfallPrototype
     {
         playerDataManager = gameObject.GetComponent<PlayerDataManager>();
         if (playerDataManager == null) playerDataManager = gameObject.AddComponent<PlayerDataManager>();
+        var savedAuthUid = PlayerPrefs.GetString("Wordfall.AuthUid", string.Empty);
+        AccountDataIsolation.Initialize(savedAuthUid);
+        AccountDataIsolation.Ensure(gameObject);
         playerDataManager.Load();
         InitializeSoundEffects();
 

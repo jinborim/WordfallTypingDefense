@@ -77,6 +77,8 @@ public sealed partial class WordfallPrototype
         PlayerPrefs.SetString(AuthProviderKey, provider);
         PlayerPrefs.SetString(AuthUidKey, uid ?? string.Empty);
         PlayerPrefs.Save();
+        AccountDataIsolation.SwitchToAccount(uid);
+        playerDataManager.Load();
         CloseLoginPanel();
         ShowHomeHub();
     }

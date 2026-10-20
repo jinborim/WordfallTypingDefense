@@ -56,6 +56,7 @@ public sealed partial class WordfallPrototype
     private void DeleteAccount()
     {
         playerDataManager.DeleteAccount();
+        AccountDataIsolation.DeleteActiveAccount();
         profileCreated = false;
         selectedCharacter = 0;
         coins = 0;
