@@ -61,7 +61,7 @@ public sealed partial class WordfallPrototype
             colors.highlightedColor = new Color32(255, 232, 150, 255);
             colors.pressedColor = new Color32(216, 173, 68, 255);
             characterButtons[i].colors = colors;
-            characterButtons[i].interactable = OwnsCharacter(i);
+            characterButtons[i].interactable = !profileCreated || OwnsCharacter(i);
         }
     }
 
