@@ -11,6 +11,8 @@ public sealed partial class WordfallPrototype
             LoadLobbyScene();
             return;
         }
+        mainPanel.SetActive(true);
+        gamePanel.SetActive(false);
         if (!profileCreated)
         {
             ShowProfilePanel();

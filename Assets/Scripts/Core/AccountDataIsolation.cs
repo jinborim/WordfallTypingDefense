@@ -25,7 +25,7 @@ public sealed class AccountDataIsolation : MonoBehaviour
     {
         activeAccount = Normalize(userId);
         initialized = true;
-        if (activeAccount == DefaultAccount && !PlayerPrefs.HasKey(AccountKey(activeAccount, "ProfileCreated")))
+        if (!PlayerPrefs.HasKey(AccountKey(activeAccount, "ProfileCreated")) && PlayerPrefs.HasKey(SharedKey("ProfileCreated")))
             SaveSharedKeysToAccount(activeAccount);
         LoadAccountIntoSharedKeys(activeAccount);
     }
