@@ -34,8 +34,15 @@ public sealed partial class WordfallPrototype
         var text = button.GetComponentInChildren<Text>();
         if (text != null)
         {
-            text.fontStyle = FontStyle.Underline;
+            text.fontStyle = FontStyle.Normal;
             text.color = new Color32(214, 222, 238, 255);
         }
+
+        var underlineObject = new GameObject("LogoutUnderline", typeof(RectTransform), typeof(Image));
+        underlineObject.transform.SetParent(button.transform, false);
+        var underlineRect = underlineObject.GetComponent<RectTransform>();
+        SetRect(underlineRect, new Vector2(0.5f, 0.20f), new Vector2(0.5f, 0.20f), Vector2.zero, new Vector2(120f, 2f));
+        underlineObject.GetComponent<Image>().color = new Color32(214, 222, 238, 255);
+        underlineObject.GetComponent<Image>().raycastTarget = false;
     }
 }
