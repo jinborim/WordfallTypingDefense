@@ -33,7 +33,11 @@ public sealed partial class WordfallPrototype
 
         var sceneReferences = GetComponent<SceneUiReferences>();
         if (sceneReferences == null || !sceneReferences.ApplyTo(this)) BuildInterface();
-        else WireSceneEvents();
+        else
+        {
+            EnsurePrivacyPolicySceneLayout();
+            WireSceneEvents();
+        }
         SetLanguage(language);
 
         var updateChecker = gameObject.AddComponent<UpdateChecker>();
