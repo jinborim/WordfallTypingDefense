@@ -84,9 +84,13 @@ public sealed partial class WordfallPrototype
     private void ShowPrivacyPanel()
     {
         if (playing) return;
+        privacyOpenedFromMainMenu = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "MainMenuScene";
         ApplyPrivacyPanelLayout();
         homeHubMenuPanel.SetActive(false);
         homeHubPanel.SetActive(false);
+        if (mainStartButton != null) mainStartButton.gameObject.SetActive(false);
+        if (languageOpenButton != null) languageOpenButton.gameObject.SetActive(false);
+        privacyPanel.transform.SetAsLastSibling();
         privacyPanel.SetActive(true);
     }
 
@@ -110,11 +114,22 @@ public sealed partial class WordfallPrototype
             rect.sizeDelta = new Vector2(220f, 58f);
         }
         if (privacyScrollRect != null) privacyScrollRect.verticalNormalizedPosition = 1f;
+        if (privacyMessageText != null)
+        {
+            privacyMessageText.verticalOverflow = VerticalWrapMode.Truncate;
+            privacyMessageText.horizontalOverflow = HorizontalWrapMode.Wrap;
+        }
     }
 
     private void ClosePrivacyPanel()
     {
         privacyPanel.SetActive(false);
+        if (privacyOpenedFromMainMenu)
+        {
+            if (mainStartButton != null) mainStartButton.gameObject.SetActive(true);
+            if (languageOpenButton != null) languageOpenButton.gameObject.SetActive(true);
+        }
+        privacyOpenedFromMainMenu = false;
         ResetHomeHubMenuState();
         homeHubPanel.SetActive(true);
         ShowLobbyDialogue();
