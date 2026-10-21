@@ -15,6 +15,7 @@ public sealed partial class WordfallPrototype
         homeHubMenuPanel.SetActive(false);
         homeHubPanel.SetActive(true);
         myPagePanel.SetActive(false);
+        ApplyShopLayout();
         UpdateShopText();
         shopPanel.SetActive(true);
     }
@@ -24,6 +25,7 @@ public sealed partial class WordfallPrototype
         if (!profileCreated) return;
         shopOpenedFromMyPage = false;
         homeHubPanel.SetActive(false);
+        ApplyShopLayout();
         UpdateShopText();
         shopPanel.SetActive(true);
     }
@@ -42,6 +44,30 @@ public sealed partial class WordfallPrototype
             ShowLobbyDialogue();
         }
         shopOpenedFromMyPage = false;
+    }
+
+    private void ApplyShopLayout()
+    {
+        if (shopTitleText != null)
+        {
+            SetRect(shopTitleText.rectTransform, new Vector2(0.5f, 0.90f), new Vector2(0.5f, 0.90f), Vector2.zero, new Vector2(900f, 54f));
+            shopTitleText.alignment = TextAnchor.MiddleCenter;
+        }
+        if (shopCoinText != null)
+        {
+            SetRect(shopCoinText.rectTransform, new Vector2(0.5f, 0.81f), new Vector2(0.5f, 0.81f), Vector2.zero, new Vector2(700f, 34f));
+            shopCoinText.alignment = TextAnchor.MiddleCenter;
+        }
+        if (shopStatusText != null)
+        {
+            SetRect(shopStatusText.rectTransform, new Vector2(0.5f, 0.34f), new Vector2(0.5f, 0.34f), Vector2.zero, new Vector2(900f, 30f));
+            shopStatusText.alignment = TextAnchor.MiddleCenter;
+            shopStatusText.horizontalOverflow = HorizontalWrapMode.Wrap;
+            shopStatusText.verticalOverflow = VerticalWrapMode.Truncate;
+            shopStatusText.resizeTextForBestFit = true;
+            shopStatusText.resizeTextMinSize = 10;
+            shopStatusText.resizeTextMaxSize = 16;
+        }
     }
 
     private void SetShopCategory(int category)
