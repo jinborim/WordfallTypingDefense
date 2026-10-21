@@ -403,20 +403,63 @@ public sealed partial class WordfallPrototype
         announcementCloseButton.onClick.AddListener(CloseAnnouncementPanel);
         announcementPanel.SetActive(false);
 
-        privacyPanel = CreatePanel("PrivacyPanel", mainPanel.transform, new Color32(9, 18, 38, 250));
+        privacyPanel = CreatePanel("PrivacyPanel", mainPanel.transform, new Color32(0, 0, 0, 0));
         SetRect(privacyPanel.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
-        ApplyPixelWindow(privacyPanel);
         ApplyModalDim(privacyPanel);
-        privacyTitleText = CreateText("\uAC1C\uC778\uC815\uBCF4 \uCC98\uB9AC\uBC29\uCE68", privacyPanel.transform, 32, Color.white, new Vector2(0.5f, 0.84f), new Vector2(0.5f, 0.84f));
-        privacyMessageText = CreateText("\uAC1C\uC778\uC815\uBCF4 \uCC98\uB9AC\uBC29\uCE68", privacyPanel.transform, 15, new Color32(214, 222, 238, 255), new Vector2(0.5f, 0.49f), new Vector2(0.5f, 0.49f));
-        privacyMessageText.rectTransform.sizeDelta = new Vector2(920f, 470f);
-        privacyMessageText.alignment = TextAnchor.MiddleCenter;
+        var privacyWindow = CreatePanel("PrivacyPolicyWindow", privacyPanel.transform, new Color32(9, 18, 38, 252));
+        SetRect(privacyWindow.GetComponent<RectTransform>(), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(1080f, 640f));
+        ApplyPixelShopWindow(privacyWindow);
+        privacyTitleText = CreateText("\uAC1C\uC778\uC815\uBCF4 \uCC98\uB9AC\uBC29\uCE68", privacyWindow.transform, 30, Color.white, new Vector2(0.5f, 0.88f), new Vector2(0.5f, 0.88f));
+        privacyTitleText.rectTransform.sizeDelta = new Vector2(900f, 48f);
+
+        var privacyViewportObject = CreatePanel("PrivacyPolicyViewport", privacyWindow.transform, new Color32(4, 12, 30, 245));
+        SetRect(privacyViewportObject.GetComponent<RectTransform>(), new Vector2(0.47f, 0.50f), new Vector2(0.47f, 0.50f), Vector2.zero, new Vector2(860f, 410f));
+        var privacyViewport = privacyViewportObject.GetComponent<RectTransform>();
+        privacyViewportObject.AddComponent<RectMask2D>();
+        var privacyContentObject = new GameObject("PrivacyPolicyContent", typeof(RectTransform));
+        privacyContentObject.transform.SetParent(privacyViewport, false);
+        var privacyContent = privacyContentObject.GetComponent<RectTransform>();
+        SetRect(privacyContent, new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), Vector2.zero, new Vector2(820f, 1500f));
+        privacyContent.pivot = new Vector2(0.5f, 1f);
+        privacyMessageText = CreateText("\uAC1C\uC778\uC815\uBCF4 \uCC98\uB9AC\uBC29\uCE68", privacyContent, 15, new Color32(214, 222, 238, 255), new Vector2(0.5f, 1f), new Vector2(0.5f, 1f));
+        privacyMessageText.rectTransform.sizeDelta = new Vector2(800f, 1440f);
+        privacyMessageText.rectTransform.pivot = new Vector2(0.5f, 1f);
+        privacyMessageText.alignment = TextAnchor.UpperCenter;
         privacyMessageText.horizontalOverflow = HorizontalWrapMode.Wrap;
         privacyMessageText.verticalOverflow = VerticalWrapMode.Overflow;
-        privacyMessageText.resizeTextForBestFit = true;
-        privacyMessageText.resizeTextMinSize = 10;
-        privacyMessageText.resizeTextMaxSize = 15;
-        privacyCloseButton = CreateButton("CLOSE", privacyPanel.transform, new Vector2(0.5f, 0.12f), new Vector2(220f, 58f), new Color32(67, 149, 255, 255));
+
+        privacyScrollRect = privacyViewportObject.AddComponent<ScrollRect>();
+        privacyScrollRect.viewport = privacyViewport;
+        privacyScrollRect.content = privacyContent;
+        privacyScrollRect.horizontal = false;
+        privacyScrollRect.vertical = true;
+        privacyScrollRect.movementType = ScrollRect.MovementType.Clamped;
+        privacyScrollRect.scrollSensitivity = 55f;
+        privacyScrollRect.verticalNormalizedPosition = 1f;
+
+        var privacyScrollbarObject = new GameObject("PrivacyVerticalScrollbar", typeof(RectTransform), typeof(Image), typeof(Scrollbar));
+        privacyScrollbarObject.transform.SetParent(privacyWindow.transform, false);
+        var privacyScrollbarRect = privacyScrollbarObject.GetComponent<RectTransform>();
+        SetRect(privacyScrollbarRect, new Vector2(0.91f, 0.50f), new Vector2(0.91f, 0.50f), Vector2.zero, new Vector2(18f, 410f));
+        privacyScrollbarObject.GetComponent<Image>().color = new Color32(7, 24, 58, 255);
+        var privacyHandleObject = new GameObject("Handle", typeof(RectTransform), typeof(Image));
+        privacyHandleObject.transform.SetParent(privacyScrollbarObject.transform, false);
+        var privacyHandleRect = privacyHandleObject.GetComponent<RectTransform>();
+        privacyHandleRect.anchorMin = new Vector2(0f, 0.73f);
+        privacyHandleRect.anchorMax = new Vector2(1f, 1f);
+        privacyHandleRect.offsetMin = new Vector2(1f, 1f);
+        privacyHandleRect.offsetMax = new Vector2(-1f, -1f);
+        var privacyHandleImage = privacyHandleObject.GetComponent<Image>();
+        privacyHandleImage.color = new Color32(67, 199, 255, 255);
+        privacyVerticalScrollbar = privacyScrollbarObject.GetComponent<Scrollbar>();
+        privacyVerticalScrollbar.direction = Scrollbar.Direction.BottomToTop;
+        privacyVerticalScrollbar.handleRect = privacyHandleRect;
+        privacyVerticalScrollbar.targetGraphic = privacyHandleImage;
+        privacyScrollRect.verticalScrollbar = privacyVerticalScrollbar;
+        privacyScrollRect.verticalScrollbarVisibility = ScrollRect.ScrollbarVisibility.Permanent;
+        privacyScrollRect.verticalScrollbarSpacing = 10f;
+
+        privacyCloseButton = CreateButton("CLOSE", privacyWindow.transform, new Vector2(0.5f, 0.10f), new Vector2(220f, 58f), new Color32(67, 149, 255, 255));
         privacyCloseButton.onClick.AddListener(ClosePrivacyPanel);
         privacyPanel.SetActive(false);
 

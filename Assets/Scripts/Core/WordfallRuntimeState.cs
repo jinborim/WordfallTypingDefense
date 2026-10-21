@@ -46,6 +46,8 @@ public sealed partial class WordfallPrototype
     private RectTransform shopProductContent;
     private ScrollRect shopScrollRect;
     private Scrollbar shopVerticalScrollbar;
+    private ScrollRect privacyScrollRect;
+    private Scrollbar privacyVerticalScrollbar;
     private Text scoreText;
     private Image[] lifeHeartImages;
     private Text comboText;
