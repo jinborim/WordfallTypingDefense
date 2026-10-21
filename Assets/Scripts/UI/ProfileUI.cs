@@ -124,7 +124,7 @@ public sealed partial class WordfallPrototype
             }
             return;
         }
-        ShowSetupPanel();
+        ShowHomeHub();
     }
 
     private void RequestNicknameCheck(string nickname)

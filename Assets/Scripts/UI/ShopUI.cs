@@ -7,6 +7,13 @@ public sealed partial class WordfallPrototype
     {
         if (!profileCreated) return;
         shopOpenedFromMyPage = true;
+        mainPanel.SetActive(true);
+        gamePanel.SetActive(false);
+        setupPanel.SetActive(false);
+        languagePanel.SetActive(false);
+        profilePanel.SetActive(false);
+        homeHubMenuPanel.SetActive(false);
+        homeHubPanel.SetActive(true);
         myPagePanel.SetActive(false);
         UpdateShopText();
         shopPanel.SetActive(true);
