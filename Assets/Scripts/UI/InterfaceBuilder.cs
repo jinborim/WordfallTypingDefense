@@ -108,6 +108,8 @@ public sealed partial class WordfallPrototype
         privacyButton.onClick.AddListener(ShowPrivacyPanel);
         withdrawButton = CreateImageAction("HomeHubWithdrawAction", homeHubMenuPanel.transform, "Pixel/menu-withdraw-icon", "\uD68C\uC6D0 \uD0C8\uD1F4", new Vector2(0.80f, 0.48f), new Vector2(170f, 130f), new Vector2(72f, 72f), out homeHubWithdrawLabelText);
         withdrawButton.onClick.AddListener(ShowWithdrawConfirm);
+        homeHubLogoutButton = CreateButton("LOGOUT", homeHubMenuPanel.transform, new Vector2(0.50f, 0.18f), new Vector2(210f, 56f), new Color32(149, 71, 92, 255));
+        homeHubLogoutButton.onClick.AddListener(Logout);
         homeHubMenuToggleButton = CreateHamburgerButton("HomeHubMenuToggle", homeHubPanel.transform, new Vector2(0.04f, 0.50f), new Vector2(62f, 62f));
         var hamburgerIconTransform = homeHubMenuToggleButton.transform.Find("HomeHubMenuToggleIcon");
         homeHubHamburgerIcon = hamburgerIconTransform != null ? hamburgerIconTransform.GetComponent<Image>() : null;

@@ -22,6 +22,7 @@
   window.WordfallFirebaseAuth = {
     signInAnonymously: function () { return request("guest"); },
     signInWithGoogle: function () { return request("google"); },
+    signOut: function () { return request("logout"); },
     checkNickname: function (nickname, oldNickname, uid) {
       return new Promise(function (resolve, reject) {
         chrome.runtime.sendMessage({

@@ -50,5 +50,20 @@ mergeInto(LibraryManager.library, {
       .catch(function (error) {
         send('error|' + (error.code || error.message || 'nickname'));
       });
+  },
+  WordfallFirebaseSignOut: function (gameObjectNamePtr) {
+    var gameObjectName = UTF8ToString(gameObjectNamePtr);
+    var send = function (payload) {
+      SendMessage(gameObjectName, 'OnFirebaseSignOutResult', payload);
+    };
+    if (!window.WordfallFirebaseAuth || !window.WordfallFirebaseAuth.signOut) {
+      send('error|Firebase sign-out bridge is not loaded');
+      return;
+    }
+    window.WordfallFirebaseAuth.signOut()
+      .then(function () { send('ok'); })
+      .catch(function (error) {
+        send('error|' + (error.code || error.message || 'signout'));
+      });
   }
 });

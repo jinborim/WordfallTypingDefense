@@ -36,6 +36,7 @@ public sealed partial class WordfallPrototype
         else
         {
             EnsurePrivacyPolicySceneLayout();
+            EnsureHomeHubLogoutButton();
             WireSceneEvents();
         }
         SetLanguage(language);

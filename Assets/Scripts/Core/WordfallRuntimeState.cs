@@ -129,6 +129,7 @@ public sealed partial class WordfallPrototype
     private Button homeHubShopButton;
     private Button homeHubProfileButton;
     private Button homeHubMenuToggleButton;
+    private Button homeHubLogoutButton;
     private Image homeHubHamburgerIcon;
     private GameObject homeHubCloseIcon;
     private Button languageCloseButton;

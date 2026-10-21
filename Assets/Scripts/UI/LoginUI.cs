@@ -87,4 +87,38 @@ public sealed partial class WordfallPrototype
         CloseLoginPanel();
         ShowHomeHub();
     }
+
+    private void Logout()
+    {
+        homeHubMenuOpen = false;
+        if (homeHubMenuPanel != null) homeHubMenuPanel.SetActive(false);
+#if UNITY_WEBGL && !UNITY_EDITOR
+        FirebaseWebAuthBridge.SignOut(gameObject.name);
+#else
+        CompleteLogout();
+#endif
+    }
+
+    private void OnFirebaseSignOutResult(string result)
+    {
+        if (string.IsNullOrEmpty(result) || result.StartsWith("error|"))
+        {
+            if (loginStatusText != null)
+                loginStatusText.text = language == Language.Korean ? "\uB85C\uADF8\uC544\uC6C3\uC5D0 \uC2E4\uD328\uD588\uC2B5\uB2C8\uB2E4." : "Log out failed.";
+            return;
+        }
+        CompleteLogout();
+    }
+
+    private void CompleteLogout()
+    {
+        AccountDataIsolation.SwitchToAccount("local");
+        authSignedIn = false;
+        PlayerPrefs.SetInt(AuthSignedInKey, 0);
+        PlayerPrefs.DeleteKey(AuthProviderKey);
+        PlayerPrefs.DeleteKey(AuthUidKey);
+        PlayerPrefs.Save();
+        playerDataManager.Load();
+        ShowMainMenu();
+    }
 }

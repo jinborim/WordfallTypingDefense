@@ -13,6 +13,7 @@ public sealed partial class WordfallPrototype
         homeHubProfileButton?.onClick.AddListener(ShowProfileEditFromHome);
         privacyButton?.onClick.AddListener(ShowPrivacyPanel);
         withdrawButton?.onClick.AddListener(ShowWithdrawConfirm);
+        homeHubLogoutButton?.onClick.AddListener(Logout);
         homeHubMenuToggleButton?.onClick.AddListener(ToggleHomeHubMenu);
         for (var i = 0; i < difficultyButtons.Length; i++) AddDifficultyListener(i);
         for (var i = 0; i < modeButtons.Length; i++)

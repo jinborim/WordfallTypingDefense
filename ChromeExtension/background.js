@@ -5352,6 +5352,9 @@ async function signInAnonymously(auth2) {
   await authInternal._updateCurrentUser(userCredential.user);
   return userCredential;
 }
+function signOut(auth2) {
+  return getModularInstance(auth2).signOut();
+}
 function startEnrollTotpMfa(auth2, request) {
   return _performApiRequest(auth2, "POST", "/v2/accounts/mfaEnrollment:start", _addTidIfNecessary(auth2, request));
 }
@@ -27311,6 +27314,10 @@ async function signInGoogle() {
   await ensureOffscreenDocument();
   return await chrome.runtime.sendMessage({ target: "offscreen", action: "google" });
 }
+async function signOutUser() {
+  await signOut(auth);
+  return { signedOut: true };
+}
 function nicknameDocumentId(nickname) {
   return encodeURIComponent(nickname.trim().toLowerCase());
 }
@@ -27333,7 +27340,7 @@ async function reserveNickname(nickname, oldNickname, uid) {
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message?.target === "offscreen") return false;
   if (message?.type !== "firebase-auth") return false;
-  const task = message.action === "guest" ? signInGuest() : message.action === "google" ? signInGoogle() : reserveNickname(message.nickname, message.oldNickname, message.uid).then((available) => ({ available }));
+  const task = message.action === "guest" ? signInGuest() : message.action === "google" ? signInGoogle() : message.action === "logout" ? signOutUser() : reserveNickname(message.nickname, message.oldNickname, message.uid).then((available) => ({ available }));
   task.then(sendResponse).catch((error) => {
     sendResponse({ error: error.code || error.message || "auth/unknown" });
   });

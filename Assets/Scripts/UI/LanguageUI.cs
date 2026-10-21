@@ -70,6 +70,7 @@ public sealed partial class WordfallPrototype
         if (homeHubProfileLabelText != null) homeHubProfileLabelText.text = korean ? "\uD504\uB85C\uD544 \uC218\uC815" : "PROFILE";
         if (homeHubPrivacyLabelText != null) homeHubPrivacyLabelText.text = korean ? "\uAC1C\uC778\uC815\uBCF4" : "PRIVACY";
         if (homeHubWithdrawLabelText != null) homeHubWithdrawLabelText.text = korean ? "\uD68C\uC6D0 \uD0C8\uD1F4" : "WITHDRAW";
+        SetButtonText(homeHubLogoutButton, korean ? "\uB85C\uADF8\uC544\uC6C3" : "LOG OUT");
         SetButtonText(myPageCloseButton, korean ? "\uB2EB\uAE30" : "CLOSE");
         SetButtonText(myPageShopButton, korean ? "\uC0C1\uC810" : "SHOP");
         SetButtonText(myPageProfileButton, korean ? "\uD504\uB85C\uD544 \uC218\uC815" : "EDIT PROFILE");

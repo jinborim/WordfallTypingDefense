@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, signInAnonymously } from "firebase/auth/web-extension";
+import { getAuth, signInAnonymously, signOut } from "firebase/auth/web-extension";
 import { doc, getFirestore, runTransaction, serverTimestamp } from "firebase/firestore";
 import { firebaseConfig } from "./firebase-config.js";
 
@@ -37,6 +37,11 @@ async function signInGoogle() {
   return await chrome.runtime.sendMessage({ target: "offscreen", action: "google" });
 }
 
+async function signOutUser() {
+  await signOut(auth);
+  return { signedOut: true };
+}
+
 function nicknameDocumentId(nickname) {
   return encodeURIComponent(nickname.trim().toLowerCase());
 }
@@ -66,7 +71,9 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     ? signInGuest()
     : message.action === "google"
       ? signInGoogle()
-      : reserveNickname(message.nickname, message.oldNickname, message.uid).then((available) => ({ available }));
+      : message.action === "logout"
+        ? signOutUser()
+        : reserveNickname(message.nickname, message.oldNickname, message.uid).then((available) => ({ available }));
   task.then(sendResponse).catch((error) => {
     sendResponse({ error: error.code || error.message || "auth/unknown" });
   });
