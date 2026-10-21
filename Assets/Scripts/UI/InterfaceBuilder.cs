@@ -419,6 +419,8 @@ public sealed partial class WordfallPrototype
         SetRect(privacyViewportObject.GetComponent<RectTransform>(), new Vector2(0.47f, 0.50f), new Vector2(0.47f, 0.50f), Vector2.zero, new Vector2(780f, 350f));
         var privacyViewport = privacyViewportObject.GetComponent<RectTransform>();
         privacyViewportObject.AddComponent<RectMask2D>();
+        var privacyMask = privacyViewportObject.AddComponent<Mask>();
+        privacyMask.showMaskGraphic = true;
         var privacyContentObject = new GameObject("PrivacyPolicyContent", typeof(RectTransform));
         privacyContentObject.transform.SetParent(privacyViewport, false);
         var privacyContent = privacyContentObject.GetComponent<RectTransform>();
