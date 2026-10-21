@@ -17,6 +17,8 @@ public sealed partial class WordfallPrototype
         var window = CreatePanel("PrivacyPolicyWindow_Runtime", privacyPanel.transform, new Color32(9, 18, 38, 252));
         SetRect(window.GetComponent<RectTransform>(), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(1000f, 600f));
         ApplyPixelShopWindow(window);
+        window.GetComponent<Image>().sprite = null;
+        window.GetComponent<Image>().color = Color.clear;
 
         privacyTitleText.transform.SetParent(window.transform, false);
         SetRect(privacyTitleText.rectTransform, new Vector2(0.5f, 0.88f), new Vector2(0.5f, 0.88f), Vector2.zero, new Vector2(900f, 48f));
@@ -24,6 +26,7 @@ public sealed partial class WordfallPrototype
 
         var viewportObject = CreatePanel("PrivacyPolicyViewport_Runtime", window.transform, new Color32(4, 12, 30, 245));
         SetRect(viewportObject.GetComponent<RectTransform>(), new Vector2(0.47f, 0.50f), new Vector2(0.47f, 0.50f), Vector2.zero, new Vector2(780f, 350f));
+        viewportObject.GetComponent<Image>().color = Color.clear;
         var viewport = viewportObject.GetComponent<RectTransform>();
         viewportObject.AddComponent<RectMask2D>();
         var privacyMask = viewportObject.AddComponent<Mask>();
