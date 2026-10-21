@@ -30,6 +30,8 @@ public sealed partial class WordfallPrototype
         ClearWords();
         mainPanel.SetActive(true);
         gamePanel.SetActive(false);
+        if (mainStartButton != null) mainStartButton.gameObject.SetActive(true);
+        if (languageOpenButton != null) languageOpenButton.gameObject.SetActive(true);
         if (setupPanel != null) setupPanel.SetActive(false);
         if (homeHubPanel != null) homeHubPanel.SetActive(false);
         if (loginPanel != null) loginPanel.SetActive(false);

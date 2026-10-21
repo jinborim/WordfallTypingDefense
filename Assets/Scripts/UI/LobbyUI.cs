@@ -13,6 +13,8 @@ public sealed partial class WordfallPrototype
         }
         mainPanel.SetActive(true);
         gamePanel.SetActive(false);
+        if (mainStartButton != null) mainStartButton.gameObject.SetActive(false);
+        if (languageOpenButton != null) languageOpenButton.gameObject.SetActive(false);
         if (!profileCreated)
         {
             ShowProfilePanel();
