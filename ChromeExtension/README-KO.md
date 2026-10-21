@@ -15,6 +15,8 @@ npm run build "C:\\경로\\UnityWebGL빌드폴더"
 
 Unity 빌드 폴더는 `ChromeExtension/game`으로 복사되고 `firebase-bridge.js`가 자동으로 연결됩니다.
 
+Firebase 설정은 `src/firebase-config.example.js`를 `src/firebase-config.js`로 복사한 뒤 로컬에서만 입력합니다. `firebase-config.js`와 생성된 `background.js`, `offscreen.js`는 Git에 커밋하지 않습니다.
+
 ## 3. Firebase 콘솔 설정
 
 Authentication > Sign-in method에서 Anonymous와 Google을 사용 설정합니다.

@@ -14,6 +14,12 @@ public static class FirebaseWebAuthBridge
 
     [DllImport("__Internal")]
     private static extern void WordfallFirebaseSignOut(string gameObjectName);
+
+    [DllImport("__Internal")]
+    private static extern void WordfallFirebaseLoadAnnouncements(string gameObjectName);
+
+    [DllImport("__Internal")]
+    private static extern void WordfallFirebaseLoadUpdateInfo(string gameObjectName);
 #endif
 
     public static void SignInAnonymously(string gameObjectName)
@@ -41,6 +47,20 @@ public static class FirebaseWebAuthBridge
     {
 #if UNITY_WEBGL && !UNITY_EDITOR
         WordfallFirebaseSignOut(gameObjectName);
+#endif
+    }
+
+    public static void LoadAnnouncements(string gameObjectName)
+    {
+#if UNITY_WEBGL && !UNITY_EDITOR
+        WordfallFirebaseLoadAnnouncements(gameObjectName);
+#endif
+    }
+
+    public static void LoadUpdateInfo(string gameObjectName)
+    {
+#if UNITY_WEBGL && !UNITY_EDITOR
+        WordfallFirebaseLoadUpdateInfo(gameObjectName);
 #endif
     }
 }

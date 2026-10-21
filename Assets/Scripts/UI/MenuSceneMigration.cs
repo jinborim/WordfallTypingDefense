@@ -10,6 +10,38 @@ public sealed partial class WordfallPrototype
         StyleLogoutLink(homeHubLogoutButton);
     }
 
+    private void EnsureLogoutConfirmPanel()
+    {
+        if (mainPanel == null || logoutConfirmPanel != null) return;
+
+        logoutConfirmPanel = CreatePanel("LogoutConfirmPanel_Runtime", mainPanel.transform, new Color32(9, 18, 38, 250));
+        SetRect(logoutConfirmPanel.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
+        ApplyPixelWindow(logoutConfirmPanel);
+        ApplyModalDim(logoutConfirmPanel);
+        logoutConfirmTitleText = CreateText("\uB85C\uADF8\uC544\uC6C3", logoutConfirmPanel.transform, 38, new Color32(255, 211, 94, 255), new Vector2(0.5f, 0.67f), new Vector2(0.5f, 0.67f));
+        logoutConfirmMessageText = CreateText("\uB85C\uADF8\uC544\uC6C3 \uD558\uC2DC\uACA0\uC2B5\uB2C8\uAE4C?", logoutConfirmPanel.transform, 19, new Color32(214, 222, 238, 255), new Vector2(0.5f, 0.49f), new Vector2(0.5f, 0.49f));
+        logoutConfirmMessageText.rectTransform.sizeDelta = new Vector2(760f, 60f);
+        logoutConfirmButton = CreateButton("\uD655\uC778", logoutConfirmPanel.transform, new Vector2(0.38f, 0.23f), new Vector2(190f, 58f), new Color32(149, 71, 92, 255));
+        logoutCancelButton = CreateButton("\uCDE8\uC18C", logoutConfirmPanel.transform, new Vector2(0.62f, 0.23f), new Vector2(190f, 58f), new Color32(67, 149, 255, 255));
+        logoutConfirmPanel.SetActive(false);
+    }
+
+    private void EnsureLobbyDialogueTypingControl()
+    {
+        if (lobbyChatPanel == null) return;
+        var dialogueButton = lobbyChatPanel.GetComponent<Button>();
+        if (dialogueButton == null)
+        {
+            dialogueButton = lobbyChatPanel.AddComponent<Button>();
+            dialogueButton.transition = Selectable.Transition.None;
+            dialogueButton.targetGraphic = lobbyChatPanel.GetComponent<Image>();
+        }
+
+        var panelImage = lobbyChatPanel.GetComponent<Image>();
+        if (panelImage != null) panelImage.raycastTarget = true;
+        if (lobbyChatMessageText != null) lobbyChatMessageText.raycastTarget = false;
+    }
+
     private void StyleLogoutLink(Button button)
     {
         if (button == null) return;

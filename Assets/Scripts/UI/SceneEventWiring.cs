@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public sealed partial class WordfallPrototype
 {
@@ -13,7 +14,7 @@ public sealed partial class WordfallPrototype
         homeHubProfileButton?.onClick.AddListener(ShowProfileEditFromHome);
         privacyButton?.onClick.AddListener(ShowPrivacyPanel);
         withdrawButton?.onClick.AddListener(ShowWithdrawConfirm);
-        homeHubLogoutButton?.onClick.AddListener(Logout);
+        homeHubLogoutButton?.onClick.AddListener(ShowLogoutConfirm);
         homeHubMenuToggleButton?.onClick.AddListener(ToggleHomeHubMenu);
         for (var i = 0; i < difficultyButtons.Length; i++) AddDifficultyListener(i);
         for (var i = 0; i < modeButtons.Length; i++)
@@ -23,6 +24,10 @@ public sealed partial class WordfallPrototype
         }
         startButton?.onClick.AddListener(StartGame);
         setupBackButton?.onClick.AddListener(CloseSetupPanel);
+        homeHubBgmButton?.onClick.AddListener(ToggleBgm);
+        homeHubSfxButton?.onClick.AddListener(ToggleSfx);
+        var dialogueButton = lobbyChatPanel != null ? lobbyChatPanel.GetComponent<Button>() : null;
+        dialogueButton?.onClick.AddListener(AdvanceLobbyDialogue);
         languageButtons?[0]?.onClick.AddListener(() => SelectLanguageAndClose(Language.Korean));
         languageButtons?[1]?.onClick.AddListener(() => SelectLanguageAndClose(Language.English));
         languageCloseButton?.onClick.AddListener(CloseLanguagePanel);
@@ -53,6 +58,8 @@ public sealed partial class WordfallPrototype
         privacyCloseButton?.onClick.AddListener(ClosePrivacyPanel);
         withdrawConfirmButton?.onClick.AddListener(ConfirmDeleteAccount);
         withdrawCancelButton?.onClick.AddListener(CloseWithdrawConfirm);
+        logoutConfirmButton?.onClick.AddListener(ConfirmLogout);
+        logoutCancelButton?.onClick.AddListener(CloseLogoutConfirm);
         guestLoginButton?.onClick.AddListener(LoginAsGuest);
         googleLoginButton?.onClick.AddListener(LoginWithGoogle);
         loginCloseButton?.onClick.AddListener(CloseLoginPanel);

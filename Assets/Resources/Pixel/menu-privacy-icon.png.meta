@@ -1,0 +1,689 @@
+fileFormatVersion: 2
+guid: da0797e7803fe6a49abcd3ae0f302429
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 6514094813314035917
+    second: menu-privacy-icon_0
+  - first:
+      213: -2403633469782814122
+    second: menu-privacy-icon_1
+  - first:
+      213: 1167108042558154041
+    second: menu-privacy-icon_2
+  - first:
+      213: -1530293916235501600
+    second: menu-privacy-icon_3
+  - first:
+      213: -6845475013983437306
+    second: menu-privacy-icon_4
+  - first:
+      213: -6637473043999857416
+    second: menu-privacy-icon_5
+  - first:
+      213: -5150054661777996500
+    second: menu-privacy-icon_6
+  - first:
+      213: -8141682706232078837
+    second: menu-privacy-icon_7
+  - first:
+      213: 9180173323212171815
+    second: menu-privacy-icon_8
+  - first:
+      213: 2976552700591675353
+    second: menu-privacy-icon_9
+  - first:
+      213: 351423160180797439
+    second: menu-privacy-icon_10
+  - first:
+      213: 1259059317429946393
+    second: menu-privacy-icon_11
+  - first:
+      213: 7420170027678150521
+    second: menu-privacy-icon_12
+  - first:
+      213: -7337175575495829126
+    second: menu-privacy-icon_13
+  - first:
+      213: 1981765099809017710
+    second: menu-privacy-icon_14
+  - first:
+      213: -5038867392505173987
+    second: menu-privacy-icon_15
+  - first:
+      213: -6760442123876263010
+    second: menu-privacy-icon_16
+  - first:
+      213: -5373147321639083357
+    second: menu-privacy-icon_17
+  - first:
+      213: 4829542167637825414
+    second: menu-privacy-icon_18
+  - first:
+      213: 5163617990378219471
+    second: menu-privacy-icon_19
+  - first:
+      213: -5354776121986795677
+    second: menu-privacy-icon_20
+  - first:
+      213: -3252269711738726450
+    second: menu-privacy-icon_21
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: menu-privacy-icon_0
+      rect:
+        serializedVersion: 2
+        x: 502
+        y: 1211
+        width: 86
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dc03cc438b6b66a50800000000000000
+      internalID: 6514094813314035917
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-privacy-icon_1
+      rect:
+        serializedVersion: 2
+        x: 806
+        y: 1245
+        width: 13
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6521b5f181494aed0800000000000000
+      internalID: -2403633469782814122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-privacy-icon_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 1225
+        height: 1212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9352e23c496623010800000000000000
+      internalID: 1167108042558154041
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-privacy-icon_3
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 1189
+        width: 21
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0ef67d08acd43cae0800000000000000
+      internalID: -1530293916235501600
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-privacy-icon_4
+      rect:
+        serializedVersion: 2
+        x: 398
+        y: 1207
+        width: 85
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 60e74b06ebcfff0a0800000000000000
+      internalID: -6845475013983437306
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-privacy-icon_5
+      rect:
+        serializedVersion: 2
+        x: 689
+        y: 1205
+        width: 134
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8f4682eee65f2e3a0800000000000000
+      internalID: -6637473043999857416
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-privacy-icon_6
+      rect:
+        serializedVersion: 2
+        x: 842
+        y: 1189
+        width: 21
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c25c0ee32945788b0800000000000000
+      internalID: -5150054661777996500
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-privacy-icon_7
+      rect:
+        serializedVersion: 2
+        x: 587
+        y: 1181
+        width: 13
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b0e881517bee20f80800000000000000
+      internalID: -8141682706232078837
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-privacy-icon_8
+      rect:
+        serializedVersion: 2
+        x: 828
+        y: 1189
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 72a2492bff6866f70800000000000000
+      internalID: 9180173323212171815
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-privacy-icon_9
+      rect:
+        serializedVersion: 2
+        x: 834
+        y: 1189
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d71ff529e6de4920800000000000000
+      internalID: 2976552700591675353
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-privacy-icon_10
+      rect:
+        serializedVersion: 2
+        x: 1123
+        y: 1036
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fffeb64908180e400800000000000000
+      internalID: 351423160180797439
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-privacy-icon_11
+      rect:
+        serializedVersion: 2
+        x: 1131
+        y: 1036
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 918ce8647c3197110800000000000000
+      internalID: 1259059317429946393
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-privacy-icon_12
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 917
+        width: 43
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 97fa1c0935db9f660800000000000000
+      internalID: 7420170027678150521
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-privacy-icon_13
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 714
+        width: 65
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a7916e720bd1d2a90800000000000000
+      internalID: -7337175575495829126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-privacy-icon_14
+      rect:
+        serializedVersion: 2
+        x: 1139
+        y: 242
+        width: 9
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e6f0262cbd4a08b10800000000000000
+      internalID: 1981765099809017710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-privacy-icon_15
+      rect:
+        serializedVersion: 2
+        x: 498
+        y: 79
+        width: 32
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d182e67bdc8521ab0800000000000000
+      internalID: -5038867392505173987
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-privacy-icon_16
+      rect:
+        serializedVersion: 2
+        x: 547
+        y: 79
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e9b94c9e4b51e22a0800000000000000
+      internalID: -6760442123876263010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-privacy-icon_17
+      rect:
+        serializedVersion: 2
+        x: 533
+        y: 53
+        width: 21
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a26cd7aafebe65b0800000000000000
+      internalID: -5373147321639083357
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-privacy-icon_18
+      rect:
+        serializedVersion: 2
+        x: 559
+        y: 47
+        width: 13
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 68792d1730bf50340800000000000000
+      internalID: 4829542167637825414
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-privacy-icon_19
+      rect:
+        serializedVersion: 2
+        x: 770
+        y: 53
+        width: 11
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc76f48443bd8a740800000000000000
+      internalID: 5163617990378219471
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-privacy-icon_20
+      rect:
+        serializedVersion: 2
+        x: 502
+        y: 32
+        width: 6
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 367bb35ec7300b5b0800000000000000
+      internalID: -5354776121986795677
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-privacy-icon_21
+      rect:
+        serializedVersion: 2
+        x: 504
+        y: 29
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ec71d0eaded9dd2d0800000000000000
+      internalID: -3252269711738726450
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      menu-privacy-icon_0: 6514094813314035917
+      menu-privacy-icon_1: -2403633469782814122
+      menu-privacy-icon_10: 351423160180797439
+      menu-privacy-icon_11: 1259059317429946393
+      menu-privacy-icon_12: 7420170027678150521
+      menu-privacy-icon_13: -7337175575495829126
+      menu-privacy-icon_14: 1981765099809017710
+      menu-privacy-icon_15: -5038867392505173987
+      menu-privacy-icon_16: -6760442123876263010
+      menu-privacy-icon_17: -5373147321639083357
+      menu-privacy-icon_18: 4829542167637825414
+      menu-privacy-icon_19: 5163617990378219471
+      menu-privacy-icon_2: 1167108042558154041
+      menu-privacy-icon_20: -5354776121986795677
+      menu-privacy-icon_21: -3252269711738726450
+      menu-privacy-icon_3: -1530293916235501600
+      menu-privacy-icon_4: -6845475013983437306
+      menu-privacy-icon_5: -6637473043999857416
+      menu-privacy-icon_6: -5150054661777996500
+      menu-privacy-icon_7: -8141682706232078837
+      menu-privacy-icon_8: 9180173323212171815
+      menu-privacy-icon_9: 2976552700591675353
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

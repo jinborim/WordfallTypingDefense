@@ -101,6 +101,42 @@ public sealed partial class WordfallPrototype
         return button;
     }
 
+    private Button CreateIconButton(string name, Transform parent, string resourcePath, Vector2 anchor, Vector2 size)
+    {
+        var objectToCreate = new GameObject(name, typeof(RectTransform), typeof(Image), typeof(Button));
+        objectToCreate.transform.SetParent(parent, false);
+        var image = objectToCreate.GetComponent<Image>();
+        SetIconButtonSprite(objectToCreate.GetComponent<Button>(), resourcePath);
+        image.raycastTarget = true;
+
+        var button = objectToCreate.GetComponent<Button>();
+        button.transition = Selectable.Transition.ColorTint;
+        var colors = button.colors;
+        colors.normalColor = Color.white;
+        colors.highlightedColor = new Color32(190, 240, 255, 255);
+        colors.pressedColor = new Color32(130, 190, 235, 255);
+        colors.selectedColor = Color.white;
+        colors.disabledColor = new Color32(100, 120, 150, 150);
+        button.colors = colors;
+        button.navigation = new Navigation { mode = Navigation.Mode.None };
+        SetRect(objectToCreate.GetComponent<RectTransform>(), anchor, anchor, Vector2.zero, size);
+        return button;
+    }
+
+    private void SetIconButtonSprite(Button button, string resourcePath)
+    {
+        if (button == null) return;
+        var image = button.GetComponent<Image>();
+        if (image == null) return;
+        var texture = Resources.Load<Texture2D>(resourcePath);
+        if (texture == null) return;
+        texture.filterMode = FilterMode.Point;
+        texture.wrapMode = TextureWrapMode.Clamp;
+        image.sprite = Sprite.Create(texture, new Rect(0f, 0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100f);
+        image.preserveAspect = true;
+        image.color = Color.white;
+    }
+
     private static void SetRect(RectTransform rect, Vector2 anchorMin, Vector2 anchorMax, Vector2 position, Vector2 size)
     {
         rect.anchorMin = anchorMin;

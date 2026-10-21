@@ -6,6 +6,9 @@ public sealed partial class WordfallPrototype
     {
         if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name != "GameScene")
         {
+            SceneTransitionState.RequestedMode = gameMode;
+            SceneTransitionState.RequestedDifficulty = difficulty;
+            SceneTransitionState.RequestedLanguage = language;
             SceneTransitionState.StartGameRequested = true;
             LoadGameScene();
             return;

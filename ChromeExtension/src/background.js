@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, signInAnonymously, signOut } from "firebase/auth/web-extension";
-import { doc, getFirestore, runTransaction, serverTimestamp } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, getFirestore, query, runTransaction, serverTimestamp, where } from "firebase/firestore";
 import { firebaseConfig } from "./firebase-config.js";
 
 const app = initializeApp(firebaseConfig);
@@ -63,6 +63,43 @@ async function reserveNickname(nickname, oldNickname, uid) {
   });
 }
 
+async function loadAnnouncements() {
+  const snapshot = await getDocs(query(collection(db, "announcements"), where("isActive", "==", true)));
+  return snapshot.docs
+    .map((item) => {
+      const data = item.data() || {};
+      const publishedAt = data.publishedAt && typeof data.publishedAt.toMillis === "function"
+        ? data.publishedAt.toMillis()
+        : Number(data.publishedAt || 0);
+      return {
+        id: item.id,
+        title: String(data.title || ""),
+        body: String(data.body || ""),
+        language: String(data.language || "all").toLowerCase(),
+        isActive: data.isActive === true,
+        publishedAt: Number.isFinite(publishedAt) ? publishedAt : 0
+      };
+    })
+    .sort((a, b) => b.publishedAt - a.publishedAt);
+}
+
+async function loadUpdateInfo() {
+  const snapshot = await getDoc(doc(db, "appConfig", "update"));
+  if (!snapshot.exists()) return { available: false };
+
+  const data = snapshot.data() || {};
+  return {
+    available: data.isActive === true,
+    isActive: data.isActive === true,
+    version: String(data.version || ""),
+    message: String(data.message || ""),
+    messageKo: String(data.messageKo || ""),
+    messageEn: String(data.messageEn || ""),
+    downloadUrl: String(data.downloadUrl || ""),
+    forceUpdate: data.forceUpdate === true
+  };
+}
+
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message?.target === "offscreen") return false;
   if (message?.type !== "firebase-auth") return false;
@@ -73,6 +110,10 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       ? signInGoogle()
       : message.action === "logout"
         ? signOutUser()
+        : message.action === "announcements"
+          ? loadAnnouncements().then((items) => ({ items }))
+        : message.action === "update"
+          ? loadUpdateInfo()
         : reserveNickname(message.nickname, message.oldNickname, message.uid).then((available) => ({ available }));
   task.then(sendResponse).catch((error) => {
     sendResponse({ error: error.code || error.message || "auth/unknown" });

@@ -43,6 +43,7 @@ public sealed partial class WordfallPrototype
         if (announcementPanel != null) announcementPanel.SetActive(false);
         if (privacyPanel != null) privacyPanel.SetActive(false);
         if (withdrawConfirmPanel != null) withdrawConfirmPanel.SetActive(false);
+        if (logoutConfirmPanel != null) logoutConfirmPanel.SetActive(false);
         if (insufficientCoinsPanel != null) insufficientCoinsPanel.SetActive(false);
         if (attendancePanel != null) attendancePanel.SetActive(false);
         if (updatePanel != null) updatePanel.SetActive(false);
@@ -69,7 +70,7 @@ public sealed partial class WordfallPrototype
         // 해커와 같은 전신 표시 영역 안에서 자연스럽게 보이도록 합니다.
         homeHubCharacterImage.preserveAspect = true;
         characterRect.sizeDelta = new Vector2(188f, 308f);
-        characterRect.anchoredPosition = new Vector2(0f, -26f);
+        characterRect.pivot = new Vector2(0.5f, 0.5f);
     }
 
     private void ShowMyPage()

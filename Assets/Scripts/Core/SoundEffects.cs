@@ -2,6 +2,12 @@ using UnityEngine;
 
 public sealed partial class WordfallPrototype
 {
+    private const string BgmEnabledKey = "Wordfall.BgmEnabled";
+    private const string SfxEnabledKey = "Wordfall.SfxEnabled";
+    private bool bgmEnabled = true;
+    private bool sfxEnabled = true;
+    private bool bgmPlaybackUnlocked;
+
     private enum SoundEffect
     {
         UiClick,
@@ -13,6 +19,9 @@ public sealed partial class WordfallPrototype
 
     private void InitializeSoundEffects()
     {
+        EnsureAudioListener();
+        bgmEnabled = PlayerPrefs.GetInt(BgmEnabledKey, 1) == 1;
+        sfxEnabled = PlayerPrefs.GetInt(SfxEnabledKey, 1) == 1;
         sfxSource = gameObject.GetComponent<AudioSource>();
         if (sfxSource == null) sfxSource = gameObject.AddComponent<AudioSource>();
         sfxSource.playOnAwake = false;
@@ -24,13 +33,33 @@ public sealed partial class WordfallPrototype
         wrongSound = CreateTone("Wrong", 150f, 0.16f, 0.25f, true);
         successSound = CreateTone("Success", 1046f, 0.24f, 0.22f, false);
         gameOverSound = CreateTone("Game Over", 220f, 0.42f, 0.24f, true);
-        lobbyMusic = CreateMusic("Lobby Music", 112f, new[] { 57, 60, 62, 65, 62, 60, 57, 55, 57, 60, 62, 67, 65, 62, 60, 57 });
-        gameMusic = CreateMusic("Game Music", 128f, new[] { 45, 45, 48, 50, 45, 45, 52, 50, 45, 45, 48, 53, 50, 48, 45, 43 });
+        lobbyMusic = Resources.Load<AudioClip>("Audio/lobby-music");
+        if (lobbyMusic == null)
+            lobbyMusic = CreateMusic("Lobby Music Fallback", 112f, new[] { 57, 60, 62, 65, 62, 60, 57, 55, 57, 60, 62, 67, 65, 62, 60, 57 });
+        gameMusic = Resources.Load<AudioClip>("Audio/game-music");
+        if (gameMusic == null)
+            gameMusic = CreateMusic("Game Music Fallback", 128f, new[] { 45, 45, 48, 50, 45, 45, 52, 50, 45, 45, 48, 53, 50, 48, 45, 43 });
 
         bgmSource = gameObject.AddComponent<AudioSource>();
         bgmSource.playOnAwake = false;
         bgmSource.loop = true;
-        bgmSource.volume = 0.22f;
+        bgmSource.volume = 0.38f;
+        ApplyAudioSettings();
+    }
+
+    private void EnsureAudioListener()
+    {
+        if (FindFirstObjectByType<AudioListener>() != null) return;
+
+        var camera = Camera.main;
+        if (camera == null) camera = FindFirstObjectByType<Camera>();
+        if (camera != null)
+        {
+            camera.gameObject.AddComponent<AudioListener>();
+            return;
+        }
+
+        gameObject.AddComponent<AudioListener>();
     }
 
     private AudioClip CreateTone(string name, float frequency, float duration, float volume, bool descending)
@@ -52,7 +81,8 @@ public sealed partial class WordfallPrototype
 
     private void PlaySoundEffect(SoundEffect effect)
     {
-        if (sfxSource == null) return;
+        TryStartCurrentMusic();
+        if (!sfxEnabled || sfxSource == null) return;
         AudioClip clip = effect == SoundEffect.UiClick ? uiClickSound
             : effect == SoundEffect.Correct ? correctSound
             : effect == SoundEffect.Wrong ? wrongSound
@@ -115,8 +145,69 @@ public sealed partial class WordfallPrototype
     private void PlayMusic(AudioClip clip)
     {
         if (bgmSource == null || clip == null) return;
+        if (!bgmEnabled)
+        {
+            bgmSource.Stop();
+            return;
+        }
         if (bgmSource.clip == clip && bgmSource.isPlaying) return;
         bgmSource.clip = clip;
         bgmSource.Play();
+    }
+
+    private void TryStartCurrentMusic()
+    {
+        if (!bgmEnabled || bgmSource == null || bgmPlaybackUnlocked) return;
+        var sceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+        if (sceneName == "GameScene") PlayGameMusic();
+        else PlayLobbyMusic();
+        bgmSource.mute = false;
+        bgmSource.Play();
+        bgmPlaybackUnlocked = true;
+    }
+
+    private void ApplyAudioSettings()
+    {
+        if (sfxSource != null) sfxSource.mute = !sfxEnabled;
+        if (bgmSource != null)
+        {
+            bgmSource.mute = !bgmEnabled;
+            if (!bgmEnabled) bgmSource.Stop();
+        }
+    }
+
+    private void ToggleBgm()
+    {
+        bgmEnabled = !bgmEnabled;
+        PlayerPrefs.SetInt(BgmEnabledKey, bgmEnabled ? 1 : 0);
+        PlayerPrefs.Save();
+        ApplyAudioSettings();
+        if (bgmEnabled)
+        {
+            var sceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+            if (sceneName == "GameScene") PlayGameMusic();
+            else PlayLobbyMusic();
+        }
+        UpdateAudioToggleText();
+    }
+
+    private void ToggleSfx()
+    {
+        sfxEnabled = !sfxEnabled;
+        PlayerPrefs.SetInt(SfxEnabledKey, sfxEnabled ? 1 : 0);
+        PlayerPrefs.Save();
+        ApplyAudioSettings();
+        UpdateAudioToggleText();
+    }
+
+    private void UpdateAudioToggleText()
+    {
+        UpdateAudioToggleIcons();
+    }
+
+    private void UpdateAudioToggleIcons()
+    {
+        SetIconButtonSprite(homeHubBgmButton, bgmEnabled ? "Pixel/audio-on-icon" : "Pixel/audio-off-icon");
+        SetIconButtonSprite(homeHubSfxButton, sfxEnabled ? "Pixel/audio-on-icon" : "Pixel/audio-off-icon");
     }
 }

@@ -23,6 +23,8 @@
     signInAnonymously: function () { return request("guest"); },
     signInWithGoogle: function () { return request("google"); },
     signOut: function () { return request("logout"); },
+    getAnnouncements: function () { return request("announcements"); },
+    getUpdateInfo: function () { return request("update"); },
     checkNickname: function (nickname, oldNickname, uid) {
       return new Promise(function (resolve, reject) {
         chrome.runtime.sendMessage({

@@ -1,0 +1,1703 @@
+fileFormatVersion: 2
+guid: 9e22e8399d1762944a9b75beee6a0841
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -4874532280422923199
+    second: menu-mypage-icon_0
+  - first:
+      213: -1275056164143041521
+    second: menu-mypage-icon_1
+  - first:
+      213: -2459533122703932209
+    second: menu-mypage-icon_2
+  - first:
+      213: 2210869161692620224
+    second: menu-mypage-icon_3
+  - first:
+      213: 5949920389368670918
+    second: menu-mypage-icon_4
+  - first:
+      213: 4417826360419391164
+    second: menu-mypage-icon_5
+  - first:
+      213: -4619445801089410148
+    second: menu-mypage-icon_6
+  - first:
+      213: -3595674810619163093
+    second: menu-mypage-icon_7
+  - first:
+      213: 1091307830478783994
+    second: menu-mypage-icon_8
+  - first:
+      213: -7947131151022399051
+    second: menu-mypage-icon_9
+  - first:
+      213: -5233967354192189837
+    second: menu-mypage-icon_10
+  - first:
+      213: 3437202593002197003
+    second: menu-mypage-icon_11
+  - first:
+      213: 5953844433621002136
+    second: menu-mypage-icon_12
+  - first:
+      213: 8237001088089857493
+    second: menu-mypage-icon_13
+  - first:
+      213: 3932022117287703056
+    second: menu-mypage-icon_14
+  - first:
+      213: 5992005308280263628
+    second: menu-mypage-icon_15
+  - first:
+      213: 2962934040195850502
+    second: menu-mypage-icon_16
+  - first:
+      213: -2531818167304955900
+    second: menu-mypage-icon_17
+  - first:
+      213: 1761743297473686819
+    second: menu-mypage-icon_18
+  - first:
+      213: 3570880148055691721
+    second: menu-mypage-icon_19
+  - first:
+      213: 1872623286081719035
+    second: menu-mypage-icon_20
+  - first:
+      213: 7757366348473985807
+    second: menu-mypage-icon_21
+  - first:
+      213: -1733411037817113439
+    second: menu-mypage-icon_22
+  - first:
+      213: -1947844745581337050
+    second: menu-mypage-icon_23
+  - first:
+      213: -1818998957906343243
+    second: menu-mypage-icon_24
+  - first:
+      213: -4712543106809093505
+    second: menu-mypage-icon_25
+  - first:
+      213: -6370165320106521654
+    second: menu-mypage-icon_26
+  - first:
+      213: 2780001349411267285
+    second: menu-mypage-icon_27
+  - first:
+      213: 6435819556674412834
+    second: menu-mypage-icon_28
+  - first:
+      213: -658362648500660941
+    second: menu-mypage-icon_29
+  - first:
+      213: -4352062602116982735
+    second: menu-mypage-icon_30
+  - first:
+      213: 3207410081027106251
+    second: menu-mypage-icon_31
+  - first:
+      213: 8104652854960824702
+    second: menu-mypage-icon_32
+  - first:
+      213: 9068041247788637047
+    second: menu-mypage-icon_33
+  - first:
+      213: -2481359291000191759
+    second: menu-mypage-icon_34
+  - first:
+      213: -8203409693683279099
+    second: menu-mypage-icon_35
+  - first:
+      213: 2681738399786507447
+    second: menu-mypage-icon_36
+  - first:
+      213: -2547456405945475597
+    second: menu-mypage-icon_37
+  - first:
+      213: 1465530062118856334
+    second: menu-mypage-icon_38
+  - first:
+      213: 3319381263123529044
+    second: menu-mypage-icon_39
+  - first:
+      213: -6504976621324186223
+    second: menu-mypage-icon_40
+  - first:
+      213: -5759667913166257610
+    second: menu-mypage-icon_41
+  - first:
+      213: 4715550307446865432
+    second: menu-mypage-icon_42
+  - first:
+      213: 4640814852991004775
+    second: menu-mypage-icon_43
+  - first:
+      213: 1872696576031759236
+    second: menu-mypage-icon_44
+  - first:
+      213: -2543735362600316661
+    second: menu-mypage-icon_45
+  - first:
+      213: 1788536849675703175
+    second: menu-mypage-icon_46
+  - first:
+      213: 5438169576098110774
+    second: menu-mypage-icon_47
+  - first:
+      213: -612176959151774139
+    second: menu-mypage-icon_48
+  - first:
+      213: 4962929229815228572
+    second: menu-mypage-icon_49
+  - first:
+      213: -6079460000570550286
+    second: menu-mypage-icon_50
+  - first:
+      213: 4608518506009850830
+    second: menu-mypage-icon_51
+  - first:
+      213: -7374272846341377056
+    second: menu-mypage-icon_52
+  - first:
+      213: -6415776897050842005
+    second: menu-mypage-icon_53
+  - first:
+      213: 4415201187348628553
+    second: menu-mypage-icon_54
+  - first:
+      213: 932888260811605541
+    second: menu-mypage-icon_55
+  - first:
+      213: -7205011562924672859
+    second: menu-mypage-icon_56
+  - first:
+      213: 8021466438421527548
+    second: menu-mypage-icon_57
+  - first:
+      213: 2852572146449502195
+    second: menu-mypage-icon_58
+  - first:
+      213: 1338001503716697825
+    second: menu-mypage-icon_59
+  - first:
+      213: -1726638509932285378
+    second: menu-mypage-icon_60
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: menu-mypage-icon_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 23
+        width: 1213
+        height: 1215
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1448733a7be2a5cb0800000000000000
+      internalID: -4874532280422923199
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-mypage-icon_1
+      rect:
+        serializedVersion: 2
+        x: 595
+        y: 1229
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f04f49b9c271e4ee0800000000000000
+      internalID: -1275056164143041521
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-mypage-icon_2
+      rect:
+        serializedVersion: 2
+        x: 432
+        y: 1197
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc4cce3f7abfdddd0800000000000000
+      internalID: -2459533122703932209
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-mypage-icon_3
+      rect:
+        serializedVersion: 2
+        x: 657
+        y: 1203
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0c5ed83f9c59eae10800000000000000
+      internalID: 2210869161692620224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-mypage-icon_4
+      rect:
+        serializedVersion: 2
+        x: 667
+        y: 1175
+        width: 21
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6ca6c22f11d529250800000000000000
+      internalID: 5949920389368670918
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-mypage-icon_5
+      rect:
+        serializedVersion: 2
+        x: 685
+        y: 1164
+        width: 45
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cb6972c0ba54f4d30800000000000000
+      internalID: 4417826360419391164
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-mypage-icon_6
+      rect:
+        serializedVersion: 2
+        x: 729
+        y: 1162
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c9b55eec48e64efb0800000000000000
+      internalID: -4619445801089410148
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-mypage-icon_7
+      rect:
+        serializedVersion: 2
+        x: 980
+        y: 1142
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b2e89397fc8991ec0800000000000000
+      internalID: -3595674810619163093
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-mypage-icon_8
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 1116
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af54a4890ba152f00800000000000000
+      internalID: 1091307830478783994
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-mypage-icon_9
+      rect:
+        serializedVersion: 2
+        x: 987
+        y: 1075
+        width: 13
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b16ed7e25e16b190800000000000000
+      internalID: -7947131151022399051
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-mypage-icon_10
+      rect:
+        serializedVersion: 2
+        x: 1143
+        y: 996
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 376226f0c663d57b0800000000000000
+      internalID: -5233967354192189837
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-mypage-icon_11
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 921
+        width: 28
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b0092f81c8563bf20800000000000000
+      internalID: 3437202593002197003
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-mypage-icon_12
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 915
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 897aae1b7fd40a250800000000000000
+      internalID: 5953844433621002136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-mypage-icon_13
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 818
+        width: 60
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5dd1a1e19d4bf4270800000000000000
+      internalID: 8237001088089857493
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-mypage-icon_14
+      rect:
+        serializedVersion: 2
+        x: 1155
+        y: 875
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 012b9ed6849519630800000000000000
+      internalID: 3932022117287703056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-mypage-icon_15
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 783
+        width: 21
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc3dc44b411e72350800000000000000
+      internalID: 5992005308280263628
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-mypage-icon_16
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 803
+        width: 12
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 60169ceafc47e1920800000000000000
+      internalID: 2962934040195850502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-mypage-icon_17
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 771
+        width: 33
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 40858ed7acc2ddcd0800000000000000
+      internalID: -2531818167304955900
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-mypage-icon_18
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 789
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 32d2857e138f27810800000000000000
+      internalID: 1761743297473686819
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-mypage-icon_19
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 781
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c19a5843905e8130800000000000000
+      internalID: 3570880148055691721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-mypage-icon_20
+      rect:
+        serializedVersion: 2
+        x: 217
+        y: 207
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bfa860505f4ecf910800000000000000
+      internalID: 1872623286081719035
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-mypage-icon_21
+      rect:
+        serializedVersion: 2
+        x: 1017
+        y: 184
+        width: 17
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f0b6c59f793b7ab60800000000000000
+      internalID: 7757366348473985807
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-mypage-icon_22
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 194
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1a47b2958dfa1f7e0800000000000000
+      internalID: -1733411037817113439
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-mypage-icon_23
+      rect:
+        serializedVersion: 2
+        x: 229
+        y: 196
+        width: 11
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6266306268dd7f4e0800000000000000
+      internalID: -1947844745581337050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-mypage-icon_24
+      rect:
+        serializedVersion: 2
+        x: 1033
+        y: 190
+        width: 11
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5bacf23d51e91c6e0800000000000000
+      internalID: -1818998957906343243
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-mypage-icon_25
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 174
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f72ade1330fa99eb0800000000000000
+      internalID: -4712543106809093505
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-mypage-icon_26
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 164
+        width: 17
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: acbc9865460a897a0800000000000000
+      internalID: -6370165320106521654
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-mypage-icon_27
+      rect:
+        serializedVersion: 2
+        x: 631
+        y: 164
+        width: 11
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d2e3ca8f7c849620800000000000000
+      internalID: 2780001349411267285
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-mypage-icon_28
+      rect:
+        serializedVersion: 2
+        x: 641
+        y: 128
+        width: 47
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2212712d9cf905950800000000000000
+      internalID: 6435819556674412834
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-mypage-icon_29
+      rect:
+        serializedVersion: 2
+        x: 691
+        y: 176
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3359bbac8a60dd6f0800000000000000
+      internalID: -658362648500660941
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-mypage-icon_30
+      rect:
+        serializedVersion: 2
+        x: 719
+        y: 156
+        width: 18
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1381e802f1e5a93c0800000000000000
+      internalID: -4352062602116982735
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-mypage-icon_31
+      rect:
+        serializedVersion: 2
+        x: 277
+        y: 135
+        width: 32
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bc5a0a0a972038c20800000000000000
+      internalID: 3207410081027106251
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-mypage-icon_32
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 158
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e71abcfc4d2897070800000000000000
+      internalID: 8104652854960824702
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-mypage-icon_33
+      rect:
+        serializedVersion: 2
+        x: 506
+        y: 152
+        width: 12
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 77b1807687728dd70800000000000000
+      internalID: 9068041247788637047
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-mypage-icon_34
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 154
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1f481d32fd0709dd0800000000000000
+      internalID: -2481359291000191759
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-mypage-icon_35
+      rect:
+        serializedVersion: 2
+        x: 593
+        y: 158
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50b130dd852a72e80800000000000000
+      internalID: -8203409693683279099
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-mypage-icon_36
+      rect:
+        serializedVersion: 2
+        x: 736
+        y: 142
+        width: 22
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7bc9ccbbdd2773520800000000000000
+      internalID: 2681738399786507447
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-mypage-icon_37
+      rect:
+        serializedVersion: 2
+        x: 482
+        y: 127
+        width: 30
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3fd93d255ed95acd0800000000000000
+      internalID: -2547456405945475597
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-mypage-icon_38
+      rect:
+        serializedVersion: 2
+        x: 603
+        y: 144
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e862048a3db965410800000000000000
+      internalID: 1465530062118856334
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-mypage-icon_39
+      rect:
+        serializedVersion: 2
+        x: 752
+        y: 149
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 45db0960cafc01e20800000000000000
+      internalID: 3319381263123529044
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-mypage-icon_40
+      rect:
+        serializedVersion: 2
+        x: 762
+        y: 117
+        width: 27
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 19d40cd4a3ea9b5a0800000000000000
+      internalID: -6504976621324186223
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-mypage-icon_41
+      rect:
+        serializedVersion: 2
+        x: 946
+        y: 142
+        width: 16
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 632828b8c8c8110b0800000000000000
+      internalID: -5759667913166257610
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-mypage-icon_42
+      rect:
+        serializedVersion: 2
+        x: 1021
+        y: 144
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81ebad34500017140800000000000000
+      internalID: 4715550307446865432
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-mypage-icon_43
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 99
+        width: 56
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 760b2ec458c776040800000000000000
+      internalID: 4640814852991004775
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-mypage-icon_44
+      rect:
+        serializedVersion: 2
+        x: 358
+        y: 113
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 48b967a2d972df910800000000000000
+      internalID: 1872696576031759236
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-mypage-icon_45
+      rect:
+        serializedVersion: 2
+        x: 364
+        y: 111
+        width: 21
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b01db9d3a26d2bcd0800000000000000
+      internalID: -2543735362600316661
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-mypage-icon_46
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 93
+        width: 53
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 783dd98e9c822d810800000000000000
+      internalID: 1788536849675703175
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-mypage-icon_47
+      rect:
+        serializedVersion: 2
+        x: 653
+        y: 112
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63d1aa3ba62487b40800000000000000
+      internalID: 5438169576098110774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-mypage-icon_48
+      rect:
+        serializedVersion: 2
+        x: 667
+        y: 110
+        width: 7
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 54664129c4c1187f0800000000000000
+      internalID: -612176959151774139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-mypage-icon_49
+      rect:
+        serializedVersion: 2
+        x: 697
+        y: 111
+        width: 24
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c982a8cf6dddfd440800000000000000
+      internalID: 4962929229815228572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-mypage-icon_50
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 111
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f7dbcff65b61aba0800000000000000
+      internalID: -6079460000570550286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-mypage-icon_51
+      rect:
+        serializedVersion: 2
+        x: 810
+        y: 121
+        width: 9
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ec3f78b0a2fb4ff30800000000000000
+      internalID: 4608518506009850830
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-mypage-icon_52
+      rect:
+        serializedVersion: 2
+        x: 822
+        y: 122
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e37305bae159a990800000000000000
+      internalID: -7374272846341377056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-mypage-icon_53
+      rect:
+        serializedVersion: 2
+        x: 380
+        y: 90
+        width: 21
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b6c602587e496f6a0800000000000000
+      internalID: -6415776897050842005
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-mypage-icon_54
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 76
+        width: 16
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9444ccf4612f54d30800000000000000
+      internalID: 4415201187348628553
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-mypage-icon_55
+      rect:
+        serializedVersion: 2
+        x: 693
+        y: 97
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 526cec83ee842fc00800000000000000
+      internalID: 932888260811605541
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-mypage-icon_56
+      rect:
+        serializedVersion: 2
+        x: 796
+        y: 93
+        width: 13
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a8fa454828a20c90800000000000000
+      internalID: -7205011562924672859
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-mypage-icon_57
+      rect:
+        serializedVersion: 2
+        x: 824
+        y: 95
+        width: 19
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cfb35d7e939f15f60800000000000000
+      internalID: 8021466438421527548
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-mypage-icon_58
+      rect:
+        serializedVersion: 2
+        x: 522
+        y: 71
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3ffcb4de04f569720800000000000000
+      internalID: 2852572146449502195
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-mypage-icon_59
+      rect:
+        serializedVersion: 2
+        x: 536
+        y: 52
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e6e8f15749819210800000000000000
+      internalID: 1338001503716697825
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-mypage-icon_60
+      rect:
+        serializedVersion: 2
+        x: 646
+        y: 0
+        width: 16
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e32f9ff5c6fb908e0800000000000000
+      internalID: -1726638509932285378
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      menu-mypage-icon_0: -4874532280422923199
+      menu-mypage-icon_1: -1275056164143041521
+      menu-mypage-icon_10: -5233967354192189837
+      menu-mypage-icon_11: 3437202593002197003
+      menu-mypage-icon_12: 5953844433621002136
+      menu-mypage-icon_13: 8237001088089857493
+      menu-mypage-icon_14: 3932022117287703056
+      menu-mypage-icon_15: 5992005308280263628
+      menu-mypage-icon_16: 2962934040195850502
+      menu-mypage-icon_17: -2531818167304955900
+      menu-mypage-icon_18: 1761743297473686819
+      menu-mypage-icon_19: 3570880148055691721
+      menu-mypage-icon_2: -2459533122703932209
+      menu-mypage-icon_20: 1872623286081719035
+      menu-mypage-icon_21: 7757366348473985807
+      menu-mypage-icon_22: -1733411037817113439
+      menu-mypage-icon_23: -1947844745581337050
+      menu-mypage-icon_24: -1818998957906343243
+      menu-mypage-icon_25: -4712543106809093505
+      menu-mypage-icon_26: -6370165320106521654
+      menu-mypage-icon_27: 2780001349411267285
+      menu-mypage-icon_28: 6435819556674412834
+      menu-mypage-icon_29: -658362648500660941
+      menu-mypage-icon_3: 2210869161692620224
+      menu-mypage-icon_30: -4352062602116982735
+      menu-mypage-icon_31: 3207410081027106251
+      menu-mypage-icon_32: 8104652854960824702
+      menu-mypage-icon_33: 9068041247788637047
+      menu-mypage-icon_34: -2481359291000191759
+      menu-mypage-icon_35: -8203409693683279099
+      menu-mypage-icon_36: 2681738399786507447
+      menu-mypage-icon_37: -2547456405945475597
+      menu-mypage-icon_38: 1465530062118856334
+      menu-mypage-icon_39: 3319381263123529044
+      menu-mypage-icon_4: 5949920389368670918
+      menu-mypage-icon_40: -6504976621324186223
+      menu-mypage-icon_41: -5759667913166257610
+      menu-mypage-icon_42: 4715550307446865432
+      menu-mypage-icon_43: 4640814852991004775
+      menu-mypage-icon_44: 1872696576031759236
+      menu-mypage-icon_45: -2543735362600316661
+      menu-mypage-icon_46: 1788536849675703175
+      menu-mypage-icon_47: 5438169576098110774
+      menu-mypage-icon_48: -612176959151774139
+      menu-mypage-icon_49: 4962929229815228572
+      menu-mypage-icon_5: 4417826360419391164
+      menu-mypage-icon_50: -6079460000570550286
+      menu-mypage-icon_51: 4608518506009850830
+      menu-mypage-icon_52: -7374272846341377056
+      menu-mypage-icon_53: -6415776897050842005
+      menu-mypage-icon_54: 4415201187348628553
+      menu-mypage-icon_55: 932888260811605541
+      menu-mypage-icon_56: -7205011562924672859
+      menu-mypage-icon_57: 8021466438421527548
+      menu-mypage-icon_58: 2852572146449502195
+      menu-mypage-icon_59: 1338001503716697825
+      menu-mypage-icon_6: -4619445801089410148
+      menu-mypage-icon_60: -1726638509932285378
+      menu-mypage-icon_7: -3595674810619163093
+      menu-mypage-icon_8: 1091307830478783994
+      menu-mypage-icon_9: -7947131151022399051
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

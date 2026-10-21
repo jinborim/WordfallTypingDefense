@@ -1,0 +1,624 @@
+fileFormatVersion: 2
+guid: be89b9bd022e03d4fad3b1e3281d8f0c
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -4906786828221788707
+    second: audio-on-icon_0
+  - first:
+      213: 866586434913013185
+    second: audio-on-icon_1
+  - first:
+      213: 8757236869008786406
+    second: audio-on-icon_2
+  - first:
+      213: -6308660283062951184
+    second: audio-on-icon_3
+  - first:
+      213: -5996873681768511161
+    second: audio-on-icon_4
+  - first:
+      213: -4318081216270725913
+    second: audio-on-icon_5
+  - first:
+      213: 170581353879368076
+    second: audio-on-icon_6
+  - first:
+      213: 3280202168022809991
+    second: audio-on-icon_7
+  - first:
+      213: 502002052290142729
+    second: audio-on-icon_8
+  - first:
+      213: -6572413875514538737
+    second: audio-on-icon_9
+  - first:
+      213: -3355113610627092315
+    second: audio-on-icon_10
+  - first:
+      213: -6675983484066807169
+    second: audio-on-icon_11
+  - first:
+      213: -1540412872948518540
+    second: audio-on-icon_12
+  - first:
+      213: -8790024953413170340
+    second: audio-on-icon_13
+  - first:
+      213: 2141482725009557422
+    second: audio-on-icon_14
+  - first:
+      213: -8967844584489575500
+    second: audio-on-icon_15
+  - first:
+      213: 1611268521495536963
+    second: audio-on-icon_16
+  - first:
+      213: 8787120777454626208
+    second: audio-on-icon_17
+  - first:
+      213: 1274601178856307258
+    second: audio-on-icon_18
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: audio-on-icon_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 25
+        width: 992
+        height: 1182
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ddd4643806797ebb0800000000000000
+      internalID: -4906786828221788707
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: audio-on-icon_1
+      rect:
+        serializedVersion: 2
+        x: 637
+        y: 1054
+        width: 19
+        height: 158
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1cd892c65cbb60c00800000000000000
+      internalID: 866586434913013185
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: audio-on-icon_2
+      rect:
+        serializedVersion: 2
+        x: 954
+        y: 988
+        width: 225
+        height: 228
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e30937d884f78970800000000000000
+      internalID: 8757236869008786406
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: audio-on-icon_3
+      rect:
+        serializedVersion: 2
+        x: 963
+        y: 972
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f2ea63b5e22378a0800000000000000
+      internalID: -6308660283062951184
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: audio-on-icon_4
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 766
+        width: 22
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7498c43c823d6cca0800000000000000
+      internalID: -5996873681768511161
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: audio-on-icon_5
+      rect:
+        serializedVersion: 2
+        x: 117
+        y: 777
+        width: 11
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ec85e013081314c0800000000000000
+      internalID: -4318081216270725913
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: audio-on-icon_6
+      rect:
+        serializedVersion: 2
+        x: 923
+        y: 368
+        width: 143
+        height: 411
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c81f84b66d60e5200800000000000000
+      internalID: 170581353879368076
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: audio-on-icon_7
+      rect:
+        serializedVersion: 2
+        x: 1008
+        y: 88
+        width: 207
+        height: 841
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 78d37781e7e958d20800000000000000
+      internalID: 3280202168022809991
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: audio-on-icon_8
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 521
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9026543f43877f600800000000000000
+      internalID: 502002052290142729
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: audio-on-icon_9
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 487
+        width: 5
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f058b1107681ac4a0800000000000000
+      internalID: -6572413875514538737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: audio-on-icon_10
+      rect:
+        serializedVersion: 2
+        x: 354
+        y: 207
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a07e7182fd3071d0800000000000000
+      internalID: -3355113610627092315
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: audio-on-icon_11
+      rect:
+        serializedVersion: 2
+        x: 307
+        y: 160
+        width: 20
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f72c2d164642a53a0800000000000000
+      internalID: -6675983484066807169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: audio-on-icon_12
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 168
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 471f67c47aa5f9ae0800000000000000
+      internalID: -1540412872948518540
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: audio-on-icon_13
+      rect:
+        serializedVersion: 2
+        x: 932
+        y: 160
+        width: 16
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c5b0dfc50ee830680800000000000000
+      internalID: -8790024953413170340
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: audio-on-icon_14
+      rect:
+        serializedVersion: 2
+        x: 446
+        y: 136
+        width: 15
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea784dc313318bd10800000000000000
+      internalID: 2141482725009557422
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: audio-on-icon_15
+      rect:
+        serializedVersion: 2
+        x: 1007
+        y: 136
+        width: 17
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4bb96943dd0db8380800000000000000
+      internalID: -8967844584489575500
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: audio-on-icon_16
+      rect:
+        serializedVersion: 2
+        x: 916
+        y: 113
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 345a285fe206c5610800000000000000
+      internalID: 1611268521495536963
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: audio-on-icon_17
+      rect:
+        serializedVersion: 2
+        x: 979
+        y: 117
+        width: 11
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0a523aa7acf12f970800000000000000
+      internalID: 8787120777454626208
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: audio-on-icon_18
+      rect:
+        serializedVersion: 2
+        x: 643
+        y: 87
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a3a3600e40b40b110800000000000000
+      internalID: 1274601178856307258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      audio-on-icon_0: -4906786828221788707
+      audio-on-icon_1: 866586434913013185
+      audio-on-icon_10: -3355113610627092315
+      audio-on-icon_11: -6675983484066807169
+      audio-on-icon_12: -1540412872948518540
+      audio-on-icon_13: -8790024953413170340
+      audio-on-icon_14: 2141482725009557422
+      audio-on-icon_15: -8967844584489575500
+      audio-on-icon_16: 1611268521495536963
+      audio-on-icon_17: 8787120777454626208
+      audio-on-icon_18: 1274601178856307258
+      audio-on-icon_2: 8757236869008786406
+      audio-on-icon_3: -6308660283062951184
+      audio-on-icon_4: -5996873681768511161
+      audio-on-icon_5: -4318081216270725913
+      audio-on-icon_6: 170581353879368076
+      audio-on-icon_7: 3280202168022809991
+      audio-on-icon_8: 502002052290142729
+      audio-on-icon_9: -6572413875514538737
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

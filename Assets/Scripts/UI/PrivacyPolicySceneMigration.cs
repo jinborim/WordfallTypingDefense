@@ -29,8 +29,6 @@ public sealed partial class WordfallPrototype
         viewportObject.GetComponent<Image>().color = Color.clear;
         var viewport = viewportObject.GetComponent<RectTransform>();
         viewportObject.AddComponent<RectMask2D>();
-        var privacyMask = viewportObject.AddComponent<Mask>();
-        privacyMask.showMaskGraphic = true;
 
         var contentObject = new GameObject("PrivacyPolicyContent_Runtime", typeof(RectTransform));
         contentObject.transform.SetParent(viewport, false);
@@ -38,7 +36,10 @@ public sealed partial class WordfallPrototype
         SetRect(content, new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), Vector2.zero, new Vector2(760f, 1600f));
         content.pivot = new Vector2(0.5f, 1f);
 
-        privacyMessageText.transform.SetParent(content, false);
+        var scenePrivacyText = privacyMessageText;
+        privacyMessageText = CreateText(string.Empty, content, 15, new Color32(214, 222, 238, 255), new Vector2(0.5f, 1f), new Vector2(0.5f, 1f));
+        privacyMessageText.name = "PrivacyPolicyRuntimeText";
+        if (scenePrivacyText != null) scenePrivacyText.gameObject.SetActive(false);
         SetRect(privacyMessageText.rectTransform, new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), Vector2.zero, new Vector2(730f, 1540f));
         privacyMessageText.rectTransform.pivot = new Vector2(0.5f, 1f);
         privacyMessageText.alignment = TextAnchor.UpperCenter;

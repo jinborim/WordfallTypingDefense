@@ -90,8 +90,11 @@ public sealed partial class WordfallPrototype
 
     private void Logout()
     {
-        homeHubMenuOpen = false;
-        if (homeHubMenuPanel != null) homeHubMenuPanel.SetActive(false);
+        ShowLogoutConfirm();
+    }
+
+    private void ExecuteLogout()
+    {
 #if UNITY_WEBGL && !UNITY_EDITOR
         FirebaseWebAuthBridge.SignOut(gameObject.name);
 #else

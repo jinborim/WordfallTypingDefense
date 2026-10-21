@@ -65,5 +65,39 @@ mergeInto(LibraryManager.library, {
       .catch(function (error) {
         send('error|' + (error.code || error.message || 'signout'));
       });
+  },
+  WordfallFirebaseLoadAnnouncements: function (gameObjectNamePtr) {
+    var gameObjectName = UTF8ToString(gameObjectNamePtr);
+    var send = function (payload) {
+      SendMessage(gameObjectName, 'OnFirebaseAnnouncementsResult', payload);
+    };
+    if (!window.WordfallFirebaseAuth || !window.WordfallFirebaseAuth.getAnnouncements) {
+      send('{"ok":false,"error":"Firebase announcements bridge is not loaded"}');
+      return;
+    }
+    window.WordfallFirebaseAuth.getAnnouncements()
+      .then(function (result) {
+        send(JSON.stringify({ ok: true, items: result && result.items ? result.items : [] }));
+      })
+      .catch(function (error) {
+        send(JSON.stringify({ ok: false, error: error.code || error.message || 'announcements' }));
+      });
+  },
+  WordfallFirebaseLoadUpdateInfo: function (gameObjectNamePtr) {
+    var gameObjectName = UTF8ToString(gameObjectNamePtr);
+    var send = function (payload) {
+      SendMessage(gameObjectName, 'OnFirebaseUpdateInfoResult', payload);
+    };
+    if (!window.WordfallFirebaseAuth || !window.WordfallFirebaseAuth.getUpdateInfo) {
+      send('{"ok":false,"error":"Firebase update bridge is not loaded"}');
+      return;
+    }
+    window.WordfallFirebaseAuth.getUpdateInfo()
+      .then(function (result) {
+        send(JSON.stringify({ ok: true, update: result || {} }));
+      })
+      .catch(function (error) {
+        send(JSON.stringify({ ok: false, error: error.code || error.message || 'update' }));
+      });
   }
 });

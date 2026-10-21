@@ -38,6 +38,7 @@ public sealed partial class WordfallPrototype
 
     private void CloseHomeHub()
     {
+        StopLobbyDialogueTyping();
         if (lobbyChatPanel != null) lobbyChatPanel.SetActive(false);
         homeHubPanel.SetActive(false);
     }
@@ -45,11 +46,49 @@ public sealed partial class WordfallPrototype
     private void ShowLobbyDialogue()
     {
         if (lobbyChatPanel == null) return;
+        StopLobbyDialogueTyping();
         string[] dialogues = language == Language.Korean ? koreanLobbyDialogues : englishLobbyDialogues;
-        string dialogue = dialogues[lobbyDialogueIndex % dialogues.Length];
+        currentLobbyDialogue = dialogues[lobbyDialogueIndex % dialogues.Length];
         lobbyDialogueIndex++;
-        lobbyChatMessageText.text = dialogue;
         lobbyChatPanel.SetActive(true);
+        lobbyDialogueCoroutine = StartCoroutine(TypeLobbyDialogue(currentLobbyDialogue));
+    }
+
+    private IEnumerator TypeLobbyDialogue(string dialogue)
+    {
+        lobbyDialogueTyping = true;
+        lobbyChatMessageText.text = string.Empty;
+        for (int i = 0; i < dialogue.Length; i++)
+        {
+            lobbyChatMessageText.text += dialogue[i];
+            yield return new WaitForSecondsRealtime(0.035f);
+        }
+
+        lobbyDialogueTyping = false;
+        lobbyDialogueCoroutine = null;
+    }
+
+    private void AdvanceLobbyDialogue()
+    {
+        if (lobbyChatPanel == null || !lobbyChatPanel.activeSelf) return;
+        if (lobbyDialogueTyping)
+        {
+            StopLobbyDialogueTyping();
+            lobbyChatMessageText.text = currentLobbyDialogue;
+            return;
+        }
+
+        ShowLobbyDialogue();
+    }
+
+    private void StopLobbyDialogueTyping()
+    {
+        if (lobbyDialogueCoroutine != null)
+        {
+            StopCoroutine(lobbyDialogueCoroutine);
+            lobbyDialogueCoroutine = null;
+        }
+        lobbyDialogueTyping = false;
     }
 
     private void ToggleHomeHubMenu()

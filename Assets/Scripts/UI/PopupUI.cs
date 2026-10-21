@@ -66,11 +66,10 @@ public sealed partial class WordfallPrototype
         if (playing) return;
         homeHubPanel.SetActive(false);
         announcementTitleText.text = language == Language.Korean ? "\uACF5\uC9C0\uC0AC\uD56D" : "ANNOUNCEMENTS";
-        announcementMessageText.text = language == Language.Korean
-            ? "\uC0C8\uB85C\uC6B4 \uC18C\uC2DD\uC774 \uC788\uC2B5\uB2C8\uB2E4.\n\uACF5\uC9C0\uC0AC\uD56D\uC744 \uD655\uC778\uD574\uC8FC\uC138\uC694."
-            : "Welcome to Wordfall!\nCheck this panel for the latest news.";
+        announcementMessageText.text = language == Language.Korean ? "\uACF5\uC9C0\uC0AC\uD56D\uC744 \uBD88\uB7EC\uC624\uB294 \uC911..." : "Loading announcements...";
         SetButtonText(announcementCloseButton, language == Language.Korean ? "\uB2EB\uAE30" : "CLOSE");
         announcementPanel.SetActive(true);
+        LoadAnnouncements();
     }
 
     private void CloseAnnouncementPanel()
@@ -84,14 +83,27 @@ public sealed partial class WordfallPrototype
     private void ShowPrivacyPanel()
     {
         if (playing) return;
+        EnsurePrivacyPolicySceneLayout();
         privacyOpenedFromMainMenu = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "MainMenuScene";
         ApplyPrivacyPanelLayout();
         homeHubMenuPanel.SetActive(false);
         homeHubPanel.SetActive(false);
+        SetMainMenuOverlayContentVisible(false);
         if (mainStartButton != null) mainStartButton.gameObject.SetActive(false);
         if (languageOpenButton != null) languageOpenButton.gameObject.SetActive(false);
         privacyPanel.transform.SetAsLastSibling();
         privacyPanel.SetActive(true);
+    }
+
+    private void SetMainMenuOverlayContentVisible(bool visible)
+    {
+        if (titleText != null) titleText.gameObject.SetActive(visible);
+        if (subtitleText != null) subtitleText.gameObject.SetActive(visible);
+        if (descriptionText != null) descriptionText.gameObject.SetActive(visible);
+        if (profileSummaryText != null) profileSummaryText.gameObject.SetActive(visible);
+        if (mainPanel == null) return;
+        var logo = mainPanel.transform.Find("WordfallEnglishLogo");
+        if (logo != null) logo.gameObject.SetActive(visible);
     }
 
     private void ApplyPrivacyPanelLayout()
@@ -113,11 +125,33 @@ public sealed partial class WordfallPrototype
             rect.anchoredPosition = Vector2.zero;
             rect.sizeDelta = new Vector2(220f, 58f);
         }
-        if (privacyScrollRect != null) privacyScrollRect.verticalNormalizedPosition = 1f;
+        if (privacyScrollRect != null)
+        {
+            if (privacyMessageText != null && privacyMessageText.transform.parent != null)
+            {
+                var content = privacyMessageText.transform.parent.GetComponent<RectTransform>();
+                if (content != null)
+                {
+                    privacyScrollRect.content = content;
+                    privacyScrollRect.vertical = true;
+                    privacyScrollRect.horizontal = false;
+                }
+            }
+            privacyScrollRect.verticalNormalizedPosition = 1f;
+        }
         if (privacyMessageText != null)
         {
-            privacyMessageText.verticalOverflow = VerticalWrapMode.Truncate;
+            ApplyExpandedPrivacyPolicy(language == Language.Korean);
+            privacyMessageText.gameObject.SetActive(true);
+            privacyMessageText.color = new Color32(214, 222, 238, 255);
+            privacyMessageText.rectTransform.anchorMin = new Vector2(0.5f, 1f);
+            privacyMessageText.rectTransform.anchorMax = new Vector2(0.5f, 1f);
+            privacyMessageText.rectTransform.pivot = new Vector2(0.5f, 1f);
+            privacyMessageText.rectTransform.anchoredPosition = Vector2.zero;
+            privacyMessageText.rectTransform.sizeDelta = new Vector2(730f, 1540f);
+            privacyMessageText.verticalOverflow = VerticalWrapMode.Overflow;
             privacyMessageText.horizontalOverflow = HorizontalWrapMode.Wrap;
+            privacyMessageText.resizeTextForBestFit = false;
         }
     }
 
@@ -129,6 +163,7 @@ public sealed partial class WordfallPrototype
             if (mainStartButton != null) mainStartButton.gameObject.SetActive(true);
             if (languageOpenButton != null) languageOpenButton.gameObject.SetActive(true);
         }
+        SetMainMenuOverlayContentVisible(true);
         privacyOpenedFromMainMenu = false;
         ResetHomeHubMenuState();
         homeHubPanel.SetActive(true);
@@ -164,6 +199,35 @@ public sealed partial class WordfallPrototype
     {
         withdrawConfirmPanel.SetActive(false);
         DeleteAccount();
+    }
+
+    private void ShowLogoutConfirm()
+    {
+        if (playing) return;
+        ResetHomeHubMenuState();
+        if (homeHubPanel != null) homeHubPanel.SetActive(false);
+        if (logoutConfirmPanel != null) logoutConfirmPanel.SetActive(true);
+    }
+
+    private void CloseLogoutConfirm()
+    {
+        if (logoutConfirmPanel != null) logoutConfirmPanel.SetActive(false);
+        if (profileCreated)
+        {
+            ResetHomeHubMenuState();
+            if (homeHubPanel != null) homeHubPanel.SetActive(true);
+            ShowLobbyDialogue();
+        }
+        else
+        {
+            ShowMainMenu();
+        }
+    }
+
+    private void ConfirmLogout()
+    {
+        if (logoutConfirmPanel != null) logoutConfirmPanel.SetActive(false);
+        ExecuteLogout();
     }
 }
 

@@ -10,9 +10,13 @@ public sealed class UpdateChecker : MonoBehaviour
     [Serializable]
     public sealed class UpdateInfo
     {
+        public bool isActive;
         public string version;
         public string message;
+        public string messageKo;
+        public string messageEn;
         public string downloadUrl;
+        public bool forceUpdate;
     }
 
     public event Action<UpdateInfo> UpdateAvailable;
@@ -20,7 +24,37 @@ public sealed class UpdateChecker : MonoBehaviour
 
     private void Start()
     {
+#if UNITY_WEBGL && !UNITY_EDITOR
+        FirebaseWebAuthBridge.LoadUpdateInfo(gameObject.name);
+#else
         StartCoroutine(CheckForUpdate());
+#endif
+    }
+
+    [Serializable]
+    private sealed class FirebaseUpdatePayload
+    {
+        public bool ok;
+        public UpdateInfo update;
+    }
+
+    public void OnFirebaseUpdateInfoResult(string result)
+    {
+        if (string.IsNullOrWhiteSpace(result)) return;
+
+        try
+        {
+            var payload = JsonUtility.FromJson<FirebaseUpdatePayload>(result);
+            if (payload == null || !payload.ok || payload.update == null) return;
+            if (!payload.update.isActive) return;
+            if (string.IsNullOrWhiteSpace(payload.update.version)) return;
+            if (IsNewerVersion(payload.update.version, Application.version))
+                UpdateAvailable?.Invoke(payload.update);
+        }
+        catch (Exception)
+        {
+            // A malformed remote document must not prevent the game from starting.
+        }
     }
 
     private IEnumerator CheckForUpdate()

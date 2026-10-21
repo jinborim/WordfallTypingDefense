@@ -75,6 +75,8 @@ public sealed partial class WordfallPrototype
         shopCategory = Mathf.Clamp(category, 0, 2);
         if (shopTicketCard == null) return;
 
+        ApplyShopProductPositions();
+
         bool showProfiles = shopCategory == 0 || shopCategory == 1;
         bool showItems = shopCategory == 0 || shopCategory == 2;
         shopTicketCard.SetActive(showItems);
@@ -98,6 +100,50 @@ public sealed partial class WordfallPrototype
             shopScrollRect.horizontalNormalizedPosition = 0f;
             shopScrollRect.verticalNormalizedPosition = 1f;
         }
+    }
+
+    private void ApplyShopProductPositions()
+    {
+        bool profilesOnly = shopCategory == 1;
+        bool itemsOnly = shopCategory == 2;
+
+        SetShopProductPosition(shopTicketCard, itemsOnly ? 0.50f : 0.125f, 0.50f);
+        SetShopProductPosition(shopTicketImage, itemsOnly ? 0.50f : 0.125f, 0.72f);
+        SetShopProductPosition(nicknameTicketButton != null ? nicknameTicketButton.gameObject : null, itemsOnly ? 0.50f : 0.125f, 0.25f);
+
+        var firstProfileX = profilesOnly ? 0.25f : 0.375f;
+        var secondProfileX = profilesOnly ? 0.50f : 0.625f;
+        var thirdProfileX = profilesOnly ? 0.75f : 0.875f;
+        SetShopProductPosition(shopKnightCard, firstProfileX, 0.50f);
+        SetShopProductPosition(shopKnightImage, firstProfileX, 0.72f);
+        SetShopProductPosition(knightShopButton != null ? knightShopButton.gameObject : null, firstProfileX, 0.25f);
+        SetShopProductPosition(shopMageCard, secondProfileX, 0.50f);
+        SetShopProductPosition(shopMageImage, secondProfileX, 0.72f);
+        SetShopProductPosition(mageShopButton != null ? mageShopButton.gameObject : null, secondProfileX, 0.25f);
+        SetShopProductPosition(shopHackerCard, thirdProfileX, 0.50f);
+        SetShopProductPosition(shopHackerImage, thirdProfileX, 0.72f);
+        SetShopProductPosition(hackerShopButton != null ? hackerShopButton.gameObject : null, thirdProfileX, 0.25f);
+    }
+
+    private void SetShopProductPosition(Graphic graphic, float x, float y)
+    {
+        if (graphic == null) return;
+        SetShopProductPosition(graphic.rectTransform, x, y);
+    }
+
+    private void SetShopProductPosition(GameObject target, float x, float y)
+    {
+        if (target == null) return;
+        SetShopProductPosition(target.GetComponent<RectTransform>(), x, y);
+    }
+
+    private void SetShopProductPosition(RectTransform rect, float x, float y)
+    {
+        if (rect == null) return;
+        rect.anchorMin = new Vector2(x, y);
+        rect.anchorMax = new Vector2(x, y);
+        rect.anchoredPosition = Vector2.zero;
+        rect.pivot = new Vector2(0.5f, 0.5f);
     }
 
     private void SetCategoryButtonColor(Button button, bool selected)

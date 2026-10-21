@@ -51,8 +51,18 @@ public sealed partial class WordfallPrototype
         homeHubPanel = CreatePanel("HomeHubPanel", mainPanel.transform, new Color32(0, 0, 0, 0));
         SetRect(homeHubPanel.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
         ApplyPixelLobbyBackground(homeHubPanel);
+        CreateLobbyAmbientMotion(homeHubPanel);
         ApplyModalDim(homeHubPanel);
         homeHubTitleText = CreateText("\uB85C\uBE44", homeHubPanel.transform, 40, Color.white, new Vector2(0.5f, 0.87f), new Vector2(0.5f, 0.87f));
+        homeHubBgmButton = CreateIconButton("HomeHubBgmButton", homeHubPanel.transform, "Pixel/audio-on-icon", new Vector2(0.90f, 0.88f), new Vector2(58f, 58f));
+        homeHubSfxButton = CreateIconButton("HomeHubSfxButton", homeHubPanel.transform, "Pixel/audio-on-icon", new Vector2(0.96f, 0.88f), new Vector2(58f, 58f));
+        homeHubBgmLabelText = CreateText("\uBC30\uACBD\uC74C", homeHubPanel.transform, 14, new Color32(220, 230, 248, 255), new Vector2(0.90f, 0.79f), new Vector2(0.90f, 0.79f));
+        homeHubSfxLabelText = CreateText("\uD6A8\uACFC\uC74C", homeHubPanel.transform, 14, new Color32(220, 230, 248, 255), new Vector2(0.96f, 0.79f), new Vector2(0.96f, 0.79f));
+        homeHubBgmLabelText.rectTransform.sizeDelta = new Vector2(72f, 24f);
+        homeHubSfxLabelText.rectTransform.sizeDelta = new Vector2(72f, 24f);
+        ApplyLobbyAudioLayout();
+        homeHubBgmButton.onClick.AddListener(ToggleBgm);
+        homeHubSfxButton.onClick.AddListener(ToggleSfx);
         homeHubCharacterImage = CreateImage("HomeHubCharacter", homeHubPanel.transform, GetLobbyCharacterResourcePath(), new Vector2(0.5f, 0.42f), new Vector2(188f, 308f));
         homeHubCharacterImage.rectTransform.anchoredPosition = new Vector2(0f, -26f);
         homeHubCharacterImage.raycastTarget = false;
@@ -71,15 +81,21 @@ public sealed partial class WordfallPrototype
         homeHubStartButton.onClick.AddListener(ShowSetupPanel);
 
         lobbyChatPanel = CreatePanel("LobbyCharacterDialogue", homeHubPanel.transform, new Color32(9, 18, 38, 248));
-        SetRect(lobbyChatPanel.GetComponent<RectTransform>(), new Vector2(0.73f, 0.54f), new Vector2(0.73f, 0.54f), Vector2.zero, new Vector2(560f, 182f));
+        SetRect(lobbyChatPanel.GetComponent<RectTransform>(), new Vector2(0.73f, 0.58f), new Vector2(0.73f, 0.58f), Vector2.zero, new Vector2(560f, 182f));
         lobbyChatPanel.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);
         ApplyPixelLobbyDialogueWindow(lobbyChatPanel);
         lobbyChatPanel.GetComponent<Image>().raycastTarget = false;
+        var lobbyDialogueButton = lobbyChatPanel.AddComponent<Button>();
+        lobbyDialogueButton.transition = Selectable.Transition.None;
+        lobbyDialogueButton.targetGraphic = lobbyChatPanel.GetComponent<Image>();
+        lobbyDialogueButton.onClick.AddListener(AdvanceLobbyDialogue);
+        lobbyChatPanel.GetComponent<Image>().raycastTarget = true;
         lobbyChatMessageText = CreateText("", lobbyChatPanel.transform, 18, new Color32(255, 211, 94, 255), new Vector2(0.5f, 0.50f), new Vector2(0.5f, 0.50f));
-        SetRect(lobbyChatMessageText.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(448f, 96f));
+        SetRect(lobbyChatMessageText.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, 8f), new Vector2(448f, 96f));
         lobbyChatMessageText.rectTransform.pivot = new Vector2(0.5f, 0.5f);
-        lobbyChatMessageText.rectTransform.localPosition = Vector3.zero;
+        lobbyChatMessageText.rectTransform.localPosition = new Vector3(0f, 8f, 0f);
         lobbyChatMessageText.alignment = TextAnchor.MiddleCenter;
+        lobbyChatMessageText.raycastTarget = false;
         lobbyChatMessageText.horizontalOverflow = HorizontalWrapMode.Wrap;
         lobbyChatMessageText.verticalOverflow = VerticalWrapMode.Overflow;
         lobbyChatMessageText.resizeTextForBestFit = true;
@@ -110,7 +126,7 @@ public sealed partial class WordfallPrototype
         withdrawButton.onClick.AddListener(ShowWithdrawConfirm);
         homeHubLogoutButton = CreateButton("LOGOUT", homeHubMenuPanel.transform, new Vector2(0.50f, 0.18f), new Vector2(210f, 56f), new Color32(149, 71, 92, 255));
         StyleLogoutLink(homeHubLogoutButton);
-        homeHubLogoutButton.onClick.AddListener(Logout);
+        homeHubLogoutButton.onClick.AddListener(ShowLogoutConfirm);
         homeHubMenuToggleButton = CreateHamburgerButton("HomeHubMenuToggle", homeHubPanel.transform, new Vector2(0.04f, 0.50f), new Vector2(62f, 62f));
         var hamburgerIconTransform = homeHubMenuToggleButton.transform.Find("HomeHubMenuToggleIcon");
         homeHubHamburgerIcon = hamburgerIconTransform != null ? hamburgerIconTransform.GetComponent<Image>() : null;
@@ -422,8 +438,6 @@ public sealed partial class WordfallPrototype
         privacyViewportObject.GetComponent<Image>().color = Color.clear;
         var privacyViewport = privacyViewportObject.GetComponent<RectTransform>();
         privacyViewportObject.AddComponent<RectMask2D>();
-        var privacyMask = privacyViewportObject.AddComponent<Mask>();
-        privacyMask.showMaskGraphic = true;
         var privacyContentObject = new GameObject("PrivacyPolicyContent", typeof(RectTransform));
         privacyContentObject.transform.SetParent(privacyViewport, false);
         var privacyContent = privacyContentObject.GetComponent<RectTransform>();
@@ -485,6 +499,20 @@ public sealed partial class WordfallPrototype
         withdrawCancelButton = CreateButton("\uCDE8\uC18C", withdrawConfirmPanel.transform, new Vector2(0.62f, 0.23f), new Vector2(190f, 58f), new Color32(67, 149, 255, 255));
         withdrawCancelButton.onClick.AddListener(CloseWithdrawConfirm);
         withdrawConfirmPanel.SetActive(false);
+
+        logoutConfirmPanel = CreatePanel("LogoutConfirmPanel", mainPanel.transform, new Color32(9, 18, 38, 250));
+        SetRect(logoutConfirmPanel.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
+        ApplyPixelWindow(logoutConfirmPanel);
+        ApplyModalDim(logoutConfirmPanel);
+        logoutConfirmTitleText = CreateText("\uB85C\uADF8\uC544\uC6C3", logoutConfirmPanel.transform, 38, new Color32(255, 211, 94, 255), new Vector2(0.5f, 0.67f), new Vector2(0.5f, 0.67f));
+        logoutConfirmMessageText = CreateText("\uB85C\uADF8\uC544\uC6C3 \uD558\uC2DC\uACA0\uC2B5\uB2C8\uAE4C?", logoutConfirmPanel.transform, 19, new Color32(214, 222, 238, 255), new Vector2(0.5f, 0.49f), new Vector2(0.5f, 0.49f));
+        logoutConfirmMessageText.rectTransform.sizeDelta = new Vector2(760f, 60f);
+        logoutConfirmMessageText.alignment = TextAnchor.MiddleCenter;
+        logoutConfirmButton = CreateButton("\uD655\uC778", logoutConfirmPanel.transform, new Vector2(0.38f, 0.23f), new Vector2(190f, 58f), new Color32(149, 71, 92, 255));
+        logoutConfirmButton.onClick.AddListener(ConfirmLogout);
+        logoutCancelButton = CreateButton("\uCDE8\uC18C", logoutConfirmPanel.transform, new Vector2(0.62f, 0.23f), new Vector2(190f, 58f), new Color32(67, 149, 255, 255));
+        logoutCancelButton.onClick.AddListener(CloseLogoutConfirm);
+        logoutConfirmPanel.SetActive(false);
 
         updatePanel = CreatePanel("UpdatePanel", mainPanel.transform, new Color32(9, 18, 38, 250));
         SetRect(updatePanel.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);

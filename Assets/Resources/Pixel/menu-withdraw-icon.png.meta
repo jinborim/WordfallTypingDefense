@@ -1,0 +1,793 @@
+fileFormatVersion: 2
+guid: 859ee3034893ad14094c7da2bb67d7eb
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 6005210148265549290
+    second: menu-withdraw-icon_0
+  - first:
+      213: -2827151804375413756
+    second: menu-withdraw-icon_1
+  - first:
+      213: -2001614450334766361
+    second: menu-withdraw-icon_2
+  - first:
+      213: 5735119316105189026
+    second: menu-withdraw-icon_3
+  - first:
+      213: -2449592772536091546
+    second: menu-withdraw-icon_4
+  - first:
+      213: -7672426765296007338
+    second: menu-withdraw-icon_5
+  - first:
+      213: -2266437976418224949
+    second: menu-withdraw-icon_6
+  - first:
+      213: 1670493594531854167
+    second: menu-withdraw-icon_7
+  - first:
+      213: 991659313750546387
+    second: menu-withdraw-icon_8
+  - first:
+      213: 796022245442528539
+    second: menu-withdraw-icon_9
+  - first:
+      213: -1406816618347759157
+    second: menu-withdraw-icon_10
+  - first:
+      213: -1341353445717782088
+    second: menu-withdraw-icon_11
+  - first:
+      213: 2430793287824844633
+    second: menu-withdraw-icon_12
+  - first:
+      213: 7689483336895804887
+    second: menu-withdraw-icon_13
+  - first:
+      213: 4348838505480201264
+    second: menu-withdraw-icon_14
+  - first:
+      213: -4989646066012867915
+    second: menu-withdraw-icon_15
+  - first:
+      213: 1809285310837718700
+    second: menu-withdraw-icon_16
+  - first:
+      213: -7133087781247165151
+    second: menu-withdraw-icon_17
+  - first:
+      213: 1214731469695455747
+    second: menu-withdraw-icon_18
+  - first:
+      213: -7942286324732119608
+    second: menu-withdraw-icon_19
+  - first:
+      213: 7498972419225125752
+    second: menu-withdraw-icon_20
+  - first:
+      213: -5414460706666178443
+    second: menu-withdraw-icon_21
+  - first:
+      213: -1172538711445520703
+    second: menu-withdraw-icon_22
+  - first:
+      213: -3968996019854287732
+    second: menu-withdraw-icon_23
+  - first:
+      213: -4095428808485546323
+    second: menu-withdraw-icon_24
+  - first:
+      213: -240797245041052112
+    second: menu-withdraw-icon_25
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: menu-withdraw-icon_0
+      rect:
+        serializedVersion: 2
+        x: 876
+        y: 1193
+        width: 70
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aed50f810dac65350800000000000000
+      internalID: 6005210148265549290
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-withdraw-icon_1
+      rect:
+        serializedVersion: 2
+        x: 965
+        y: 1189
+        width: 45
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 40c491ea960f3c8d0800000000000000
+      internalID: -2827151804375413756
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-withdraw-icon_2
+      rect:
+        serializedVersion: 2
+        x: 1073
+        y: 1242
+        width: 13
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7eae18e2346d834e0800000000000000
+      internalID: -2001614450334766361
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-withdraw-icon_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 1237
+        height: 1232
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a65eecc1ac379f40800000000000000
+      internalID: 5735119316105189026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-withdraw-icon_4
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 1092
+        width: 70
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 66c3f941a5c410ed0800000000000000
+      internalID: -2449592772536091546
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-withdraw-icon_5
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 1162
+        width: 11
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6570559d180168590800000000000000
+      internalID: -7672426765296007338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-withdraw-icon_6
+      rect:
+        serializedVersion: 2
+        x: 1164
+        y: 1062
+        width: 23
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bc4f2262baefb80e0800000000000000
+      internalID: -2266437976418224949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-withdraw-icon_7
+      rect:
+        serializedVersion: 2
+        x: 1165
+        y: 1048
+        width: 20
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 757f2a5d219ce2710800000000000000
+      internalID: 1670493594531854167
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-withdraw-icon_8
+      rect:
+        serializedVersion: 2
+        x: 1220
+        y: 421
+        width: 11
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d71f4e44e413cd00800000000000000
+      internalID: 991659313750546387
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-withdraw-icon_9
+      rect:
+        serializedVersion: 2
+        x: 1230
+        y: 417
+        width: 7
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b1529e4c30a0c0b00800000000000000
+      internalID: 796022245442528539
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-withdraw-icon_10
+      rect:
+        serializedVersion: 2
+        x: 1234
+        y: 421
+        width: 12
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bc9f34f3dbbf97ce0800000000000000
+      internalID: -1406816618347759157
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-withdraw-icon_11
+      rect:
+        serializedVersion: 2
+        x: 1194
+        y: 392
+        width: 7
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8b1debdd52e826de0800000000000000
+      internalID: -1341353445717782088
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-withdraw-icon_12
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 314
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 957243bcd99ebb120800000000000000
+      internalID: 2430793287824844633
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-withdraw-icon_13
+      rect:
+        serializedVersion: 2
+        x: 1222
+        y: 138
+        width: 7
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d5b5f1ba5886ba60800000000000000
+      internalID: 7689483336895804887
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-withdraw-icon_14
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 63
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 03420b0649d2a5c30800000000000000
+      internalID: 4348838505480201264
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-withdraw-icon_15
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 49
+        width: 9
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b2b068d65731cab0800000000000000
+      internalID: -4989646066012867915
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-withdraw-icon_16
+      rect:
+        serializedVersion: 2
+        x: 190
+        y: 55
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cae70d9776fdb1910800000000000000
+      internalID: 1809285310837718700
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-withdraw-icon_17
+      rect:
+        serializedVersion: 2
+        x: 295
+        y: 50
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 12d5517a47e220d90800000000000000
+      internalID: -7133087781247165151
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-withdraw-icon_18
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 33
+        width: 19
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3029fa4f5d79bd010800000000000000
+      internalID: 1214731469695455747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-withdraw-icon_19
+      rect:
+        serializedVersion: 2
+        x: 297
+        y: 33
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8c536edeaa457c190800000000000000
+      internalID: -7942286324732119608
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-withdraw-icon_20
+      rect:
+        serializedVersion: 2
+        x: 217
+        y: 15
+        width: 7
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8738d5c1fa3b11860800000000000000
+      internalID: 7498972419225125752
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-withdraw-icon_21
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 13
+        width: 7
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5781ad0aca8fbd4b0800000000000000
+      internalID: -5414460706666178443
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-withdraw-icon_22
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 17
+        width: 10
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ce35ea114e4abfe0800000000000000
+      internalID: -1172538711445520703
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-withdraw-icon_23
+      rect:
+        serializedVersion: 2
+        x: 289
+        y: 9
+        width: 6
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c8c55a9062b4be8c0800000000000000
+      internalID: -3968996019854287732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-withdraw-icon_24
+      rect:
+        serializedVersion: 2
+        x: 938
+        y: 21
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: da6515b723d1a27c0800000000000000
+      internalID: -4095428808485546323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: menu-withdraw-icon_25
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 0
+        width: 35
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0367f627e2488acf0800000000000000
+      internalID: -240797245041052112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      menu-withdraw-icon_0: 6005210148265549290
+      menu-withdraw-icon_1: -2827151804375413756
+      menu-withdraw-icon_10: -1406816618347759157
+      menu-withdraw-icon_11: -1341353445717782088
+      menu-withdraw-icon_12: 2430793287824844633
+      menu-withdraw-icon_13: 7689483336895804887
+      menu-withdraw-icon_14: 4348838505480201264
+      menu-withdraw-icon_15: -4989646066012867915
+      menu-withdraw-icon_16: 1809285310837718700
+      menu-withdraw-icon_17: -7133087781247165151
+      menu-withdraw-icon_18: 1214731469695455747
+      menu-withdraw-icon_19: -7942286324732119608
+      menu-withdraw-icon_2: -2001614450334766361
+      menu-withdraw-icon_20: 7498972419225125752
+      menu-withdraw-icon_21: -5414460706666178443
+      menu-withdraw-icon_22: -1172538711445520703
+      menu-withdraw-icon_23: -3968996019854287732
+      menu-withdraw-icon_24: -4095428808485546323
+      menu-withdraw-icon_25: -240797245041052112
+      menu-withdraw-icon_3: 5735119316105189026
+      menu-withdraw-icon_4: -2449592772536091546
+      menu-withdraw-icon_5: -7672426765296007338
+      menu-withdraw-icon_6: -2266437976418224949
+      menu-withdraw-icon_7: 1670493594531854167
+      menu-withdraw-icon_8: 991659313750546387
+      menu-withdraw-icon_9: 796022245442528539
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

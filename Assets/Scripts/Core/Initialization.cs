@@ -28,6 +28,13 @@ public sealed partial class WordfallPrototype
         coins = playerDataManager.Data.coins;
         nicknameTickets = playerDataManager.Data.nicknameTickets;
         ownedCharacterMask = playerDataManager.Data.ownedCharacterMask;
+        if (!profileCreated)
+        {
+            // A new profile starts with no owned character; the character chosen
+            // during profile creation becomes the only initially owned character.
+            ownedCharacterMask = 0;
+            playerDataManager.Data.ownedCharacterMask = 0;
+        }
         authSignedIn = PlayerPrefs.GetInt("Wordfall.AuthSignedIn", 0) == 1;
         language = (Language)Mathf.Clamp(PlayerPrefs.GetInt(LanguagePreferenceKey, (int)language), 0, 1);
 
@@ -37,6 +44,11 @@ public sealed partial class WordfallPrototype
         {
             EnsurePrivacyPolicySceneLayout();
             EnsureHomeHubLogoutButton();
+            EnsureLogoutConfirmPanel();
+            EnsureLobbyDialogueTypingControl();
+            EnsureLobbyAudioButtons();
+            EnsureMainAmbientMotion();
+            EnsureLobbyAmbientMotion();
             WireSceneEvents();
         }
         SetLanguage(language);
@@ -56,6 +68,9 @@ public sealed partial class WordfallPrototype
         }
         else if (sceneName == "GameScene" && SceneTransitionState.StartGameRequested)
         {
+            gameMode = SceneTransitionState.RequestedMode;
+            difficulty = SceneTransitionState.RequestedDifficulty;
+            language = SceneTransitionState.RequestedLanguage;
             PlayGameMusic();
             SceneTransitionState.StartGameRequested = false;
             StartGame();

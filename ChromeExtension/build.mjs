@@ -7,6 +7,11 @@ import { fileURLToPath } from "node:url";
 const root = path.dirname(fileURLToPath(import.meta.url));
 const gameSource = process.argv[2] ? path.resolve(process.argv[2]) : null;
 const gameTarget = path.join(root, "game");
+const firebaseConfigPath = path.join(root, "src/firebase-config.js");
+
+if (!existsSync(firebaseConfigPath)) {
+  throw new Error("Missing ChromeExtension/src/firebase-config.js. Copy firebase-config.example.js to firebase-config.js and fill in your Firebase web config locally.");
+}
 
 await mkdir(root, { recursive: true });
 await build({ entryPoints: [path.join(root, "src/background.js")], bundle: true, format: "esm", platform: "browser", outfile: path.join(root, "background.js") });

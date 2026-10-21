@@ -23,6 +23,7 @@ public sealed partial class WordfallPrototype
         SetButtonText(homeHubStartButton, korean ? "\uAC8C\uC784 \uC2DC\uC791" : "START GAME");
         SetButtonText(startButton, korean ? "\uAC8C\uC784 \uC2DC\uC791" : "START GAME");
         SetButtonText(setupBackButton, korean ? "\uB4A4\uB85C" : "BACK");
+        UpdateAudioToggleText();
         SetButtonText(languageCloseButton, korean ? "\uB2EB\uAE30" : "CLOSE");
         SetButtonText(languageButtons != null && languageButtons.Length > 0 ? languageButtons[0] : null, korean ? "\uD55C\uAD6D\uC5B4" : "KOREAN");
         SetButtonText(languageButtons != null && languageButtons.Length > 1 ? languageButtons[1] : null, korean ? "\uC601\uC5B4" : "ENGLISH");
@@ -40,7 +41,9 @@ public sealed partial class WordfallPrototype
         SetButtonText(modeButtons != null && modeButtons.Length > 4 ? modeButtons[4] : null, korean ? "\uC624\uB298" : "DAILY");
 
         if (homeHubTitleText != null) homeHubTitleText.text = korean ? "\uB85C\uBE44" : "LOBBY";
-        if (homeHubPlayerText != null) homeHubPlayerText.text = korean ? "\uD50C\uB808\uC774\uC5B4" : "PLAYER";
+        if (homeHubBgmLabelText != null) homeHubBgmLabelText.text = korean ? "\uBC30\uACBD\uC74C" : "BGM";
+        if (homeHubSfxLabelText != null) homeHubSfxLabelText.text = korean ? "\uD6A8\uACFC\uC74C" : "SFX";
+        if (homeHubPlayerText != null) homeHubPlayerText.text = string.Empty;
         if (homeHubStartLabelText != null) homeHubStartLabelText.text = korean ? "\uAC8C\uC784 \uC2DC\uC791" : "START GAME";
         if (homeHubQuickStartLabelText != null) homeHubQuickStartLabelText.text = korean ? "\uBE60\uB978 \uC2DC\uC791" : "QUICK START";
         if (homeHubBackLabelText != null) homeHubBackLabelText.text = korean ? "\uB4A4\uB85C" : "BACK";
@@ -61,6 +64,8 @@ public sealed partial class WordfallPrototype
         if (withdrawMessageText != null) withdrawMessageText.text = korean
             ? "\uC815\uB9D0 \uD0C8\uD1F4\uD558\uC2DC\uACA0\uC2B5\uB2C8\uAE4C?\n\uC800\uC7A5\uB41C \uACC4\uC815 \uB370\uC774\uD130\uAC00 \uC0AD\uC81C\uB429\uB2C8\uB2E4."
             : "Are you sure you want to delete your account?\nAll saved account data will be deleted.";
+        if (logoutConfirmTitleText != null) logoutConfirmTitleText.text = korean ? "\uB85C\uADF8\uC544\uC6C3" : "LOG OUT";
+        if (logoutConfirmMessageText != null) logoutConfirmMessageText.text = korean ? "\uB85C\uADF8\uC544\uC6C3 \uD558\uC2DC\uACA0\uC2B5\uB2C8\uAE4C?" : "Do you want to log out?";
         if (profileTitleText != null) profileTitleText.text = korean ? "\uD504\uB85C\uD544 \uB9CC\uB4E4\uAE30" : "CREATE PLAYER";
         if (myPageTitleText != null) myPageTitleText.text = korean ? "\uB9C8\uC774\uD398\uC774\uC9C0" : "MY PAGE";
         if (shopTitleText != null) shopTitleText.text = korean ? "\uCF54\uC778 \uC0C1\uC810" : "COIN SHOP";
@@ -82,6 +87,8 @@ public sealed partial class WordfallPrototype
         SetButtonText(privacyCloseButton, korean ? "\uB2EB\uAE30" : "CLOSE");
         SetButtonText(withdrawConfirmButton, korean ? "\uD655\uC778" : "CONFIRM");
         SetButtonText(withdrawCancelButton, korean ? "\uCDE8\uC18C" : "CANCEL");
+        SetButtonText(logoutConfirmButton, korean ? "\uD655\uC778" : "CONFIRM");
+        SetButtonText(logoutCancelButton, korean ? "\uCDE8\uC18C" : "CANCEL");
         SetButtonText(updateLaterButton, korean ? "\uB098\uC911\uC5D0" : "LATER");
         SetButtonText(updateNowButton, korean ? "\uC5C5\uB370\uC774\uD2B8" : "UPDATE");
         if (inputPlaceholder != null) inputPlaceholder.text = korean ? "\uC5EC\uAE30\uC5D0 \uC785\uB825..." : "TYPE HERE...";

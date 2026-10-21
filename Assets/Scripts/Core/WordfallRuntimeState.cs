@@ -33,6 +33,7 @@ public sealed partial class WordfallPrototype
     private GameObject announcementPanel;
     private GameObject privacyPanel;
     private GameObject withdrawConfirmPanel;
+    private GameObject logoutConfirmPanel;
     private GameObject loginPanel;
     private AudioSource sfxSource;
     private AudioClip uiClickSound;
@@ -75,6 +76,9 @@ public sealed partial class WordfallPrototype
     private Text homeHubCoinText;
     private Text lobbyChatTitleText;
     private Text lobbyChatMessageText;
+    private Coroutine lobbyDialogueCoroutine;
+    private string currentLobbyDialogue = string.Empty;
+    private bool lobbyDialogueTyping;
     private Text homeHubStartLabelText;
     private Text homeHubMyPageLabelText;
     private Text homeHubQuickStartLabelText;
@@ -110,6 +114,8 @@ public sealed partial class WordfallPrototype
     private Text privacyMessageText;
     private Text withdrawTitleText;
     private Text withdrawMessageText;
+    private Text logoutConfirmTitleText;
+    private Text logoutConfirmMessageText;
     private InputField inputField;
     private RectTransform wordLayer;
     private Button[] difficultyButtons;
@@ -122,6 +128,10 @@ public sealed partial class WordfallPrototype
     private Button updateNowButton;
     private Button startButton;
     private Button setupBackButton;
+    private Button homeHubBgmButton;
+    private Button homeHubSfxButton;
+    private Text homeHubBgmLabelText;
+    private Text homeHubSfxLabelText;
     private Button homeHubStartButton;
     private Button homeHubMyPageButton;
     private Button homeHubLanguageButton;
@@ -158,6 +168,8 @@ public sealed partial class WordfallPrototype
     private Button privacyCloseButton;
     private Button withdrawConfirmButton;
     private Button withdrawCancelButton;
+    private Button logoutConfirmButton;
+    private Button logoutCancelButton;
     private Button guestLoginButton;
     private Button googleLoginButton;
     private Button loginCloseButton;

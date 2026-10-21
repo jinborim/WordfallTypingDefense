@@ -100,6 +100,7 @@ public sealed partial class WordfallPrototype
         profileCreated = true;
         ownedCharacterMask |= 1 << selectedCharacter;
         SaveShopData();
+        UpdateCharacterButtonStates();
         UpdateProfileSummary();
         profilePanel.SetActive(false);
         if (editingProfile)
@@ -197,9 +198,7 @@ public sealed partial class WordfallPrototype
         }
 
         string nickname = string.IsNullOrEmpty(playerDataManager.Data.nickname) ? "PLAYER" : playerDataManager.Data.nickname;
-        string summary = language == Language.Korean
-            ? "\uD50C\uB808\uC774\uC5B4 " + nickname + "  /  " + GetCharacterName()
-            : "PLAYER  " + nickname + "  /  " + GetCharacterName();
+        string summary = nickname + "  /  " + GetCharacterName();
         if (profileSummaryText != null) profileSummaryText.text = summary;
         if (homeHubPlayerText != null) homeHubPlayerText.text = summary;
     }

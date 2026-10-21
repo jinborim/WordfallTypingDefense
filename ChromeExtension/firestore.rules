@@ -12,5 +12,15 @@ service cloud.firestore {
       allow delete: if request.auth != null
         && resource.data.uid == request.auth.uid;
     }
+
+    match /announcements/{announcementId} {
+      allow read: if resource.data.isActive == true;
+      allow write: if false;
+    }
+
+    match /appConfig/{configId} {
+      allow read: if configId == "update" && resource.data.isActive == true;
+      allow write: if false;
+    }
   }
 }

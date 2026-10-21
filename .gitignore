@@ -74,6 +74,11 @@ ExportedObj/
 /ChromeExtension/node_modules/
 /ChromeExtension/game/
 /ChromeExtension/UnityWebGL/
+# Firebase configuration and generated extension bundles may contain public
+# project identifiers/API keys. Keep local config and generated bundles out of Git.
+/ChromeExtension/src/firebase-config.js
+/ChromeExtension/background.js
+/ChromeExtension/offscreen.js
 
 # Unity3D generated meta files
 *.pidb.meta
