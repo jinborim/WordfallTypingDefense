@@ -12,6 +12,7 @@ public sealed partial class WordfallPrototype
         homeHubShopButton?.onClick.AddListener(ShowShopFromHome);
         announcementButton?.onClick.AddListener(ShowAnnouncementPanel);
         homeHubProfileButton?.onClick.AddListener(ShowProfileEditFromHome);
+        homeHubLanguageButton?.onClick.AddListener(ShowLanguagePanel);
         privacyButton?.onClick.AddListener(ShowPrivacyPanel);
         withdrawButton?.onClick.AddListener(ShowWithdrawConfirm);
         homeHubLogoutButton?.onClick.AddListener(ShowLogoutConfirm);

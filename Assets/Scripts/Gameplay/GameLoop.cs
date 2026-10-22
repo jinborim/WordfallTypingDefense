@@ -40,6 +40,18 @@ public sealed partial class WordfallPrototype
                 SetCharacterEmotion(true);
                 Destroy(word.objectToDestroy);
                 fallingWords.RemoveAt(i);
+
+                // Time Attack is a score challenge for the full 60 seconds.
+                // Missing words resets the combo, but must not end the run
+                // early by consuming the normal-mode lives.
+                if (gameMode == GameMode.TimeAttack)
+                {
+                    combo = 0;
+                    statusText.text = language == Language.Korean ? "단어를 놓쳤습니다!" : "A word got through!";
+                    UpdateHud();
+                    continue;
+                }
+
                 if (word.type == WordType.Bomb)
                 {
                     lives -= 2;

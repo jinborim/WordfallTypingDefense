@@ -13,11 +13,14 @@ public sealed partial class WordfallPrototype
         languagePanel.SetActive(false);
         profilePanel.SetActive(false);
         homeHubMenuPanel.SetActive(false);
-        homeHubPanel.SetActive(true);
+        homeHubPanel.SetActive(false);
         myPagePanel.SetActive(false);
+        SetMainMenuOverlayContentVisible(false);
+        if (mainStartButton != null) mainStartButton.gameObject.SetActive(false);
+        if (languageOpenButton != null) languageOpenButton.gameObject.SetActive(false);
         ApplyShopLayout();
         UpdateShopText();
-        shopPanel.SetActive(true);
+        PreparePopupBackgroundOnly(shopPanel);
     }
 
     private void ShowShopFromHome()
@@ -25,9 +28,12 @@ public sealed partial class WordfallPrototype
         if (!profileCreated) return;
         shopOpenedFromMyPage = false;
         homeHubPanel.SetActive(false);
+        SetMainMenuOverlayContentVisible(false);
+        if (mainStartButton != null) mainStartButton.gameObject.SetActive(false);
+        if (languageOpenButton != null) languageOpenButton.gameObject.SetActive(false);
         ApplyShopLayout();
         UpdateShopText();
-        shopPanel.SetActive(true);
+        PreparePopupBackgroundOnly(shopPanel);
     }
 
     private void CloseShopPanel()
@@ -58,9 +64,15 @@ public sealed partial class WordfallPrototype
             SetRect(shopCoinText.rectTransform, new Vector2(0.5f, 0.81f), new Vector2(0.5f, 0.81f), Vector2.zero, new Vector2(700f, 34f));
             shopCoinText.alignment = TextAnchor.MiddleCenter;
         }
+        if (shopAllCategoryButton != null)
+            SetRect(shopAllCategoryButton.GetComponent<RectTransform>(), new Vector2(0.39f, 0.68f), new Vector2(0.39f, 0.68f), Vector2.zero, new Vector2(170f, 46f));
+        if (shopProfileCategoryButton != null)
+            SetRect(shopProfileCategoryButton.GetComponent<RectTransform>(), new Vector2(0.50f, 0.68f), new Vector2(0.50f, 0.68f), Vector2.zero, new Vector2(170f, 46f));
+        if (shopItemCategoryButton != null)
+            SetRect(shopItemCategoryButton.GetComponent<RectTransform>(), new Vector2(0.61f, 0.68f), new Vector2(0.61f, 0.68f), Vector2.zero, new Vector2(170f, 46f));
         if (shopStatusText != null)
         {
-            SetRect(shopStatusText.rectTransform, new Vector2(0.5f, 0.34f), new Vector2(0.5f, 0.34f), Vector2.zero, new Vector2(900f, 30f));
+            SetRect(shopStatusText.rectTransform, new Vector2(0.5f, 0.60f), new Vector2(0.5f, 0.60f), Vector2.zero, new Vector2(900f, 30f));
             shopStatusText.alignment = TextAnchor.MiddleCenter;
             shopStatusText.horizontalOverflow = HorizontalWrapMode.Wrap;
             shopStatusText.verticalOverflow = VerticalWrapMode.Truncate;

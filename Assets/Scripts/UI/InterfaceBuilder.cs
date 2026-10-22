@@ -67,14 +67,14 @@ public sealed partial class WordfallPrototype
         homeHubCharacterImage.rectTransform.anchoredPosition = new Vector2(0f, -26f);
         homeHubCharacterImage.raycastTarget = false;
         homeHubInfoPanel = CreatePanel("HomeHubPlayerInfo", homeHubPanel.transform, new Color32(5, 18, 48, 245));
-        SetRect(homeHubInfoPanel.GetComponent<RectTransform>(), new Vector2(0.18f, 0.78f), new Vector2(0.18f, 0.78f), Vector2.zero, new Vector2(500f, 167f));
+        SetRect(homeHubInfoPanel.GetComponent<RectTransform>(), new Vector2(0.21f, 0.78f), new Vector2(0.21f, 0.78f), Vector2.zero, new Vector2(420f, 167f));
         ApplyPixelPlayerInfoCard(homeHubInfoPanel);
-        homeHubPlayerText = CreateText("PLAYER", homeHubPanel.transform, 22, new Color32(235, 241, 255, 255), new Vector2(0.18f, 0.795f), new Vector2(0.18f, 0.795f));
-        SetRect(homeHubPlayerText.rectTransform, new Vector2(0.18f, 0.795f), new Vector2(0.18f, 0.795f), Vector2.zero, new Vector2(440f, 34f));
+        homeHubPlayerText = CreateText("PLAYER", homeHubPanel.transform, 22, new Color32(235, 241, 255, 255), new Vector2(0.21f, 0.795f), new Vector2(0.21f, 0.795f));
+        SetRect(homeHubPlayerText.rectTransform, new Vector2(0.21f, 0.795f), new Vector2(0.21f, 0.795f), Vector2.zero, new Vector2(360f, 34f));
         homeHubPlayerText.rectTransform.pivot = new Vector2(0.5f, 0.5f);
         homeHubPlayerText.alignment = TextAnchor.MiddleCenter;
-        homeHubCoinText = CreateText("COINS 0", homeHubPanel.transform, 20, new Color32(255, 211, 94, 255), new Vector2(0.18f, 0.735f), new Vector2(0.18f, 0.735f));
-        SetRect(homeHubCoinText.rectTransform, new Vector2(0.18f, 0.735f), new Vector2(0.18f, 0.735f), Vector2.zero, new Vector2(440f, 30f));
+        homeHubCoinText = CreateText("COINS 0", homeHubPanel.transform, 20, new Color32(255, 211, 94, 255), new Vector2(0.21f, 0.735f), new Vector2(0.21f, 0.735f));
+        SetRect(homeHubCoinText.rectTransform, new Vector2(0.21f, 0.735f), new Vector2(0.21f, 0.735f), Vector2.zero, new Vector2(360f, 30f));
         homeHubCoinText.rectTransform.pivot = new Vector2(0.5f, 0.5f);
         homeHubCoinText.alignment = TextAnchor.MiddleCenter;
         homeHubStartButton = CreateButton("\uAC8C\uC784 \uC2DC\uC791", homeHubPanel.transform, new Vector2(0.5f, 0.10f), new Vector2(290f, 58f), new Color32(67, 149, 255, 255));
@@ -124,7 +124,9 @@ public sealed partial class WordfallPrototype
         privacyButton.onClick.AddListener(ShowPrivacyPanel);
         withdrawButton = CreateImageAction("HomeHubWithdrawAction", homeHubMenuPanel.transform, "Pixel/menu-withdraw-icon", "\uD68C\uC6D0 \uD0C8\uD1F4", new Vector2(0.80f, 0.48f), new Vector2(170f, 130f), new Vector2(72f, 72f), out homeHubWithdrawLabelText);
         withdrawButton.onClick.AddListener(ShowWithdrawConfirm);
-        homeHubLogoutButton = CreateButton("LOGOUT", homeHubMenuPanel.transform, new Vector2(0.50f, 0.18f), new Vector2(210f, 56f), new Color32(149, 71, 92, 255));
+        homeHubLanguageButton = CreateImageAction("HomeHubLanguageAction", homeHubMenuPanel.transform, "Pixel/menu-language-icon", "LANGUAGE", new Vector2(0.50f, 0.20f), new Vector2(170f, 130f), new Vector2(78f, 78f), out homeHubLanguageLabelText);
+        homeHubLanguageButton.onClick.AddListener(ShowLanguagePanel);
+        homeHubLogoutButton = CreateButton("LOGOUT", homeHubMenuPanel.transform, new Vector2(0.50f, 0.07f), new Vector2(210f, 46f), new Color32(149, 71, 92, 255));
         StyleLogoutLink(homeHubLogoutButton);
         homeHubLogoutButton.onClick.AddListener(ShowLogoutConfirm);
         homeHubMenuToggleButton = CreateHamburgerButton("HomeHubMenuToggle", homeHubPanel.transform, new Vector2(0.04f, 0.50f), new Vector2(62f, 62f));
@@ -226,7 +228,8 @@ public sealed partial class WordfallPrototype
         ApplyPixelWindow(myPagePanel);
         ApplyModalDim(myPagePanel);
         myPageTitleText = CreateText("\uB9C8\uC774\uD398\uC774\uC9C0", myPagePanel.transform, 42, Color.white, new Vector2(0.5f, 0.78f), new Vector2(0.5f, 0.78f));
-        myPageCharacterImage = CreateCircularProfileImage(myPagePanel.transform, GetCharacterResourcePath(false), new Vector2(0.5f, 0.58f), 132f);
+        // Keep the portrait inside the decorative frame so lower-body pixels do not protrude below it.
+        myPageCharacterImage = CreateCircularProfileImage(myPagePanel.transform, GetCharacterResourcePath(false), new Vector2(0.5f, 0.58f), 116f);
         var myPageFrame = CreateImage("MyPageProfileFrame", myPagePanel.transform, "Pixel/character-profile-frame", new Vector2(0.5f, 0.58f), new Vector2(154f, 154f));
         myPageFrame.raycastTarget = false;
         myPageInfoText = CreateText("PROFILE INFO", myPagePanel.transform, 22, new Color32(214, 222, 238, 255), new Vector2(0.5f, 0.37f), new Vector2(0.5f, 0.37f));
@@ -260,15 +263,24 @@ public sealed partial class WordfallPrototype
 
         shopPanel = CreatePanel("ShopPanel", mainPanel.transform, new Color32(9, 18, 38, 250));
         SetRect(shopPanel.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
-        ApplyPixelShopWindow(shopPanel);
+        var shopPanelImage = shopPanel.GetComponent<Image>();
+        shopPanelImage.sprite = null;
+        shopPanelImage.color = new Color32(0, 0, 0, 0);
+        var shopBackdrop = CreatePanel("ShopLobbyBackdrop", shopPanel.transform, new Color32(255, 255, 255, 255));
+        SetRect(shopBackdrop.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
+        ApplyPixelLobbyBackground(shopBackdrop);
+        shopBackdrop.transform.SetAsFirstSibling();
+        var shopWindowFrame = CreatePanel("ShopWindowFrame", shopPanel.transform, new Color32(9, 18, 38, 250));
+        SetRect(shopWindowFrame.GetComponent<RectTransform>(), Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
+        ApplyPixelShopWindow(shopWindowFrame);
         ApplyModalDim(shopPanel);
         shopTitleText = CreateText("COIN SHOP", shopPanel.transform, 42, Color.white, new Vector2(0.5f, 0.78f), new Vector2(0.5f, 0.78f));
         shopCoinText = CreateText("\uCF54\uC778 0", shopPanel.transform, 22, new Color32(255, 211, 94, 255), new Vector2(0.5f, 0.68f), new Vector2(0.5f, 0.68f));
-        shopAllCategoryButton = CreateButton("ALL", shopPanel.transform, new Vector2(0.39f, 0.59f), new Vector2(170f, 46f), new Color32(67, 149, 255, 255));
+        shopAllCategoryButton = CreateButton("ALL", shopPanel.transform, new Vector2(0.39f, 0.68f), new Vector2(170f, 46f), new Color32(67, 149, 255, 255));
         shopAllCategoryButton.onClick.AddListener(() => SetShopCategory(0));
-        shopProfileCategoryButton = CreateButton("\uD504\uB85C\uD544", shopPanel.transform, new Vector2(0.50f, 0.59f), new Vector2(170f, 46f), new Color32(58, 80, 122, 255));
+        shopProfileCategoryButton = CreateButton("\uD504\uB85C\uD544", shopPanel.transform, new Vector2(0.50f, 0.68f), new Vector2(170f, 46f), new Color32(58, 80, 122, 255));
         shopProfileCategoryButton.onClick.AddListener(() => SetShopCategory(1));
-        shopItemCategoryButton = CreateButton("\uC544\uC774\uD15C", shopPanel.transform, new Vector2(0.61f, 0.59f), new Vector2(170f, 46f), new Color32(58, 80, 122, 255));
+        shopItemCategoryButton = CreateButton("\uC544\uC774\uD15C", shopPanel.transform, new Vector2(0.61f, 0.68f), new Vector2(170f, 46f), new Color32(58, 80, 122, 255));
         shopItemCategoryButton.onClick.AddListener(() => SetShopCategory(2));
 
         var shopViewportObject = CreatePanel("ShopProductViewport", shopPanel.transform, new Color32(0, 0, 0, 0));
@@ -334,7 +346,7 @@ public sealed partial class WordfallPrototype
         mageShopButton.onClick.AddListener(() => BuyCharacter(1));
         hackerShopButton = CreateButton("\uD574\uCEE4 \uD504\uB85C\uD544 \uBCF4\uC720", shopProductContent, new Vector2(0.875f, 0.25f), new Vector2(220f, 52f), new Color32(53, 137, 105, 255));
         hackerShopButton.onClick.AddListener(() => BuyCharacter(2));
-        shopStatusText = CreateText("", shopPanel.transform, 16, new Color32(171, 190, 220, 255), new Vector2(0.5f, 0.34f), new Vector2(0.5f, 0.34f));
+        shopStatusText = CreateText("", shopPanel.transform, 16, new Color32(171, 190, 220, 255), new Vector2(0.5f, 0.60f), new Vector2(0.5f, 0.60f));
         shopStatusText.rectTransform.sizeDelta = new Vector2(900f, 30f);
         shopStatusText.alignment = TextAnchor.MiddleCenter;
         shopStatusText.horizontalOverflow = HorizontalWrapMode.Wrap;
@@ -545,10 +557,10 @@ public sealed partial class WordfallPrototype
         }
         for (int i = 0; i < lifeHeartImages.Length; i++)
         {
-            lifeHeartImages[i] = CreateImage("LifeHeart" + (i + 1), header.transform, "Pixel/life-heart", new Vector2(0.89f, 0.5f), new Vector2(42f, 40f));
+            lifeHeartImages[i] = CreateImage("LifeHeart" + (i + 1), header.transform, "Pixel/life-heart", new Vector2(0.87f, 0.5f), new Vector2(42f, 40f));
             if (heartSprite != null) lifeHeartImages[i].sprite = heartSprite;
             lifeHeartImages[i].preserveAspect = true;
-            lifeHeartImages[i].rectTransform.anchoredPosition = new Vector2(-100f + i * 50f, 0f);
+            lifeHeartImages[i].rectTransform.anchoredPosition = new Vector2(-92f + i * 46f, 0f);
             lifeHeartImages[i].raycastTarget = false;
         }
         comboText = CreateText("COMBO x0", header.transform, 20, new Color32(147, 232, 189, 255), new Vector2(0.61f, 0.5f), new Vector2(0.61f, 0.5f));

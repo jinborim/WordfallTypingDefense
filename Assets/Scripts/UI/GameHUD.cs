@@ -10,7 +10,7 @@ public sealed partial class WordfallPrototype
         {
             for (int i = 0; i < lifeHeartImages.Length; i++)
             {
-                lifeHeartImages[i].gameObject.SetActive(i < lives);
+                lifeHeartImages[i].gameObject.SetActive(gameMode != GameMode.TimeAttack && i < lives);
             }
         }
         comboText.text = (language == Language.Korean ? "콤보 x" : "COMBO x") + combo;

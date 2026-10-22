@@ -30,6 +30,7 @@ public sealed partial class WordfallPrototype
         ClearWords();
         mainPanel.SetActive(true);
         gamePanel.SetActive(false);
+        SetMainMenuOverlayContentVisible(true);
         if (mainStartButton != null) mainStartButton.gameObject.SetActive(true);
         if (languageOpenButton != null) languageOpenButton.gameObject.SetActive(true);
         if (setupPanel != null) setupPanel.SetActive(false);
@@ -86,7 +87,7 @@ public sealed partial class WordfallPrototype
         languagePanel.SetActive(false);
         profilePanel.SetActive(false);
         UpdateMyPage();
-        myPagePanel.SetActive(true);
+        PreparePopupBackgroundOnly(myPagePanel);
     }
 
     private void CloseMyPage()

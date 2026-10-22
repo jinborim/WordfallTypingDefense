@@ -135,6 +135,7 @@ public sealed partial class WordfallPrototype
     private Button homeHubStartButton;
     private Button homeHubMyPageButton;
     private Button homeHubLanguageButton;
+    private Text homeHubLanguageLabelText;
     private Button homeHubBackButton;
     private Button homeHubShopButton;
     private Button homeHubProfileButton;

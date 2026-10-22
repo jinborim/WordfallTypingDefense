@@ -1,11 +1,11 @@
 (function () {
-  function request(action) {
+  function request(action, payload) {
     return new Promise(function (resolve, reject) {
       if (!window.chrome || !chrome.runtime || !chrome.runtime.sendMessage) {
         reject(new Error("Chrome extension runtime is unavailable"));
         return;
       }
-      chrome.runtime.sendMessage({ type: "firebase-auth", action: action }, function (result) {
+      chrome.runtime.sendMessage(Object.assign({ type: "firebase-auth", action: action }, payload || {}), function (result) {
         if (chrome.runtime.lastError) {
           reject(new Error(chrome.runtime.lastError.message));
           return;
@@ -23,6 +23,7 @@
     signInAnonymously: function () { return request("guest"); },
     signInWithGoogle: function () { return request("google"); },
     signOut: function () { return request("logout"); },
+    deleteAccount: function (nickname) { return request("delete-account", { nickname: nickname || "" }); },
     getAnnouncements: function () { return request("announcements"); },
     getUpdateInfo: function () { return request("update"); },
     checkNickname: function (nickname, oldNickname, uid) {

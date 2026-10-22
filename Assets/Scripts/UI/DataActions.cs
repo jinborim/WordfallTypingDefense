@@ -21,12 +21,21 @@ public sealed partial class WordfallPrototype
             ? (language == Language.Korean ? "\uC0C8\uB85C\uC6B4 \uC5C5\uB370\uC774\uD2B8\uAC00 \uC788\uC2B5\uB2C8\uB2E4." : "A new update is available.")
             : localizedMessage;
         updateVersionText.text = (language == Language.Korean ? "\uC0C8 \uBC84\uC804 " : "NEW VERSION ") + updateInfo.version;
-        updatePanel.SetActive(true);
+        PreparePopupBackgroundOnly(updatePanel);
     }
 
     private void CloseUpdatePanel()
     {
         if (updatePanel != null) updatePanel.SetActive(false);
+        if (profileCreated)
+        {
+            homeHubPanel.SetActive(true);
+            ShowLobbyDialogue();
+        }
+        else
+        {
+            ShowMainMenu();
+        }
     }
 
     private void OpenUpdatePage()
@@ -57,13 +66,26 @@ public sealed partial class WordfallPrototype
 
     private void DeleteAccount()
     {
+        var deletedNickname = playerDataManager != null && playerDataManager.Data != null
+            ? playerDataManager.Data.nickname
+            : string.Empty;
+        if (!string.IsNullOrWhiteSpace(deletedNickname))
+            PlayerPrefs.DeleteKey(LocalNicknameKey(deletedNickname));
+
         playerDataManager.DeleteAccount();
         AccountDataIsolation.DeleteActiveAccount();
+        AccountDataIsolation.SwitchToAccount("local");
         profileCreated = false;
         selectedCharacter = 0;
         coins = 0;
         nicknameTickets = 0;
         ownedCharacterMask = 0;
+        authSignedIn = false;
+        PlayerPrefs.SetInt(AuthSignedInKey, 0);
+        PlayerPrefs.DeleteKey(AuthProviderKey);
+        PlayerPrefs.DeleteKey(AuthUidKey);
+        PlayerPrefs.Save();
+        playerDataManager.Load();
         UpdateCharacterButtonStates();
         UpdateProfileSummary();
         UpdateCoinText();

@@ -44,15 +44,10 @@ public sealed partial class WordfallPrototype
 
     private GameObject CreateMenuCloseIcon(Transform parent)
     {
-        var closeIcon = new GameObject("MenuCloseIcon", typeof(RectTransform), typeof(Image));
-        closeIcon.transform.SetParent(parent, false);
-        SetRect(closeIcon.GetComponent<RectTransform>(), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(58f, 58f));
-        var background = closeIcon.GetComponent<Image>();
-        background.color = new Color(1f, 1f, 1f, 0f);
-        background.raycastTarget = false;
-        CreateCloseBar(closeIcon.transform, 45f);
-        CreateCloseBar(closeIcon.transform, -45f);
-        return closeIcon;
+        var closeImage = CreateImage("MenuCloseIcon", parent, "Pixel/menu-close-icon", new Vector2(0.5f, 0.5f), new Vector2(58f, 58f));
+        closeImage.preserveAspect = true;
+        closeImage.raycastTarget = false;
+        return closeImage.gameObject;
     }
 
     private void CreateCloseBar(Transform parent, float angle)

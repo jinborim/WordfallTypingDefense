@@ -9,7 +9,7 @@ public sealed partial class WordfallPrototype
         profileEditReturnToMyPage = false;
         setupPanel.SetActive(false);
         languagePanel.SetActive(false);
-        profilePanel.SetActive(true);
+        PreparePopupBackgroundOnly(profilePanel);
         nicknameInput.text = string.Empty;
         profileErrorText.text = string.Empty;
         SelectCharacter(selectedCharacter);
@@ -34,7 +34,7 @@ public sealed partial class WordfallPrototype
         myPagePanel.SetActive(false);
         setupPanel.SetActive(false);
         languagePanel.SetActive(false);
-        profilePanel.SetActive(true);
+        PreparePopupBackgroundOnly(profilePanel);
         profilePromptText.text = language == Language.Korean ? "\uD504\uB85C\uD544 \uC218\uC815" : "EDIT PROFILE";
         profilePromptText.text = language == Language.Korean ? "\uB2C9\uB124\uC784\uACFC \uCE90\uB9AD\uD130\uB97C \uC218\uC815\uD558\uC138\uC694" : "Update your nickname and character";
         nicknameInput.text = playerDataManager.Data.nickname;

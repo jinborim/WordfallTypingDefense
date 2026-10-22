@@ -8,7 +8,7 @@ public sealed partial class WordfallPrototype
         mainPanel.SetActive(true);
         gamePanel.SetActive(false);
         homeHubPanel.SetActive(false);
-        setupPanel.SetActive(true);
+        PreparePopupBackgroundOnly(setupPanel);
         languagePanel.SetActive(false);
         profilePanel.SetActive(false);
         SetDifficulty(difficulty);
@@ -24,17 +24,20 @@ public sealed partial class WordfallPrototype
 
     private void ShowLanguagePanel()
     {
-        languageOpenedFromHomeHub = homeHubPanel != null && homeHubPanel.activeSelf;
+        languageOpenedFromHomeHub =
+            (homeHubPanel != null && homeHubPanel.activeSelf)
+            || UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "LobbyScene";
         mainPanel.SetActive(true);
         setupPanel.SetActive(false);
-        languagePanel.SetActive(true);
+        PreparePopupBackgroundOnly(languagePanel);
     }
 
     private void CloseLanguagePanel()
     {
         languagePanel.SetActive(false);
-        if (languageOpenedFromHomeHub) homeHubPanel.SetActive(true);
-        else if (profileCreated) ShowHomeHub();
+        // The language button on the main menu must return to the main menu.
+        // Only a language popup opened from the lobby should return to the lobby.
+        if (languageOpenedFromHomeHub) ShowHomeHub();
         else ShowMainMenu();
         languageOpenedFromHomeHub = false;
     }
@@ -92,7 +95,7 @@ public sealed partial class WordfallPrototype
     private void SelectLanguageAndClose(Language selectedLanguage)
     {
         SetLanguage(selectedLanguage);
-        if (languagePanel != null) languagePanel.SetActive(false);
+        CloseLanguagePanel();
     }
 }
 

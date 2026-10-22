@@ -54,6 +54,7 @@ public sealed partial class WordfallPrototype
         playerDataManager.GrantAttendance(attendanceKey, 10);
         coins = playerDataManager.Data.coins;
         UpdateCoinText();
-        attendancePanel.SetActive(true);
+        PreparePopupBackgroundOnly(attendancePanel);
     }
+
 }

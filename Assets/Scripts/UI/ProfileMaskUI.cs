@@ -17,7 +17,8 @@ public sealed partial class WordfallPrototype
         maskImage.raycastTarget = false;
         maskObject.GetComponent<Mask>().showMaskGraphic = false;
 
-        var portrait = CreateImage("MyPageCharacter", maskObject.transform, resourcePath, new Vector2(0.5f, 0.5f), new Vector2(diameter, diameter));
+        var portrait = CreateImage("MyPageCharacter", maskObject.transform, resourcePath, new Vector2(0.5f, 0.5f), new Vector2(diameter + 12f, diameter + 12f));
+        portrait.rectTransform.anchoredPosition = new Vector2(0f, 6f);
         portrait.raycastTarget = false;
         portrait.preserveAspect = true;
         return portrait;

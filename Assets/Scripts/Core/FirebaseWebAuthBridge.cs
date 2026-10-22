@@ -16,6 +16,9 @@ public static class FirebaseWebAuthBridge
     private static extern void WordfallFirebaseSignOut(string gameObjectName);
 
     [DllImport("__Internal")]
+    private static extern void WordfallFirebaseDeleteAccount(string gameObjectName, string nickname);
+
+    [DllImport("__Internal")]
     private static extern void WordfallFirebaseLoadAnnouncements(string gameObjectName);
 
     [DllImport("__Internal")]
@@ -47,6 +50,13 @@ public static class FirebaseWebAuthBridge
     {
 #if UNITY_WEBGL && !UNITY_EDITOR
         WordfallFirebaseSignOut(gameObjectName);
+#endif
+    }
+
+    public static void DeleteAccount(string gameObjectName, string nickname)
+    {
+#if UNITY_WEBGL && !UNITY_EDITOR
+        WordfallFirebaseDeleteAccount(gameObjectName, nickname ?? string.Empty);
 #endif
     }
 

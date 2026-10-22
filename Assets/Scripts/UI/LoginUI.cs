@@ -29,12 +29,13 @@ public sealed partial class WordfallPrototype
         loginStatusText.text = authSignedIn
             ? (language == Language.Korean ? "이미 로그인되어 있습니다." : "You are already signed in.")
             : string.Empty;
-        loginPanel.SetActive(true);
+        PreparePopupBackgroundOnly(loginPanel);
     }
 
     private void CloseLoginPanel()
     {
         if (loginPanel != null) loginPanel.SetActive(false);
+        if (!authSignedIn) ShowMainMenu();
     }
 
     private void LoginAsGuest()
@@ -64,8 +65,11 @@ public sealed partial class WordfallPrototype
     {
         if (string.IsNullOrEmpty(result) || result.StartsWith("error|"))
         {
+            UnityEngine.Debug.LogError("Wordfall Google login failed: " + (result ?? "empty-result"));
             if (loginStatusText != null)
                 loginStatusText.text = language == Language.Korean ? "로그인에 실패했습니다." : "Login failed.";
+            if (loginStatusText != null && !string.IsNullOrEmpty(result) && result.StartsWith("error|"))
+                loginStatusText.text += "\n" + result.Substring("error|".Length);
             return;
         }
 

@@ -66,6 +66,22 @@ mergeInto(LibraryManager.library, {
         send('error|' + (error.code || error.message || 'signout'));
       });
   },
+  WordfallFirebaseDeleteAccount: function (gameObjectNamePtr, nicknamePtr) {
+    var gameObjectName = UTF8ToString(gameObjectNamePtr);
+    var nickname = UTF8ToString(nicknamePtr);
+    var send = function (payload) {
+      SendMessage(gameObjectName, 'OnFirebaseAccountDeleteResult', payload);
+    };
+    if (!window.WordfallFirebaseAuth || !window.WordfallFirebaseAuth.deleteAccount) {
+      send('error|Firebase account deletion bridge is not loaded');
+      return;
+    }
+    window.WordfallFirebaseAuth.deleteAccount(nickname)
+      .then(function () { send('ok'); })
+      .catch(function (error) {
+        send('error|' + (error.code || error.message || 'delete-account'));
+      });
+  },
   WordfallFirebaseLoadAnnouncements: function (gameObjectNamePtr) {
     var gameObjectName = UTF8ToString(gameObjectNamePtr);
     var send = function (payload) {

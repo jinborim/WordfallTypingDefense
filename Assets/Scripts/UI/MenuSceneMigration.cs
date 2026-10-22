@@ -3,10 +3,25 @@ using UnityEngine.UI;
 
 public sealed partial class WordfallPrototype
 {
+    private void EnsureHomeHubLanguageButton()
+    {
+        if (homeHubMenuPanel == null || homeHubLanguageButton != null) return;
+        homeHubLanguageButton = CreateImageAction(
+            "HomeHubLanguageAction_Runtime",
+            homeHubMenuPanel.transform,
+            "Pixel/menu-language-icon",
+            language == Language.Korean ? "언어 설정" : "LANGUAGE",
+            new Vector2(0.50f, 0.20f),
+            new Vector2(170f, 130f),
+            new Vector2(78f, 78f),
+            out homeHubLanguageLabelText);
+        homeHubLanguageButton.onClick.AddListener(ShowLanguagePanel);
+    }
+
     private void EnsureHomeHubLogoutButton()
     {
         if (homeHubMenuPanel == null || homeHubLogoutButton != null) return;
-        homeHubLogoutButton = CreateButton("LOGOUT_Runtime", homeHubMenuPanel.transform, new Vector2(0.50f, 0.18f), new Vector2(210f, 56f), new Color32(149, 71, 92, 255));
+        homeHubLogoutButton = CreateButton("LOGOUT_Runtime", homeHubMenuPanel.transform, new Vector2(0.50f, 0.07f), new Vector2(210f, 46f), new Color32(149, 71, 92, 255));
         StyleLogoutLink(homeHubLogoutButton);
     }
 

@@ -5,7 +5,10 @@ public sealed partial class WordfallPrototype
     private void ApplyExpandedPrivacyPolicy(bool korean)
     {
         if (privacyMessageText == null) return;
-        privacyMessageText.text = korean ? GetKoreanPrivacyPolicyUtf8() : GetEnglishPrivacyPolicy();
+        string policy = korean ? GetKoreanPrivacyPolicyUtf8() : GetEnglishPrivacyPolicy();
+        privacyMessageText.text = policy + (korean
+            ? "\n\nGoogle API에서 받은 정보는 로그인과 계정별 게임 기능 제공에만 사용하며, Chrome Web Store 사용자 데이터 정책 및 Limited Use 요구사항을 준수합니다.\n문의: j8648638j@gmail.com"
+            : "\n\nInformation received from Google APIs is used only for sign-in and account-specific game features. Its use complies with the Chrome Web Store User Data Policy, including Limited Use requirements.\nContact: j8648638j@gmail.com");
         privacyMessageText.gameObject.SetActive(true);
         privacyMessageText.enabled = true;
     }

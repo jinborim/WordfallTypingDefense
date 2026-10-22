@@ -43,6 +43,7 @@ public sealed partial class WordfallPrototype
         else
         {
             EnsurePrivacyPolicySceneLayout();
+            EnsureHomeHubLanguageButton();
             EnsureHomeHubLogoutButton();
             EnsureLogoutConfirmPanel();
             EnsureLobbyDialogueTypingControl();

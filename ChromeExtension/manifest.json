@@ -4,8 +4,7 @@
   "version": "1.0.0",
   "description": "Pixel typing defense game",
   "action": {
-    "default_title": "Wordfall",
-    "default_popup": "game/index.html"
+    "default_title": "Wordfall"
   },
   "permissions": [
     "offscreen",
@@ -16,6 +15,6 @@
     "type": "module"
   },
   "content_security_policy": {
-    "extension_pages": "script-src 'self'; object-src 'self'"
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'; frame-src https://typing-c9b14.web.app"
   }
 }
