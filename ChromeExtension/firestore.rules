@@ -46,8 +46,10 @@ service cloud.firestore {
     }
 
     match /appConfig/{configId} {
-      allow get: if configId == 'update'
-        && resource.data.isActive == true;
+      // Update metadata is public read-only configuration. The client must
+      // be able to check it before login, including when the document is not
+      // present yet.
+      allow get: if configId == 'update';
       allow list: if false;
       allow write: if false;
     }

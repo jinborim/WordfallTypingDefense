@@ -254,6 +254,7 @@ public sealed partial class WordfallPrototype
     private int selectedCharacter;
     private bool profileCreated;
     private bool authSignedIn;
+    private bool authInProgress;
     private int coins;
     private int nicknameTickets;
     private int ownedCharacterMask;

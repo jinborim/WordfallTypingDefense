@@ -39,6 +39,21 @@ async function signInGuest() {
 }
 
 async function signInGoogle() {
+  // Firebase keeps the extension session in its local persistence. Reuse an
+  // existing Google session instead of opening the helper popup every time.
+  const existingUser = auth.currentUser;
+  const hasGoogleProvider = existingUser?.providerData?.some(
+    (provider) => provider.providerId === "google.com"
+  );
+  if (existingUser && hasGoogleProvider) {
+    return {
+      provider: "google",
+      uid: existingUser.uid,
+      displayName: existingUser.displayName || "",
+      email: existingUser.email || ""
+    };
+  }
+
   await ensureOffscreenDocument();
   const result = await chrome.runtime.sendMessage({ target: "offscreen", action: "google" });
   if (!result || result.error) throw new Error(result?.error || "auth/google-sign-in-failed");
@@ -51,10 +66,13 @@ async function signInGoogle() {
     result.googleAccessToken || null
   );
   const signedIn = await signInWithCredential(auth, credential);
-  await chrome.storage.local.set({
+  // Token caching is only a background convenience. Do not make the Unity
+  // login screen wait for this extra storage write after Firebase auth has
+  // already completed.
+  chrome.storage.local.set({
     wordfallGoogleIdToken: result.googleIdToken || "",
     wordfallGoogleAccessToken: result.googleAccessToken || ""
-  });
+  }).catch((error) => console.warn("Wordfall token cache failed", error));
   return {
     provider: "google",
     uid: signedIn.user.uid,
