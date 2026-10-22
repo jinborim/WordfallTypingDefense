@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Unity .gitignore Template
 # Source: https://github.com/github/gitignore/blob/main/Unity.gitignore
 # Last synced: 2026-07-02
@@ -7,8 +6,6 @@
 # This template is maintained from the github/gitignore repository
 # and distributed under Creative Commons Zero v1.0 Universal license.
 
-=======
->>>>>>> 3276d1aebe4f4edf7866e1a15cae952cee81578d
 # This .gitignore file should be placed at the root of your Unity project directory
 #
 # Get latest from https://github.com/github/gitignore/blob/main/Unity.gitignore
@@ -123,11 +120,21 @@ InitTestScene*.unity*
 # Auto-generated scenes by play mode tests
 /[Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
 
-<<<<<<< HEAD
-=======
 # UI Toolkit auto generated files
 /UIElementsSchema/
 
->>>>>>> 3276d1aebe4f4edf7866e1a15cae952cee81578d
 # Auto-generated cache in Assets folder
 /[Aa]ssets/[Ss]ceneDependencyCache*
+
+# Local Firebase Hosting auth helper contains the Firebase web configuration.
+/public/signInWithPopup.js
+
+# Local/generated development output
+/.firebase/
+/WebGLBuild/
+/[Aa]ssets/_Recovery/
+/[Aa]ssets/_Recovery.meta
+/[Aa]ssets/Resources/PerformanceTestRunInfo.json
+/[Aa]ssets/Resources/PerformanceTestRunInfo.json.meta
+/[Aa]ssets/Resources/PerformanceTestRunSettings.json
+/[Aa]ssets/Resources/PerformanceTestRunSettings.json.meta
