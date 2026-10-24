@@ -9,6 +9,7 @@ const root = path.dirname(fileURLToPath(import.meta.url));
 const gameSource = process.argv[2] ? path.resolve(process.argv[2]) : null;
 const gameTarget = path.join(root, "game");
 const firebaseConfigPath = path.join(root, "src/firebase-config.js");
+const shouldProcessExistingGame = existsSync(gameTarget);
 
 if (!existsSync(firebaseConfigPath)) {
   throw new Error("Missing ChromeExtension/src/firebase-config.js. Copy firebase-config.example.js to firebase-config.js and fill in your Firebase web config locally.");
@@ -17,8 +18,10 @@ if (!existsSync(firebaseConfigPath)) {
 await mkdir(root, { recursive: true });
 await build({ entryPoints: [path.join(root, "src/background.js")], bundle: true, format: "esm", platform: "browser", outfile: path.join(root, "background.js") });
 await build({ entryPoints: [path.join(root, "src/offscreen.js")], bundle: true, format: "iife", platform: "browser", outfile: path.join(root, "offscreen.js") });
-if (gameSource && existsSync(gameSource)) {
-  await cp(gameSource, gameTarget, { recursive: true, force: true });
+if ((gameSource && existsSync(gameSource)) || shouldProcessExistingGame) {
+  if (gameSource && existsSync(gameSource)) {
+    await cp(gameSource, gameTarget, { recursive: true, force: true });
+  }
   const indexPath = path.join(gameTarget, "index.html");
   const templateDataPath = path.join(gameTarget, "TemplateData");
   const loadingAssetPath = path.join(root, "assets/wordfall-loading-background.png");
@@ -90,7 +93,11 @@ if (gameSource && existsSync(gameSource)) {
 
 /* Wordfall custom WebGL loading screen */
 html, body { width: 100%; height: 100%; overflow: hidden; background: #050b1c; }
-#unity-container.unity-desktop { width: 960px; height: 600px; }
+#unity-container.unity-desktop {
+  width: min(1280px, calc(100vw - 32px), calc((100vh - 90px) * 16 / 9));
+  height: auto;
+  aspect-ratio: 16 / 9;
+}
 #wordfall-loading-screen {
   position: fixed; inset: 0; z-index: 20; display: flex; align-items: center; justify-content: center;
   background: #050b1c url('wordfall-loading-background.png') center / cover no-repeat;
@@ -111,8 +118,8 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: #050b1c; }
 @keyframes wordfall-loading-fill { from { width: 0%; } to { width: 100%; } }
 @keyframes wordfall-loading-glint { from { transform: translateX(0); } to { transform: translateX(590%); } }
 .wordfall-loading-status { color: #f5c84b; font-family: 'WordfallPixel', monospace; font-size: 15px; letter-spacing: 1px; }
-#unity-container.unity-desktop { left: 50%; top: 50%; transform: translate(-50%, -50%); width: 960px; height: 600px; }
-#unity-canvas { width: 960px !important; height: 600px !important; }
+#unity-container.unity-desktop { left: 50%; top: 50%; transform: translate(-50%, -50%); }
+#unity-canvas { width: 100% !important; height: 100% !important; }
 #wordfall-loading-screen { position: absolute; inset: 0; }
 #unity-logo, #unity-logo-title-footer, #unity-build-title { display: none; }
 #unity-container { overflow: visible; }

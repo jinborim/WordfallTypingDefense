@@ -1,7 +1,11 @@
 # Wordfall Typing Defense
 
+## Chrome Web Store
+
+[Chrome Web Store에서 Wordfall 설치하기](https://chromewebstore.google.com/detail/wordfall/aoldgoaifdicnpabahahpbankekpgjfb)
+
 한글과 영어 단어를 입력해 떨어지는 단어를 막는 2D 픽셀 타자 방어 게임입니다.
-Unity WebGL 빌드를 목표로 하며, Chrome 웹 스토어 출시를 준비하고 있습니다.
+Unity WebGL 기반으로 제작했으며, Chrome 웹 스토어에 출시했습니다.
 
 ## 주요 기능
 
