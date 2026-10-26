@@ -2,7 +2,7 @@
 
 ## Chrome Web Store
 
-[Chrome Web Store에서 Wordfall 설치하기](https://chromewebstore.google.com/detail/wordfall/aoldgoaifdicnpabahahpbankekpgjfb)
+[Chrome Web Store에서 Wordfall 설치하기](https://chromewebstore.google.com/detail/wordfall/aoldgoaifdicnpabahahpbamkekpgjfb?pli=1)
 
 한글과 영어 단어를 입력해 떨어지는 단어를 막는 2D 픽셀 타자 방어 게임입니다.
 Unity WebGL 기반으로 제작했으며, Chrome 웹 스토어에 출시했습니다.
